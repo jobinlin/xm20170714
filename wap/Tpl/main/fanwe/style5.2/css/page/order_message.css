@@ -1,0 +1,79 @@
+#uc_order_message .submitBtn{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: #ff2244;
+    color: #ffffff;
+    line-height: 2.5rem;
+    font-size: @f_size2;
+
+}
+
+#uc_order_message .ba_color_box{
+    padding: 0.65rem 0.5rem 0.5rem;
+    background: #f3f6f5;
+}
+
+#uc_order_message .m-cart-list .item-inner{
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-right: 0.5rem;
+}
+
+#uc_order_message .causeBox{
+    padding: 0.5rem;
+    background: #ffffff;
+    border-radius: 0.15rem;
+    min-height: 6rem;
+    height: auto;
+
+}
+
+#uc_order_message .causeBox h3{
+    font-size: @f_size2;
+    color: @f_color1;
+}
+#uc_order_message .causeBox .treaBox{
+    min-height: 4rem;
+}
+#uc_order_message .causeBox .treaBox .write_cause{
+    width: 100%;
+    height: 100%;
+    min-height: 4rem;
+    overflow: visible;!important;
+    resize: inherit;
+    font-size: @f_size3;
+    color: @f_color1;
+    line-height: 0.9rem;
+}
+
+#uc_order_message .m-modify{
+    background: #f7f8f8;
+    margin-bottom: 0;
+}
+#uc_order_message .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+#uc_order_message .list-block .shop_total:before{
+    background: #e7e7e7;
+}
+#uc_order_message .m-cart-list li{
+    background: #f7f8f8;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#uc_order_message .m-cart-list li:after{
+    background: #ffffff;
+    height: 4px;
+}
+#uc_order_message .m-cart-list .shopTi a{
+	min-height:1.8rem;
+}
+#uc_order_message .m-cart-list .shopTi p.sizes {
+    line-height: 0.7rem;
+}
+#uc_order_message .m-cart-list .shopTi p.number_xl{
+	font-size:0.6rem;
+	line-height:0.7rem;
+	color:@f_color3;
+}

@@ -1,0 +1,42 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="dist_info_setting">
+    {include file="style5.2/inc/dist_header.html"}
+    <div class="content">
+        {if $conf}
+        <div class="m-setting-con">
+            <div class="flex-box setting-item b-line">
+                <div>当前版本</div>
+                <div class="flex-1 item-con">{$conf.DB_VERSION.value}</div>
+            </div>
+            <div class="flex-box setting-item b-line">
+                <div>客服电话</div>
+                <div class="flex-1 item-con"><a href="tel:{$m_conf.0.val}">{$m_conf.0.val}</a></div>
+            </div>
+            <div class="flex-box setting-item b-line">
+                <div>客服邮箱</div>
+                <div class="flex-1 item-con">{$m_conf.1.val}</div>
+            </div>
+            <div data-src="/o2onew/wap/index.php?ctl=user&amp;act=protocol" class="open-popup flex-box setting-item b-line">
+                <div>关于我们</div>
+                <div class="flex-1 item-con"><i class="iconfont">&#xe607;</i></div>
+            </div>
+        </div>
+        {if $data.dist_user_status eq 1}
+        <div class="big-btn logout">
+            <a href="javascript:void(0)" class="btn-con" data-url="{$data.url}">退出登录</a>
+        </div>
+        {/if}
+        {/if}
+    </div>
+    {if $data.APP_ABOUT_US}
+    <div class="popup popup-agreement">
+        <div class="popup-hd">
+            <h1 class="title b-line">关于我们</h1>
+            <a href="javascript:void(0);" class="close-popup"><i class="iconfont">&#xe634;</i></a>
+        </div>
+        <div class="protocol">{$data.APP_ABOUT_US}</div>
+    </div>
+    {/if}
+</div>
+{include file="style5.2/inc/footer.html"}

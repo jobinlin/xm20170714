@@ -1,0 +1,58 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<style type="text/css">
+	p img{
+		width: 100%;
+	}
+</style>
+<div class="page page-index page-current" id="stores_explain">
+	<header class="bar bar-nav m-store-head">
+		<h1 class="title">买单说明</h1>
+		<a class="iconfont f_l head-btn go-back back">&#xe604;</a>
+		<i class="iconfont j-opendropdowm f_r head-btn more">&#xe612;</i>
+	</header>
+	<div class="content">
+
+	<!-- 
+	<div class="rule-explain split-line-top split-line">
+		<h1 class="main-border">规则说明</h1>
+		<p>1.优惠买单仅限到店支付，请勿提前购买。</p>
+		<p>2.以下优惠是否能与店铺优惠同享，请你向商户咨询。</p>
+		<p>3.如需发票，请您在消费时向商户咨询。</p>
+	</div>
+	<div class="count-info split-line-top split-line">
+		<h1 class="split-line">每满25减2元</h1>
+		<div class="time-box">
+			<h2>使用时间</h2>
+			<p>每天10:00~22:00</p>
+		</div>
+		<div class="time-box">
+			<h2>有效期</h2>
+			<p>2016.2.20~2016.2.30</p>
+		</div>
+	</div>
+	 -->
+	
+		{if $data.explain.store_pay_explain}
+		<p>{$data.explain.store_pay_explain}</p>
+		{else}
+		<div class="tipimg no_data">
+			暂无说明
+		</div>
+		{/if}
+	</div>
+	<div class="flippedout ">
+		<div class="m-nav-dropdown">
+			<div class="nav-dropdown-con">
+				<div class="flex-box func-list">
+					<div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+				</div>
+				{include file="style5.2/inc/module/dropdown-navlist.html"}
+			</div>
+		</div>
+		<div class="close-flippedout j-flippedout-close">
+			<i class="iconfont">&#xe635;</i>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,132 @@
+{include file="style5.2/inc/header1.html"}
+
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_account">
+<script>
+var LOGIN_URL = '{url x="index" r="user#login"}';
+var UPLOAD_URL = '{url x="index" r="file#upload_avatar"}';
+var REFRESH_URL = '{url x="index" r="uc_account"}';
+var APP_UPLOAD_URL = '{url x="index" r="uc_account#app_upload_avatar"}';
+{if $data.is_weixin_bind eq 1}
+var is_weixin_bind = true;
+{else}
+var is_weixin_bind = false;
+{/if}
+</script>
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		<div class="my-vip">
+			<div class="my-vip-hd"><img src="{$TMPL}/style5.2/images/static/uc-myvip.png" alt=""></div>
+			<h1 class="vip-tit">{$data.currdis.name}
+
+			<div class="vip-tit-pic">{if $data.currdis.discount neq 10}享{$data.currdis.discount}折优惠{/if}</div>
+
+			</h1>
+			<div class="progress flex-box">
+				<p>{$data.group_info.0.name}</p>
+				<div class="progress-bar flex-1">
+					<div class="progress-bar-inner" data-width="{$data.group_percent}%"></div>
+				</div>
+				<p>{$data.group_info.1.name}</p>
+			</div>
+			<div class="vip-tip">{$data.next_group_info}</div>
+		</div>
+		<div class="my-vip my-exp">
+			<h1 class="vip-tit">{$user_info.point}<div class="vip-tit-pic">当前经验值</div></h1>
+			<div class="progress flex-box">
+				<p>{$data.level_info.0.name}</p>
+				<div class="progress-bar flex-1">
+					<div class="progress-bar-inner" data-width="{$data.level_percent}%"></div>
+				</div>
+				<p>{$data.level_info.1.name}</p>
+			</div>
+			<div class="vip-tip">{$data.next_level_info}</div>
+		</div>
+		<ul class="account-list">
+			<li class="b-line flex-box">
+				<p class="flex-1">头像</p>
+				<div class="user-img"><img id="user_avatar" src="{$user_info.user_avatar}" alt=""></div>
+				<i class="iconfont right-arrow">&#xe607;</i>
+				{if $app_index == 'app'}
+				<input class="up_avatar" id="app_up_avatar" type="button" />
+				{else}
+				<input class="up_avatar" id="up_avatar" type="file" accept="image/jpg,image/jpeg,image/png" />
+				{/if}
+			</li>
+			{if $user_info.is_tmp eq 1}
+			<li class="b-line flex-box">
+				<a href="{url a="index" r="user#changeuname"}"class="flex-box"  style="width:100%;padding:0;">
+				<p class="flex-1">会员名</p>
+				<p>{$user_info.user_name}</p>
+				<i class="iconfont right-arrow">&#xe607;</i>
+				</a>
+			</li>
+			{else}
+			<li class="b-line flex-box">
+				<p class="flex-1">会员名</p>
+				<p>{$user_info.user_name}</p>
+				<i class="iconfont right-arrow" style="color:#fff;">&#xe607;</i>
+			</li>
+			{/if}
+			{if $user_info.email}
+			<li class="b-line flex-box">
+				<p class="flex-1">邮箱</p>
+				<p>{$user_info.email}</p>
+				<i class="iconfont right-arrow" style="color:#fff;">&#xe607;</i>
+			</li>
+			{/if}
+			<li class="b-line">
+				<a href="{url x="index" r="uc_account#phone"}" class="flex-box" data-no-cache="true">
+					<p class="flex-1">绑定手机</p>
+					{if $user_info.mobile eq ''}
+					<span>未绑定</span>
+					{else}
+					<p>{$user_info.mobile}</p>
+					<input type="hidden" name="phone" value="1">
+					{/if}
+					<i class="iconfont right-arrow">&#xe607;</i>
+				</a>
+			</li>
+			{if $user_info.mobile}
+			{if $is_weixin or $is_app}
+			<li class="b-line flex-box">
+					<p class="flex-1">社交账号</p>
+					{if $user_info.union_id eq ''}
+						{if $is_weixin}
+						<span onclick="weixin_bind_authorize();" >绑定微信</span>
+						{/if}
+						{if $is_app}
+						<span onclick="weixin_login_app();">绑定微信</span>
+						{/if}
+					{else}
+					<span class="wx_unbind" action="{url x="index" r="ajax#wx_unbind"}">解绑微信</span>
+					{/if}
+					<i class="iconfont right-arrow">&#xe607;</i>
+			</li>
+			{/if}
+			{/if}
+			<li>
+				<a href="javascript:void(0);" href-data="{url a="index" r="user#changepassword"}" {if $user_info.mobile eq ''}phone-href="{url x="index" r="uc_account#phone"}"{/if} class="flex-box bindphone">
+					<p class="flex-1">修改密码</p>
+					<span style="margin-top: 5px;">******</span>
+					<i class="iconfont right-arrow">&#xe607;</i>
+				</a>
+			</li>
+			{if $data.is_open_idvalidate neq 0}
+			<li>
+				<a href="javascript:void(0);" href-data="{url a="index" r="idvalidate"}"  class="flex-box bindphone" data-no-cache="true">
+					<p class="flex-1">实名认证</p>
+					<span style="margin-top: 5px;">{if $user_info.is_id_validate eq 1}已认证{elseif $user_info.is_id_validate eq 2}审核中{elseif $user_info.is_id_validate eq 3}认证失败{else}未认证{/if}</span>
+					<i class="iconfont right-arrow">&#xe607;</i>
+				</a>
+			</li>
+			{/if}
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+	function CutCallBack(data){
+		$('#user_avatar').attr('src',data);
+	}
+</script>
+{include file="style5.2/inc/footer.html"}

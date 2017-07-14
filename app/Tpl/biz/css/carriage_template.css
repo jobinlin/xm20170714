@@ -1,0 +1,187 @@
+#dialog-box {
+    width: 580px;
+    overflow: visible;
+    position: absolute;
+    z-index: 200;
+    top: 236px;
+    left: 431px;
+}
+
+.ks-ext-mask {
+    display: block;
+    opacity: 0.5;
+    width: 1423px;
+    height: 801px;
+    z-index: 100;
+    background: #000 none repeat scroll 0 0;
+    border: 0 none;
+    position: absolute;
+}
+.left-region{
+    padding: 10px 0 5px 10px;
+    height: 38px;
+}
+.right-region{
+    padding: 7px 4px 1px;
+    height: 38px;
+}
+.province-list {
+    width: 450px;
+}
+.gcity, .province-list {
+    display: inline-block;
+}
+.dcity {
+    vertical-align: middle;
+    display: block;
+    z-index: 1;
+}
+.ecity {
+    position: relative;
+    float: left;
+    margin-right: 1px;
+    padding-right: 8px;
+    height: 38px;
+    width: 80px;
+}
+span.group-label {
+    display: inline-block;
+    font-weight: 700;
+    margin-right: 5px;
+    padding: 10px 0 5px 10px;
+    width: 70px;
+}
+.ecity span.gareas {
+    white-space: nowrap;
+    margin-right: 3px;
+    padding: 7px 4px 1px;
+    display: inline-block;
+    position: relative;
+    height: 17px;
+    border: 1px solid #fff;
+}
+.dialog-areas li span.areas {
+    margin-right: 3px;
+    padding: 7px 0 1px 4px;
+    display: inline-block;
+}
+.citys{
+    background-color: #fffec6;
+    border: 1px solid #f7e4a5;
+    display: none;
+    float: right;
+    left: 0;
+    position: absolute;
+    top: 28px;
+    width: 214px;
+    z-index: 300;
+}
+div.areas {
+    display: inline-block;
+    margin-right: 3px;
+    padding: 7px 0 1px 4px;
+}
+.ecity.active .gareas{
+    background-color:#fffec6;
+    display: inline-block;
+    border-color: #f7e4a5 #f7e4a5 #fffec6;
+}
+.ecity.active .citys{
+    display:block;
+}
+.weedialog .delivery-form-content {
+    background-color: #fff;
+    clear: both;
+    padding: 0 0 30px;
+}
+.check_num {
+    color: #f60;
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+/* 表格*/
+.tbl-except table {
+    width: 100%;
+    border-width: 1px 0 0 1px;
+    border-color: #bbb;
+    border-style: solid;
+}
+.tbl-except th {
+    height: 25px;
+    font-weight: 400;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    font-size: 14px;
+    color:#fff;
+    background-color: #f80;
+}
+.tbl-except td {
+    padding: 3px 5px;
+}
+.tbl-except td {
+    border-width: 0 1px 1px 0;
+    border-color: #bbb;
+    border-style: solid;
+    text-align: center;
+}
+.tbl-except .input-text{
+    width: 50px;
+    text-align: right;
+}
+.tbl-except {
+    margin-top: 10px;
+}
+.tbl-except .edit {
+    float: right;
+}
+.tbl-except .area-group {
+    padding-right: 3em;
+    display: block;
+}
+.tbl-except .cell-area {
+    text-align: left;
+    width: 282px;
+    font-size: 12px;
+}
+.tbl-attach {
+    margin-top: 5px;
+    line-height: 24px;
+}
+.postage-detail{
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #b2d1ff;
+    width: 800px;
+}
+#region_conf .default{
+    margin-top: 5px;
+    padding: 0 15px 5px;
+    line-height: 32px;
+    background-color: #f3feed;
+}
+#region_conf .default input{
+    width: 50px;
+    text-align: right;
+}
+#region_conf{
+    width: 80%;
+    float: left;
+}
+.msg span.error {
+    background-color: #fff2f2;
+    border: 1px solid #ff8080;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 24px;
+    margin-right: 3px;
+    margin-top: 3px;
+    padding: 0 5px;
+    display: none;
+}
+.msg span.error.active{
+    display: inline-block;
+}
+input.error{
+    background-color: #fff2f2;
+    border: 1px solid #ff8080;
+}

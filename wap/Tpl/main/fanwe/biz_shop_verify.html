@@ -1,0 +1,127 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<<script type="text/javascript">
+var url = '{url r="biz" p="shop_verify#scan_index_check"}';
+var check_url = '{url r="biz" p="shop_verify#coupon_check"}';
+var index_check_url = 	'{url r="biz" p="shop_verify#index_check"}';
+var is_store_payment = {$data.is_store_payment};
+var open_store_payment_count = {$data.open_store_payment_count};
+</script>
+<div class="page page-current" id="biz_shop_verify">
+    <header class="bar bar-nav m-shop-verify-bar">
+		<div class="shop-verify-bar flex-box">
+			<p class="user-name flex-1">您好，{$data.account_mobile}</p>
+			<a href="{url r="biz" a="shop_verify#qrcode"}" class="to-qrcode" data-no-cache="true"><i class="iconfont">&#xe671;</i>优惠买单</a>
+		</div>
+    </header>
+	{include file="style5.2/inc/biz_nav.html"}
+    <div class="content">
+      <!-- 页面主体 -->
+      <div class="biz-code-input flex-box">
+      	<input type="tel" class="code-input flex-1" maxlength="12" name="qr_code" placeholder="请输入券码" value="">
+      </div>
+      <div class="biz-link-bar flex-box">
+      	<a href="javascript:App.qr_code_scan();" class="flex-1 r-line j-qrcode flex-box">
+      		<svg class="icon" aria-hidden="true">
+      			<use xlink:href="#icon-saomayanzheng"></use>
+      		</svg>
+      		<p>扫码验证</p>
+      	</a>
+      	<a href="{url r="biz" a="shop_verify#coupon_use_log"}" class="flex-1 flex-box" data-no-cache="true">
+      		<svg class="icon" aria-hidden="true">
+      			<use xlink:href="#icon-yanzhengjilu"></use>
+      		</svg>
+      		<p>验证记录</p>
+      	</a>
+      </div>
+      <ul class="biz-sale-bar flex-box">
+      	<li class="flex-1 flex-box r-line">
+      		<div class="sale-info">
+      			<p class="num">{$data.today_order}</p>
+      			<p class="sale-item">今日订单</p>
+      		</div>
+      	</li>
+      	<li class="flex-1 flex-box r-line">
+      		<div class="sale-info">
+      			<p class="num">{$data.today_money}</p>
+      			<p class="sale-item">今日成交</p>
+      		</div>
+      	</li>
+      	<li class="flex-1 flex-box r-line">
+      		<div class="sale-info">
+      			<p class="num">{$data.yesterday_money}</p>
+      			<p class="sale-item">昨日成交</p>
+      		</div>
+      	</li>
+      	<li class="flex-1 flex-box">
+      		<div class="sale-info">
+      			<p class="num">{$data.not_delivery}</p>
+      			<p class="sale-item">待发货</p>
+      		</div>
+      	</li>
+      </ul>
+      <ul class="biz-manager-bar clearfix">
+      	<li class="flex-box b-line">
+      		<a class="manager-info j-unopen" href="javascript:void(0);">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-tuangouguanli"></use>
+      			</svg>
+      			<p>团购管理</p>
+      		</a>
+      	</li>
+      	<li class="flex-box l-line b-line">
+      		<a class="manager-info j-unopen" href="javascript:void(0);">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-shangpinguanli"></use>
+      			</svg>
+      			<p>商品管理</p>
+      		</a>
+      	</li>
+      	<li class="flex-box l-line b-line">
+      		<a class="manager-info j-unopen" href="javascript:void(0);">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-fenxiangyouli"></use>
+      			</svg>
+      			<p>活动管理</p>
+      		</a>
+      	</li>
+      	<li class="flex-box l-line b-line">
+      		<a class="manager-info j-unopen" href="javascript:void(0);">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-youhuiquan"></use>
+      			</svg>
+      			<p>优惠券管理</p>
+      		</a>
+      	</li>
+      	<li class="flex-box">
+      		{if $data.store_pay_order_auth eq  0}
+      		<a class="manager-info store_pay_unopen" href="javascript:void(0);">
+      		{else}
+      		<a class="manager-info" href="{url r="biz" a="store_pay_order"}" data-no-cache="true">
+      		{/if}
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-maidanjilu"></use>
+      			</svg>
+      			<p>买单记录</p>
+      		</a>
+      	</li>
+      	<li class="flex-box l-line">
+      		<a class="manager-info j-unopen" href="javascript:void(0);">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-pingjiaguanli"></use>
+      			</svg>
+      			<p>评价管理</p>
+      		</a>
+      	</li>
+      	<li class="flex-box l-line r-line">
+      		<a class="manager-info j-unopen" href="javascript:void(0);">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-tongji"></use>
+      			</svg>
+      			<p>统计</p>
+      		</a>
+      	</li>
+      </ul>
+  </div><!-- content end -->
+</div>
+{include file="style5.2/inc/footer.html"}

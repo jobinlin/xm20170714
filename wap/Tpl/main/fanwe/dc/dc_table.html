@@ -1,0 +1,149 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_table">
+<script>
+    var location_close = {$dclocation.is_close};
+</script>
+        {if $app_index=='app'}
+            <div class="dc-header">
+                {if $page_finsh}
+                <a class="header-btn hearder-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+                {else}
+                <a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a>
+                {/if}
+                {if $dclocation.is_close}<h1 class="header-title">店铺休息中</h1>{/if}
+                <a href="javascript:void(0);" class="header-right header-btn iconfont add_location_collect {if $data.isCollected eq 1}collected{/if}" action-url="{url i="index" a="dcajax#add_location_collect" g="location_id=$dclocation.id"}"></a>
+            </div>
+            {include file="style5.2/inc/module/pop-light-img.html"}
+        {else}
+            <div class="dc-header">
+                <a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >&#xe604;</a>
+                {if $dclocation.is_close}<h1 class="header-title">店铺休息中</h1>{/if}
+                <a href="javascript:void(0);" class="header-right header-btn iconfont add_location_collect {if $data.isCollected eq 1}collected{/if}" action-url="{url i="index" a="dcajax#add_location_collect" g="location_id=$dclocation.id"}"></a>
+            </div>
+            <!-- 弹出层 -->
+            {include file="style5.2/inc/module/pop-light-img.html"}
+        {/if}
+        <div class="dc-hd {if $dclocation.is_close}shop-close{/if}">
+            <div class="shop-hd flex-box j-open-detail">
+                <div class="shop-logo"><!-- <img src="{$TMPL}/style5.2/images/loading/no-image.png" alt=""> <--><img src="{$dclocation.preview}" alt=""></--></div>
+                <div class="shop-info flex-1">
+                    <p class="shop-name">{$dclocation.name}</p>
+                    {if $dclocation.dc_location_notice}
+                    <div class="shop-notice flex-box">
+                        <p class="notice-txt flex-1">{$dclocation.dc_location_notice}</p>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            
+            <div class="shop-point flex-box">
+                {if $dclocation.avg_point}
+                <div class="m-start">
+                    <div class="start-num" style="width: {$dclocation.point_percent}%"></div>
+                </div>
+                <p class="shop-point-num">{$dclocation.avg_point}分</p>
+                {/if}
+            </div>
+            <div class="shop-contact flex-box">
+                <div class="iconfont">&#xe62f;</div>
+                <p class="address flex-1">{$dclocation.address}</p>
+                <a href="tel:{$dclocation.tel}0" class="iconfont phone-ico">&#xe618;</a>
+            </div>
+        </div>
+    <div class="content infinite-scroll infinite-scroll-bottom">
+        {if $data.hasRsItem}
+        <div class="m-shop-rs">
+            <!-- <p class="shop-rs-hd b-line">优惠预定</p> -->
+            <div class="shop-rs-tab b-line">
+                <ul class="flex-box rs-tab">
+                    <?php $index = 0; ?>
+                    {foreach from=$data.weekday item=item}
+                    <li class="j-rs-day flex-1 r-line <?php if ($index == 0) echo 'active'; ?>">
+                        <p>{$item.weekday}</p>
+                        <p class="rs-date">{$item.shortDate}</p>
+                    </li>
+                    <?php $index++; ?>
+                    {/foreach}
+                    <!-- <li class="j-rs-day flex-1 r-line">
+                        <p>周六</p>
+                        <p class="rs-date">04-14</p>
+                    </li> -->
+                </ul>
+            </div>
+            <?php $index = 0; ?>
+            {foreach from=$data.weekday item=item key=rs_date}
+            <ul class="shop-rs-list <?php if ($index == 0) echo 'active'; ?>">
+                {foreach from=$item.rsItem item=rsItem}
+                <li class="flex-box b-line">
+                    <div class="rs-info flex-1">
+                        <p class="rs-name">{$rsItem.name}</p>
+                        <p class="rs-price">{$rsItem.format_price}</p>
+                    </div>
+                    {if $rsItem.total <= $rsItem.buyCount}
+                    <a class="rs-btn disable">满座</a>
+                    {else}
+                    <a data-url="{url a="index" p="dcorder#res_cart" r="item_id=$rsItem.id&rs_date=$rs_date&lid=$dclocation.id"}" class="rs-btn">预订</a>
+                    {/if}
+                </li>
+                <?php $index++; ?>
+                {/foreach}
+            </ul>
+            {/foreach}
+            <!-- <ul class="shop-rs-list">
+                <li class="flex-box b-line">
+                    <div class="rs-info flex-1">
+                        <p class="rs-name">肯德基厕所一号坑</p>
+                        <p class="rs-price">&yen;100</p>
+                    </div>
+                    <a href="" class="rs-btn">预定</a>
+                </li>
+            </ul> -->
+        </div>
+        {/if}
+        <a href="{url a="index" p="dcpoint" r="lid=$dclocation.id"}" class="comment-count flex-box">
+            <p class="flex-1">评价（{$data.dp_list.total}）</p>
+            <div class="m-start">
+                <div class="start-num" style="width: {$data.dp_list.point_percent}%"></div>
+            </div>
+            <p class="comment-point">{$data.dp_list.avg_point}</p>
+            <div class="iconfont">&#xe607;</div>
+        </a>
+        <div class="dc-comment-list j-ajaxlist ">
+            {if $data.dp_list.list}
+            <ul class="comment-list j-ajaxadd">
+                {foreach from=$data.dp_list.list item=item}
+                <li class="comment-item">
+                    <div class="comment-hd flex-box">
+                        <div class="user-img"><img src="{$item.user_avatar}" alt=""></div>
+                        <div class="flex-1 user-info">
+                            <div class="flex-box">
+                                <p class="user-name flex-1">{$item.user_name}</p>
+                                <div class="m-start">
+                                    <div class="start-num" style="width: {$item.point_percent}%"></div>
+                                </div>
+                            </div>
+                            <p class="comment-time">{$item.create_time_format}</p>
+                        </div>
+                    </div>
+                    <p class="comment-txt">{$item.content}</p>
+                    {if $item.images}
+                    <ul class="comment-imglist flex-box comment-imglist-nolimit">
+                        {foreach from=$item.images item=img}
+                        <li class="comment-imgitem j-comment-item" data="1">
+                            <img dfasf="{$img}" src="{$img}" data-lingtsrc="{$img}" width="65" alt="有图评论-1" />
+                        </li>
+                        {/foreach}
+                    </ul>
+                    {/if}
+                </li>
+                {/foreach}
+            </ul>
+            <div class="pages hide">{$pages}</div>
+            {else}
+            <div class="tipimg no_data">暂无评价</div>
+            {/if}
+        </div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

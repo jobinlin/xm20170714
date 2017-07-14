@@ -1,0 +1,75 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<style>
+#close{
+	font-size:.6rem;
+	margin: 0;
+	color:#999;
+	position: absolute;
+	top: 0;
+	right:0;
+	padding:0 .25rem;
+	line-height: 1.4rem;
+    display: none;
+}
+</style>
+<div class="page page-current" id="search_index">
+  	<div class="content">
+   		<!-- 页面主体 -->
+   		<form name="search_form" action="{url r="index" p="search#do_search"}" method="post" >
+		<div class="search-bar flex-box b-line">
+			{if $page_finsh}
+	        <a href="javascript:App.page_finsh();"  class="head-btn"><i class="iconfont">&#xe604;</i></a>
+	    	{else}
+			<a href="#" class="cancel back"><i class="iconfont">&#xe604;</i></a>
+			{/if}
+			<div class="search-info flex-1 flex-box">
+				<a class="search-type flex-box" href="javascript:void(0)">
+					<ul class="search-list">
+				 		<li>商城</li>
+						<li>团购</li>						
+						<li>活动</li>
+						<li>店铺</li>
+					</ul>
+					<i class="iconfont">&#xe608;</i>
+				</a>
+				<i class="iconfont search-ico">&#xe61a;</i>
+				<input class="flex-1" name = "keyword" id = "keyword" type="text" placeholder="搜索商品">
+				<div class="iconfont" id="close">&#xe6b3;</div>
+				<div class="type-select">
+					<div class="arrow"></div>
+					<ul>
+						<li class="b-line"><a href="javascript:void(0)" data="2">商城</a></li>
+						<li class="b-line"><a href="javascript:void(0)" data="1">团购</a></li>
+						<li class="b-line"><a href="javascript:void(0)" data="5">活动</a></li>
+						<li class="b-line"><a href="javascript:void(0)" data="4">店铺</a></li>
+					</ul>
+				</div>
+			</div>
+			<input type="hidden" id="search_type" name="search_type" value="2">
+			<div class="search">搜索</div>
+		</div>
+		</form>
+		{if $hot_kw}
+		<div class="hot-search search-con b-line">
+			<h2 class="search-tit">热门搜索</h2>
+			<ul class="key-list clearfix">
+				{foreach from=$hot_kw item=row}
+				<li>{$row}</li>
+				{/foreach}
+			</ul>
+		</div>
+		{/if}
+		<div class="history-search search-con">
+			<h2 class="search-tit flex-box" id="history" style="display:none">
+				<p class="flex-1">历史搜索</p>
+				<a href="javascript:void(0)" class="del-data confirm-ok"><i class="iconfont">&#xe601;</i>
+				</a>
+			</h2>
+			<ul class="key-list clearfix">
+
+			</ul>
+		</div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

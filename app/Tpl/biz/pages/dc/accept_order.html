@@ -1,0 +1,40 @@
+<form action="{$form_url}" method="post" name="accept_order_tip" id="accept_order_tip">
+
+<div class="edit-box">
+	<div class="order-mask"></div>
+	<div class="edit-info">
+		<p class="edit-tit">外卖订单处理</p>
+		<div class="form-wrap clearfix">
+			<p class="form-tit f_l">选择配送方式：</p>
+			<div class="radio-box f_l">
+			
+				<label class="ui-radiobox" rel="common_rdo"><input name="delivery_part" type="radio" value="1" checked = "checked" />商家自己配送</label>
+				<?php if(IS_OPEN_DADA==1){?>
+				{if $is_open_dada_delivery eq 0}
+				<label class="ui-radiobox" rel="common_rdo" disabled="disabled"><input name="delivery_part" type="radio" value="2" />委托达达配送（开启达达配送后才可选择,<a class="go_link" href="{url x="biz" r="delivery_setting"}">前往开启</a>）</label>
+				{else}
+					{if $dada_account eq ''}
+					<label class="ui-radiobox" rel="common_rdo" disabled="disabled"><input name="delivery_part" type="radio" value="2" />委托达达配送（本门店未注册达达门店帐号，请先<a class="go_link" href="{url x="biz" r="delivery_setting#dada_acount" g="id=$location_id"}">前往注册</a>）</label>
+					{elseif $delivery_money_enough eq 0}
+					<label class="ui-radiobox" rel="common_rdo" disabled="disabled"><input name="delivery_part" type="radio" value="2" />委托达达配送（余额不足，<a class="go_link" href="{url x="biz" r="delivery_setting"}">前往充值</a>）</label>
+					{else}
+					<label class="ui-radiobox" rel="common_rdo"><input name="delivery_part" type="radio" value="2" />委托达达配送</label>
+				
+					{/if}
+				{/if}
+				<?php } ?>
+			    <label class="ui-radiobox" rel="common_rdo"><input name="delivery_part" type="radio" value="-1" />交易关闭，不接这单了</label>
+			
+			</div>
+		</div>
+		<div class="edit-btn">
+			<button class="ui-button j-close-edit" rel="blue">取消</button>
+			<button class="ui-button j-confirm-edit" rel="orange">确定</button>
+		</div>
+
+	</div>
+</div>
+
+
+
+</form>

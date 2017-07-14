@@ -1,0 +1,29 @@
+
+{include file="style5.2/inc/module/totop.html"}
+
+{if $is_show_down}
+<div class="Client">
+    <div class="Client_de">
+        <a href="javascript:void(0);" class="close_but">
+            <i class="iconfont">&#xe6b3;</i>
+        </a><!--关闭扭-->
+        <div class="transcript">
+            <div class="index_footer_logo"></div>
+
+        </div>
+        <a href="{$data.mobile_btns_download}" class="go_download">
+            立即下载
+        </a>
+    </div>
+</div>
+{/if}
+<div class="go_back_url" url='{$back_url}'></div>
+</div>
+
+<script type="text/javascript" src="{function name="parse_script" v="$foot_pagejs" c="foot_cpagejs"}"></script>
+<script type="text/javascript">
+	$.init();
+</script>
+
+</body>
+</html>

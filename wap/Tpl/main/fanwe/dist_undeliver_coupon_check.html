@@ -1,0 +1,73 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+    var coupon_pwd = "{$data.coupon_pwd}";
+    var index_url='{url r="dist" a="undeliver#index"}';
+    var url = '{url r="dist" a="undeliver#deliverycode_use"}';
+</script>
+<div class="page page-current" id="dist_undeliver_coupon_check">
+    {include file="style5.2/inc/biz_header.html"}
+    <nav class="bar bar-tab">
+        <div class="coupon-check-nav flex-box">
+            <a href="javascript:void(0);" class="flex-1 check-cancel">取消</a>
+            <a href="javascript:void(0);" class="flex-1 check-confirm">确定</a>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="coupon-check-hd">
+            <p class="check-code">券码：{$data.coupon_pwd}</p>
+
+            <p class="check-tit">券码有效，点击确认后券码即确认收货！</p>
+
+        </div>
+        <div class="flex-box j-shop-select check-shop-select">
+            <div class="v-record-bd">
+                <ul class="v-record-info">
+                    <li class=" flex-box">
+                        <p class="v-record-tit">会<em></em>员&nbsp;:</p>
+
+                        <p class="v-record-tip flex-1">{$data.user_info.user_name}</p>
+                    </li>
+                    <li class=" flex-box">
+                        <p class="v-record-tit">电<em></em>话&nbsp;:</p>
+
+                        <p class="v-record-tip flex-1">{$data.user_info.mobile}</p>
+                    </li>
+                    <li class="flex-box address">
+                        <p class="v-record-tit ">收货地址&nbsp;:</p>
+
+                        <p class="v-record-tip flex-1">{$data.user_info.address}</p>
+                    </li>
+					{if $data.payment_info}
+					<li class=" flex-box address">
+                        <p class="v-record-tit ">{$data.payment_info.name}&nbsp;:</p>
+
+                        <p class="v-record-tip flex-1" style="color: #f24;">{$data.payment_info.money}</p>
+                    </li>
+					{/if}
+                </ul>
+            </div>
+        </div>
+        <div class="v-record-hd">
+            商品信息<br/>验证成功退款中的商品将被拒绝退款。请与消费者核对清楚。</p>
+        </div>
+        <div class="v-record-bd">
+            {foreach from=$data.deal_order_item item=item}
+            <ul class="v-goods-list">
+                <li class="b-line">
+                    <p class="detail-name">{$item.name}</p>
+                    <div class="goods-info flex-box">
+                        <p class="price flex-1">
+                            &yen;{$item.unit_price}<em></em><span style="color:#333333;">x{$item.number}</span></p>
+                        <p class="num red">{$item.order_status}</p>
+
+                    </div>
+                </li>
+            </ul>
+            {/foreach}
+        </div>
+    </div>
+
+    <div class="delivery-mask"></div>
+</div>
+{include file="style5.2/inc/footer.html"}

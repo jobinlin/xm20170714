@@ -1,0 +1,95 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_youhui.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_voucher.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_voucher.js";
+?>
+{include file="inc/header.html"}
+
+<script xmlns="http://www.w3.org/1999/html">
+	var ajax_url  = '{url r="index" p="uc_voucher#do_exchange"}';
+</script>
+<div class="blank20"></div>
+
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+	<div class="side_nav left_box">
+		{include file="inc/uc_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="main_box">
+			<div class="youhui-nav">
+				<a href="{url r="index" b="uc_youhui"}">优惠券</a>
+				<a href="{url x="index" r="uc_voucher"}">红包</a>
+				<a href="{url x="index" r="uc_voucher#exchange"}" class="active">红包兑换</a>
+			</div>
+			<div class="exchange-block">
+				<div class="exchange-hd">序列号兑换红包</div>
+				<div class="exchange-box">
+					<form name="sn_exchange" id="sn_exchange"  method="post" action="{url x="index" r="uc_voucher#do_snexchange"}">
+						<p class="f_l exchange-tit">序列号</p>
+						<input type="text" class="f_l ui-textbox" name="sn">
+						<button class="ui-button" rel="orange" type="submit">兑换</button>
+					</form>
+				</div>
+			</div>
+			<div class="exchange-block">
+				<div class="exchange-hd">积分兑换红包</div>
+			</div>
+			<div class="m-youhui-list">
+				<ul class="youhui-list clearfix">
+					{foreach from=$list item=item}
+					<li class="{if $item.order_status neq 3} disable {/if}">
+						<div class="youhui-hd">
+							<p class="youhui-price"><span>&yen;</span>{$item.money}</p>
+							<p class="youhui-tip">
+								{if $item.start_use_price eq 0}
+									无使用限制
+								{else}
+									[满{$item.start_use_price}元可用]
+								{/if}
+							</p>
+						</div>
+						<div class="youhui-bd">
+							<p class="youhui-tip">{$item.name}</p>
+							<p class="youhui-time">有效期至：<span>{$item.end_time}</span></p>
+							<div class="youhui-btn-box">
+								<a href="javascript:void(0);" class="{if $item.order_status eq 3}j-receive{/if} youhui-btn" data-id="{$item.id}">
+									{if $item.order_status eq 0}
+										已领完
+									{elseif $item.order_status eq 1}
+										积分不足
+									{elseif $item.order_status eq 2}
+										已领取
+									{else}
+										{if $item.exchange_score}{$item.exchange_score}积分兑换{else}免费兑换{/if}
+									{/if}
+								</a>
+							</div>
+						</div>
+					</li>
+					{/foreach}
+				</ul>
+				<div class="pages">{$pages}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blank20"></div>
+{include file="inc/footer.html"}

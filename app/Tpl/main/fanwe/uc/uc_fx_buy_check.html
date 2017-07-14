@@ -1,0 +1,105 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_fx_vip_buy.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_fx_withdraw.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_money_incharge.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_withdraw.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_withdraw.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_buy_check.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_buy_check.js";
+
+?>
+
+{include file="inc/header.html"}
+<script>
+var ajax_url="{$ajax_url}";
+var fee={$fee};
+var order_id={$order_id};
+</script>
+
+<div class="blank20"></div>
+
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+	<div class="side_nav left_box">
+		{include file="inc/uc_nav_list.html"}
+	</div>
+	<div class="right_box">
+		
+		<div class="main_box uc_info_box" style="position: relative;">
+			<div class="vip-line">分销资质开通</div>
+			<div class="vip-buy-info">
+				{$data.fx_buy.pc_privilege}
+			</div>
+			<div class="blank"></div>
+			
+			<div class="cart_row layout_box" style="padding:20px;font-size:20px;font-weight:bold;margin-bottom:30px">
+				开通费用: {$fee}元
+			</div>
+			
+			<div id="cart_payment">
+			<div class="cart_row layout_box">
+				<div class="title">{lang v="PAYMENT_INFO"}</div>
+				<div class="content" style="padding:10px">
+					{if $bank_paylist}
+					{foreach from=$bank_paylist item=payment_item}	
+						{$payment_item.display_code}											
+					{/foreach}	
+					<div class="blank"></div>
+					{/if}
+					{if $icon_paylist}
+					{foreach from=$icon_paylist item=payment_item}	
+						{$payment_item.display_code}											
+					{/foreach}	
+					<div class="blank"></div>
+					{/if}
+					{foreach from=$disp_paylist item=payment_item}	
+						{$payment_item.display_code}	
+						<div class="blank"></div>										
+					{/foreach}	
+				</div>
+			</div>
+			</div>
+			<a href="javascript:void(0)" class="vip-btn" onclick="pay_do();">支付</a>
+		</div>
+	</div>
+</div>
+<div class="blank20"></div>
+<script>
+	$(document).ready(function() {
+		var w_height = $(window).height();
+		$(".vip-agreement").css('height', w_height);
+		$(window).resize(function() {
+			var w_height = $(window).height();
+			$(".vip-agreement").css('height', w_height);
+		});
+		$(".vip-txt").click(function() {
+			$(".vip-agreement").show();
+		});
+		$(".mask").click(function() {
+			$(".vip-agreement").hide();
+		});
+		$(".vip-agreement-close").click(function() {
+			$(".vip-agreement").hide();
+		});
+	});
+</script>
+{include file="inc/footer.html"}

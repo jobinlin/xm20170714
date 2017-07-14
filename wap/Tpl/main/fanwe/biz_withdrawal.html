@@ -1,0 +1,94 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+	AJAX_URL = '{url a="index" p="ajax"}';
+	var bank='{$data.bank}';
+	var add_url="{url a="index" p="uc_money#add_card"}";
+	var all_money=parseFloat('{$data.money}');
+	var r_url="{url a="index" p="uc_account#phone"}";
+	function ac_phone(){
+		var phone=$("#phonenumer").val();
+		if(phone == ''){
+			setTimeout(function(){
+				location.href = r_url;
+			},1500);
+		}
+	}
+</script>
+<div class="page page-current" id="biz_withdrawal">
+{include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+	 	<div id="withdraw">
+	 	{if $data.biz_user_status eq 1}
+	 	<form action="{url r="biz" b="withdrawal#do_submit"}" method="post" name="withdrawal_form">
+	 		<div class="bank-select {if $data.is_band_bank eq 0}load_page{/if} flex-box" {if $data.is_band_bank eq 0} url="{url r="index" p="biz_withdrawal#bindbank"}"  js_url='{$tmpl_path}js/load/add_card.js'{/if}>
+	 			<div class="bank-info flex-1">
+ 				{if $$data.is_band_bank eq 1}
+	 				<p class="bank-name">{$data.supplier_info.bank_name} {$data.supplier_info.bank_info}</p>
+	 				<p class="user-info">{$data.supplier_info.name}</p>
+	 			</div>
+ 				{else}
+	 				<p class="bank-name">暂无银行卡</p>
+	 			</div>
+	 			<i class="iconfont right-arrow">&#xe607;</i>
+				{/if}
+	 		</div>
+	 		<div class="can-use">
+	 			<p class="can-use-num">{if $data.supplier_info.money gt 0}可提现余额 {$data.supplier_info.money}元{else}无可提现余额{/if}</p>
+	 		</div>
+			<ul class="address-input withdraw-list">
+				<li class="b-line">
+					<span>提现金额</span>
+					<input class="ui-textbox" value="" type="text" name="money" {if $data.supplier_info.money eq 0}disabled="disabled"  placeholder="无可提现余额"{else} placeholder="请输入提现金额"{/if}  pattern="([0-9]*)|(\d+(\.\d{1,2}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') " />
+				</li>
+				<li class="b-line">
+					<span>登录密码</span>
+					<input class="ui-textbox" value="" name="pwd_verify" type="password"  placeholder="请输入登录密码" {if $data.money eq 0}disabled="disabled"{/if}/>
+				</li>
+				<!-- {foreach from=$data.bank_list item=item key=key}
+				<li class="b-line bank" >
+					<label>{$item.bank_name}<span  bank_name="{$item.bank_name}" rel="{$item.id}"  {if $key eq 0}class="checked"{/if}></span></label>
+				</li>
+				{/foreach} -->
+				<input type="hidden" value="{$data.default_id}" name="bank_id"/>
+				</ul>
+				<div class="big-btn">
+					<input type="submit" class="sub goahead btn-con" value="确认提现">
+				</div>
+				</form>
+				{elseif $data.biz_user_status eq 2}
+				<form action="{url r="index" p="uc_money#do_bind_bank"}" method="post" name="add_card">
+				<ul class="address-input">
+				<li class="b-line">
+					<span>卡号</span>
+					<input  name="bank_account" value="" type="number" pattern="[0-9]*" class="ui-textbox" placeholder="请输入银行卡号" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+				</li>
+				<li class="b-line">
+					<span>开户行</span>
+					<input  name="bank_name" value="" class="ui-textbox" placeholder="请输开户行名称" />
+				</li>
+				<li class="b-line">
+					<span>持卡人</span>
+					<input  name="bank_user" value="" class="ui-textbox" placeholder="请输入开户银行真实姓名" />
+				</li>
+				<li class="b-line">
+					<span>验证码</span>
+					<input class="ui-textbox ph_verify" id="sms_verify" name="sms_verify" placeholder="请输入验证码" />
+					<div class="l-line">
+						<input class="btn_phone l-line j-sendBtn isUseful" type="Button"  id="uc_sms_btn" lesstime="{$sms_lesstime}" account="1" value="获取验证码" onclick="ac_phone();"/>
+					</div>
+				</li>
+				<input type="hidden" id="phonenumer" value="{$data.mobile}" name="bank_mobile"/>
+				<div class="big-btn">
+                    <input type="submit" class="sub btn-con" value="提交">
+				</div>
+				</form>
+				{/if}
+			</ul>
+	 	</div>
+	</div>
+	{if $data.step eq 2}
+	{include file="style5.2/inc/module/sms_verify_code.html"}
+	{/if}
+</div>
+{include file="style5.2/inc/footer.html"}

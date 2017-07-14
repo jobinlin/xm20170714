@@ -1,0 +1,27 @@
+{if $app_index=='app'}
+<header class="headerindex">
+	<div class="mark"></div>
+	<div class="left">
+		<a class="choosecity" href="{url a="index" r="city"}">{$data.city_name}<i class="iconfont">&#xe608;</i></a>
+	</div>
+	<div class="middle">
+		<a href="{url a="index" r="search#index"}" data-no-cache="true"><i class="iconfont">&#xe61a;</i>搜索商品或店铺</a>
+	</div>
+	<div class="right">
+		<a class="" href="{url a="index" r="uc_msg"}"> <i class="iconfont">&#xe605;</i>{if $data.not_read_msg }<div class="newstip"></div>{/if}</a>
+	</div>
+</header>
+{else}
+<header class="headerindex">
+	<div class="mark"></div>
+	<div class="left">
+	<a class="choosecity" href="{url a="index" r="city"}">{$data.city_name}<i class="iconfont">&#xe608;</i></a>
+	</div>
+	<div class="middle">
+		<a href="{url a="index" r="search#index"}" data-no-cache="true"><i class="iconfont">&#xe61a;</i>搜索商品或店铺</a>
+	</div>
+	<div class="right">
+	<a class="" href="{url a="index" r="uc_msg"}"> <i class="iconfont">&#xe605;</i>{if $data.not_read_msg }<div class="newstip"></div>{/if}</a>
+	</div>
+</header>
+{/if}

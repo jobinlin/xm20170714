@@ -1,0 +1,165 @@
+.m-doder-dp-head .head-btn{
+	display: block;
+	position: absolute;
+	line-height: 2.2rem;
+	font-size: 1.1rem;
+}
+
+.m-doder-dp-head .head-btn.go-back{
+	left: .5rem;
+}
+
+.m-doder-dp-head .title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.m-doder-dp-head .head-btn.more{
+	right: .5rem;
+	font-size: 1.1rem;
+	color: #8d8f99;
+	padding-left: 1rem;
+}
+
+.m-comment .comment-tit{
+	position: relative;
+	line-height: @tit_lh;
+	background: @bg_color;
+	padding: 0 @comspacing;
+	font-size: @f_size2;
+	color: @f_color1;
+	margin-top: @rowspacing;
+}
+
+.m-comment .comment-count{
+	color: @f_color3;
+}
+
+
+.star-box{
+	display: inline-block;
+	float: right;
+}
+
+.m-comment .tit-start{
+	display: inline-block;
+	width: 79px;
+	height: 13px;
+}
+
+.m-comment .comment-num{
+	color: #ffa800;
+}
+
+.m-comment .comment-con{
+	padding-left: @comspacing;
+	padding-bottom: .5rem;
+	background: @bg_color;
+}
+
+.m-comment .comment-con .commenter{
+	padding-top: 0.5rem; 
+}
+
+.m-comment .comment-con .commenter:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-comment .avatar{
+	display: inline-block;
+	width: 1.9rem;
+	padding: .05rem;
+	border: 1px solid @bordercolor;
+	margin-right: .5rem;
+}
+.m-comment .user-date{
+	padding: .15rem;
+}
+
+
+.m-comment .good-spec{
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+.m-comment .date{
+	font-size: @f_size5;
+	color: @f_color3;
+}
+
+.m-comment .dp-date{
+	line-height: 1.8rem;
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+.m-comment .comment-txt{
+	font-size: @f_size3;
+	line-height: .85rem;
+	color: @f_color1;
+	padding-top: .5rem;
+}
+
+.m-comment .comment-imglist{
+	max-height: 3.4rem;
+	overflow: hidden;
+}
+
+.m-comment .comment-imglist:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-comment .comment-imglist-nolimit{
+	height: auto;
+}
+
+.m-comment .comment-imgitem{
+	float: left;
+	margin-right: .5rem;
+	margin-bottom: .5rem;
+}
+
+.m-comment .showmorecomment{
+	display: inline-block;
+	width: 100%;
+}
+
+.m-comment .comment-con{
+	padding-bottom: .7rem;
+	margin-bottom: @rowspacing;
+}
+
+.m-comment .shop-reply{
+	padding-right: @comspacing;
+}
+
+.m-comment .shop-reply p{
+	padding: @comspacing;
+	background: #f3f6f5;
+	font-size: @f_size4;
+	line-height: 0.875rem;
+}
+
+.m-comment .shop-reply p em{
+	color: #ffa800;
+}
+
+.m-comment .sjj-up{
+	background: url(@url/static/sjj-up.png) 10% center no-repeat;
+	width: 100%;
+	height: .3rem;
+	background-size: .6rem .3rem;
+}
+
+.m-comment .comment-list .comment-tit{
+	margin-bottom: @rowspacing;
+}

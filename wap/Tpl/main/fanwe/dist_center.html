@@ -1,0 +1,71 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dist_center">
+	<header class="bar bar-nav m-shop-verify-bar">
+    	<h1 class="title">{$data.page_title}</h1>
+    </header>
+    {include file="style5.2/inc/dist_nav.html"}
+    <div class="content">
+        <ul class="biz-center-list">
+        	<li class="b-line">
+                <a href="{url a="dist" r="money_index"}" class="flex-box">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-yue1"></use>
+                </svg>
+                <p class="flex-1">账户余额</p>
+                <p class="num">{$item.money}</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+            <li class="flex-box b-line">
+                <svg class="icon orange" aria-hidden="true">
+                    <use xlink:href="#icon-wode4"></use>
+                </svg>
+                <p class="flex-1">负责人</p>
+                <p class="list-tip">{$item.contact}</p>
+            </li>
+            <li class="flex-box b-line">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-dianhua"></use>
+                </svg>
+                <p class="flex-1">联系电话</p>
+                <p class="list-tip">{$item.tel}</p>
+            </li>
+            <li class="flex-box b-line">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shanghumingcheng"></use>
+                </svg>
+                <p class="flex-1">驿站地址</p>
+                <p class="list-tip" style="max-width: 50%;">{$item.address}</p>
+            </li>
+			<li class="b-line">
+                <a url="{url a="dist" r="undeliver#scope"}" class="flex-box dist_scope">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-tuangouguanli"></use>
+                </svg>
+                <p class="flex-1">配送范围</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+            <li class="b-line">
+                <a href="{url a="dist" r="undeliver#point_list"}" class="flex-box">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shouhuodizhi"></use>
+                </svg>
+                <p class="flex-1">配送点列表</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+            <li class="b-line">
+                <a href="{url a="dist" r="info_setting"}" class="flex-box">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shezhi"></use>
+                </svg>
+                <p class="flex-1">设置</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

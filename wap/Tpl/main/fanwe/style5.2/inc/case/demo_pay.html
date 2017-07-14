@@ -1,0 +1,96 @@
+{include file="style5.2/inc/header1.html"}
+<?php
+        $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/style5.2/css/page/pay.css";
+        $this->_var['cpagecss'][] = $this->_var['TMPL_REAL']."/style5.2/css/page/pay.css";
+        $this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/style5.2/js/page/pay.js";
+        $this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/style5.2/js/page/pay.js";
+?>
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index">
+    <header class="bar bar-nav b-line">
+        <a class="button button-link button-nav pull-left" onclick="window.history.go(-1)" data-transition='slide-out'>
+            <span class="icon icon-left"></span>
+        </a>
+        <h1 class="title">收银台</h1>
+    </header>
+
+
+    <div class="content">
+        <!-- 页面主体 -->
+        <div class="list-block m-pay">
+            <div class="item-content u-pay-title u-common-box">
+                <div class="item-inner">
+                    <div class="item-title label">合计</div>
+                    <div class="item-after">
+                        <p class="u-lg-price"><span class="u-money">¥<i>9158</i>.00</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="list-block m-my-conut">
+            <div class="content-block-title">账户余额</div>
+            <div class="item-content u-common-box">
+                <div class="item-inner">
+                    <div class="item-title">我的余额<span class="my-money">¥23565.25</span></div>
+                    <div class="item-after">
+                        <label class="label-checkbox u-square-checkbox">
+                            <input type="checkbox" name="my-radio">
+                            <div class="item-media">
+                                <i class="icon icon-form-checkbox"></i>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-block m-payway">
+            <div class="content-block-title">其他支付方式</div>
+            <ul>
+                <li class="b-line">
+                    <div class="item-content u-common-box">
+                        <div class="item-inner">
+                            <div class="item-title pay-way-name"><i class="iconfont alipay-icon">&#xe632;</i>支付宝</div>
+                            <div class="item-after">
+                                <label class="label-checkbox">
+                                    <input type="radio" name="my-radio">
+                                    <div class="item-media">
+                                        <i class="icon icon-form-checkbox"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content u-common-box">
+                        <div class="item-inner">
+                            <div class="item-title pay-way-name"><i class="iconfont wechatpay-icon">&#xe633;</i>微信</div>
+                            <div class="item-after">
+                                <label class="label-checkbox">
+                                    <input type="radio" name="my-radio">
+                                    <div class="item-media">
+                                        <i class="icon icon-form-checkbox"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="list-block u-pay-btn">
+            <div class="item-content">
+                <div class="item-inner">
+                    <a class="button u-sure-pay">确认支付<span class="u-money">¥<i>9158</i>.00</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

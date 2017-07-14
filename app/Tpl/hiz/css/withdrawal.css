@@ -1,0 +1,65 @@
+.content{
+	top: 90px;
+	left: 180px;
+	background:#fff;
+}
+.user-info{
+	margin: 20px;
+	padding:20px;
+	background:#f7f7f7;
+}
+.user-info-item{
+	height:40px;
+}
+.user-info-item .user-tit{
+	line-height: 40px;
+	font-size:16px;
+	width:100px;
+	text-align:right;
+}
+.user-info-item .user-tip{
+	line-height: 40px;
+}
+.user-info-item .user-tip a{
+	color:@btn_color;
+	padding:0 5px;
+}
+.user-info-item .user-tip a:hover{
+	color:@font_hover;
+}
+.field_group.f_label{
+	padding-top: 0;
+	line-height: 36px;
+}
+.ph_verify_btn{
+	height:36px;
+	line-height: 36px;
+	width:100px;
+	margin-left: 5px;
+}
+.verify{
+	margin-top: 7px;
+	margin-left: 5px;
+}
+.refresh_verify{
+	line-height: 36px;
+	margin-left: 5px;
+}
+.info_table{
+	width:518px;
+	margin: 0 auto;
+}
+.info-hd{
+	line-height: 40px;
+	margin-bottom: 20px;
+	font-size:14px;
+}
+.info-hd span{
+	color:#f20;
+	font-size:16px;
+}
+.table-hd{
+	line-height: 40px;
+	padding:0 20px;
+	background:#f7f7f7;
+}

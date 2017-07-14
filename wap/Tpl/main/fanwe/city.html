@@ -1,0 +1,58 @@
+{include file="style5.2/inc/header1.html"}
+<?php
+	$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/style5.2/css/page/city.css";
+	$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/style5.2/css/module/search_header.css";	
+	$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/style5.2/js/page/city.js";
+
+?>
+{include file="style5.2/inc/header2.html"}
+<div class="page page-city" id="city">
+<script type="text/javascript">
+var CITY_URL = '{url i="index" r="city"}';
+</script>
+{include file="style5.2/inc/auto_header.html"}
+
+
+<div class="content infinite-scroll">
+	<div class="m-search-box">
+	  <div class="searchbar">
+	    <a class="searchbar-cancel">重置</a>
+	    <div class="search-input">
+	      <label class="icon icon-search" for="search"></label>
+	      <input type="search" id='search' placeholder='城市/行政区/拼音'/>
+	    </div>
+	  </div>
+	</div><!--m-search-box -->
+
+
+	{if $data.hot_city}
+	<div class="m-hotcity m-linetit">
+		<div class="tit">
+			<span>热门城市</span>
+		</div>
+		<div class="con">
+			{foreach from=$data.hot_city key=keys item=items}
+			<div class="hotcity"><a href="javascript:void(0);" class="city_change" url="{$items.url}">{$items.name}</a></div>
+			{/foreach}
+		</div>
+	</div>
+	{/if}
+	<div class="m-allcity m-linetit">
+		<div class="tit">
+			<span>全部城市</span>
+		</div>
+		<div class="con">
+			{foreach from=$data.city_list key=key item=item}
+			<ul class="m-city_table">
+				<li data="{$key}" class="letter"><a href="javascript:;">{$key}</a></li>
+				{foreach from=$item key=keys item=items}
+				<li class="cityname"><a href="javascript:void(0);" class="city_change" url="{$items.url}">{$items.name}</a></li>
+				{/foreach}
+			</ul>
+			{/foreach}
+		</div>
+	</div>
+
+</div><!-- content end  -->
+</div>
+{include file="style5.2/inc/footer.html"}

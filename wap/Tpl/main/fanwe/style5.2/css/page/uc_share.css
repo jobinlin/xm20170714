@@ -1,0 +1,156 @@
+#uc_share .content{ 
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+.m-share-head{
+	line-height: 2.2rem;
+}
+
+.m-share-head .head-btn{
+	position: absolute;
+	font-size: 1.1rem;
+}
+
+.m-share-head .go-back{
+	left: .5rem;
+	padding-right: 1rem;
+}
+
+.share-bg-top{
+	position: relative;
+}
+
+.share-bg-top:before{
+	content: ' ';
+	display: block;
+	padding-top: 92%;
+}
+
+.share-bg-top img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.share-bg-bottom{
+	position: relative;
+}
+
+.share-bg-bottom:before{
+	content: ' ';
+	display: block;
+	padding-top: 71%;
+}
+
+.share-bg-bottom img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.m-share-con{
+	position: relative;
+}
+
+.m-share-con .share-con{
+	position: absolute;
+	top: 25%;
+	left: 51%;
+	width: 8.4rem;
+	text-align: center;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	z-index: 1;
+}
+
+.m-share-con .share-con .share-friend{
+	padding-top: .65rem;
+	line-height: 1.1rem;
+	font-size: @f_size4;
+	color: #bd6f20;
+}
+.m-share-con .share-con .share-friend em{
+	color: #ea3236;
+}
+
+.m-share-con .share-con .will-have{
+	font-size: @f_size4;
+	color: #dda771;
+}
+
+.m-share-con .share-con .money{
+	padding: .5rem 0;
+	font-size: @f_size2;
+	color: #ea3236;
+	line-height: 1rem;
+}
+
+.m-share-con .share-con .money em{
+	font-size: 2rem;
+	line-height: 2rem;
+	font-weight: bold;
+    vertical-align: -2px;
+}
+
+.m-share-con .share-con .lab-tit{
+	width: 5.05rem;
+	height: 1.2rem;
+	line-height: 1rem;
+	margin: 0 auto;
+	background: url(@url/static/lab-tit.png) center top no-repeat;
+	background-size: 100%;
+	color: #bd6f20;
+	font-size: @f_size5;
+}
+
+@media only screen and (max-width: 320px) {
+	.m-share-con .share-con .money{
+		padding: 0;
+		font-size: @f_size2;
+		color: #ea3236;
+		line-height: 1rem;
+	}
+}
+
+.m-share-con .share-btn{
+	display: block;
+	position: absolute;
+	bottom: 1.625rem;
+	left: 50%;
+	width: 8.875rem;
+	height: 2.35rem;
+	-webkit-transform: translateX(-50%);
+			transform: translateX(-50%);
+	background: url(@url/static/share-btn.png) center top no-repeat;
+	background-size: 100%;
+}
+.m-share-con .single-will-have{
+	color: #bd6f20;
+	font-size: @f_size4;
+}
+.weixin-share-tip{
+	width:100%;
+	position: absolute;
+	top: 0;
+	display:none;
+	right: 0;
+}
+.weixin-share-tip img{
+	width:100%;
+}
+.weixin-share-close{
+	display:none;
+	border:2px solid #fff;
+	border-radius:3px;
+	line-height: 1.8rem;
+	color:#fff;
+	padding:0 1rem;
+	font-size:.8rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	        transform: translateX(-50%);
+}

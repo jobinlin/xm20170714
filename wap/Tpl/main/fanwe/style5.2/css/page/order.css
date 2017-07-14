@@ -1,0 +1,212 @@
+#uc_order .m-cart{
+    margin-bottom: 0.5rem!important;
+}
+
+#uc_order .buttons-tab .tab-link{
+    font-size: @f_size3;
+    color: @f_color3;
+}
+#uc_order .buttons-tab .button.active{
+    color: @f_color1;
+    border-bottom: none;
+}
+#uc_order .buttons-tab .bottom_line{
+    display: block;
+    height: 0.1rem;
+    background: @themecolor;
+    position: absolute;
+    bottom: 1px;
+    border-top-right-radius: 0.1rem;
+    border-top-left-radius: 0.1rem;
+    transition: left 0.3s;
+}
+#uc_order .buttons-tab{
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    z-index: 10;
+}
+#uc_order .m-cart-list .shopTi .shop_txt {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    position: relative;
+    white-space: normal;
+    min-height: 0.9rem;
+    max-height: 1.8rem;
+    font-size: .65rem;
+    color: #353d44;
+    line-height: .9rem;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
+
+#uc_order .j-select-body li .item-inner{
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+#uc_order .tab_box{
+    display: none;
+}
+#uc_order .tabBox .active{
+    display: block;
+}
+#uc_order .m-cart-list li{
+    background: #f7f8f8;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#uc_order .m-cart-list li:after{
+    background: #ffffff;
+    height: 4px;
+}
+
+#uc_order .m-modify{
+    background: #f7f8f8;
+    margin-bottom: 0;
+}
+#uc_order .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+
+#uc_order .orderId{
+    width: 100%;
+    height: 2.215rem;
+    line-height: 2.215rem;
+    overflow: hidden;
+    padding-left: 0.5rem;
+    background: #ffffff;
+}
+#uc_order .orderId .order_id{
+    width: 100%;
+    height: 100%;
+
+}
+#uc_order .order_id p{
+    font-size: @f_size3;
+    color: @f_color3;
+}
+#uc_order .order_id .order_state{
+    display: block;
+    width: auto;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    font-size: @f_size2;
+    color: @f_colortheme;
+}
+#uc_order .m-conBox .m-title  .u-icon{
+    vertical-align: middle;
+    font-size: 0.8rem;
+}
+
+
+
+#uc_order .shopBox{
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0;
+    background: #f7f8f8;;
+}
+#uc_order .shopBox .shopShow{
+    width: 3.6rem;
+    height: 3.6rem;
+    margin-left: 0.3rem;
+}
+#uc_order .shopImg{
+    width: 3.6rem;
+    height: 3.6rem;
+    position: relative;
+    border: 1px solid #e6e5e9;
+    border-radius: 2px;
+    padding: 2px;
+    background: #ffffff;
+}
+#uc_order .shopImg img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+#uc_order .shopImg p.shop_num{
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    right: -0.25rem;
+    bottom: -0.1rem;
+    background: @themecolor;
+    font-size: 0.5rem;
+    color: #ffffff;
+    line-height: 0.7rem;
+    z-index: 5;
+}
+
+#uc_order .order_total{
+    width: 100%;
+    background: #ffffff;
+    padding-left: 0.5rem;
+}
+#uc_order .order_total .order_dt{
+    width: 100%;
+    height: 2.125rem;
+    line-height: 2.125rem;
+    font-size: @f_size3;
+    padding-right: 0.5rem;
+    overflow: hidden;
+}
+#uc_order .order_dt .u-lg-price{
+    line-height: 2.125rem;
+    text-align: right;
+    font-size: @f_size3;
+}
+#uc_order .order_bt{
+    font-size: 0;
+}
+#uc_order .order_bt a{
+    display: inline-block;
+    float: right;
+}
+#uc_order .order_dt .btn{
+    padding: 0 0.5rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    height: 1.4rem;
+    line-height: 1.35rem;
+    margin: 0.36rem 0 0.3rem 0.35rem;
+    font-size: @f_size3;
+    color: @f_color1;
+}
+#uc_order .order_dt .go_pay{
+    background: @themecolor;
+    color: #ffffff;
+    border: none;
+}
+#uc_order .order_dt .confirm,.order_dt .firm_load,.order_dt .go_coupon{
+    border-color: @themecolor;
+    color: @f_colortheme;
+}
+
+#uc_order .m-cart-list .shopTi p.sizes {
+    margin-top: 0.7rem;
+}
+
+#uc_order .item-title-row  .order_state{
+    display: block;
+    width: auto;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    font-size: .75rem;
+    color: #ff2244;
+}
+
+.blank_line{
+    width: 100%;
+    height: 0.05rem;
+    background: #FFFFFF;
+    clear: both;
+}

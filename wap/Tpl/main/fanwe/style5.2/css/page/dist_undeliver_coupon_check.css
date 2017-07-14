@@ -1,0 +1,22 @@
+#dist_undeliver_coupon_check .v-record-hd{
+    line-height: 1rem;
+    padding:0.4rem;
+}
+#dist_undeliver_coupon_check .goods-info .price em {
+    display: inline-block;
+    vertical-align: top;
+    width: 1em;
+}
+#dist_undeliver_coupon_check .red{
+    color:#ff2244;
+}
+#dist_undeliver_coupon_check .flex-box{
+    align-items: flex-start;
+}
+#dist_undeliver_coupon_check .v-record-tit,#dist_undeliver_coupon_check .v-record-tip{
+    line-height: 1rem;
+    padding:12px 0 12px;
+}
+#dist_undeliver_coupon_check .address .v-record-tip{
+    padding:12px 0 5px;
+}

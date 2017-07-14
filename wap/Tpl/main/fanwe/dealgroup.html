@@ -1,0 +1,115 @@
+﻿{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dealgroup">
+  <!-- 弹出层 -->
+<div class="flippedout">
+<script type="text/javascript">
+var ajax_url = '{url a="index" r="cart#addcart" }';
+var main_id = {$data.relate_data.subject.id};
+var main_num = 1;
+var deal_attr_stock_json = {$data.deal_attr_stock_json};
+</script>
+<!-- 规格选择框开始 -->
+	{foreach from=$data.relate_data.deal_attr key=key item=attr name=attr}
+	{if $attr.deal_attr}
+  <div class="spec-choose t-line" data-id="{$key}">
+    <input type="button" class="close-btn j-spec-choose-close" ></input>
+    <div class="good-info b-line">
+      <img src="{$attr.icon}" class="spec-choose-img" alt="商品图片" width="100%" height="100%">
+      <input type="hidden" value="{$attr.current_price}" class="or_pirce">
+      <div class="spec-goodprice" data-price="{$attr.current_price}" data-text="￥{$attr.current_price}">
+        	￥{$attr.current_price}
+      </div>
+      <div class="spec-goodstock" stock="{$attr.stock}">库存:{if $attr.stock gte 0}{$attr.stock}件{else}不限{/if}</div>
+      <div class="spec-goodspec">选择  {foreach from=$attr.deal_attr item=deal_attr name=deal_attr}{$deal_attr.name} {/foreach}</div>
+    </div>
+    <div class="spec-info">
+    	{foreach from=$attr.deal_attr item=deal_attr name=deal_attr}
+      <div class="choose-part t-line" data-id="{$deal_attr.id}" >
+        <div class="spec-tit unchoose">{$deal_attr.name}</div>
+        <ul class="choose-list">
+        	{foreach from=$deal_attr.attr_list item=attr_list name=attr_list}
+          		<li class="j-choose choose-item choose-item-big" data-value="{$attr_list.id}" pirce="{$attr_list.price}">{$attr_list.name}</li>
+         	{/foreach}
+        </ul>
+      </div>
+		{/foreach}
+    </div>
+    <a href="javascript:void(0)" class="goods-confirm">确定</a>
+    <input type="hidden" class="spec-data" >
+  </div>
+  {/if}
+  {/foreach}
+<!-- 规格选择框结束 -->
+<!-- 导航下拉开始 -->
+<div class="m-nav-dropdown">
+    <div class="nav-dropdown-con">
+      <div class="flex-box func-list">
+        <div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+      </div>
+      {include file="style5.2/inc/module/dropdown-navlist.html"}
+    </div>
+  </div>
+<!-- 导航下拉结束 -->
+  <div class="close-flippedout j-flippedout-close" rel="1">
+    <i class="iconfont">&#xe635;</i>
+  </div>
+</div>
+  {include file="style5.2/inc/module/com_header.html"}
+  <nav class="bar bar-tab">
+      <div class="dealgroup-bar flex-box">
+         <p class="youhui flex-1"><!-- 优惠：&yen;100 --></p>
+        <p class="total-price">总价：</p><p class="total-price"><em>&yen;{$data.relate_data.subject.current_price}</em></p>
+        <button class="buy-btn" onclick="relateBy()">立即购买</button>
+      </div>
+  </nav>
+    <div class="content">
+      <!-- 页面主体 -->
+      <div class="main-goods flex-box">
+        <div class="main-goods-img">
+        	<a href="{url a="index" r="deal" g="data_id=$data.relate_data.subject.id"}" data-no-cache="true">
+        	<img alt="" src="{$data.relate_data.subject.f_icon_middle}"/>
+        	</a>
+        </div>
+        <div class="goods-info flex-1">
+          <a style="color: #353d44;" href="{url a="index" r="deal" g="data_id=$data.relate_data.subject.id"}" data-no-cache="true"><h2 class="goods-name">{$data.relate_data.subject.name}</h2></a>
+          <div class="goods-detail flex-box">
+          	{if $data.relate_data.subject.deal_attr}
+          	<a class="j-open-choose goods-type" data-id="{$data.relate_data.subject.id}" is-stock="1"><span class="defult">选择商品属性</span><i class="iconfont">&#xe608;</i></a>
+            {/if}
+            <p class="price flex-1 tr" price-id="{$data.relate_data.subject.id}" data-value="{$data.relate_data.subject.current_price}" data-num="1">&yen;{$data.relate_data.subject.current_price}</p>×1
+          </div>
+            <span class="tis" data-id="{$data.relate_data.subject.id}" style="color:red;"></span>
+        </div>
+      </div>
+      <div class="best-combi">
+        {if $data.relate_data.goodsList}
+        <ul class="combi-list">
+        	{foreach from=$data.relate_data.goodsList item=good name=good}
+        	{if $good.is_delivery eq 1}
+          <li class="flex-box">
+          <div class="goods-check">
+            <i class="iconfont deal" data-id="{$good.id}" data-num="1">&#xe61c;</i>
+          </div>
+            <a href="{url a="index" r="deal" g="data_id=$good.id"}" class="combi-img" data-no-cache="true"><img  alt="" src="{$good.f_icon_middle}"/></a>
+            <div class="goods-info flex-1">
+              <a style="color: #353d44;" href="{url a="index" r="deal" g="data_id=$data.relate_data.subject.id"}" data-no-cache="true"><h2 class="goods-name" onclick="location.href ='{url a="index" r="deal" g="data_id=$good.id"}'" >{$good.name}</h2></a>
+              <div class="goods-detail flex-box">
+             	{if $good.deal_attr}
+                <a class="j-open-choose goods-type" data-id="{$good.id}" is-stock="1"><span class="defult" style="">选择商品属性</span><i class="iconfont">&#xe608;</i></a>
+                {/if}
+                <p class="price flex-1 tr" data-value="{$good.current_price}" data-num="1" price-id="{$good.id}">&yen;{$good.current_price}</p>×1
+              </div>
+                <span class="tis" data-id="{$good.id}" style="color:red;"></span>
+            </div>
+          </li>
+          	{/if}
+        	{/foreach}
+        </ul>
+        {else}
+        <div class="tipimg no_data">暂无组合</div>
+        {/if}
+      </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

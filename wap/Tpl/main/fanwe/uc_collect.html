@@ -1,0 +1,173 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="uc_collect">
+	<script>
+		var ajax_url='{url r="index" a="uc_collect#del_collect"}';
+		var sc_status={$data.sc_status};
+		console.log(sc_status);
+		var url=new Array();
+		url[0] = '{url r="index" a="uc_collect" go="sc_status=0"}';
+		url[1] = '{url r="index" a="uc_collect" go="sc_status=1"}';
+		url[2] = '{url r="index" a="uc_collect" go="sc_status=2"}';
+		url[3] = '{url r="index" a="uc_collect" go="sc_status=3"}';
+	</script>
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="flex-box m-tab-btn-list b-line" data-isedit="0">
+		<div class="flex-1 j-tab-btn {if $data.sc_status eq 0}active{/if}" rel="0" data-isload="1"><em>商品&amp;团购</em></div>
+		<!-- <div class="flex-1 j-tab-btn {if $data.sc_status eq 1}active{/if}" rel="1" data-isload="0"><em>优惠券</em></div> -->
+		<div class="flex-1 j-tab-btn {if $data.sc_status eq 1}active{/if}" rel="1" data-isload="0"><em>活动</em></div>
+		<div class="flex-1 j-tab-btn {if $data.sc_status eq 2}active{/if}" rel="2" data-isload="0"><em>店铺</em></div>
+		<div class="bottom-line"></div>
+	</div>
+	<div class="m-operation flex-box">
+		<div class="check-box j-all-check" rel="0"><i class="iconfont"></i></div>全选
+		<i class="cancel j-cancel" rel="0">取消收藏</i>
+	</div>
+	<div class="content uc_collect_change infinite-scroll infinite-scroll-bottom">
+
+	{if $data.sc_status eq 0}
+		<div class="j_ajaxlist_{$data.sc_status} m-collect-list" rel="0" data-type="deal"  id="tb0"> 
+		<ul class="j_ajaxadd_{$data.sc_status}" >
+			{if $list}
+				{foreach from=$list item=deal}
+					<li class="flex-box collect-item {if $deal.out_time}isOver{/if}" data-isdel="0">
+						<div class="no-href hide"></div>
+						<div class="check-box j-check-box" data-id="{$deal.id}"><i class="iconfont"></i></div>
+							<a href="{$deal.url}" data-no-cache="ture"><img src="{$deal.icon}" alt="" class="collect-img"></a>
+							<div class="flex-1">
+								<a href="{$deal.url}">
+									<div class="collect-name">{$deal.name}</div>
+									<div class="collect-price">¥<em>{$deal.current_price}</em></div>
+								</a>
+							</div>
+						
+						{if $deal.out_time}
+							<img src="{$TMPL}/style5.2/images/static/icon-sold-out.png" alt="" class="icon-sold-out">
+							<!-- <img src="{$TMPL}/style5.2/images/static/events_sale_out.png" alt="" class="icon-sold-out"> 已结束-->
+							<!-- <img src="{$TMPL}/style5.2/images/static/youhui-sold-out.png" alt="" class="icon-sold-out"> 已抢光-->
+						{/if}
+					</li>
+				
+				{/foreach}
+			{else}
+				<div class="tipimg no_data">
+					暂无收藏
+				</div>
+			{/if}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+	{/if}
+	<!-- {if $data.sc_status eq 1}
+		<div class="j_ajaxlist_{$data.sc_status} m-collect-list"  rel="1" data-type="youhui" id="tb1">
+		<ul class=" j_ajaxadd_{$data.sc_status}" >
+		{if $list}
+			{foreach from=$list item=youhui}
+				<li {if $youhui.out_time}class="flex-box collect-item isOver" {else}class="flex-box collect-item" {/if}>
+					<div class="no-href hide"></div>
+					<div class="check-box j-check-box" data-id="{$youhui.id}"><i class="iconfont"></i></div>
+					<a href="{$youhui.url}" data-no-cache="ture"><img src="{$youhui.icon}" alt="" class="collect-img"></a>
+					<div class="flex-1">
+						<a href="{$youhui.url}">
+							<div class="collect-name">{$youhui.name}</div>
+							{if $youhui.score_limit gt 0 && $youhui.point_limit gt 0}
+							<div class="collect-price">{$youhui.score_limit} 积分</div>
+							{elseif $youhui.point_limit gt 0 && $youhui.score_limit lte 0}
+							<div class="collect-price">{$youhui.point_limit} 经验</div>
+							{elseif $youhui.point_limit lte 0 && $youhui.score_limit gt 0}
+							<div class="collect-price">{$youhui.score_limit} 积分</div>
+							{/if}
+						</a>
+					</div>
+					{if $youhui.out_time}
+						<img src="{$TMPL}/style5.2/images/static/youhui-end.png" alt="" class="icon-sold-out">
+					{/if}
+				</li>
+			
+			{/foreach}
+		{else}
+			<div class="tipimg no_data">
+				暂无收藏
+			</div>
+		{/if}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+	{/if} -->
+	{if $data.sc_status eq 1}
+		<div class="j_ajaxlist_{$data.sc_status} m-collect-list"  rel="1" data-type="event"  id="tb1">
+		<ul class=" j_ajaxadd_{$data.sc_status}" >
+		{if $list}
+			{foreach from=$list item=event}
+			
+			<li {if $event.out_time}class="flex-box collect-item isOver" {else}class="flex-box collect-item" {/if}>
+				<div class="no-href hide"></div>
+				<div class="check-box j-check-box" data-id="{$event.id}"><i class="iconfont"></i></div>
+				<a href="{$event.url}" data-no-cache="ture"><img src="{$event.icon}" alt="" class="collect-img"></a>
+				<div class="flex-1">
+					<a href="{$event.url}">
+						<div class="collect-name">{$event.name}</div>
+						{if $event.score_limit gt 0 && $event.point_limit gt 0}
+						<div class="collect-price">{$event.score_limit} 积分</div>
+						{elseif $event.point_limit gt 0 && $event.score_limit lte 0}
+						<div class="collect-price">{$event.point_limit} 经验</div>
+						{elseif $event.point_limit lte 0 && $event.score_limit gt 0}
+						<div class="collect-price">{$event.score_limit} 积分</div>
+						{/if}
+					</a>
+				</div>
+				{if $event.out_time}
+				<img src="{$TMPL}/style5.2/images/static/youhui-end.png" alt="" class="icon-sold-out">
+				{/if}
+			</li>
+			
+			{/foreach}
+		{else}
+			<div class="tipimg no_data">
+				暂无收藏
+			</div>
+		{/if}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+	{/if}
+	{if $data.sc_status eq 2}
+		<div class="j_ajaxlist_{$data.sc_status} m-collect-list"  rel="2" data-type="shop"  id="tb2">
+		<ul class=" j_ajaxadd_{$data.sc_status}" >
+		{if $list}
+			{foreach from=$list item=shop}
+			<li class="flex-box collect-item b-line shop-item">
+				<div class="no-href hide"></div>
+				<div class="check-box j-check-box" data-id="{$shop.id}"><i class="iconfont"></i></div>
+				<a href="{$shop.url}" data-no-cache="ture"><img src="{$shop.preview}" alt="" class="collect-img"></a>
+				<div class="flex-1">
+					<a href="{$shop.url}">
+						<div class="shop-name">{$shop.name}</div>
+						<div class="flex-box">
+							<div class="m-start">
+								<div class="start-num" style="width: {$shop.format_point}%"></div>
+							</div>
+							<p class="shop-point">{$shop.avg_point}</p>
+						</div>
+						<div class="flex-box shop-info">
+							<p class="shop-address">{$shop.area_name}</p>
+							<p class="shop-cate flex-1">{$shop.cate_name}</p>
+							<p class="shop-distance">{$shop.distance}</p>
+						</div>
+					</a>
+				</div>
+			</li>
+			{/foreach}
+		{else}
+			<div class="tipimg no_data">
+				暂无收藏
+			</div>
+		{/if}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+	{/if}
+	</div>
+</div>
+
+{include file="style5.2/inc/footer.html"}

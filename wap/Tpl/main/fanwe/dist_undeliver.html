@@ -1,0 +1,94 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script type="text/javascript">
+    var url = '{url r="dist" p="undeliver#index_check"}';
+    var check_url = '{url r="dist" p="undeliver#deliveryCode_check"}';
+    var index_check_url = 	'{url r="dist" p="undeliver#index_check"}';
+</script>
+<div class="page page-current" id="dist_undeliver">
+    <header class="bar bar-nav m-shop-verify-bar">
+        <div class="shop-verify-bar flex-box">
+            <p class="user-name flex-1">您好，{$data.dist_info.username}</p>
+
+        </div>
+    </header>
+    {include file="style5.2/inc/dist_nav.html"}
+    <div class="content">
+        <!-- 页面主体 -->
+        <div class="biz-code-input flex-box">
+            <input type="tel" class="code-input flex-1" maxlength="12" name="qr_code" placeholder="请输入券码" value="">
+        </div>
+        <div class="biz-link-bar flex-box">
+            <a href="javascript:App.qr_code_scan();" class="flex-1 r-line j-qrcode flex-box">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-saomayanzheng"></use>
+                </svg>
+                <p>扫码验证</p>
+            </a>
+            <a href="{url r="dist" a="undeliver#verify_log_list"}" class="flex-1 flex-box">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengjilu"></use>
+            </svg>
+            <p>验证记录</p>
+            </a>
+        </div>
+        <ul class="biz-sale-bar flex-box">
+            <li class="flex-1 flex-box r-line">
+                <div class="sale-info">
+                    <p class="num">{$data.today_delivery_order}</p>
+                    <p class="sale-item">今日配送</p>
+                </div>
+            </li>
+            <li class="flex-1 flex-box r-line">
+                <div class="sale-info">
+                    <p class="num">{$data.today_money}</p>
+                    <p class="sale-item">今日收入</p>
+                </div>
+            </li>
+            <li class="flex-1 flex-box r-line">
+                <div class="sale-info">
+                    <p class="num">{$data.yesterday_delivery_order}</p>
+                    <p class="sale-item">昨日配送</p>
+                </div>
+            </li>
+            <li class="flex-1 flex-box r-line">
+                <div class="sale-info">
+                    <p class="num">{$data.yesterday_money}</p>
+                    <p class="sale-item">昨日收入</p>
+                </div>
+            </li>
+        </ul>
+        <ul class="biz-center-list clearfix">
+            <li class="b-line">
+                <a class="flex-box" href="{url a="dist" r="order" go="status=1"}" data-no-cache="true">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-yue1"></use>
+                </svg>
+                <p class="flex-1">待发货</p>
+                <p class="list-tip">{$data.no_send_order}</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+            <li class="b-line">
+                <a class="flex-box" href="{url a="dist" r="order" go="status=2"}" data-no-cache="true">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-maidanjilu"></use>
+                </svg>
+                <p class="flex-1">待配送</p>
+                <p class="list-tip">{$data.no_delivery_order}</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+            <li class="b-line">
+                <a class="flex-box" href="{url a="dist" r="order" go="status=3"}" data-no-cache="true">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shangpinguanli"></use>
+                </svg>
+                <p class="flex-1">退款商品</p>
+                <i class="iconfont">&#xe607;</i>
+                </a>
+            </li>
+        </ul>
+    </div><!-- content end -->
+</div>
+{include file="style5.2/inc/footer.html"}

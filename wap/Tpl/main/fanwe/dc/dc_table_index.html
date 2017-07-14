@@ -1,0 +1,70 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="dc_location">
+	{include file="style5.2/inc/dc_nav.html"}
+	{include file="style5.2/inc/headers/dc_index_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+	{if $data.advs}
+	  <div class="m-index-banner j-index-banner" data-space-between='0'>
+	    <div class="swiper-wrapper">
+	    {foreach from="$data.advs" item="adv"}
+	      <div class="swiper-slide">
+	      <a href="{$adv.url}"  data-no-cache="true">
+	      <img alt="" src="{$adv.img}" src="{$TMPL}/style5.2/images/loading/banner_load.jpg"/>
+	      </a>
+	      </div>
+		{/foreach}
+	    </div>
+	    {if $data.is_banner_square eq 1}
+	    <div class="swiper-pagination"></div>
+	    {else}
+	    <div class="swiper-pagination"></div>
+	    {/if}
+	  </div>
+	{/if}
+	{if $data.indexs_list}
+		<div class="m-sort_nav  j-sort_nav" data-space-between='0'>
+		  <div class="sort_list swiper-wrapper" style="display:block;">
+		  		{foreach from=$data.indexs_list item=item key=key}
+		  			<div class="sort_li">	
+						<a href="{$item.url}" data-no-cache="true">
+	  	    			<span class="yuan" style="background:{$item.color}"><i class="diyfont">{$item.iconfont}</i></span>
+						<span class="txt">{$item.name}</span>
+						</a>
+			  		</div>	
+		  		{/foreach}
+		  </div>
+		  </div>
+	{/if}
+	{if $data.dc_location_list}
+	<div class="dc-shop-list j-ajaxlist">
+		<div class="shop-list-hd b-line">推荐商家</div>
+		<ul class="j-ajaxadd shop-list">
+			{foreach from=$data.dc_location_list.list item=item}
+			<li class="b-line">
+				<a href="{url a="index" r="dctable#detail" g="lid=$item.id"}" class="shop-item" data-no-cache="true">
+					<div class="shop-logo"><img src="{$item.preview}" alt="">{if $item.is_close eq 1}<span class="close-mask" style="background-color: rgb(192,192,192);">店铺休息{/if}</span></div>
+					<div class="shop-info flex-1">
+						<p class="shop-name">{$item.name}</p>
+  						<div class="shop-start flex-box">
+  							<div class="m-start">
+  								<div class="start-num" style="width: {$item.point_percent}%"></div>
+  							</div>
+      						<p class="start-point">{$item.format_point}分</p>
+  						</div>
+  						<div class="price-distance flex-box">
+  							<p class="shop-area">{$item.area_name}</p>
+  							<p class="shop-cate">{$item.cate_name}</p>
+  							<p class="shop-distance flex-1">{$item.format_distance}</p>
+  						</div>
+					</div>
+				</a>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+	</div>
+	{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,46 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<php>
+    function format_youhui_amount($total_num){
+        if($total_num == 0 || $total_num == ''){
+            return '无限制';
+        }else{
+            return $total_num;
+        }
+    }
+</php>
+
+<div class="main">
+    <div class="main_title">优惠券列表</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <input type="button" class="button" value="{%ADD}" onclick="add();" />
+        <input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+    </div>
+    <div class="blank5"></div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="list"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+            ,name:优惠券名称:edit
+            ,total_num|format_youhui_amount:券总数
+            ,user_count:领券量
+            ,create_time|to_date:创建时间
+            ,is_effect|get_is_effect=$list['id']:{%IS_EFFECT}
+            ,is_recommend|get_toogle_status=$list['id']#is_recommend:{%IS_RECOMMEND}
+            ,sort|get_sort=$list['id']:{%SORT}"
+            actionlist="edit:{%EDIT}, del:{%DEL}"
+    />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,90 @@
+.m-ecv-list{
+	padding: 2.5rem .5rem 0;
+}
+#uc_ecv .youhuis-item .youhui-info{
+	position: relative;
+}
+#uc_ecv .youhuis-item .ecv-img{
+	width: 3rem;
+	position: absolute;
+	right: .2rem;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+}
+#uc_ecv .youhuis-item .ecv-img img{
+	width:100%;
+}
+#uc_ecv .youhuis-item .youhui-info .ecv-time{
+	font-size:@f_size4;
+	color:@f_color3;
+	line-height: .6rem;
+	margin-top: .3rem;
+}
+#uc_ecv .youhuis-item a{
+	border-radius: 5px;
+}
+.uc-ecv-tab{
+	height: 2rem;
+	line-height: 2rem;
+	background:#fff;
+	width:100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: absolute;
+	top: 2.19rem;
+	z-index:10;
+}
+.uc-ecv-tab ul{
+	height: 2rem;
+}
+.uc-ecv-tab li{
+	text-align: center;
+}
+.uc-ecv-tab .tab-item{
+	width:2.8rem;
+	float: left;
+}
+.uc-ecv-tab li a{
+	display: inline-block;
+	color:@f_color3;
+}
+.uc-ecv-tab li .active{
+	color:@f_color1;
+}
+.uc-ecv-tab .ecv-tab-line{
+	position: absolute;
+	bottom: -2px;
+	border-radius:2px;
+	height: 4px;
+	background:@themecolor;
+	-webkit-transition: all .3s ease;
+			transition: all .3s ease;
+}
+.m-ecv-list.hide{
+	display: none;
+}
+
+.input-ecv-exchange{
+	width: 100%;
+	height: 2rem;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 0 .5rem;
+	margin-top: .5rem;
+}
+
+.btn-ecv-exchange{
+	display: block;
+	background: @themecolor;
+	color: #fff;
+	border-radius: 3px;
+	line-height: 1.5rem;
+	width: 60%;
+	margin: 0 auto;
+	margin-top: 1rem;
+}
+#uc_ecv .youhuis-item .price .discount{
+	line-height: 1rem;
+	margin-top: 1rem;
+}

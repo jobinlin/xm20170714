@@ -1,0 +1,86 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var INDEX_URL='{url i="index" r="scores_index"}';
+</script>
+<div class="page page-index page-current" id="scores_index">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content  infinite-scroll infinite-scroll-bottom">
+		<div class="m-user-info flex-box">
+		 {if $data.user_login_status eq 0}
+			<a href="javascript:void(0);" class="ulogin flex-box" data-no-cache="true">
+				<div class="flex-1">点击登录，领取免费积分</div>
+				<i class="iconfont">&#xe607;</i>
+			</a>
+		 {else}
+		 	<div class="user-avatar">
+				<div class="avatar">
+					<img src="{$data.user_info.user_avatar}" alt="头像">
+				</div>
+				<div class="vip-info">
+					<img class="vip-icon" src="{$TMPL}/style5.2/images/static/vip_icon.png"><em>{$data.user_info.user_group_name}</em>
+				</div>
+			</div>
+			<div class="user-info flex-1">
+				<div class="user-name">{$data.user_info.user_name}</div>
+				<div class="score">积分&nbsp;<em>{$data.user_info.user_score}</em></div>
+				{if $data.user_info.user_login_text}
+					<div class="sign-day">
+						{$data.user_info.user_login_text}
+					</div>
+				{/if}
+			</div>
+            {if $SCORE_RECHARGE_SWITCH}
+               <div class="sign" style="top: 35%;right:0.2rem; border-radius: 0.5rem;text-align: center;padding-right: 0.5rem; background-color: white;">
+                   <a href="{url x="index" z="uc_score#buy_score"}" style="color:red;">购买积分</a>
+               </div>
+            {/if}
+			{if $data.user_info.user_login_score gt 0}
+			<div class="sign {if $data.user_info.is_user_login_today eq 0}signin{/if}" {if $SCORE_RECHARGE_SWITCH}style="top:65%;"{/if}>
+				<i class="iconfont"></i>
+				<span>
+				{if $data.user_info.is_user_login_today eq 1}
+					已签到
+				{else}
+					签到+{$data.user_info.user_login_score}积分
+				{/if}
+				</span>
+			</div>
+			{/if}
+		 {/if}	
+		</div>
+		{if $data.bcate_list}
+		<div class="m-score-type j-score-type">
+			<div class="swiper-wrapper">
+				{foreach from=$data.bcate_list item=cate}
+				<a class="type-item swiper-slide" href="{$cate.url}">
+					<span class="yuan" style="background-color:{$cate.iconbgcolor}" ><i class="diyfont" style="color:{$cate.iconcolor}">{$cate.iconfont}</i></span>
+					<span class="txt">{$cate.name}</span>
+				</a>
+				{/foreach}
+			</div>
+		</div>
+		{/if}
+		{if $data.item}
+		<dl class="m-hot-dui">
+			<dt class="dui-tit">大家都在兑</dt>
+			<div class="j-ajaxlist">
+			<div class="j-ajaxadd">
+			{foreach from=$data.item item=deal}
+			<a data-no-cache="true" href="{url i="index" r="deal" g="data_id=$deal.id"}">
+			<dd class="flex-box dui-item b-line">	
+				<img src="{if $deal.f_icon_v1}{$deal.f_icon_v1}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}" alt="{$deal.name}" class="good-img">
+				<div class="flex-1 good-info">
+					<div class="good-name">{$deal.name}</div>
+					<div class="good-score flex-box"><div class="flex-1"><em>{$deal.deal_score}</em>&nbsp;积分</div>{if $deal.buy_count gt 0}<em class="has-ex">已兑换：{$deal.buy_count}</em>{/if}</div>
+				</div>	
+			</dd>
+			</a>
+			{/foreach}
+			</div>
+			</div>
+		</dl>
+		{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

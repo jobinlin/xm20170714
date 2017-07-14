@@ -1,0 +1,73 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var INDEX_URL='{url i="index"}';
+var address='{$address}';
+var cate_id_1='{$data.cate_id}';
+
+</script>
+<div class="page page-current" id="events">
+	<div class="m-events-tab">
+	    <ul class="b-line">
+			{foreach from=$data.bcate_list item=cate}
+			<li>
+				<a href="javascript:void(0)" data-src="{$cate.url}" cate-id="{$cate.id}">{$cate.name}</a>
+			</li>
+			{/foreach}
+	    </ul>
+	    <div class="events-tab-line"></div>
+	</div>
+ 	{include file="style5.2/inc/auto_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom">
+   		<!-- 页面主体 -->
+   		<div class="m-events-list j_ajaxlist_{$data.cate_id}">
+   		{if $data.item}
+   			<ul class="j_ajaxadd_{$data.cate_id}">
+   				{foreach from=$data.item item=eventitem}
+   				<li>
+   					<a data-no-cache="true" href="{url a="index" r="event#index" p="data_id=$eventitem.id"}">
+						<div class="main-img">
+							<img alt="" src="{$eventitem.img}"/>
+						<p class="main-tip">{$eventitem.name}</p>
+						{if $eventitem.is_over eq 1 && $eventitem.out_time eq 1}
+						<div class="events-ico sale-out"><img src="{$TMPL}/style5.2/images/static/events_sale_out.png" alt=""></div>
+						{elseif $eventitem.is_over eq 1 || $eventitem.out_time eq 1 }
+						<div class="events-ico sale-out"><img src="{$TMPL}/style5.2/images/static/events_sale_out.png" alt=""></div>
+						{elseif $eventitem.submit_count gte $eventitem.total_count}
+						<div class="events-ico house-full"><img src="{$TMPL}/style5.2/images/static/events_house_full.png" alt=""></div>
+						{/if}
+						</div>
+						<div class="events-detail flex-box">
+							<div class="events-img">
+								<img alt="" src="{$eventitem.supplier_info_preview}" />
+							</div>
+							<div class="events-info flex-1">
+								<div class="events-tit flex-box">
+									<h2 class="flex-1">{$eventitem.supplier_info_name}</h2>
+									{if $eventitem.distance || $eventitem.district}
+									<p class="address">{$eventitem.district} {$eventitem.distance}</p>
+									{/if}
+								</div>
+								{if $eventitem.submit_end_time_format}
+								<div class="events-time">报名时间：{$eventitem.submit_begin_time_format} 至 {$eventitem.submit_end_time_format}</div>
+								{else}
+								<div class="events-time">报名时间：长期有效</div>
+								{/if}
+							</div>
+						</div>
+   					</a>
+   				</li>
+   				{/foreach}
+   			</ul>
+   			
+   		{else}
+   		<div class="tipimg no_data">暂无活动</div>
+   		{/if}
+   		<div class="pages hide">{$pages}</div>
+   		</div>
+        
+    </div>
+         <div class="blank"></div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

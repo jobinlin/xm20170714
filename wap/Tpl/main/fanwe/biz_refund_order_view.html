@@ -1,0 +1,52 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_refund_order_view">
+    {include file="style5.2/inc/biz_header.html"}
+  	<nav class="bar bar-tab">
+		{if $data.item.is_refund}
+		<div class="refund-btn flex-box">
+			<a href="#" data-href="{url a="biz" b="refund_order#do_refuse" c="data_id=$data.item.id&msg_id=$data.msg_id"}" class="j-refund-refuse refund-refuse flex-1">拒绝退款</a>
+			<a href="#" data-href="{url a="biz" b="refund_order#do_refund" c="data_id=$data.item.id&msg_id=$data.msg_id"}" class="j-refund-agree refund-agree flex-1">立即退款</a>
+		</div>
+		{else}
+		<div class="refund-btn flex-box">
+			<a href="#" class="refund-refuse flex-1">{$data.item.status_info}</a>
+		</div>
+		{/if}
+  	</nav>
+	<div class="content">
+		<a href="{if $data.item.is_shop eq 1}{url a="biz" b="shop_order#view" c="data_id=$data.item.order_id"}{else}{url a="biz" b="tuan_order#view" c="data_id=$data.item.order_id"}{/if}" data-no-cache="true" class="order-code-bar flex-box">
+			<p class="tip">订单编号</p>
+			<p class="flex-1 order-code">{$data.item.order_sn}</p>
+			<i class="iconfont">&#xe607;</i>
+		</a>
+		<div class="order-user-info">
+			<p class="tip">会员信息</p>
+			<div class="user-detail flex-1">
+				<p>{$data.item.user_name} {$data.item.user_mobile}</p>
+			</div>
+		</div>
+		<div class="order-user-info">
+			<p class="tip">申请时间</p>
+			<div class="user-detail flex-1">
+				<p>{$data.item.refund_time}</p>
+			</div>
+		</div>
+		<div class="refund-reason">
+			<p class="tip">退款原因</p>
+			<p class="reason flex-1">{$data.item.message_info}</p>
+		</div>
+		<div class="refund-goods">
+			<div class="goods-img"><img src="{$data.item.deal_icon}" alt="商品图片"></div>
+			<div class="goods-info flex-1">
+				<p class="goods-name">{$data.item.name}</p>
+				<p class="goods-type">{if $data.item.attr_str neq ""}规格：{$data.item.attr_str}{/if}</p>
+				<div class="price-info flex-box">
+					<p class="price flex-1">&yen;{$data.item.format_unit_price}</p>
+					<p class="num">x{$data.item.number}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

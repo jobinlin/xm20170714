@@ -1,0 +1,104 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function get_send_types($type)
+	{
+		if($type==0)
+		{
+			return l("ADMIN_SEND");
+		}
+		elseif($type==2)
+		{
+			return "序列号领取";
+		}
+		else
+		{
+			return l("SCORE_EXCHANGE");
+		}
+	}
+	
+	function get_time($begin_time,$ecv_type=array())
+	{	
+		$validity_type=$ecv_type['valid_type'];
+		$begin_time=$begin_time?to_date($begin_time):0;
+		$end_time=$ecv_type['end_time']?to_date($ecv_type['end_time']):0;
+		$validity_day=$ecv_type['start_use_price']?$ecv_type['start_use_price']:0;
+		if($validity_type){
+			if($validity_day){
+				return $validity_day."天有效";
+			}else{
+				return "永久有效";
+			}
+		}else{
+			if($begin_time){
+				$str=$begin_time." 开始";
+			}else{
+				$str=0;
+			}
+			
+			if($end_time){
+				$str1=$end_time." 截至";
+			}else{
+				$str1="永久有效";
+			}
+			
+			if($str){
+				return $str."<br/>"."&nbsp;".$str1;
+			}else{
+				return $str1;
+			}
+
+		}
+	}
+	
+	function get_user_count($id)
+	{
+		$user_count=$GLOBALS['db']->getOne("select sum(use_count) from ".DB_PREFIX."ecv where ecv_type_id =".$id);
+		$user_count=$user_count?$user_count:0;
+		return $user_count;
+	}
+	function get_send($id)
+	{
+		if(M("EcvType")->where("id=".$id)->getField("send_type")==0)
+		{
+			return "<a href='".u("EcvType/send",array("id"=>$id))."'>".l("SEND_VOUCHER")."</a>";
+		}
+	}
+</PHP>
+<script type="text/javascript">
+	function view(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"=Ecv&"+VAR_ACTION+"=index&ecv_type_id="+id+"&";
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="article" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+	,name:{%VOUCHER_NAME}
+	,money|format_price:{%VOUCHER_MONEY}
+	,use_limit:{%VOUCHER_LIMIT}
+	,begin_time|get_time=$article:有效期
+	,gen_count:{%VOUCHER_GEN_COUNT}
+	,total_limit:发放总量
+	,id|get_user_count:已使用
+	,send_type|get_send_types:{%VOUCHER_SEND_TYPE}" 
+	actionlist="edit:{%EDIT},foreverdel:{%FOREVERDEL},id|get_send,view:{%VIEW}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

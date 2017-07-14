@@ -1,0 +1,86 @@
+.order-code-bar{
+	height:2rem;
+	background:#fff;
+	padding:0 .5rem;
+}
+.order-code-bar .iconfont{
+	font-size:.8rem;
+	line-height: 2rem;
+}
+#biz_refund_order_view .tip{
+	margin-right: .5rem;
+	font-size:@f_size4;
+	line-height: 2rem;
+	color:@f_color3;
+}
+.order-user-info,.refund-reason{
+	background:#fff;
+	padding:0 .5rem;
+	margin-top: .25rem;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+}
+.order-user-info .user-detail{
+	padding:.5rem 0;
+	line-height: 1rem;
+}
+.refund-reason .reason{
+	padding:.6rem 0;
+	line-height: .8rem;
+}
+.refund-goods{
+	padding:.5rem;
+	background:#fff;
+	margin-top: .25rem;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+}
+.refund-goods .goods-img{
+	width:3.4rem;
+	height:3.4rem;
+	margin-right: .5rem;
+}
+.refund-goods .goods-img img{
+	width:100%;
+	height:100%;
+}
+.refund-goods .goods-info{
+	width:50%;
+	line-height: 1rem;
+}
+.refund-goods .goods-name{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.refund-goods .goods-type{
+	font-size:@f_size4;
+	color:@f_color3;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	height:1rem;
+}
+.refund-goods .price-info{
+	margin-top: .4rem;
+}
+.refund-goods .price{
+	color:#ff2244;
+}
+.refund-btn{
+	height:2.5rem;
+}
+.refund-btn a{
+	display: block;
+	line-height:2.5rem;
+	text-align: center;
+}
+.refund-btn .refund-agree{
+	background:@themecolor;
+	color:#fff;
+}
+.refund-btn .refund-refuse{
+	background:#eee;
+}

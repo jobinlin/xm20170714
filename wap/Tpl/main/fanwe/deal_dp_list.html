@@ -1,0 +1,37 @@
+{foreach from=$dp_list item=dp_item}
+<dd class="comment-con">
+	<div class="t-line">
+		<div class="commenter">
+			<img alt="用户头像" class="avatar f_l" src="{$dp_item.user_avatar}" width="42">
+			<div class="user-date f_l">
+				<p class="username">{$dp_item.user_name}</p>
+				<p>{$dp_item.format_show_date}</p>
+			</div>
+			<div class="m-start con-start">
+				<div class="start-num" style="width: {$dp_item.percent}%" data="{$dp_item.point}"></div>
+			</div>
+		</div>
+
+		<div class="comment-txt">
+			{$dp_item.content}
+		</div>
+		{if $dp_item.images}
+		<ul class="comment-imglist comment-imglist-nolimit">
+			{foreach from=$dp_item.images item=img name="dp_imgs"}
+			{if $smarty.foreach.dp_imgs.index lt 8}
+			<li class="comment-imgitem j-comment-item" data="{$smarty.foreach.dp_imgs.iteration}">
+				<img dfasf="{$smarty.foreach.dp_imgs.index}" src="{$img}" data-lingtsrc="{$img}" width="65" alt="有图评论-1" />
+			</li>
+			{/if}
+			{/foreach}
+		</ul>
+		{/if}
+		{if $dp_item.reply_content}
+		<div class="shop-reply">
+			<div class="sjj-up"></div>
+			<p><em>商家回复：</em>{$dp_item.reply_content}</p>
+		</div>
+		{/if}
+	</div>
+</dd>
+{/foreach}

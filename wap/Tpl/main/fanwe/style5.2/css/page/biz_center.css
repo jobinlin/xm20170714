@@ -1,0 +1,65 @@
+.biz-center-hd{
+	height:7.2rem;
+	position: relative;
+	background:@themecolor;
+}
+.biz-center-hd .user-avatar{
+	width:2.7rem;
+	height:2.7rem;
+	margin: 0 auto;
+	border:2px solid #ff657c;
+	border-radius:2.7rem;
+	overflow: hidden;
+	padding:0;
+	margin-top: .3rem;
+}
+.biz-center-hd .user-name{
+	color:#fff;
+	text-align: center;
+	line-height: 1.6rem;
+	font-size:@f_size2;
+}
+.biz-center-hd .to-setting{
+	display: block;
+	padding:.5rem .4rem;
+	position: absolute;
+	height:2rem;
+	width:1.8rem;
+	text-align: center;
+	top: 0;
+	left: 0;
+}
+.biz-center-hd .to-setting .iconfont{
+	font-size:1rem;
+	color:#fff;
+	line-height: 1rem;
+}
+.biz-center-list{
+	margin-top: .5rem;
+	background:#fff;
+	padding-left: .5rem;
+}
+.biz-center-list li{
+	padding:.5rem 0;
+	min-height:1.5rem;
+	padding-right: .5rem;
+}
+.biz-center-list li a{
+	height:1.5rem;
+}
+.biz-center-list li .icon{
+	width:.9rem;
+	height:1.5rem;
+	margin-right: .6rem;
+}
+.biz-center-list li .num{
+	color:#fd293e;
+}
+.biz-center-list li .list-tip{
+	font-size:@f_size4;
+	color:@f_color3;
+}
+.biz-center-list li .iconfont{
+	font-size:.8rem;
+	line-height: 1.5rem;
+}

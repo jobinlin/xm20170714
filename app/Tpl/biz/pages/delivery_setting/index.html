@@ -1,0 +1,187 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/delivery_setting.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/delivery_setting/dada_acount.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/delivery_setting/dada_acount.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/delivery_setting/setting.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/delivery_setting/setting.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+
+
+
+?>
+
+{include file="inc/header.html"}
+<script>
+	var SETTING_URL="{url i="biz" r="delivery_setting"}";
+</script>
+
+<div class="blank20"></div>
+<div class="page wrap_full">
+	<div class="left_box">
+		{include file="inc/biz_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="content">
+			<h1 class="page-title">{$head_title}</h1>
+			<?php if(IS_OPEN_DADA==1){?>
+			<div class="content-block open-dada">
+				<p class="f_l">开启达达配送</p>
+				<div class="open-btn f_l {if $is_open_dada_delivery eq 1} active {/if}">
+					<div class="open-button"></div>
+					<input type="hidden" value="{$is_open_dada_delivery}">
+				</div>
+			</div>
+			<?php } ?>
+			<div class="content-block delivery-tip clearfix">
+				<div class="tip-box">
+					<p>温馨提示：</p>
+					<p>1、所有门店的外卖订单，在配送员配送完毕后，都会从商户的配送帐号余额中扣除相应金额作为配送员的酬劳</p>
+					<p>2、配送帐号最低必须存有 {function name="format_price" v=$delivery_min_money} ，否则无法使用第三方配送</p>
+				</div>
+				<p class="user-money f_l">
+					配送账户可用余额：
+					<span>{function name="format_price" v=$delivery_money}</span>
+				</p>
+				<div class="charge-switch f_l">
+					<p>【<span class="j-charge active">充值</span> | <span class="j-withdraw">提现</span>】</p>
+				</div>
+			</div>
+			<div class="content-block charge-box">
+				<div class="charge">
+				<form action="{url i="biz" r="delivery_setting#charge"}" name="charge" method="post">
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">充值金额：</p>
+						<input type="text" holder="请输入充值金额" name='money' class="ui-textbox f_l pricebox">
+					</div>
+					
+				<div class="form-wrap clearfix">				
+				<p class="form-tit f_l">图形验证码：</p>	
+				<dd>
+					<input type="text" name="verify_code" class="ui-textbox img_verify verify-txt" holder="请输入图片文字" />
+					<img src="{$APP_ROOT}/verify.php" class="verify" rel="{$APP_ROOT}/verify.php" />
+					<a href="javascript:void(0);" class="refresh_verify">看不清楚？换一张！</a>
+					<span class="form_tip"></span>
+				</dd>
+			    </div>
+					
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">验证码：</p>
+						<input type="text" holder="请输入验证码" name="sms_verify" class="ui-textbox verify-txt f_l">			
+						<button class="f_l ui-button ph_verify_btn" rel="orange" mobile="{$mobile}"  lesstime="{$sms_lesstime}" type="button">发送验证码</button>
+						<p class="form-tip f_l"></p>		
+						
+					</div>
+					
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">充值方式：</p>
+						<div class="radio-box f_l">
+							<label class="ui-radiobox" rel="common_rdo"><input name="payment_id" type="radio" value="0" checked="checked" />商户账户可用余额{function name="format_price" v=$money}</label>
+							{foreach from=$payment_list item=payment}
+								<label class="ui-radiobox" rel="common_rdo"><input name="payment_id" type="radio" value="{$payment.id}" class_name="{$payment.class_name}" />{$payment.name}</label>
+								{if $payment.class_name eq 'AlipayBank'}
+								<div class="pay_box" style="display:none;">
+									{$payment.display_code}
+									
+								</div>
+								<div class="blank5"></div>
+								
+								{/if}
+							{/foreach}
+						</div>
+					</div>
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">&nbsp;</p>
+						<button class="f_l ui-button" rel="orange">充值</button>
+					</div>
+					</form>
+				</div>
+				<div class="withdraw">
+					<form action="{url i="biz" r="delivery_setting#withdraw"}" name="withdraw" method="post">
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">提现金额：</p>
+						<input type="text" name="money" holder="请输入提现金额" class="ui-textbox f_l pricebox">
+					</div>
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">提现方式：</p>
+						<p class="form-tip f_l">仅支持提现到商户账户（可用余额{function name="format_price" v=$delivery_money}）</p>
+					</div>
+					<div class="form-wrap clearfix">				
+					<p class="form-tit f_l">图形验证码：</p>	
+					<dd>
+						<input type="text" name="verify_code" class="ui-textbox img_verify verify-txt" holder="请输入图片文字" />
+						<img src="{$APP_ROOT}/verify.php" class="verify" rel="{$APP_ROOT}/verify.php" />
+						<a href="javascript:void(0);" class="refresh_verify">看不清楚？换一张！</a>
+						<span class="form_tip"></span>
+					</dd>
+				    </div>
+					
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">验证码：</p>
+						<input type="text" holder="请输入验证码" name="sms_verify" class="ui-textbox verify-txt f_l">			
+						<button class="f_l ui-button ph_verify_btn" rel="orange" mobile="{$mobile}"  lesstime="{$sms_lesstime}" type="button">发送验证码</button>
+						<p class="form-tip f_l"></p>		
+						
+					</div>
+					
+					<div class="form-wrap clearfix">
+						<p class="form-tit f_l">&nbsp;</p>
+						<button class="f_l ui-button" rel="orange">提现</button>
+					</div>
+					</form>
+				</div>
+			</div>
+			{if $order_list}
+			<div class="biz-table-tit">配送账户资金记录</div>
+			<div class="biz-table">
+				<table>
+					<colgroup>
+						<col width="25%">
+						<col width="25%">
+						<col width="25%">
+						<col width="25%">
+					</colgroup>
+					<thead>
+						<td>时间</td>
+						<td>金额</td>
+						<td>类型</td>
+						<td>状态</td>
+					</thead>
+					<tbody>
+					{foreach from=$order_list item=order}
+						<tr>
+							<td>{function name="to_date" v=$order.create_time}</td>
+							<td>{function name="format_price" v=$order.total_price}</td>
+							<td>充值</td>
+							<td>充值成功</td>
+						</tr>
+					{/foreach}	
+					</tbody>
+				</table>
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>
+
+<div class="blank20"></div>
+{include file="inc/footer.html"}

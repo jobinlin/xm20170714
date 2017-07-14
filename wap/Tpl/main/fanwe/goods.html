@@ -1,0 +1,96 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var brand_list={$data.brand_list_json};
+var brand_url='{$brand_url}';
+var price_url='{$price_url}';
+</script>
+<div class="page page-current" id="goods">
+ 	{include file="style5.2/inc/module/search_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom" data-distance="10">
+   		<!-- 页面主体 -->
+   		<div class="m-screen-bar b-line flex-box">
+   			<ul class="flex-box flex-1">
+   				<li class="screen-item"><a class="screen-all" href="javascript:void(0)"><p>{$data.cate_name}</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i></a></li>
+   				<li class="screen-item"><a class="screen-brand" href="javascript:void(0)"><p>品牌</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i></a></li>
+   				<li class="screen-item j-jg">
+	   				<a class="screen-price screen-link j-listchoose" date-href="{$price_url}" href="javascript:void(0);">
+	   					<p>价格</p>
+	   					<div class="arrow-btn">
+	   						<i class="iconfont arrow-up {if $order_type eq 'price_asc'}active{/if}">&#xe606;</i><i class="iconfont arrow-down {if $order_type eq 'price_desc'}active{/if}">&#xe608;</i>
+	   					</div>
+	   				</a>
+   				</li>
+   				<li class="screen-item j-xl"><a class="screen-sales screen-link j-listchoose {if $order_type eq 'buy_count'}active{/if}" date-href="{$sale_url}" href="javascript:void(0);"><p>销量</p></a></li>
+   			</ul>
+   			<a href="javascript:void(0)" class="type-switch"><i class="iconfont type-btn j-type-btn" id="type-cube">&#xe61b;</i><i class="iconfont type-btn j-type-btn" id="type-list">&#xe619;</i></a>
+   		</div>
+   		<div class="m-screen-list">
+	   		<div class="mask"></div>
+	   		<div class="all-screen" id="all-goods">
+	   			<ul class="goods-type r-line">
+		   			{foreach from=$data.bcate_list item=cate name="goods-type"}
+		   			<li class="b-line {if $cate.active} active{/if}" data-id="{$smarty.foreach.goods-type.index}">{$cate.name}</li>
+		   			{/foreach}
+	   			</ul>
+	   			<div class="type-detail flex-1">
+			   	{foreach from=$data.bcate_list item=cate name="goods-type"}
+			   	    <ul data-id="{$smarty.foreach.goods-type.index}" {if $cate.active} style="display:block;"{/if}>
+					{foreach from=$cate.bcate_type item=blist}
+						<li><a data-no-cache="true" class="j-listchoose {if $blist.active} active{/if}" date-href="{$blist.url}" href="javascript:void(0);"><p class="flex-1">{$blist.name}</p><p class="goods-num">{$blist.count}</p></a></li>
+					{/foreach}
+		  	   	    </ul>
+				{/foreach}
+	   			</div>
+	   		</div>
+	   		<div class="brand-screen j-pp">
+	   			<ul>
+	   			{if $data.brand_list}
+	   			{foreach from=$data.brand_list item=brand key=key}
+					<li data-id="{$brand.id}" {if $brand['active'] eq 1}class="active"{/if}><p>{$brand.name}</p><i class="iconfont">&#xe61c;</i></li>
+  				{/foreach}
+  				{else}
+  					<li style="text-align:center;width:100%;display:block">暂无品牌</li>
+  				{/if}
+	   			</ul>
+	   			<div class="brand-btn flex-box">
+	   				<a href="javascript:void(0)" class="flex-1 t-line brand-reset">重置</a>
+	   				<a date-href="{$brand_url}" href="javascript:void(0)" class="flex-1 j-listchoose brand-comfirm">确定</a>
+	   			</div>
+	   		</div>
+   		</div>
+      {if $data.item}
+   		<div class="m-goods-list j-ajaxlist">
+   			<ul class="type-cube clearfix j-ajaxadd">
+   				{foreach from=$data.item item=tuanlist}
+   				<li>
+   					<a data-no-cache="true" href="{url a="index" r="deal#index" p="data_id=$tuanlist.id"}">
+   						<div class="goods-img">
+							<img alt="" date-load="1" data-src="{$tuanlist.f_icon_v1}" src="{$TMPL}/style5.2/images/loading/no-image.png"/>
+						</div>
+   						<div class="goods-info">
+   							<h2 class="goods-name">{$tuanlist.name}</h2>
+   							<div class="sale-info">
+   								<p class="price">{$tuanlist.current_price}
+   									{if $tuanlist.origin_price neq 0}
+   									<del class="p-price">&yen;{$tuanlist.origin_price}</del>
+   									{/if}
+   								</p>
+   								
+   								{if $tuanlist.buy_count neq 0}
+                  				<p class="sale">已售{$tuanlist.buy_count}</p>
+                  				{/if}
+   							</div>
+   						</div>
+   					</a>
+   				</li>
+   				{/foreach}
+   			</ul>
+        <div class="pages hide">{$pages}</div>
+   		</div>
+      {else}
+      <div class="tipimg no_data">暂无数据</div>
+      {/if}
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,102 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-current" id="uc_ecv">
+
+<script>
+var INDEX_URL='{url i="index"}';
+var address='{$address}';
+var valid={$data.valid};
+var url=new Array();
+url[0] = '{url r="index" a="uc_ecv"}';
+url[1] = '{url r="index" a="uc_ecv" go="n_valid=1"}';
+var ajax_url  = '{url r="index" p="uc_ecv#do_exchange"}';
+</script>
+
+  <div class="uc-ecv-tab">
+    <ul class="b-line flex-box">
+      <li class="flex-1">
+        <a href="javascript:void(0);" rel='0' class="can-use {if $data.valid eq 0}active{/if}">可用</a>
+      </li>
+      <li class="flex-1">
+        <a href="javascript:void(0);"  rel='1' class="cant-use  {if $data.valid eq 1}active{/if}">失效</a>
+      </li>
+    </ul>
+    <div class="ecv-tab-line"></div>
+  </div>
+ 	{include file="style5.2/inc/auto_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom">
+   		<!-- 页面主体 -->
+      <div class="m-ecv-list j_ajaxlist_{$data.valid} {if $data.valid eq 1}used-ecv{/if}" id="tab{$data.valid}" rel="{$data.valid}">
+	      {if $list}
+	      <ul class="j_ajaxadd_{$data.valid}">
+	        {foreach from=$list item=unecv}
+	        <li class="youhuis-item flex-box">
+	          <a href="" class="flex-box flex-1">
+	            <div class="price {if $data.valid eq 1}disable{/if}">
+	              <div class="youhuis-border">{if $data.valid eq 1}<img src="{$TMPL}/style5.2/images/static/youhuis-border-gray.png" alt="">{else}<img src="{$TMPL}/style5.2/images/static/youhuis-border.png" alt="">{/if}</div>
+	                <p class="discount">
+	                	<span>&yen;</span>{$unecv.money}
+	                </p>
+	                {if $unecv.valid eq 1}
+		                {if $unecv.use_status eq 1 && $unecv.use_nubmer gt 0}
+		                <p class="use-time">使用次数：{$unecv.use_nubmer}</p>
+		                {elseif $unecv.use_status eq 1 && $unecv.use_limit eq 0}
+		                <p class="use-time">使用次数：不限</p>
+		               	{elseif $unecv.use_status eq 1 && $unecv.use_nubmer lte 0}
+		                <p class="use-time">使用次数：0</p>
+		                {/if}
+	                {else}
+		               	{if $unecv.use_status eq 0 && $unecv.use_nubmer gt 0}
+		                <p class="use-time">使用次数：{$unecv.use_nubmer}</p>
+		                {elseif $unecv.use_status eq 0 && $unecv.use_limit eq 0}
+		                <p class="use-time">使用次数：不限</p>
+		                {elseif $unecv.use_status eq 0 && $unecv.use_nubmer lte 0}
+		                <p class="use-time">使用次数：0</p>
+		                {/if}
+	                {/if}
+	              <div class="circle t-circle"></div>
+	              <div class="circle b-circle"></div>
+	            </div>
+	            <div class="youhui-info flex-1">
+	              <h2 class="youhui-name">{$unecv.name}</h2>
+	              <p class="ecv-time">使用期限：{$unecv.datetime}</p>
+	              {if $unecv.use_status eq 1}
+	              <!-- 已过期 -->
+	              {if $unecv.out_time eq 1}
+	              <div class="ecv-img">
+	                <img src="{$TMPL}/style5.2/images/static/uc_ecv_overdue.png" alt="">
+	              </div>
+	              {else}
+	              <!-- 已使用 -->
+	              <div class="ecv-img">
+	                <img src="{$TMPL}/style5.2/images/static/uc_ecv_used.png" alt="">
+	              </div>
+	              {/if}
+	              {/if}
+	            </div>
+	          </a>
+	        </li>
+	        {/foreach}
+	      </ul>
+	      {else}
+	      <div class="tipimg no_data">您还没有红包</div>
+	      {/if}
+      	  <div class="pages hide">{$pages}</div>
+      </div>
+	</div>
+	<div class="pop-up">
+		<div class="close-pop"></div>
+		<div class="img-box">
+			<div class="img-box-con">
+				<div class="pop-quan-id" style="line-height: 2rem;border: none;">红包兑换</div>
+				<form name="exchange_form" action="{url r="index" p="uc_ecv#do_snexchange"}" method="post">
+					<input type="text" placeholder="请输入红包兑换码" class="input-ecv-exchange" name="sn">
+					<i class="btn-ecv-exchange j-ecv-exchange">红包兑换</i>
+				</form>
+				<i class="iconfont close-pop-btn j-close-pop-btn">&#xe634;</i>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

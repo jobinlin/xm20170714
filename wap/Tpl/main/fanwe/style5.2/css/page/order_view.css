@@ -1,0 +1,254 @@
+#order_view .invoice-bar{
+    /*height:2rem;*/
+    display:-webkit-box;
+    display:-webkit-flex;
+    display: flex;
+    margin-left: .5rem;
+    padding-right: .5rem;
+    line-height: 2rem;
+}
+#order_view .invoice-bar .invoice-tit{
+    font-size:@f_size3;
+    margin-right: .5rem;
+}
+#order_view .invoice-bar .invoice-tip{
+    width:50%;
+    font-size:@f_size3;
+    padding:.5rem 0;
+    line-height: 1rem;
+    color:@f_color3;
+}
+#order_view .orderId{
+    width: 100%;
+    height: 2.215rem;
+    line-height: 2.215rem;
+    overflow: hidden;
+    padding-left: 0.5rem;
+    background: #ffffff;
+}
+#order_view .orderId .order_id{
+    width: 100%;
+    height: 100%;
+
+}
+#order_view .order_id p{
+    font-size: @f_size3;
+    color: @f_color3;
+}
+#order_view .order_id .order_state{
+    display: block;
+    width: auto;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    font-size: @f_size2;
+    color: @f_colortheme;
+}
+#order_view .m-conBox .m-title  .u-icon{
+    vertical-align: middle;
+    font-size: 0.8rem;
+}
+
+
+#order_view .j-select-body li .item-inner{
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+
+#order_view .order_total{
+    width: 100%;
+    background: #ffffff;
+    padding-left: 0.5rem;
+}
+#order_view .order_total .order_dt{
+    width: 100%;
+    height: 2.125rem;
+    line-height: 2.125rem;
+    font-size: @f_size3;
+    padding-right: 0.5rem;
+    overflow: hidden;
+}
+#order_view .order_dt .u-lg-price{
+    line-height: 2.125rem;
+    font-size: @f_size3;
+}
+#order_view .order_bt{
+    font-size: 0;
+}
+#order_view .order_bt a{
+    display: inline-block;
+    float: right;
+}
+#order_view .order_dt .btn{
+    padding: 0 0.5rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    height: 1.4rem;
+    line-height: 1.35rem;
+    margin: 0.36rem 0 0.3rem 0.35rem;
+    font-size: @f_size3;
+    color: @f_color1;
+}
+#order_view .order_dt .go_pay{
+    background: @themecolor;
+    color: #ffffff;
+    border: none;
+}
+#order_view .order_dt .confirm,.order_dt .firm_load,.order_dt .go_coupon{
+    border-color: @themecolor;
+    color: @f_colortheme;
+}
+
+#order_view .m-cart-list .shopTi p.sizes {
+    margin-top: 0.7rem;
+}
+.blank5{
+    width: 100%;
+    height: 0.5rem;
+    background: #f3f6f5;
+}
+
+#order_view .m-modify{
+    background: #f7f8f8;
+    margin-bottom: 0;
+}
+#order_view .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+#order_view .list-block .shop_total:before{
+    background: #e7e7e7;
+}
+#order_view .m-cart-list li{
+    background: #f7f8f8;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#order_view .m-cart-list li:after{
+    background: #ffffff;
+    height: 4px;
+}
+
+#order_view .m-oreder-derail .shop_total{
+    margin-left: 0.5rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+}
+#order_view .m-oreder-derail .shop_total li{
+    min-height: 1.6rem;
+}
+#order_view .m-oreder-derail .shop_total li .item-inner{
+    min-height: 1.6rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+#order_view .reduce_total .item-inner .item-after{
+    color: @f_colortheme!important;
+}
+#order_view .m-oreder-derail li{
+    margin-left: 0;
+}
+
+#order_view .oreder_pay_state{
+    font-size: @f_size3;
+    color:  @f_color2;
+    margin-top: 0.7rem;
+}
+
+#order_view .m-check-paybox .conBtn{
+    display: block;
+    float: right;
+    width: 3.85rem;
+    height: 1.35rem;
+    border-radius: 0.1rem;
+    text-align: center;
+    line-height: 1.35rem;
+    margin-top: 0.575rem;
+    margin-right: 0.5rem;
+    font-size: @f_size3;
+}
+#order_view .m-check-paybox .only_one{
+    margin-right: 0.5rem;
+    width: 3.85rem;
+    height: 1.35rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.1rem;
+    line-height: 1.35rem;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    margin-top: 0.575rem;
+}
+#order_view .nonborder{
+	display:block;
+	line-height:2.5rem;
+	 float: right;
+	 margin-right: 0.2rem;
+	color:  @f_color3!important;
+}
+.m-check-paybox .center-none{
+    color: #999 !important;
+    display: block;
+    line-height: 2.5rem;
+    margin-right: 0.2rem;
+    text-align: center;
+}
+#order_view .m-check-paybox .pay_btn{
+    color: #ffffff;
+    background: @themecolor;
+}
+#order_view .m-check-paybox .cancel_order{
+    color:  @f_color3;
+    border: 1px solid @bordercolor;
+}
+#order_view .m-logist .u-common-inline{
+    color: @f_color2;
+    height: 2.2rem;
+}
+#order_view .m-logist .u-common-inline .item-title{
+    color: @f_color1;
+}
+#order_view .list-block .item-content{
+    padding-left: 0rem;
+}
+
+
+#order_view .m-title .item-title-row{
+    margin-left: 0.5rem;
+}
+
+
+#order_view .remark_show{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.3rem 0.5rem;
+
+}
+#order_view .remark_show p{
+    font-size: 0.65rem;
+    color: #999;
+    line-height: 1.2rem;
+}
+#order_view .remark_show p span.remark_ti{
+    color: @f_color1;
+}
+#order_view .pick-shop{
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+	line-height:.8rem;
+	padding:.5rem;
+	padding-right:1rem;
+	background:#fff;
+	position:relative;
+}
+#order_view .pick-shop .shop-info{
+	color:@f_color3;
+	width:50%;
+}
+#order_view .pick-shop .iconfont{
+	position:absolute;
+	top:50%;
+	right:.5rem;
+	-webkit-transform:translateY(-50%);
+			transform:translateY(-50%);
+}

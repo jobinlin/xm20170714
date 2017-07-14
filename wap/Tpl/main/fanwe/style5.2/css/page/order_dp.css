@@ -1,0 +1,166 @@
+#uc_order_dp .bar .title{
+    font-size: @f_size2;
+}
+#uc_order_dp .u-edit_all{
+    font-size: @f_size3!important;
+    color: @f_color3;
+    line-height: 2.25rem;
+    position: relative;
+    z-index: 99999;
+}
+#uc_order_dp .bar .button-link .iconfont{
+    font-size: 1.1rem;
+}
+
+
+
+#uc_order_dp .evaluate{
+    width: 100%;
+    padding: 0 0.5rem;
+}
+#uc_order_dp .evaluate li{
+    width: 100%;
+    background:#ffffff url("@url/static/dp_bg.png")repeat-x left top;
+    background-size: 100% ;
+    margin: 0.5rem 0;
+    position: relative;
+}
+#uc_order_dp .eva_top{
+    padding: 0.6rem 0 0.5rem;
+    margin-left: 0.4rem;
+    -webkit-align-items: flex-start;
+    align-items:flex-start;
+}
+#uc_order_dp .evaluate li .shopImg{
+    width: 3.6rem;
+    height: 3.6rem;
+    overflow: hidden;
+    border: 1px solid #e6e5e9;
+    border-radius: 2px;
+    padding: 2px;
+    background: #ffffff;
+    margin-right: 0.5rem;
+}
+#uc_order_dp .shopImg img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+#uc_order_dp .textBox{
+    min-height: 3.6rem;
+    height: auto;
+    margin-right: 0.5rem;
+}
+#uc_order_dp .textBox textarea{
+    width: 100%;
+    min-height: 3.6rem;
+    height: auto;
+    overflow: visible;
+    color: @f_color1;
+    font-size: @f_size3;
+    padding-top: 0.2rem;
+    line-height: 0.9rem;
+}
+
+#uc_order_dp .eva_grade{
+    width: 100%;
+    height: 2rem;
+    overflow: hidden;
+    padding-right: 0.2rem;
+}
+#uc_order_dp .eva_grade span{
+    line-height: 2rem;
+    margin-left: 0.4rem;
+    color: @f_color1;
+    font-size: @f_size4;
+}
+#uc_order_dp .eva_grade .starBox{
+    width: auto;
+    float: right;
+    line-height: 2rem;
+}
+#uc_order_dp .eva_grade .starBox .iconfont{
+    font-size: 1.25rem;
+    margin: 0 0.1rem;
+    color: #DCDCDC;
+    vertical-align: bottom;
+}
+#uc_order_dp .eva_grade .starBox i.active{
+    color: #ff9c00;
+}
+
+#uc_order_dp .shadowBox{
+    width: 104%;
+    height: 0.3rem;
+    padding-top: 0.1rem;
+    background: rgba(0,0,0,.4);
+    border-radius: 0.15rem;
+    position: absolute;
+    bottom:0;
+    left: 50%;
+    -webkit-transform: translate(-50%,50%);
+            transform: translate(-50%,50%);
+}
+#uc_order_dp .shadowBox span{
+    display: block;
+    width: 98%;
+    height: 0.1rem;
+    margin: 0 auto;
+    background: #000000;
+}
+
+#uc_order_dp .bar:after, #uc_order_dp .bar:before{
+    background: transparent;
+}
+
+
+#uc_order_dp .labelBox{
+    color: #ffffff;
+    height: 2.5rem;
+    padding-left: 0.5rem;
+}
+#uc_order_dp .label_check{
+    width: 1rem;
+    height: 1rem;
+    float: left;
+    margin-top: 0.7rem;
+}
+#uc_order_dp .label_check input[type=checkbox]{
+    display: none;
+}
+#uc_order_dp .iconBox{
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    border-radius: 1rem;
+    border: 1px solid #e3e5e9;
+    box-sizing: border-box;
+    background-image: url("@url/static/check_bg.png");
+    background-size: 100% 100%;
+}
+#uc_order_dp .label_check input[type=checkbox]:checked+.iconBox{
+    background-color: #ff2244;
+    border: 1px solid #ff2244!important;
+}
+#uc_order_dp .labelBox span{
+    display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-left: 0.2rem;
+    font-size: @f_size3;
+    float: left;
+}
+
+#uc_order_dp .send_dp{
+    width: 3.8rem;
+    height: 1.3rem;
+    background: @themecolor;
+    color: #ffffff;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.65rem;
+    line-height: 1.3rem;
+    border-radius: 0.15rem;
+    font-size: @f_size3;
+}

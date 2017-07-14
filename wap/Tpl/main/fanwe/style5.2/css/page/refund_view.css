@@ -1,0 +1,119 @@
+#refund_view .m-cart-list li{
+    background: #f7f8f8;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+    display: block;
+}
+#refund_view .m-cart-list li:after{
+    background: #ffffff;
+    height: 4px;
+}
+#refund_view .z-opera{
+    height:3.2rem;
+}
+#refund_view .m-modify{
+    background: #f7f8f8;
+    margin-bottom: 0;
+}
+#refund_view .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+#refund_view .m-cart-list .item-inner{
+    display: block;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-right: 0.5rem;
+}
+#refund_view .refund-status{
+    font-size:.6rem;
+    padding:.5rem 0;
+    padding-right: .5rem;
+}
+#refund_view .refund-status .iconfont{
+    font-size:.8rem;
+    display: block;
+    margin-right: .2rem;
+}
+#refund_view .refund-status .iconfont.waiting{
+    color:#f60;
+}
+#refund_view .refund-status .iconfont.success{
+    color:@f_colortheme;
+}
+#refund_view .refund-status .iconfont.fail{
+    color:@f_color3;
+}
+#refund_view .refund-status .refund-tip{
+    line-height: 1rem;
+}
+#refund_view .refund-status .refund-tip span{
+    color:@f_color3;
+    font-size:@f_size4;
+}
+#refund_view .refund-status .refund-tip .price{
+    color:#f42;
+}
+#refund_view .refund-status .status{
+    line-height: 1.4rem;
+}
+#refund_view .price-count{
+    padding-right: .5rem;
+    text-align:right;
+    font-size:.6rem;
+    line-height: 2rem;
+}
+#refund_view .price-count .price{
+    color:#f42;
+}
+#refund_view .m-cart-list .shopTi p.sizes {
+    margin-top: 0.7rem;
+}
+
+#refund_view .refund_cause{
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+    padding: 0.5rem;
+    align-items: flex-start;
+    -webkit-align-items:flex-start;
+}
+#refund_view .refund_cause .explain{
+    display: block;
+    font-size: @f_size4;
+    color: @f_color3;
+    height: 100%;
+    line-height: 0.9rem;
+    margin-right: 0.5rem;
+}
+#refund_view .refund_cause .causeBox{
+    padding: 0;
+    font-size: @f_size4;
+    color: @f_color1;
+    line-height: 0.9rem;
+    overflow: auto;
+}
+#refund_view .refund_state{
+    font-size: @f_size3;
+    color: @f_color1;
+}
+#refund_view a.totop{
+    visibility: hidden!important;
+}
+
+/*退款记录*/
+#refund_view .refund_state{
+    font-size: @f_size3;
+    color: @f_color1;
+}
+#refund_view .refund_money{
+    width: 100%;
+    background: #ffffff;
+}
+#refund_view .refund_money p{
+    line-height: 2rem;
+    font-size: @f_size3;
+    color: @f_color1;
+    text-align: right;
+    margin-right: 0.5rem;
+}
+/*退款记录*/

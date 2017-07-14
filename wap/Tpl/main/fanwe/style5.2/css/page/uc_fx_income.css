@@ -1,0 +1,51 @@
+.can-withdraw{
+	font-size: .8rem;
+	line-height: 1.6rem;
+	color:#fff;
+}
+.all-money{
+	font-size: @f_size4;
+	color:#fff;
+}
+.hd-tip{
+	color:#fff;
+	line-height: 2rem;
+}
+.hd-tip .iconfont{
+	color:#fff;
+	font-size:1rem;
+	display: inline-block;
+	vertical-align: top;
+}
+.m-income-list{
+	background:#fff;
+	padding-left:.5rem;
+	margin-top:.5rem;
+}
+.income-list li{
+	padding:.5rem .5rem .5rem 0;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+}
+.income-list .income-time{
+	width:4rem;
+	color:@f_color3;
+}
+.income-list .income-date{
+	font-size:.8rem;
+}
+.income-list .income-time .time{
+	font-size:@f_size4;
+}
+.income-list .income-info{
+	width:50%;
+}
+.income-list .income-info .income-num{
+	color:#ff2244;
+}
+.income-list .income-info .income-tip{
+	color:@f_color3;
+	word-wrap:break-word;
+	word-break:break-all;
+}

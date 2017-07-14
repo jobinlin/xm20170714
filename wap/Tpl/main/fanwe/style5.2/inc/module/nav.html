@@ -1,0 +1,51 @@
+{if $app_index=='app'}
+//app上显示
+<nav class="bar bar-tab">
+	<a class="tab-item {if $MODULE_NAME == 'index'}active{/if}" href="javascript:App.app_detail(1,0);">
+	<span class="icon iconfont i-home"></span>
+	<span class="tab-label">首页</span>
+	</a>
+	<a class="tab-item {if $MODULE_NAME == 'discover'}active{/if}" href="javascript:App.app_detail(105,0);">
+	<span class="icon iconfont i-find"></span>
+	<span class="tab-label">发现</span>
+	</a>
+	<a data-no-cache="true" class="tab-item {if $MODULE_NAME == 'cart'}active{/if}" href="{url a="index" r="cart"};" >
+	<span class="icon iconfont i-shopcart"></span>
+	<span class="tab-label">购物车</span>
+	</a>
+
+	{if $is_login}
+	<a class="tab-item {if $MODULE_NAME == 'user_center'}active{/if}" href="{url a="index" r="user_center"};" data-no-cache="true">
+		<span class="icon iconfont i-mine"></span>
+		<span class="tab-label">我的</span>
+	</a>
+		{else}
+		<a class="tab-item {if $MODULE_NAME == 'user_center'}active{/if}" href="javascript:App.login_sdk();" data-no-cache="true">
+
+			<span class="icon iconfont i-mine"></span>
+			<span class="tab-label">我的</span>
+		</a>
+		{/if}
+
+
+</nav>
+{else}
+  	<nav class="bar bar-tab">
+	    <a class="tab-item {if $MODULE_NAME == 'index'}active{/if}" href="{url a="index" r=""}" data-no-cache="true">
+	      	<span class="icon iconfont i-home"></span>
+	      	<span class="tab-label">首页</span>
+	    </a>
+	    <a class="tab-item {if $MODULE_NAME == 'discover'}active{/if}" href="{url a="index" r="search"}" data-no-cache="true">
+	      	<span class="icon iconfont i-find"></span>
+	      	<span class="tab-label">发现</span>
+	    </a>
+	    <a data-no-cache="true" class="tab-item {if $MODULE_NAME == 'cart'}active{/if}" href="{url a="index" r="cart"}" data-no-cache="true">
+	      	<span class="icon iconfont i-shopcart"></span>
+	      	<span class="tab-label">购物车</span>
+	    </a>
+	    <a class="tab-item {if $MODULE_NAME == 'user_center'}active{/if}" href="{url a="index" r="user_center"}" data-no-cache="true">
+	      	<span class="icon iconfont i-mine"></span>
+	      	<span class="tab-label">我的</span>
+	    </a>
+  	</nav>
+{/if}

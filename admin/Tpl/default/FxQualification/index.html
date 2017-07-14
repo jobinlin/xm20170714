@@ -1,0 +1,83 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$title_name}</div>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">分销员名称：</td>
+		<td class="item_input">
+			<input type="text" name="name" value="{$vo.name}" style="height: 20px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">缴纳费用:</td>
+		<td class="item_input" >
+			<input style="height: 20px;" type="text" name="pay_fee" value="{$vo.pay_fee}" pattern="([0-9]*)|(\d+(\.\d{1,4}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') "/>&nbsp;元
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">推荐奖励：</td>
+		<td class="item_input">
+			<label>当会员缴费成为分销员时，其推荐人可获得缴纳费用的<input style="width:30px;height: 20px;" type="text" name="tz_award" value="{$vo.tz_award}" pattern="([0-9]*)|(\d+(\.\d{1,4}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') "/>%作为奖励,推荐人所属城市的代理商可获得缴纳费用的<input style="width:30px;height: 20px;" type="text" name="fx_award" value="{$vo.fx_award}" pattern="([0-9]*)|(\d+(\.\d{1,4}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') "/>%作为奖励，</label>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">购买协议:</td>
+		<td class="item_input">
+			<table>
+				<tr>
+					<td>
+						 <html:editor id="pay_agreement" name="pay_agreement" type="KINDEDITOR" content="{$vo.pay_agreement}" />
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">pc特权:</td>
+		<td class="item_input">
+			<table>
+				<tr>
+					<td>
+						 <html:editor id="pc_privilege" name="pc_privilege" type="KINDEDITOR" content="{$vo.pc_privilege}" />
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">手机特权:</td>
+			<td class="item_input">
+				<include file="Public:phone_description" />
+				<input type="hidden" id="phone_description" name="phone_description" value='{$vo.phone_description}'>
+			</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+ 			<input type="hidden" name="{:conf("VAR_MODULE")}" value="FxQualification" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="edit" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

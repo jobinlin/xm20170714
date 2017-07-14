@@ -1,0 +1,209 @@
+.check-box .iconfont{
+	position: absolute;
+	display: block;
+	top: 50%;
+	left: 50%;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	border: 1px solid @bordercolor;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+
+.check-box .isCheck{
+	background: @themecolor;
+	border: 1px solid @themecolor;
+}
+
+.check-box .isCheck:before{
+	content: "\e61c";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+	color: #fff;
+}
+
+#uc_collect .content{
+	top: 4.2rem !important;
+}
+
+
+.m-operation{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 2.45rem;
+	line-height: 2.45rem;
+	background: #fff;
+	visibility: hidden;
+}
+
+.m-operation .check-box{
+	position: relative;
+	left: 0;
+	height: 2.2rem;
+	width: 2rem;
+}
+
+
+.m-operation.isShow{
+	visibility: visible;
+}
+
+.m-operation .cancel{
+	position: absolute;
+	top: 50%;
+	right: .5rem;
+	width: 3.8rem;
+	height: 1.325rem;
+	line-height: 1.325rem;
+	border: 1px solid #ccc;
+	text-align: center;
+	border-radius: 4px;
+	-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
+}
+
+.m-operation.isShow~.content{
+	bottom: 2.45rem;
+}
+
+.m-tab-btn-list{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 2.2rem;
+	height: 2rem;
+	line-height: 2rem;
+	background: #fff;
+	text-align: center;
+	font-size: @f_size3;
+	color: @f_color3;
+	z-index: 10;
+}
+
+.m-tab-btn-list .active{
+	color: @f_color1;
+}
+
+.m-tab-btn-list .bottom-line{
+	position: absolute;
+	bottom: 0;
+	height: .1rem;
+	width: 5em;
+	background: @themecolor;
+	border-radius: 3px 3px 0 0;
+	transition: all .3s;
+}
+
+.m-collect-list .collect-item{
+	position: relative;
+	background: #fff;
+	padding: .5rem 0;
+	padding-left: @comspacing;
+	margin-bottom: @rowspacing;
+}
+
+.m-collect-list.isEdit .collect-item{
+	padding-left: 0;
+}
+.m-collect-list .shop-item{
+	margin-bottom: 0;
+}
+.m-collect-list .shop-item:last-child::after{
+	height:0;
+}
+.m-collect-list .collect-item .check-box{
+	position: relative;
+	display: none;
+	width: 2rem;
+	height: 3.4rem;
+}
+
+.m-collect-list.isEdit .check-box{
+	display: block;
+}
+
+.m-collect-list .collect-item .collect-img{
+	width: 3.4rem;
+	height: 3.4rem;
+	margin-right: .4rem;
+}
+
+.m-collect-list .collect-item .collect-name{
+	display: -webkit-box;
+	padding-right: @comspacing;
+	font-size: @f_size3;
+	line-height: .925rem;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+.m-collect-list .collect-item .shop-name{
+	line-height: 1rem;
+	font-size:@f_size2;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	padding-right: .5rem;
+}
+.m-collect-list .collect-item .m-start{
+	width: 79px;
+	height: 13px;
+}
+.m-collect-list .collect-item .shop-point{
+	line-height: 1.4rem;
+	color: #ffa800;
+	margin-left: .25rem;
+}
+.m-collect-list .collect-item .collect-price{
+	margin-top: .7rem;
+	font-size: @f_size3;
+	color: @f_colortheme;
+}
+.m-collect-list .collect-item .shop-info{
+	height:1rem;
+	padding-right: .5rem;
+	color:@f_color3;
+	font-size:@f_size4;
+}
+.m-collect-list .collect-item .shop-cate{
+	margin-left: .25rem;
+}
+.m-collect-list .collect-item .collect-price em{
+	font-size: @f_size2;
+}
+
+.m-collect-list .collect-item .icon-sold-out{
+	display: none;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	width: 3.125rem;
+	-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+}
+
+.m-collect-list .collect-item.isOver .collect-name{
+	color: @f_color3;
+}
+
+.m-collect-list .collect-item.isOver .collect-price{
+	color: @f_color3;
+}
+
+.m-collect-list .collect-item.isOver .icon-sold-out{
+	display: block;
+}
+.no-href{
+	position: absolute;
+	left: 2rem;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+}

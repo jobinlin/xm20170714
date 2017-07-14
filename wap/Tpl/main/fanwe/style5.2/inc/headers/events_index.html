@@ -1,0 +1,41 @@
+{if $app_index=='app'}
+{include file="style5.2/inc/module/app-dropdown-nav.html"}
+<header class="bar bar-nav">
+	<div class="m-search-header flex-box">
+		{if $page_finsh}
+		<a class="header-btn header-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+		{else}
+		<a class="header-btn header-left iconfont back">&#xe604;</a>
+		{/if}
+		<a href="javascript:App.app_detail(105,0)" class="flex-1">
+		<div class="flex-box go-search">
+			<i class="iconfont">&#xe61a;</i>
+			{if $data.keyword}
+			<p>{$data.keyword}</p>
+			{else}
+			<p>搜索活动关键字</p>
+			{/if}
+		</div>
+		</a>
+		<a class="header-btn header-right iconfont j-opendropdowm-default" href="javascript:void(0)">&#xe624;</a>
+	</div>
+</header>
+{else}
+{include file="style5.2/inc/module/dropdown-nav.html"}
+<header class="bar bar-nav">
+	<div class="m-search-header flex-box">
+		<a class="header-btn header-left iconfont back" href="">&#xe604;</a>
+		<a href="{url a="index" r="search#index"}" class="flex-1">
+			<div class="flex-box go-search">
+				<i class="iconfont">&#xe61a;</i>
+				{if $data.keyword}
+				<p>{$data.keyword}</p>
+				{else}
+				<p>搜索活动关键字</p>
+				{/if}
+			</div>
+		</a>
+		<a class="header-btn header-right iconfont j-opendropdowm-default" href="javascript:void(0)">&#xe624;</a>
+	</div>
+</header>
+{/if}

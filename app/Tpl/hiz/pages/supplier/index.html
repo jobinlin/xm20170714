@@ -1,0 +1,110 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/supplier.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/supplier.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/location.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/location.js";
+
+?>
+<script>
+var publish_page_url="{url r="hiz" b="supplier#publish_supplier"}";
+var location_page_url="{url r="hiz" b="location#publish_location"}";
+</script>
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map"><a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>{$page_title}</span></div>
+<div class="content">
+	<div class="table-content">
+		<div class="table-nav clearfix">
+			<ul class="nav-list cleafix f_l">
+				<li class="f_l"><a class="nav-item transition active" href="javascript:void(0);" data-href="{url r="hiz" b="supplier"}">已入驻商家</a></li>
+				<li class="f_l"><a class="nav-item transition" href="javascript:void(0);" data-href="{url r="hiz" b="supplier#publish_supplier"}">商家审核列表</a></li>
+				<li class="f_l"><a class="nav-item transition" href="javascript:void(0);" data-href="{url r="hiz" b="location#publish_location"}">门店审核列表</a></li>
+			</ul>
+			<a href="{url r="hiz" b="location#publish"}" class="f_r table-nav-btn transition">新增门店</a>
+			<a href="{url r="hiz" b="supplier#publish"}" class="f_r table-nav-btn transition">新增商家</a>
+			<div class="table-line transition"></div>
+		</div>
+		<div class="j-ajax-content">
+			<div class="search-bar">
+				<input class="ui-textbox search-input" type="text" id="key" holder="请输入商家名称" placeholder="请输入商家名称"><a href="javascript:void(0);" data-href="{url r="hiz" b="supplier"}" class="search-btn transition">搜索</a>
+			</div>
+			{if $list}
+			<div class="hiz-table">
+				<table>
+					<col>
+					<col width="10%">
+					<col width="12%">
+					<col width="10%">
+					<col width="7%">
+					<col width="10%">
+					<col width="10%">
+					<col width="8%">
+					<col width="160px">
+					<thead>
+						<td style="text-align: left;">商家</td>
+						<td>销售额（元）</td>
+						<td>用户退款（元）</td>
+						<td>余额（元）</td>
+						<td>门店数</td>
+						<td>支持退款审核</td>
+						<td>支持自动发布</td>
+						<td>结算费率</td>
+						<td>操作</td>
+					</thead>
+					<tbody>
+						{foreach from=$list item=item name=odd}
+					<tr class="{if $smarty.foreach.odd.index%2 eq 0}odd{/if} transition">
+							<td class="shop-name">{$item.name}</td>
+							<td>{$item.sale_money}</td>
+							<td>{$item.refund_money}</td>
+							<td>{$item.money}</td>
+							<td>{$item.location_count}</td>
+							<td>{if $item.allow_refund eq 0}否{else}是{/if}</td>
+							<td>{if $item.allow_publish_verify eq 0}否{else}是{/if}</td>
+							<td>{$item.publish_verify_balance}</td>
+							<td>
+								<a class="transition" href="{$item.detail_url}">查看详情</a><a class="transition" style="border-left: 1px solid #ddd;" href="{$item.location_url}">门店列表</a>
+							</td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</div>
+			<div class="pages">
+				{$pages}
+			</div>
+			{else}
+			<div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+			<div class="no-data">暂无商家</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

@@ -1,0 +1,181 @@
+.page-title{
+	margin-left: 15px;
+	border-bottom:1px solid #ddd;
+	font-size:16px;
+	font-weight:normal;
+	line-height: 40px;
+}
+.content-block{
+	background:#f7f7f7;
+	border:1px solid #ddd;
+	margin: 20px 15px 0;
+}
+.open-dada{
+	line-height: 40px;
+	height:40px;
+	padding:10px 20px;
+}
+.open-dada .open-btn{
+	width:60px;
+	height:24px;
+	border-radius:12px;
+	margin-top: 8px;
+	margin-left: 20px;
+	border:1px solid #ddd;
+	background:#ccc;
+	position: relative;
+	cursor:pointer;
+	-webkit-transition: all .25s ease;
+	   -moz-transition: all .25s ease;
+	    -ms-transition: all .25s ease;
+	     -o-transition: all .25s ease;
+	        transition: all .25s ease;
+}
+.open-dada .open-btn .open-button{
+	width:24px;
+	height:24px;
+	border:1px solid #ddd;
+	border-radius:12px;
+	box-shadow:0 1px 3px rgba(0, 0, 0, .5);
+	background:#fff;
+	position: absolute;
+	top: -1px ;
+	left: 0;
+	-webkit-transition: all .25s ease;
+	   -moz-transition: all .25s ease;
+	    -ms-transition: all .25s ease;
+	     -o-transition: all .25s ease;
+	        transition: all .25s ease;
+}
+.open-dada .open-btn.active{
+	background:#4bd763;
+}
+.open-dada .open-btn.active .open-button{
+	left:34px;
+}
+.delivery-tip{
+	padding:20px;
+}
+.delivery-tip .tip-box{
+	background:#ffc;
+	border:1px solid #ddd;
+	padding:10px 15px;
+	line-height: 24px;
+	font-size:14px;
+	color:#f60;
+}
+.delivery-tip .user-money{
+	margin-top: 20px;
+	line-height: 40px;
+}
+.delivery-tip .user-money span{
+	display: inline-block;
+	vertical-align: top;
+	font-size:20px;
+	color:#f60;
+}
+.delivery-tip .charge-switch{
+	line-height: 40px;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+.delivery-tip .charge-switch span{
+	cursor:pointer;
+}
+.delivery-tip .charge-switch span:hover{
+	color:#f60;
+}
+
+.charge-box{
+	padding:20px;
+}
+.charge-box .form-wrap{
+	min-height:40px;
+	margin-bottom: 15px;
+}
+.charge-box .form-wrap .form-tit{
+	width:6em;
+	margin-right: 10px;
+	text-align:right;
+	line-height: 40px;
+}
+.charge-box .form-wrap .ui-textbox{
+	padding:0 10px;
+	width:230px;
+	height:38px;
+	border-radius:3px;
+}
+.charge-box .form-wrap .verify-txt{
+	width:100px;
+	margin-right: 10px;
+}
+.charge-box .form-wrap .form-tip{
+	margin-left: 10px;
+	font-size:12px;
+	line-height: 40px;
+}
+.charge-box .form-wrap .ui-radiobox{
+	margin-top: 13px;
+	display: block!important;
+}
+.charge-box .withdraw{
+	display:none;
+}
+.biz-table-tit{
+	line-height: 40px;
+	font-size:16px;
+	padding:0 15px;
+}
+.biz-table{
+	padding: 0 20px;
+}
+.biz-table table{
+	width:100%;
+	text-align: center;
+}
+.biz-table table thead tr{
+	border-right:1px solid #f7f7f7;
+	border-left:1px solid #f7f7f7;
+}
+.biz-table table thead td{
+	height:40px;
+	background:#f7f7f7;
+}
+.biz-table table tbody tr{
+	border:1px solid #ddd;
+	border-top:0;
+}
+.biz-table table tbody td{
+	height:40px;
+}
+
+.payment_rdo {
+    float: left;
+    border: #dcdcdc 1px solid;
+    width: 150px;
+    height: 40px;
+    display: inline-block;
+    margin: 0px 7px 5px 0px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 40px;
+}
+.payment_rdo_checked , .payment_rdo_hover {
+    float: left;
+    border: #f80 1px solid;
+    width: 150px;
+    height: 40px;
+    display: inline-block;
+    margin: 0px 7px 5px 0px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 40px;
+}
+
+.pay_box{
+	width: 800px;
+    float: left;
+}
+.alibank_types{margin-top:5px !important;}
+
+.charge-switch .active{color:red;}

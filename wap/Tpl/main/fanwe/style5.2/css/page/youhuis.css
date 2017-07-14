@@ -1,0 +1,126 @@
+.m-youhuis-list{
+	padding: .5rem .5rem 0;
+}
+.youhuis-item{
+	margin-bottom: .5rem;
+	box-shadow: 0 1px 1px rgba(0,0,0,.13);
+	border-radius: 5px;
+}
+.youhuis-item a{
+	background:#fff;
+	height: 4rem;
+}
+.youhuis-item .youhui-main{
+	border-radius: 5px 0 0 5px;
+	width: 50%;
+}
+.youhuis-item .price{
+	font-size: 2rem;
+	color:#ff2244;
+	width: 4.5rem;
+	height: 4rem;
+	line-height: 4rem;
+	text-align: center;
+	border-right: 1px dotted #e5e5e5;
+	position: relative;
+	z-index:1;
+}
+.youhuis-item .price.disable{
+	color:#cecece;
+}
+.youhuis-item .price .youhuis-border{
+	width:10px;
+	border-radius:5px 0 0 5px;
+	position: absolute;
+	height: 100%;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	z-index:2;
+}
+.youhuis-item .price .youhuis-border img{
+	height:100%;
+	vertical-align: top;
+}
+.youhuis-item .price .num span{
+	font-size: @f_size3;
+}
+.youhuis-item .price .discount em{
+	font-size: 1rem;
+}
+.youhuis-item .price .discount span{
+	font-size: @f_size2;
+}
+.youhuis-item .price .circle{
+	width: .5rem;
+	height: .5rem;
+	border-radius: .25rem;
+	position: absolute;
+	right: -.25rem;
+	z-index:2;
+	background: #f3f6f5;
+	-webkit-transform: translateX(.5px);
+	        transform: translateX(.5px);
+}
+.youhuis-item .price .t-circle{
+	top: -.25rem;
+}
+.youhuis-item .price .b-circle{
+	bottom: -.25rem;
+	box-shadow: 0 1px 1px rgba(0,0,0,.13) inset;
+}
+.youhuis-item .youhui-info{
+	margin-left: .5rem;
+	width:30%;
+}
+.youhuis-item .youhui-info .youhui-name{
+	font-size:@f_size2;
+	line-height: 1.25rem;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.youhuis-item .youhui-info .store-name{
+	line-height: .8rem;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	margin-top: .4rem;
+}
+.youhuis-item .youhui-info .address{
+	font-size:@f_seze4;
+	color:@f_color3;
+	line-height: .8rem;
+}
+.youhuis-item .youhui-status{
+	border-radius:0 5px 5px 0;
+	width:4rem;
+	line-height: .9rem;
+	text-align: center;
+}
+.youhuis-item .youhui-status .status{
+	color:@f_color3;
+	font-size:@f_size4;
+}
+.youhuis-item .youhui-status .status-tip{
+	font-size:@f_size2;
+}
+.youhuis-item .youhui-status .status-tip span{
+	font-size:@f_size3;
+}
+.youhuis-item .youhui-status .youhui-btn{
+	width:3.4rem;
+	height: 1.1rem;
+	padding: 0;
+	background:#fe633f;
+	color:#fff;
+	margin-top: .3rem;
+	border-radius:3px;
+	font-size:@f_size4;
+}
+.youhuis-item .youhui-status .youhui-img{
+	margin-right: .2rem;
+}
+.youhuis-item .youhui-status .youhui-img img{
+	width:100%;
+}

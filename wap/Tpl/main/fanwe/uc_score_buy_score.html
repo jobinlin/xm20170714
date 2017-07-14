@@ -1,0 +1,73 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var score_number_array_other={$data.score_number_array_other};
+var frozen_score={$data.SCORE_RECHARGE_FROZEN_SCORE};
+var usable_score={$data.SCORE_RECHARGE_USABLE_SCORE};
+</script>
+<div class="page page-current" id="uc_score_buy_score">
+    <form name="buy_score" data-action="{url r="index" p="uc_score#done"}" method="post" >
+    {include file="style5.2/inc/auto_header.html"}
+    <div class="content">
+        <div class="charge-hd">选择充值金额</div>
+        <div class="charge-bd ">
+            {foreach from=$data.score_number_array item=item key=key}
+            <div class="select_num money_number {if $key==0}first_number{/if}" data-money="{$item}" data-value="{$item}" >&yen;{$item}</div>
+            {/foreach}
+            {if $data.score_number>6}
+              <div class="" ><input type="text" class="select_other money_number" placeholder="其他金额"></div>
+            {/if}
+            <div class="blank"></div>
+            </div>
+            <div class="input-1"><span class="first">获得可用积分</span><span class="usable">请选择购买金额</span></div>
+            <div class="input-1"><span class="first">获得冻结积分</span><span class="frozen">请选择购买金额</span></div>
+            <input type="hidden" value="" name="money" >
+            {if $data.user_info.money>0}
+            <div class="list-block m-my-conut">
+                <div class="content-block-title">账户余额</div>
+                <div class="item-content u-common-box">
+                    <div class="item-inner">
+                        <div class="item-title">我的余额<span class="my-money">&yen; {function name="format_price_txt" v=$data.user_info.money}</span></div>
+                        <div class="item-after">
+                            <label class="label-checkbox">
+                                <input type="radio" id="all_account_money" class="payment_input" name="all_account_money" value="{$data.user_info.money}" {if $data.all_account_money eq 1} checked="checked"{/if}>
+                                <div id="all_account_money" class="item-media {if $data.all_account_money eq 1} active{/if}" >
+                                    <i class="icon icon-form-checkbox"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        {/if}
+        {if $data.payment_list}
+        <div class="list-block m-payway">
+            <div class="content-block-title">其他支付方式</div>
+            <ul>
+                {foreach from=$data.payment_list item=payment}
+                <li class="b-line">
+                    <div class="item-content u-common-box pay_line">
+                        <div class="item-inner">
+                            <div class="item-title pay-way-name"><div class="pay_logo"><img src="{$payment.logo}" /></div>{$payment.name}<span class="payment_fee"></span></div>
+                            <div class="item-after">
+                                <label class="label-checkbox">
+                                    <input type="radio" name="payment_id" class="payment_input" value="{$payment.id}" {if $data.payment eq $payment.id} checked="checked"{/if}>
+                                    <div class="item-media payment">
+                                        <i class="icon icon-form-checkbox"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        {/if}
+        <div class="subbox">
+            <input type="button" id="submit" value="确认充值" class="f-btn">
+        </div>
+    </div>
+    </form>
+</div>
+{include file="style5.2/inc/footer.html"}

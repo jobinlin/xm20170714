@@ -1,0 +1,353 @@
+/*sui样式重置*/
+.list-block{
+    margin-top: 0;
+}
+.list-block .item-content{
+    padding-left: 0.5rem;
+    min-height: 0rem;
+}
+.list-block .item-inner{
+    padding-right: 0.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 0rem;
+}
+.list-block .item-inner:after,.list-block ul,.list-block ul:before{
+    background: transparent;
+}
+.list-block select{
+    padding: 0;
+    font-size: 0.65rem;
+    color: @f_color1;
+}
+.list-block select option{
+    font-size: 0.70rem;
+    color: @f_color1;
+}
+/*sui样式重置*/
+
+
+/*头部开始*/
+.bar .title{
+    font-size: @f_size2;
+}
+.bar .button-link .iconfont{
+    font-size: 1.1rem;
+}
+.u-edit_all{
+    font-size: @f_size3!important;
+    color: @f_color3;
+    line-height: 2.25rem;
+    position: relative;
+    z-index: 99999;
+}
+/*头部结束*/
+
+/*地址列表开始*/
+#order_address .list-hd,#uc_address_index .list-hd{
+    line-height: 1.2rem;
+    font-size:.6rem;
+    padding:0 .5rem;
+}
+.pick-shop-list{
+    overflow: hidden;
+    -webkit-transition: all .25s ease;
+            transition: all .25s ease;
+}
+.pick-shop-list li{
+    padding:.5rem;
+    background:#fff;
+}
+.pick-shop-list li:first-child::before{
+    content:none;
+}
+.pick-shop-list .shop-name{
+    font-size:@f_size2;
+    line-height: 1rem;
+    padding:.2rem 0;
+}
+.pick-shop-list .shop-address,.pick-shop-list .shop-phone{
+    line-height: 1rem;
+    font-size:.6rem;
+    color:#999;
+}
+.m-pick-shop-list .check-more,.m-pick-shop-list .check-back{
+    line-height: 2rem;
+    text-align: center;
+    background:#fff;
+}
+.m-pick-shop-list .check-back{
+    display:none;
+}
+.m-address-list li{
+    margin-bottom: 0.5rem;
+    background: #FFFFFF;
+}
+.m-address-top{
+    padding-top: 0.7rem;
+    padding-bottom: 0.65rem;
+}
+.m-address-top .u-address-title{
+    font-size: @f_size3;
+    color: @f_color1;
+    line-height: 0.9rem;
+}
+.m-address-body{
+    padding-bottom: 0.5rem;
+}
+.m-address-body .u-address-mess{
+    font-size: @f_size3;
+    color: @f_color3;
+    line-height: 0.8rem;
+    min-height: 1.6rem;
+    height: auto;
+}
+#uc_address_add .label-checkbox{
+    width: 45%;
+}
+#uc_address_index .label-checkbox{
+    width: 50%;
+}
+#order_address .label-checkbox{
+    width: 50%;
+}
+.m-address-bottom{
+    height: 2.15rem;
+}
+.m-address-bottom .u-address-edit,.m-address-bottom .u-set-default{
+    font-size: @f_size3;
+    color: @f_color3;
+    margin-left: 0.2rem;
+}
+.m-address-bottom .u-address-edit .item-after{
+    color: @f_color3;
+}
+.u-address-edit .item-after{
+    max-height: 2.15rem;
+}
+.m-address-bottom .j-address-color{
+    color: @f_colortheme;
+}
+.u-address-edit .u-address-opra{
+    margin-left: 1.25rem;
+    display: inline-block;
+    line-height: 2.15rem;
+    cursor: pointer;
+    color: @f_color3;
+}
+.u-address-edit .u-address-opra i{
+    font-size: 0.7rem;
+    margin-right: 0.1rem;
+}
+/*地址列表结束*/
+
+
+/*添加地址按钮开始*/
+.u-add-address a{
+    line-height: @lh;
+}
+.u-add-address .tab-label{
+    font-size: 0.7rem;
+    color: @f_color1;
+}
+.u-add-address .tab-label i.iconfont{
+    color: @f_colortheme;
+    font-size: @f_size2;
+    margin-right: 0.1rem;
+}
+/*添加地址按钮结束*/
+
+
+
+/*添加地址开始*/
+.item-bar{
+    line-height: 1.4rem;
+    padding-left: .5rem;
+}
+.m-add-list li{
+    background: #FFFFFF;
+    height: 2.25rem;
+    line-height: 2.25rem;
+}
+.m-add-list li.u-textarea{
+    min-height: 4.25rem;
+}
+.list-block .item-input{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list-block .u-textarea textarea{
+    height: 4.25rem;
+    font-size:.6rem;
+    padding-left: 0;
+}
+.list-block input[type=text], .list-block input[type=password], .list-block input[type=email], .list-block input[type=tel],
+.list-block input[type=url], .list-block input[type=date], .list-block input[type=datetime-local],
+.list-block input[type=time]{
+    height: 2.25rem;
+    padding-left: 0rem;
+    font-size: @f_size2;
+    color: @f_color1;
+}
+.label-switch input[type=checkbox]:checked+.checkbox {
+    background: @themecolor;
+}
+.u-edit-address-default{
+    height: 2.25rem;
+    background: #FFFFFF;
+}
+.u-edit-address-default .item-after{
+    max-height: 2.25rem;
+}
+.u-edit-address-default .item-title{
+    font-size: @f_size3;
+    color: @f_color3;
+}
+
+.u-area ::-webkit-input-placeholder {
+    color: @f_color1;
+    font-size: @f_size3;
+}
+.u-area .icon{
+    font-size:  @f_size3;
+    color: @f_color3;
+}
+.u-area .text_pup{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #00A3CE;
+}
+
+::-webkit-input-placeholder {
+    color: @f_color3;
+    font-size: @f_size2;
+}
+::-moz-placeholder {
+    color: @f_color3;
+    font-size: @f_size2;
+}
+:-ms-input-placeholder {
+    color: @f_color3;
+    font-size: @f_size2;
+}
+/*添加地址开始*/
+
+.baidu_mapBox .search-box {
+    position: fixed;
+    width: 100%;
+    height: 1.4rem;
+    z-index: 1000;
+    top: .5rem;
+    text-align: center;
+}
+
+.baidu_mapBox .map_search_key {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 3px;
+}
+
+.baidu_mapBox .map_search_key i {
+    margin: 0 .25rem;
+    font-size:.8rem;
+}
+
+.baidu_mapBox .map_search_key input {
+    width: 90%;
+    height: 100%;
+}
+
+#baidu_searchResultPanel {
+    border: 1px solid #C0C0C0;
+    width: 100%;
+    height: auto;
+    display: none;
+}
+
+#baidu-m-result {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background:#fff;
+}
+
+#baidu_mapBox {
+    width: 100%;
+    height: 50%;
+    position: relative;
+    z-index: 999;
+}
+
+#baidu_mapBox span {
+    position: absolute;
+    display: block;
+    left: 46%;
+    top: 41%;
+    -webkie-transform: translate(-50%;-50%);
+    transform: translate(-50%;-50%);
+}
+
+#baidu_mapBox .icon {
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.baidu_mapBox {
+    position: absolute;
+    z-index:20;
+    background: #FFFFFF;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 0;
+}
+
+.baidu_mapBox .r-loca .search-icon {
+    width: 1rem;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    font-size:.8rem;
+}
+
+.baidu_mapBox .r-loca div {
+    padding:.25rem 0;
+    padding-right: .5rem;
+}
+
+
+.baidu_mapBox .r-loca em {
+    color: #0698FF;
+}
+
+.baidu_mapBox .r-loca h3 {
+    font-size:.75rem;
+    line-height: 1rem;
+}
+
+.baidu_mapBox .r-loca p {
+    font-size: @f_size4;
+    color: @f_color3;
+    margin-left: 1rem;
+    line-height: 1rem;
+}
+
+.baidu_mapBox p.loca-curr  {
+    font-size: @f_size4;
+    color: @f_color3;
+    margin-left: 1rem;
+    line-height: 1rem;
+}
+#baidu_allmap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}

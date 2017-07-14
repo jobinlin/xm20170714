@@ -1,0 +1,27 @@
+<td class="item_title">商品地址:</td>
+<td class="item_input">
+	<select name="region_lv1" class="ui-select region_select" height="300" data_id="{$carriage_template_info.id}">
+	    <option value="0">=未选择=</option>
+	    <foreach name="region_lv1" item="lv1">
+		<option value="{$lv1.id}"  <if condition="$lv1['selected'] eq 1">selected="selected"</if>>{$lv1.name}</option>
+		</foreach>
+  	</select>
+	<select name="region_lv2" class="ui-select region_select" height="300">
+		<option value="0">=未选择=</option>
+		<foreach name="region_lv2" item="lv2">
+		<option value="{$lv2.id}" <if condition="$lv2['selected'] eq 1">selected="selected"</if>>{$lv2.name}</option>
+		</foreach>
+	 </select>
+	<select name="region_lv3" class="ui-select region_select" height="300">
+		<option value="0">=未选择=</option>	
+		<foreach name="region_lv3" item="lv3">	
+		<option  value="{$lv3.id}" <if condition="$lv3['selected'] eq 1">selected="selected"</if>>{$lv3.name}</option>
+		</foreach>
+	 </select>
+	<select name="region_lv4" class="ui-select region_select" height="300">
+		<option value="0">=未选择=</option>
+		<foreach name="region_lv4" item="lv4">
+		<option  value="{$lv4.id}" <if condition="$lv4['selected'] eq 1">selected="selected"</if>>{$lv4.name}</option>
+		</foreach>
+	 </select>
+</td>

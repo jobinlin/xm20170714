@@ -1,0 +1,19 @@
+.biz-location-list{
+	background:#fff;
+	padding-left: .5rem;
+}
+.biz-location-list li:last-child::after{
+	content:none;
+}
+.biz-location-list li a{
+	height:2.5rem;
+	padding-right: .5rem;
+}
+.biz-location-list li .default-location{
+	color:@f_color3;
+	font-size:@f_size4;
+}
+.biz-location-list li .iconfont{
+	font-size:.8rem;
+	line-height: 2.5rem;
+}

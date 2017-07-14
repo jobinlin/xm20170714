@@ -1,0 +1,97 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_shop_order">
+	<div class="m-biz-shop-order-tab">
+		<ul class="biz-shop-order-tab flex-box b-line">
+			<li class="flex-1 j-tab-item {if $type eq 0 }active{/if}" type="0" data-href="{url i="biz" r="shop_order"}"><span class="tab-item">全部</span></li>
+			<li class="flex-1 j-tab-item {if $type eq 1 }active{/if}" type="1" data-href="{url i="biz" r="shop_order" g="type=1"}"><span class="tab-item">待发货</span></li>
+			<li class="flex-1 j-tab-item {if $type eq 2 }active{/if}" type="2" data-href="{url i="biz" r="shop_order" g="type=2"}"><span class="tab-item">已发货</span></li>
+		</ul>
+		<div class="tab-line"></div>
+	</div>
+    {include file="style5.2/inc/biz_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="m-biz-shop-order-list j-ajaxlist-{$type} active">
+		{if $data.order}
+			<ul class="biz-shop-order-list j-ajaxadd-{$type}">
+				{foreach from=$data.order item=order}
+				{if $order.order_item_count eq 1}
+					
+					<li>
+						<div class="shop-order-hd flex-box b-line">
+							<p class="order-code flex-1"><span>订单号：</span>{$order.order_sn}</p>
+							<p class="order-status">{$order.order_status_text}</p>
+						</div>
+						{foreach from=$order.order_item item=order_item}
+						<a href="{url i="biz" r="shop_order#view" g="data_id=$order.order_id"}" class="order-info">
+							<div class="order-img"><img src="{$order_item.deal_icon}" alt="{$order_item.name}"></div>
+							<div class="order-detail flex-1">
+								<div class="name-price">
+									<p class="order-name flex-1">{$order_item.name}</p>
+									<div class="price-info">
+										<p class="price"><span>&yen;</span>{$order_item.unit_price}</p>
+										<p class="num">x{$order_item.number}</p>
+									</div>
+								</div>
+								{if $order_item.attr_str}
+								<p class="order-type">规格：{$order_item.attr_str}</p>
+								{/if}
+							</div>
+						</a>
+						{/foreach}
+						
+						{if $order.op_array}
+						<div class="order-btn-bar">
+							{foreach from=$order.op_array item=op}							
+								<a href="{$op.url}" class="order-btn {$op.js_obj}" data-no-cache="true">{$op.name}</a>
+							{/foreach}
+						</div>
+						{/if}
+					</li>
+					
+				{else}
+				
+				<li>
+					<div class="shop-order-hd flex-box b-line">
+						<p class="order-code flex-1"><span>订单号：</span>{$order.order_sn}</p>
+						<p class="order-status">{$order.order_status_text}</p>
+					</div>
+					<a href="{url i="biz" r="shop_order#view" g="data_id=$order.order_id"}" class="order-info j-order-shop-img">
+						<div class="swiper-wrapper">
+							{foreach from=$order.order_item item=order_item}
+							<div class="swiper-slide order-img">
+								<img src="{$order_item.deal_icon}">
+							</div>
+							{/foreach}
+
+						</div>
+					</a>
+					
+						{if $order.op_array}
+						<div class="order-btn-bar">
+							{foreach from=$order.op_array item=op}							
+								<a href="{$op.url}" class="order-btn {$op.js_obj}" data-no-cache="true">{$op.name}</a>
+							{/foreach}
+						</div>
+						{/if}
+						
+				</li>
+				
+				{/if}
+				
+				{/foreach}
+			    </ul>
+		        <div class="pages hide">{$pages}</div>
+		    {else}
+			<div class="tipimg no_data">暂时没有订单</div>
+			{/if}    
+		</div>
+		{if $type_arr}
+			{foreach from=$type_arr item=type_item}
+			<div class="m-biz-shop-order-list j-ajaxlist-{$type_item}"></div>
+			{/foreach}
+		{/if}
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

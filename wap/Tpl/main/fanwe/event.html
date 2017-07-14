@@ -1,0 +1,159 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var ajax_url = '{url r="index" p="event"}';
+var id={$data.id};
+</script>
+<div class="page page-index page-current" id="event">
+	<nav class="bar bar-tab">
+		{if $data.submit.status eq 0}
+			<a href="javascript:void(0)" class="sign-up isOver">{$data.submit.info}</a>
+		
+		{elseif $data.submit.status eq 1}
+			{if $event.event_fields}
+			<a href="javascript:void(0);" url="{url a="index" r="event#event_submit" go="data_id=$event.id"}" class="load_page sign-up" js_url='{$tmpl_path}js/load/event_submit.js'>{$data.submit.info}</a>
+			{else}
+			<a href="javascript:void(0)" class="sign-up" id="event_submit" url="{url a="index" r="event"}">{$data.submit.info}</a>
+			{/if}
+		
+		{elseif $data.submit.status eq -1}
+			<a href="javascript:void(0);" class="sign-up login_submit">{$data.submit.info}</a>
+		{/if}
+	</nav>
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		<div class="m-event-banner">
+			<img src="{$event.img}" alt="banner图片" class="banner-img">
+			{if $event.point_limit}
+			<div class="lab">经验值{$event.point_limit}以上专享</div>
+			{/if}
+		</div>
+		<div class="m-event-name-date">
+			<div class="event-name">{if $event.supplier_info_name}[{$event.supplier_info_name}]{/if}{$event.name}</div>
+			{if $event.submit_begin_time gt $event.now_time}
+			<div class="left-time j-LeftTime" nowtime="{$event.now_time}000" endtime="{$event.submit_begin_time}000">
+				距报名还剩<span class="s day">--</span><span class="l">天</span><span class="s hour">--</span><span class="l">:</span><span class="s min">--</span><span class="l">:</span><span class="s sec">--</span>
+			</div>
+			{else}
+			<div class="join-num" style="font-size:10px;color:grey">
+				已报名
+				<div class="progress">
+					<div class="progress-con" style="width: {$event.sub_pre}%"></div>
+				</div>
+				{$event.submit_count}人
+			</div>
+			{/if}
+			
+		</div>
+		<div class="m-event-know">
+			<div class="event-know-tit b-line">活动须知</div>
+			<ul class="event-know-list">
+				{if $event.score_limit || $event.point_limit}
+				<li class="event-know-item">{if $event.score_limit}报名消耗{$event.score_limit}积分{/if}{if $event.score_limit && $event.point_limit},{/if}{if $event.point_limit}报名需要{$event.point_limit}经验{/if}</li>
+				{/if}
+				<li class="event-know-item">报名截止日期：
+				{if $event.submit_end_time}
+					{$event.submit_end_time_format}
+				{else}
+					{if $event.event_end_time}{$event.event_end_time_format}{else}长期有效{/if}
+				{/if}
+				</li>
+				<li class="event-know-item">活动时间：{if $event.event_end_time}{if $event.event_begin_time}<em>{$event.event_begin_time_format}</em> 至 {/if}<em>{$event.event_end_time_format}</em>{else}<em>长期有效</em>{/if}</li>
+				{if $event.address}
+				<li class="event-know-item">活动地点：{$event.address}</li>
+				{/if}
+			</ul>
+		</div>
+
+		{if $data.supplier_location_list}
+		<div class="m-shopinfo">
+			<div class="name-range">
+				<div class="shopName">{$data.supplier_location_list.0.name}</div>
+				<div class="shopRange">{$data.supplier_location_list.0.distance_format}</div>
+			</div>
+			<div class="addressTel">
+				<a href="{url i="index" a="position" g="location_id=$data.supplier_location_list.0.id"}"  class="shop-address r-line">{$data.supplier_location_list.0.address}</a>
+				<div class="shop-tel">
+					<a href="tel:{$data.supplier_location_list.0.tel}">
+						<i class="iconfont">&#xe618;</i>
+					</a>
+				</div>
+			</div>
+			{if $event.supplier_location_count gt 1}
+			<div class="event-showMore t-line">
+				<a href="{url a="index" r="location" g="data_id=$data.id&type=event"}">
+					查看全部{$event.supplier_location_count}家分店
+					<i class="iconfont f_r icon-style">&#xe607;</i>
+				</a>
+			</div>
+			{/if}
+		</div>
+		{/if}
+		<a href="{url r="index" b="event#detail" p="&data_id=$event.id"}" class="m-show-detail" data="1">
+			查看图文详情
+			<i class="iconfont f_r">&#xe607;</i>
+		</a>
+
+		<dl class="m-comment">
+			{if $data.dp_count}
+			<a  href="{url r="index" a="event#reviews" go="data_id=$event.id"}" class="j-detail" data="2"  data-no-cache="true">
+			{/if}
+			<div class="comment-tit">
+					评价
+					<em class="comment-count">{if $data.dp_count}({$data.dp_count}){/if}</em>
+					<i class="iconfont f_r icon-style">&#xe607;</i>
+					<div class="star-box">
+						<div class="m-start tit-start">
+							<div class="start-num" style="width: {$event.avg_star}%"></div>
+						</div>
+						<em class="comment-num">{$event.avg_point}</em>
+					</div>
+			</div>
+			{if $data.dp_count}
+			</a>
+			{/if}
+			<!--单条点评数据-->
+			{if $data.dp_list}
+			{foreach from=$data.dp_list item=dp_item}
+			<dd class="comment-con">
+				<div class="t-line">
+					<div class="commenter">
+						<img alt="用户头像" class="avatar f_l" src="{$dp_item.user_avatar}" width="42">
+						<div class="user-date f_l">
+							<p class="username">{$dp_item.user_name}</p>
+							<p class="date">{$dp_item.create_time}</p>
+						</div>
+						<div class="m-start con-start">
+							<div class="start-num" style="width: {$dp_item.point_star}%"></div>
+						</div>
+					</div>
+
+					<div class="comment-txt">
+						{$dp_item.content}
+					</div>
+					{if $dp_item.images}
+					<ul class="comment-imglist">
+						{foreach from=$dp_item.images item=images_list name=images_list}
+						<li class="comment-imgitem j-comment-item" data="{$smarty.foreach.images_list.iteration}">
+							<img dfasf="{$smarty.foreach.dp_imgs.index}" src="{$images_list}" data-lingtsrc="{$images_list}" width="65" alt="有图评论-1" />
+						</li>
+						{/foreach}
+					</ul>
+					{/if}
+				</div>
+			</dd>
+			{/foreach}
+
+			<dd class="more-comment t-line">
+				<a href="{url r="index" a="event#reviews" go="data_id=$event.id"}" class="showmorecomment j-detail" data="2"  data-no-cache="true">
+					查看全部评价
+					<i class="iconfont f_r icon-style">&#xe607;</i>
+				</a>
+			</dd>
+			{else}
+			<dd class="more-comment t-line" style="text-align:center">暂无评价</dd>
+			{/if}
+		</dl>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,101 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="uc_review">
+	<script>
+	var eq=parseInt({$status})+1;
+	var url=new Array();
+	url[1] = '{url r="index" a="uc_review" go="status=0"}';
+	url[2] = '{url r="index" a="uc_review" go="status=1"}';
+	</script>
+	 <div class="review-tab flex-box b-line">
+	 	<div class="flex-1 review-tab-item"><a href="#tab1" rel="1" class="tab-link j-tab-link btn-item {if $status eq 0}active{/if}">商品</a></div>
+	 	<div class="flex-1 review-tab-item"><a href="#tab2" rel="2" class="tab-link j-tab-link btn-item {if $status eq 1}active{/if}">店铺</a></div>
+	 	<span class="tab-line"></span>
+	 </div>
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="tabs m-comment ">
+			{if $status eq 0}
+			<div id="tab1" class="tab active j_ajaxlist_1">
+			{if $data.item}
+				{foreach from=$data.item item=row key=key}
+				<dd class="comment-con">
+					<a href="{$row.url}" data-no-cache="ture">
+						<div class="commenter flex-box">
+							<img alt="商品图标" class="good-logo" src="{$row.deal_icon}">
+							<div class="user-date flex-1">
+								<p class="good-name">{$row.name}</p>
+								<p class="good-spec">{if $row.attr_str}规格：{$row.attr_str}{/if}</p>
+							</div>
+						</div>
+						<div class="comment-txt">
+							{$row.content}
+						</div>
+						<div class="dp-date">{$row.create_time}</div>
+					</a>
+					<ul class="comment-imglist comment-imglist-nolimit" rel="review">
+					{foreach from=$row.oimages item=oimage key=k1}
+						<li class="comment-imgitem j-review-item" data="{$k1}">
+							<img date-load="1" data-src="{$oimage}" src="{$oimage}" data-lingtsrc="{$oimage}" width="65" height="65"/>
+						</li>
+					{/foreach}
+					</ul>
+					{if $row.reply_content}
+					<div class="shop-reply">
+						<div class="sjj-up"></div>
+						<p><em>商家回复：</em>{$row.reply_content}</p>
+					</div>
+					{/if}
+				</dd>
+				{/foreach}
+				<div class="pages hide">{$pages}</div>
+			</dl>
+			{else}
+				<div class="tipimg no_data">暂无评论</div>
+			{/if}
+			</div>
+			{/if}
+			{if $status eq 1}
+			<div id="tab2" class="tab active j_ajaxlist_2">
+			{if $data.item}
+				{foreach from=$data.item item=row key=key}
+				<dd class="comment-con">
+					<a href="{$row.url}" data-no-cache="ture">
+						<div class="commenter flex-box">
+							<img alt="店铺图标" class="good-logo" src="{$row.deal_icon}">
+							<div class="user-date flex-1">
+								<p class="good-name">{$row.name}</p>
+								<p class="good-spec">&nbsp;</p>
+							</div>
+						</div>
+						<div class="comment-txt">
+							{$row.content}
+						</div>
+						<div class="dp-date">{$row.create_time}</div>
+					</a>
+					<ul class="comment-imglist comment-imglist-nolimit" rel="review">
+					{foreach from=$row.oimages item=oimage key=k1}
+						<li class="comment-imgitem j-review-item" data="{$k1}">
+							<img date-load="1" data-src="{$oimage}" src="{$oimage}" data-lingtsrc="{$oimage}" width="65" height="65"/>
+						</li>
+					{/foreach}
+					</ul>
+					{if $row.reply_content}
+					<div class="shop-reply">
+						<div class="sjj-up"></div>
+						<p><em>商家回复：</em>{$row.reply_content}</p>
+					</div>
+					{/if}
+				</dd>
+				{/foreach}
+				<div class="pages hide">{$pages}</div>
+			</dl>
+			{else}
+				<div class="tipimg no_data">暂无评论</div>
+			{/if}
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

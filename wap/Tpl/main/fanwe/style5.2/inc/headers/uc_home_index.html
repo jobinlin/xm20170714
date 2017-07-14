@@ -1,0 +1,48 @@
+{if $app_index=='app'}
+
+<header class="bar bar-nav b-line">
+	{if $page_finsh}
+
+  	{else}
+		<a class="header-btn header-left iconfont" data-transition='slide-out' href="./wap/index.php?ctl=user_center" data-no-cache="true">&#xe604;</a>
+	{/if}
+	<h1 class="header-title">{$data.page_title}</h1>
+	<a href="#" class="header-btn header-right iconfont j-opendropdowm">&#xe624;</a>
+	<a href="{url a="index" r="uc_home#publish"}" class="header-txt header-right" data-no-cache="true">发布</a>
+</header>
+	<div class="flippedout ">
+		<div class="m-nav-dropdown">
+			<div class="nav-dropdown-con">
+				<div class="flex-box func-list">
+				
+				</div>
+				{include file="style5.2/inc/module/app-dropdown-navlist.html"}
+			</div>
+		</div>
+		<div class="close-flippedout j-flippedout-close" rel="1">
+			<i class="iconfont">&#xe635;</i>
+		</div>
+	</div>
+{else}
+
+<header class="bar bar-nav b-line">
+	<a class="header-btn header-left iconfont" data-transition='slide-out' href="./wap/index.php?ctl=user_center" data-no-cache="true">&#xe604;</a>
+	<h1 class="header-title">{$data.page_title}</h1>
+	<a href="#" class="header-btn header-right iconfont j-opendropdowm">&#xe624;</a>
+	<a href="{url a="index" r="uc_home#publish"}" class="header-txt header-right" data-no-cache="true">发布</a>
+</header>
+<div class="flippedout ">
+	<div class="m-nav-dropdown">
+		<div class="nav-dropdown-con">
+			<div class="flex-box func-list">
+				<div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+			</div>
+			{include file="style5.2/inc/module/dropdown-navlist.html"}
+		</div>
+	</div>
+	<div class="close-flippedout j-flippedout-close" rel="1">
+		<i class="iconfont">&#xe635;</i>
+	</div>
+</div>
+
+{/if}

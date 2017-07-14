@@ -1,0 +1,145 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index">
+	<header class="bar bar-nav m-store-head">
+		<h1 class="title">评论列表</h1>
+		<a class="iconfont f_l head-btn go-back back">&#xe604;</a>
+		<i class="iconfont j-opendropdowm f_r head-btn more">&#xe612;</i>
+	</header>
+	<div class="content">
+		<dl class="m-comment" style="margin-top: 0;">
+			
+			<dt class="comment-tit" style="margin-top: 0;">
+				总体评价
+				<div class="star-box">
+					<div class="m-start tit-start">
+						<div class="start-num" style="width:50%" data="50"></div>
+					</div>
+					<em class="comment-num">2.5</em>
+				</div>
+			</dt>
+			
+			<!-- <dt class="comment-tit" style="text-align:center;">
+				暂无评论
+			</dt> -->
+			<dd class="comment-con">
+				<div class="t-line">
+					<div class="commenter">
+						<img alt="用户头像" class="avatar f_l" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" width="42">
+						<div class="user-date f_l">
+							<p class="username">fanwe</p>
+							<p>2015-01-12 07:00</p>
+						</div>
+						<div class="m-start con-start">
+							<div class="start-num" style="width: 50%" data="50"></div>
+						</div>
+					</div>
+
+					<div class="comment-txt">
+						还不错，买的东西挺不错的。就是快递有点慢。我的外孙菊花 等残了
+					</div>
+					
+					<ul class="comment-imglist comment-imglist-nolimit">
+						<li class="comment-imgitem j-comment-item" data="1">
+							<img dfasf="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" data-lingtsrc="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" width="65" alt="有图评论-1" />
+						</li>
+					</ul>
+					<div class="shop-reply">
+						<div class="sjj-up"></div>
+						<p><em>商家回复：</em>还不错，买的东西挺不错的。就是快递有点慢。我的外孙菊花 等残了</p>
+					</div>
+					
+				</div>
+			</dd>
+			<dd class="comment-con">
+				<div class="t-line">
+					<div class="commenter">
+						<img alt="用户头像" class="avatar f_l" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" width="42">
+						<div class="user-date f_l">
+							<p class="username">fanwe</p>
+							<p>2015-01-12 07:00</p>
+						</div>
+						<div class="m-start con-start">
+							<div class="start-num" style="width: 50%" data="50"></div>
+						</div>
+					</div>
+
+					<div class="comment-txt">
+						还不错，买的东西挺不错的。就是快递有点慢。我的外孙菊花 等残了
+					</div>
+					
+					<ul class="comment-imglist comment-imglist-nolimit">
+						<li class="comment-imgitem j-comment-item" data="1">
+							<img dfasf="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg"  data-lingtsrc="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg" width="65" alt="有图评论-1" />
+						</li>
+					</ul>
+					<div class="shop-reply">
+						<div class="sjj-up"></div>
+						<p><em>商家回复：</em>还不错，买的东西挺不错的。就是快递有点慢。我的外孙菊花 等残了</p>
+					</div>
+					
+				</div>
+			</dd>
+		</dl>
+	</div>
+
+	<div class="flippedout ">
+		<div class="m-nav-dropdown">
+			<div class="nav-dropdown-con">
+				<div class="flex-box func-list">
+					<div class="flex-1"><i class="iconfont j-dropdown-share">&#xe60d;</i></div>
+					<div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+					<div class="flex-1 is_Sc" {if $data.is_collect neq 1}onclick="add_collect({$data.id},this);"{/if}>
+						{if $data.collect_count gt 0}
+						<div class="shoucan isSc">
+							<i class="iconfont {if $data.is_collect eq 1}icon-noshoucan{/if}">&#xe615;</i>{if $data.is_collect eq 1}<i class="iconfont icon-shoucan">&#xe63d;</i>{/if}<em>{$data.collect_count}</em>
+						</div>
+						{else}
+						<i class="iconfont" id="is_Sc" style="font-size: 1.2rem;">&#xe615;</i>
+						{/if}
+					</div>
+				</div>
+				{include file="style5.2/inc/module/dropdown-navlist.html"}
+			</div>
+		</div>
+
+<!-- 分享弹出 -->
+		<div class="box_share" id="box_share">
+			<div class="box_content">
+				<div class="social_share">
+					<!-- JiaThis Button BEGIN -->
+					<div class="jiathis_style_32x32 flex-box">
+						<a class="jiathis_button_weixin flex-1"><i class="iconfont icon-pyq">&#xe636;</i><p>朋友圈</p></a>
+						<a class="jiathis_button_tsina flex-1"><i class="iconfont icon-sina">&#xe639;</i><p>新浪微博</p></a>
+						<a class="jiathis_button_qzone flex-1"><i class="iconfont icon-qzone">&#xe63a;</i><p>QQ空间</p></a>
+						<a class="jiathis_button_tqq flex-1"><i class="iconfont icon-QQ">&#xe63b;</i><p>QQ</p></a>
+					</div>
+					<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8" defer="defer"></script>
+					<!-- JiaThis Button END -->
+				</div>
+				<a class="box_close t-line" id="boxclose_share">取消</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+<!-- 分享弹出结束 -->
+		<div class="img-light-box">
+			<div class="img-light">
+				<div class="swiper-wrapper">
+				</div>
+			</div>
+		</div>
+		<div class="light-txt">
+			<div class="light-name">
+				<div class="name f_l"></div>
+				<div class="light-index f_r">
+					<em class="now-index"></em> / <em class="light-count"></em>
+				</div>
+			</div>
+			<div class="light-con"></div>
+		</div>
+		<div class="close-flippedout j-flippedout-close" rel="1">
+			<i class="iconfont">&#xe635;</i>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

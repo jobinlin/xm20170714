@@ -1,0 +1,93 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%SHOP_TRASH}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+	<input type="button" class="button" value="{%RESTORE}" onclick="restore();" />
+</div>
+<php>
+    function get_real_buy_count($id){
+    return $real_buy_count =  intval($GLOBALS['db']->getOne("select sum(doi.number) from ".DB_PREFIX."deal_order_item as doi left join ".DB_PREFIX."deal_order as do on doi.order_id = do.id where doi.deal_id = ".$id." and do.pay_status = 2"));
+    }
+    function format_max_bought($max_bought){
+    if($max_bought==-1){
+    return "不限";
+    }else{
+    return $max_bought;
+    }
+    }
+    function get_new_deal_cate_name($cate_id,$deal_id){
+        if($cate_id){
+        $col=$GLOBALS['db']->getCol("select name from ".DB_PREFIX."deal_cate where id in(".$cate_id.")");
+        if(count($col)>1){
+        return  $col[0]."...";
+        }else{
+        return  $col[0];
+        }
+        }else{
+        $col=$GLOBALS['db']->getCol("select b.name from ".DB_PREFIX."deal_cate_type_deal_link a left join ".DB_PREFIX."deal_cate_type b on b.id=a.deal_cate_type_id where a.deal_id =".$deal_id);
+        if(count($col)>1){
+        return  $col[0]."...";
+        }else{
+        return  $col[0];
+        }
+        }
+
+    }
+    function get_shop_cate_name($cate_id)
+    {
+    $cate_id=explode(",",$cate_id);
+    $cate_name=M("ShopCate")->where("id=".$cate_id[0])->getField("name");
+    if(count($cate_id)>1){
+    return $cate_name."...";
+    }else{
+    return $cate_name;
+    }
+
+
+    }
+</php>
+<div class="blank5"></div>
+<if condition="$type==3">
+
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+	,name:商品名
+	,current_price|number_format=2:价格
+    ,cate_id|get_new_deal_cate_name=$deal['id']:分类
+	,max_bought|format_max_bought:库存
+	,id|get_real_buy_count:总销量
+	,sort|get_sort=$deal['id']:{%SORT}
+	"
+	actionlist="foreverdel:删除,restore:{%RESTORE}" />
+<else/>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="deal"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+	,name:商品名
+	,current_price|number_format=2:价格
+    ,shop_cate_id|get_shop_cate_name:分类
+	 ,max_bought|format_max_bought:库存
+	,id|get_real_buy_count:总销量
+	,sort|get_sort=$deal['id']:{%SORT}
+    "
+    actionlist="foreverdel:删除,restore:{%RESTORE}" />
+</if>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

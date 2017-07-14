@@ -1,0 +1,27 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_location">
+    {include file="style5.2/inc/biz_header.html"}
+    <div class="content">
+    	<div class="m-biz-location-list">
+    	{if $data.item}
+    		<ul class="biz-location-list">
+			{foreach from=$data.item item=locationlist}
+				<li class="b-line">
+					<a class="flex-box" href="{url a="biz" r="location#detail" p="id=$locationlist.id"}">
+						<p class="location-name flex-1">{$locationlist.name}</p>
+						{if $locationlist.is_main eq 1}
+						<p class="default-location">默认门店</p>
+						{/if}
+						<i class="iconfont">&#xe607;</i>
+					</a>
+				</li>
+			{/foreach}
+    		</ul>
+		{else}
+			<div class="tipimg no_data">暂无有效门店</div>
+		{/if}
+    	</div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

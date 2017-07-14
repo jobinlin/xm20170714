@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+.shop-list-tit{
+	padding: .25rem @comspacing;
+	color: @f_color2;
+}
+
+.m-shop-list{
+	padding-left: @comspacing;
+	background: @bg_color;
+}
+
+.m-shop-list .name-range{
+	padding-right: @comspacing;
+	padding-top: .5rem;
+}
+
+.m-shop-list .name-range:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-shop-list .name-range .shopName{
+	float: left;
+	font-size: @f_size2;
+	color: @f_color1;
+}
+
+.m-shop-list .name-range .shopRange{
+	float: right;
+	font-size: @f_size3;
+	color: @f_color3;
+}
+
+.m-shop-list .addressTel{
+	padding-bottom: .5rem;
+}
+
+.m-shop-list .addressTel:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-shop-list .addressTel .shop-address a{
+	display: inline-block;
+	float: left;
+	width: 85%;
+	padding-right: 1rem;
+	line-height: .95rem;
+	font-size: @f_size3;
+	color: @f_color3;
+
+}
+
+.m-shop-list .addressTel .shop-tel{
+	float: right;
+	width: 15%;
+	padding-right: @comspacing;
+	text-align: right;
+	font-size: 1rem;
+	color: @f_colortheme;
+}
+
+.m-shop-list .addressTel .shop-tel .iconfont{
+	color: @f_colortheme;
+}

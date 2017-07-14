@@ -1,0 +1,172 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/project.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/kindeditor.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/form.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/location.css";
+
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-ui.min.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/kindeditor.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/distribution/baidumapEventWrapper.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/distribution/baidumapEventWrapper.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/distribution/ship_edit.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/distribution/ship_edit.js";
+?>
+
+{include file="inc/header.html"}
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={function name="app_conf" v="BAIDU_MAP_APPKEY"}&s=1"></script>
+<script>
+var ajax_url = '{url r="hiz" b="distribution"}';
+var blue_point = "{$APP_ROOT}/system/blue_point.png";
+var red_point = "{$APP_ROOT}/system/red_point.png";
+</script>
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+	<a class="transition" href="{url r="hiz" b="index"}">首页</a> / <a class="transition" href="{url r="hiz" b="distribution#shiplist" p="dist_id=$dist_id"}">配送点列表</a> / <span>{$page_title}</span>
+	<a href="{url r="hiz" b="distribution#shiplist" p="dist_id=$dist_id"}" class="header-back">返回</a>
+</div>
+<div class="content">
+	<div class="edit-hd">基本信息</div>
+	<span class="edit-tip">带*的信息为必填内容，请务必认真填写。</span>
+	<form name="ship_edit">
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">驿站名称：</p>
+			<p class="f_l form-tip">{$dist_name}</p>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">区/县：</p>
+			<p class="f_l form-tip">{$country_name}</p>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 配送点名称：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="poi_name" value="{$info.poi_name}">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 地址：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="poi_addr" value="{$info.poi_addr}" placeholder="例:工业路666号">
+			<p class="f_l form-tip">
+			<input class="f_l form-btn submit-btn local_search" value="定位" readonly>
+			<input type="hidden" value="{$vo.poi_addr}" class="orig_key">
+            <input type="hidden" name="addr_check" value="1">
+            <input type="hidden" name="xpoint" value="{$info.xpoint}">
+            <input type="hidden" name="ypoint" value="{$info.ypoint}">
+		</div>
+		<div class="map-wrap">
+			<div id="ship-map" style="height: 100%"></div>
+		</div>
+		<div class="blank20"></div>
+		<input type="hidden" name="dist_id" value="{$dist_id}">
+		<input type="hidden" name="id" value="{$info.id}">
+		<input type="hidden" name="act" value="shipsave">
+		<input class="submit-btn form-submit" value="保存">
+	</form>
+</div>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("ship-map", {enableMapClick:false});
+	var marker, point;
+	var geoc = new BMap.Geocoder();
+	var city_name = '{$city_name}';
+	var country_name = '{$country_name}';
+
+	var xpoint = $('input[name=xpoint]').val();
+	var ypoint = $('input[name=ypoint]').val();
+	if (xpoint && ypoint) {
+		markerinit(xpoint, ypoint);
+	} else {
+		map.centerAndZoom(city_name+country_name);
+	}
+	
+	map.enableScrollWheelZoom();
+
+	// 坐标初始化
+	function markerinit(x, y) {
+		point = new BMap.Point(x, y);
+		if (marker) {
+			marker.setPosition(point);
+			
+		} else {
+			map.centerAndZoom(point,14);
+			marker = new BMap.Marker(point);
+			map.addOverlay(marker);
+			marker.enableDragging();
+			marker.setTitle('拖动更换地址');
+			marker.addEventListener('dragend', markerPoint);
+		}
+		setpoint(point);
+	}
+
+	function setpoint(pp) {
+		$('input[name=xpoint]').val(pp.lng);
+		$('input[name=ypoint]').val(pp.lat);
+		$('input[name="addr_check"]').val('1');
+	}
+	// 设置坐标
+	function markerPoint() {
+		var pp = marker.getPosition();
+		setpoint(pp);
+		geoc.getLocation(pp, function(rs) {
+			var addComp = rs.addressComponents;
+			var lstr = addComp.street + addComp.streetNumber;
+			$('input[name="poi_addr"]').val(lstr);
+		})
+	}
+
+
+	function markerMove() {
+        var center = map.getCenter();
+        marker.setPosition(center);
+        setpoint(center);
+    }
+
+	// 定位
+	$('.local_search').bind('click', function(e) {
+		var region = city_name + country_name;
+		
+		var search = $.trim($('input[name="poi_addr"]').val());
+		if (!search) {
+			$.showErr('请输入定位地址');
+			return;
+		}
+		var origv = $.trim($('.orig_key').val());
+		if (origv == search) {
+			return;
+		}
+		$('.orig_key').val(search);
+		geoc.getPoint(region+search, function(point) {
+			if (point) {
+				map.centerAndZoom(point, 18);
+				markerinit(point.lng, point.lat);
+			} else {
+				$.showErr('地址解析错误');
+			}
+		})
+	});
+	$('input[name="poi_addr"]').bind('input propertychange', function() {
+		var origv = $.trim($('.orig_key').val());
+		var currv = $.trim($(this).val());
+		var check = 0;
+		if (origv == currv) {
+			check = 1;
+		}
+        $('input[name="addr_check"]').val(check);
+    });
+</script>
+{include file="inc/footer.html"}

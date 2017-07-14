@@ -1,0 +1,66 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index page-current" id="store_reviews">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		{if $data.dp_list}
+		<div class="j-ajaxlist">
+			<dl class="m-comment">
+				<dt class="comment-tit">
+					总体评价
+					<div class="star-box">
+						<div class="m-start tit-start">
+							<div class="start-num" style="width:{$data.supplier_info.avg_point_percent}%" data="{$data.supplier_info.avg_point}"></div>
+						</div>
+						<em class="comment-num">{$data.supplier_info.avg_point}</em>
+					</div>
+				</dt>
+				<div class="j-ajaxadd">
+				{foreach from=$data.dp_list item=item}
+				<dd class="comment-con">
+					<a href="{$row.url}">
+						<div class="commenter flex-box">
+							<img alt="用户头像" class="avatar" src="{$item.user_avatar}">
+							<div class="user-date flex-1">
+								<p class="username">{$item.user_name}</p>
+								<p class="date">{$item.create_time}</p>
+							</div>
+							<div class="m-start con-start">
+								<div class="start-num" style="width: {$item.point_percent}%" data="{$item.point}"></div>
+							</div>
+						</div>
+						<div class="comment-txt">
+							{$item.content}
+						</div>
+					</a>
+					{if $item.images_v1}
+					<ul class="comment-imglist comment-imglist-nolimit" rel="review">
+						{foreach from=$item.images_v1 item=image key=k name=image}
+						<li class="comment-imgitem j-review-item" data="{$smarty.foreach.image.iteration}">
+							<img src="{$image}" data-lingtsrc="{$item.oimages.$k}" width="65" height="65" />
+						</li>
+						{/foreach}
+					</ul>
+					{/if}
+					{if $item.reply_content}
+					<div class="shop-reply">
+						<div class="sjj-up"></div>
+						<p><em>商家回复：</em>{$item.reply_content}</p>
+					</div>
+					{/if}
+				</dd>
+				{/foreach}
+				</div>
+			</dl>
+			
+			<div class="pages hide">{$pages}</div>
+			{else}
+			<div class="tipimg no_data">
+				暂无评论
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

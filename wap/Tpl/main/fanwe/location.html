@@ -1,0 +1,37 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="location">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+	<?php $this->_var['data']['supplier_location_count'] = count($this->_var['data']['supplier_location_list']);?>
+		{if $data.supplier_location_count gt 1}
+		<div class="shop-list-tit">{$data.supplier_location_count}家门店通用</div>
+		{/if}
+		<div class="m-shop-list j-ajaxlist">
+			<ul class="j-ajaxadd">
+				{foreach from="$data.supplier_location_list" item=location}
+				<li class="shop-item t-line">
+					<div class="name-range">
+						<a href="{$location.location_url}">
+							<div class="shopName">{$location.name}</div>
+							<div class="shopRange">{$location.distance_format}</div>
+						</a>
+					</div>
+					<div class="addressTel">
+						<div class="shop-address">
+							<a href="{url i="index" a="position" g="location_id=$location.id"}" class="r-line">{$location.address}</a>
+						</div>
+						<div class="shop-tel">
+							<a href="tel:{$location.tel}">
+								<i class="iconfont">&#xe618;</i>
+							</a>
+						</div>
+					</div>
+				</li>
+				{/foreach}
+			</ul>
+			<div class="pages hide">{$pages}</div>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

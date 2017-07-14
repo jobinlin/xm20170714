@@ -1,0 +1,138 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="tuan">
+ 	{include file="style5.2/inc/module/search_header.html"}
+ 	<script>
+	var geo_url='{url i="index" r="userxypoint#do_position"}';
+	var html_id='tuan';
+  var ctl_name='{$MODULE_NAME}';
+	var address='{$address}';
+	var TENCENT_MAP_APPKEY="<?php echo app_conf("TENCENT_MAP_APPKEY"); ?>";
+	var key='{$data.keyword}';
+	</script>
+  	<div class="content infinite-scroll infinite-scroll-bottom">
+   		<!-- 页面主体 -->
+        <div class="m-screen-bar b-line flex-box" data-type="{$param.order_type}">
+          <ul class="flex-box flex-1">
+            <li class="screen-item">
+              <a class="screen-all" href="javascript:void(0)" data-id="{$data.default_cate_id}">
+                <p>{$data.catename}</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i>
+              </a>
+            </li>
+            <li class="screen-item">
+              <a class="screen-area" href="javascript:void(0)" data-id="{$default_qid}">
+                <p>{$data.quanname}</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i>
+              </a>
+            </li>
+            <li class="screen-item j-pj">
+              <a data-type="avg_point" class="screen-link {if $param.order_type eq 'avg_point' }active{/if}" date-href="{$sort_url}" href="javascript:void(0);">
+                <p>评价最高</p>
+              </a>
+            </li>
+            <li class="screen-item j-zj">
+              <a data-type="distance" class="screen-link {if $param.order_type eq 'distance' }active{/if}" date-href="{$distance_url}" href="javascript:void(0)">
+                <p>离我最近</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="m-screen-list">
+          <div class="all-screen" id="all-goods">
+            <ul class="goods-type r-line">
+            <!-- 一级列表在这 -->
+              {foreach from=$data.bcate_list item=cate name="goods-type"}
+              <li class="b-line {if $cate.id neq 0}{if $cate.bcate_type.0.count eq "0"} hide{/if}{/if} {if $param.cate_id eq $cate.id} active {/if} " data-id="{$smarty.foreach.goods-type.index}">{$cate.name}</li>
+              {/foreach}
+            </ul>
+            <div class="type-detail flex-1">
+            <!-- 二级列表在这 -->
+            {foreach from=$data.bcate_list item=cate name="goods-type"}
+              <ul data-id="{$smarty.foreach.goods-type.index}" {if $param.cate_id eq $cate.id}style="display: block;"{/if}>
+              {foreach from=$cate.bcate_type item=blist}
+                <li class="j-listchoose flex-box {if $cate.id eq 0 and $blist.id eq 0}{else}{if $blist.count eq "0"} hide{/if}{/if} {if $blist.id eq $param.tid and $cate.id eq $param.cate_id}active{/if}" data-cid="{$cate.id}" data-tid="{$blist.id}"><p class="flex-1">{$blist.name}</p><p class="goods-num">{$blist.count}</p></li>
+              {/foreach}
+              </ul>
+            {/foreach}
+            </div>
+          </div>
+          <div class="all-screen" id="area-screen">
+            <ul class="goods-type r-line">
+              {foreach from=$data.quan_list item=quan key=key name="quan_num"}
+              <li class="b-line" data-id="{$smarty.foreach.quan_num.index}">{$quan.name}</li>
+              {/foreach}
+            </ul>
+            <div class="type-detail flex-1">
+            {foreach from=$data.quan_list item=quan name="quan_num"}
+              <ul data-id="{$smarty.foreach.quan_num.index}">
+              {foreach from=$quan.quan_sub item=qlist}
+                <li class="j-listchoose flex-box {if $qlist.id eq $param.qid }active{/if}" data-qid="{$qlist.id}"><p class="flex-1">{$qlist.name}</p><p class="goods-num">{$qlist.count}</p></li>
+              {/foreach}
+              </ul>
+            {/foreach}
+            </div>
+          </div>
+        </div>
+        <div class="address-info flex-box">
+          <p class="flex-1 address"><i class="iconfont">&#xe62f;</i>{$geo.address}</p><i class="iconfont refresh">&#xe630;</i>
+        </div>
+        {if $data.item}
+        <div class="j-ajaxlist">
+        <ul class="j-ajaxadd">
+        {foreach from=$data.item item=goods_list}
+          <li class="tuan-item">
+            <div class="shop-info b-line">
+              <a class="shop-name"><strong>{$goods_list.location_name}</strong>{if $goods_list.is_verify eq "1"}<div class="shop-tip flex-box"><img src="{$TMPL}/style5.2/images/static/renzheng.png" alt="认证"></div>{/if}{if $goods_list.open_store_payment eq "1"}<div class="shop-tip flex-box"><img src="{$TMPL}/style5.2/images/static/maidan.png" alt="买单"></div>{/if}</a>
+              <div class="star-address">
+                {if $goods_list.location_dp_count eq 0}
+                <div class="no-point">暂无评分</div>
+                {else}
+                <div class="shop-star" data="{$goods_list.bfb}">
+                  <div class="m-start">
+					<div class="start-num" style="width: {$goods_list.bfb}%"></div>
+				  </div>
+                  <p class="point">{$goods_list.avg_point}分</p>
+                </div>
+                {/if}
+                <div class="shop-add">{$goods_list.area_name} {$goods_list.distance}</div>
+              </div>
+            </div>
+              <ul class="tuan-list">
+                {foreach from=$goods_list.deal item=gl key=k}
+                  <li>
+                    <a data-no-cache="true" href="{$gl.url}">
+                      <div class="tuan-img">
+                        <img alt="" src="{$gl.icon}"/>
+                      </div>
+                      <div class="tuan-info">
+                        <h2 class="tuan-name">{$gl.name}</h2>
+                        <div class="tuan-sale">
+                          <p class="price">{$gl.current_price}{if $gl.origin_price gt 0}<del class="p-price">￥{$gl.origin_price}</del>{/if}</p>
+                          {if $gl.buy_count gt 0}
+                          <p class="sale">已售{$gl.buy_count}</p>
+                          {/if}
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                {/foreach}
+              </ul>
+              {if $goods_list.count > 0}
+              <div class="tuan-list-more">其他{$goods_list.count}个团购<i class="iconfont">&#xe608;</i></div>
+              {/if}
+          </li>
+        {/foreach}
+        </ul>
+        <div class="pages hide">{$pages}</div>
+        </div>
+        {else}
+        <div class="tipimg no_data">暂无团购</div>
+        {/if}
+         <div class="blank"></div>
+  	</div>
+</div>
+<script type="text/javascript">
+  function load_change_tag(){
+
+  }
+</script>
+{include file="style5.2/inc/footer.html"}

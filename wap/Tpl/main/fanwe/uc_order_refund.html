@@ -1,0 +1,77 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<style type="text/css">
+    a.totop{
+        bottom: 5.2rem;
+    }
+    
+</style>
+<script>
+var ajax_url='{url r="index" a="uc_order#refund"}';
+</script>
+<div class="page page-index" id="uc_order_refund">
+    {include file="style5.2/inc/auto_header.html"}
+    <nav class="bar bar-tab ">
+        <div class="m-check-paybox t-line ">
+            <div class="choiceDiv">
+                <label class="label_check flex-box j_label">
+                    <input type="checkbox" name="my-radio" class="j_checkbox">
+                    <div class="iconBox"></div>
+                    <span class="ch_font">全选</span>
+                </label>
+            </div>
+           <a js_url="{$tmpl_path}js/load/order_msg.js" class="go_pay z-state j_sure load_page">确定</a>
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <div class="tabBox">
+            <div class="tab_box active">
+                <div class="list-block m-cart">
+                    <div class="m-conBox m-check-order m-modify">
+                        <ul class="m-cart-list j-select-body">
+                        {foreach from=$deal_order_item item=deal_order}
+                        {foreach from=$deal_order.list item=order}
+                        {if $order.is_refund eq 1 && $order.deal_orders neq '待评价' && $order.deal_orders neq '已退款' && $order.deal_orders neq '申请退款中' && $order.deal_orders neq '已完成' || $order.deal_orders eq '已过期' && $order.refund_status neq 3 && $order.expire_refund eq 1|| $order.is_refund eq 0 && $order.any_refund eq 1 &&$order.is_shop eq 0 && $order.refund_status neq 3 && $order.deal_orders neq '待发货' && $order.deal_orders neq '待评价' && $order.deal_orders neq '已退款' && $order.deal_orders neq '申请退款中' && $order.deal_orders neq '已完成'|| $order.refund_status eq 0 && $order.any_refund eq 1 && $order.deal_orders neq '待发货' && $order.deal_orders neq '待评价' && $order.deal_orders neq '已退款' && $order.deal_orders neq '申请退款中' && $order.deal_orders neq '已完成'}
+                            
+                            <li class="item-content b-line">
+                                <div class="checkDiv">
+                                    <label class="label_check">
+                                        <input type="checkbox" name="my-radio" {if $order.is_shop eq 1&&$order.is_pick eq 1} coupon-id="{$order.id} {elseif $order.is_shop eq 1} deal-id="{$order.id}" {else} coupon-id="{$order.id} {/if}">
+                                        <div class="iconBox"></div>
+                                    </label>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-media shopImg">
+                                        <img src="{$order.deal_icon}">
+                                    </div>
+                                    
+                                    <div class="z-opera z-opera-sure">
+                                        <div class="item-subtitle shopTi">
+                                            <a href="javascript:void(0)">{$order.name}</a>
+                                            {if $order.is_shop eq 0 || $order.is_pick eq 1}
+                                            <p class="sizes">券码：{$order.password}</p>
+											<p class="sizes">{if $order.attr_str}规格：{$order.attr_str}{/if}</p>
+											{/if}
+                                        </div>
+                                    </div>
+                                    <span class="shop_state">{$order.deal_orders}</span>
+                                </div>
+                            </li>
+                            
+                            {/if}
+                            {/foreach}
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}
+

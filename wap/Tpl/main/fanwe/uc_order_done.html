@@ -1,0 +1,63 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index" id="uc_order_done">
+    {include file="style5.2/inc/auto_header.html"}
+
+    <div class="content" style="bottom: 0">
+
+        <div class="m-order-state">
+            <div class="u-order-state-font">
+                <h1>交易成功</h1>
+                <p>卖家将收到你的货款</p>
+            </div>
+            <div class="u-order-state-img">
+                <img src="{$TMPL}/style5.2/images/static/pay_done.png" alt="恭喜，付款成功">
+            </div>
+        </div>
+        {if $data.return_total_score || $data.return_total_money}
+        <ul class="gain_repay">
+        	{if $data.return_total_money}
+            <li><span class="iconBox"><i class="iconfont">&#xe66b;</i></span>恭喜！您已获得{$data.return_total_money}元现金<a class="now_go" href="{url r="index" a="uc_money#money_log"}">前往查看</a></li>
+            {/if}
+            {if $data.return_total_score}
+            <li><span class="iconBox"><i class="iconfont">&#xe66b;</i></span>恭喜！您已获得{$data.return_total_score}积分。积分商城兑换商品，海量优惠
+                等着您~<a class="now_go" href="{url r="index" a="scores_index"}">前往查看</a></li>
+            {/if}
+        </ul>
+		{/if}
+        <div class="pay-btn-box">
+            <a class="button u-look-order payBtn" href='{$view_url}' data-no-cache="true">订单详情</a>
+            <a class="button u-look-shop payBtn" href='{$dp_url}' data-no-cache="true">立即评价</a>
+        </div>
+
+
+		{if $item}
+        <div class="m-promote">
+            <em class="promote-tit"><i class="promote-icon"></i>商品推荐</em>
+        </div>
+        <div class="m-goods-list">
+            <ul class="type-cube clearfix">
+                {foreach from=$item item=deal}
+                <li>
+                    <a href="{url i="index" r="deal" g="data_id=$deal.id"}">
+                    <div class="goods-img"><img alt="{$deal.name}" date-load="1" data-src="{$deal.f_icon}" src="{$TMPL}/style5.2/images/loading/no-image.png"/></div>
+                    <div class="goods-info">
+                        <h2 class="goods-name">{$deal.name}</h2>
+                        <div class="sale-info">
+                            <p class="price">{function name=format_price_html v=$deal.current_price}<del class="p-price">{function name=round v=$deal.origin_price}</del></p>
+                            {if $deal.buy_count gt 0}
+                            <p class="sale">已售{$deal.buy_count}</p>
+                            {/if}
+                        </div>
+                    </div>
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        {/if}
+    </div>
+</div>
+
+{include file="style5.2/inc/footer.html"}

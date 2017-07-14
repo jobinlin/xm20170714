@@ -1,0 +1,231 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index" id="order_view">
+<form  action="{url i="index" r="cart#done" g="address_id=$data.consignee_info.id"}" id="pay_box">
+<script>
+    var AJAX_URL='{url i="index" r="ajax"}';
+    var order_id = '{$data.order_id}';  //订单号
+    var ajax_url='{url r="index" a="uc_order#refund"}';
+</script>
+    {include file="style5.2/inc/auto_header.html"}
+   
+    <nav class="bar bar-tab ">
+    {if $item.is_delete eq 0}
+        <?php $this->_var['data']['operation_count'] = count($this->_var['data']['item']['operation']);?>
+        <div class="m-check-paybox t-line">
+        	{foreach from=$data.item.operation item=operation }
+                
+                {if $operation.type eq 'j-payment'}
+	        	<a href="{$operation.url}" class="pay_btn conBtn" data-no-cache="true">{$operation.name}</a>
+	        	{elseif $operation.type eq 'j-refund'}
+	        	<a href="javascript:void(0)" js_url="{$tmpl_path}js/load/order_refund.js" url="{$operation.url}" class="nonborder load_page  {if $data.operation_count eq 1}only_one{/if}">{$operation.name}</a>
+                {elseif $operation.type eq 'center-none'}
+                <a href="javascript:void(0)" class="center-none">{$operation.name}</a>
+	        	{elseif $operation.type == 'j-cancel' || $operation.type=='j-del'}
+	        	<input class="cancel_order conBtn" href="javascript:void(0);" button-type="{$operation.type}"  message="确定{$operation.name}?"ajaxUrl="{$operation.url}" type="button" value="{$operation.name}">
+	        	{else}
+                 <input class="conBtn" style=" border: 1px solid #e3e5e9;color: #999;" onclick="$.router.load('{$operation.url}',true);" type="button" value="{$operation.name}">
+                {/if}
+                
+        	{/foreach}
+        </div>
+    {/if}
+    </nav>
+
+
+    <div class="content" style="bottom: 2.5rem">
+        <div class="orderId">
+            <div class="order_id b-line">
+                <p>订单号：{$data.item.order_sn}</p>
+                <span class="order_state">{$data.item.status_name}</span>
+            </div>
+        </div>
+        {if $data.item.pay_status neq 2}
+        <div class="order_total">
+            <div class="order_dt b-line">
+                <p class="u-lg-price">共<i>{$data.item.count}</i>件商品 需付款：<span class="u-money">{$data.item.format_total_price}</span>{if $data.item.pay_amount gt 0},已付  {$data.item.format_pay_amount}{/if}</p>
+            </div>
+        </div>
+		{/if}
+		{if $data.item.existence_expire_refund eq 1}
+		<div class="blank5"></div>
+		<div class="order_total" style=" background-color:yellow;">
+            <div class="order_dt b-line" >
+                <p class="u-lg-price" style="text-align:center;">支持过期退，<a href="#" style="text-decoration:underline;" js_url="{$tmpl_path}js/load/order_refund.js" url="{url a="index" b="uc_order#order_refund" c="data_id=$data.item.id"}" class=" load_page  {if $data.operation_count eq 1}only_one{/if}">立即退款</a></span></p>
+            </div>
+        </div>
+		{/if}
+        <div class="blank5"></div>
+        {if $data.item.delivery_status neq 5}
+        {if $data.item.consignee}
+        <!--收件人信息-->
+        <div class="list-block m-order-common  media-list" id="delivery-address">
+            <a href="#" class="item-content">
+                <div class="item-inner">
+                    <div class="item-subtitle user-name">收货人: {$data.item.consignee}<span class="u-phoneNum">{$data.item.mobile}</span></div>
+                    <div class="item-text user-address">{$data.item.address}</div>
+                </div>
+            </a>
+            <input type="hidden" value="{$data.item.consignee_id}" name="address_id" />
+        </div>
+        <div class="blank5"></div>
+        <!--收件人信息-->
+        {/if}
+		{/if}
+		{if $data.item.location_id gt 0}
+        <!--收件人信息-->
+		<a href="{$data.item.location_address_url}" class="pick-shop">
+			<p>自提门店：</p>
+			<div class="flex-1 shop-info">
+				<p>{$data.item.location_name}</p>
+				<p>{$data.item.tel}</p>
+				<p>{$data.item.location_address}</p>
+			</div>
+			<i class="iconfont">&#xe607;</i>
+		</a>
+        <div class="blank5"></div>
+        <!--收件人信息-->
+        {/if}
+        <!-- 页面主体 -->
+        <div class="list-block m-cart">
+        	{foreach from=$data.item.deal_order_item item=deal_order_item name="deal_order_item"}
+            <!--购物车列表开始-->
+            <div class="m-conBox m-check-order m-modify">
+                <!--列表头部开始-->
+                <div class="m-title  item-content b-line">
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <a href="#" class="item-title"><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$deal_order_item.supplier_name}<i class="iconfont u-icon">&#xe607;</i></a>
+                        </div>
+                    </div>
+                </div>
+                <!--列表头部结束-->
+
+                <ul class="m-cart-list j-select-body">
+                	{foreach from=$deal_order_item.list item=good name="good"}
+                    <li class="item-content b-line">
+                        <div class="item-inner">
+                            <div class="item-media shopImg">
+                                <img src="{$good.deal_icon}" alt="">
+                                <!--{if $cart.stock}<p class="u-surplus">仅剩{$cart.stock}件</p>{/if}-->
+                            </div>
+                            <div class="z-opera z-opera-sure">
+                                <div class="item-subtitle shopTi">
+                                    <a href="{url a="index" r="deal" p="data_id=$good.deal_id" }" data-no-cache="true">{$good.name}</a>
+                                    {if $good.attr_str neq ""}<p class="sizes">规格: {$good.attr_str}</p>{/if}
+                                </div>
+                                <div class="shop_price tr">
+                                    <p class="u-sm-price"><span class="u-money">{if $good.buy_type eq 1}<i>{$good.return_score.bai}</i>积分{else}¥<i>{$good.discount_unit_price.bai}</i>.{$good.discount_unit_price.fei}</span>{/if}</p>
+                                    <p class="shop-count">x<i>{$good.number}</i></p>
+                                    <p class="oreder_pay_state">{$good.deal_orders}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+            {/foreach}
+            <!--购物车列表结束-->
+
+            <!--配送方式-->
+            <div class="m-conBox m-logist">
+                <div href="javascript:void(0);" class="item-content b-line">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner u-common-inline">
+                        <div class="item-title">下单时间</div>
+                        <div class="item-after">{$data.item.create_time}</div>
+                    </div>
+                </div>
+                {if $data.item.invoice_info}
+                <div class="invoice-bar">
+                    <p class="invoice-tit">发票信息</p>
+                    <div class="invoice-tip flex-1">
+                        <p>{$data.item.invoice_info.persons}</p>
+                        <p>{$data.item.invoice_info.content}</p>
+                        {if $data.item.invoice_info.title == 1}
+                        <p>{$data.item.invoice_info.taxnu}</p>
+                        {/if}
+                    </div>
+                </div>
+                {/if}
+
+                {if $data.item.delivery_id neq 0}
+                <a href="javascript:void(0);" class="item-content b-line">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner u-common-inline">
+                        <div class="item-title">配送方式</div>
+                        <div class="item-after j-trans-commpany"><span class="j-company-name">{$data.item.delivery_info.name}</span><span class="expore j-company-money">运费{$data.item.delivery_fee}元</span></div>
+                    </div>
+                </a>
+                {/if}
+
+                {if $data.item.memo}
+                <div class="remark_show">
+                    <p><span class="remark_ti">订单备注：</span>{$data.item.memo}</p>
+                </div>
+                {/if}
+				{if $data.item.payment_info}
+				<div href="javascript:void(0);" class="item-content b-line">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner u-common-inline">
+                        <div class="item-title">{$data.item.payment_info.name}</div>
+                        <div class="item-after">{$data.item.payment_info.money}</div>
+                    </div>
+                </div>
+				{/if}
+            </div>
+            <!--配送方式-->
+
+
+            <!--订单费用详情-->
+            <div id="cart_total">
+            	<div class="m-conBox m-oreder-derail">
+					<ul class="shop_total b-line">
+						{foreach from=$data.item.feeinfo item=fee}
+						<li class="item-content">
+							<div class="item-media"><i class="icon icon-f7"></i></div>
+							<div class="item-inner u-common-inline">
+								<div class="item-title">{$fee.name}</div>
+								<div class="item-after">{if $fee.symbol eq -1}-t {/if}{if $fee.buy_type neq 1}<i class="u-symbol">¥</i>{$fee.value}{else}{$fee.value}{/if}</div>
+							</div>
+						</li>
+						{/foreach}
+					</ul>
+
+					{if $data.item.paid}
+					<ul class="shop_total reduce_total b-line">
+						{foreach from=$data.item.paid item=paid_item}
+						<li class="item-content">
+							<div class="item-media"><i class="icon icon-f7"></i></div>
+							<div class="item-inner u-common-inline">
+								<div class="item-title">{$paid_item.name}</div>
+								<div class="item-after">{if $paid_item.symbol eq -1}- {/if}{if $paid_item.buy_type neq 1}<i class="u-symbol">¥</i>{$paid_item.value}{else}{$paid_item.value}{/if}</div>
+							</div>
+						</li>
+						{/foreach}
+
+					</ul>
+					{/if}
+					{if $data.item.return_total_score>=0}
+					<ul class="shop_total">
+						<li class="item-content">
+							<div class="item-media"><i class="icon icon-f7"></i></div>
+							<div class="item-inner u-common-inline">
+								<div class="item-title">原价 <i class="u-symbol">¥</i>{function name="format_price_txt" v=$data.item.order_total_price} {if $data.item.youhui_price}共优惠 <i class="u-symbol">¥</i>{function name="format_price_txt" v=$data.item.youhui_price}{/if}</div>
+								<div class="item-after"><p class="u-lg-price">合计：<span class="u-money"> <i class="u-symbol">¥</i><i class="u-symbol">{function name="format_price_txt" v=$data.item.order_pay_price}</i></span></p></div>
+							</div>
+						</li>
+					</ul>
+                    {/if}
+				</div>
+            </div>
+            <!--订单费用详情-->
+        </div>
+    </div>
+
+</form>
+</div>
+{include file="style5.2/inc/footer.html"}

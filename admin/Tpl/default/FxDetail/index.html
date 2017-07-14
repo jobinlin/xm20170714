@@ -1,0 +1,106 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<PHP>
+function get_uname($user_id)
+{
+	$name=M("User")->where("id=".$user_id)->getField("user_name");
+	return $name;
+}
+function get_pname($user_id)
+{
+	$pid=M("User")->where("id=".$user_id)->getField("pid");
+	$pname=M("User")->where("id=".$pid)->getField("user_name");
+	return $pname;
+	if($pname){
+		return $pname;
+	}else{
+		return l("NO_REFERRALS");
+	}
+}
+</PHP>
+<script type="text/javascript">
+//改变分销商品状态
+function log_delete(id)
+{
+	if(!id)
+	{
+		idBox = $(".key:checked");
+		if(idBox.length == 0)
+		{
+			alert(LANG['DELETE_EMPTY_WARNING']);
+			return;
+		}
+		idArray = new Array();
+		$.each( idBox, function(i, n){
+			idArray.push($(n).val());
+		});
+		id = idArray.join(",");
+	}
+	if(confirm(LANG['CONFIRM_DELETE'])){
+		$.ajax({ 
+				url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=log_delete&id="+id, 
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					alert(obj.info);
+					if(obj.status==1){
+						location.href=location.href;
+					}
+				}
+		});
+	}
+}
+</script>
+
+<div class="main">
+<div class="main_title">缴费明细</div>
+<div class="blank5"></div>
+<div class="button_row">
+	
+	
+</div>
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		缴费时间：<input type="text" class="textbox" name="begin_time" id="begin_time" value="" onfocus="this.blur();return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" />
+		<input type="button" class="button" value="清空时间" onclick="$('#begin_time').val('');">&nbsp;-&nbsp;<input type="text" class="textbox" name="end_time" id="end_time" value="" onfocus="this.blur();return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" />
+		<input type="button" class="button" value="清空时间" onclick="$('#end_time').val('');">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name="user_type" style="height: 25px;">
+				<option value="0">会员名称</option>
+				<option value="1">推荐人</option>
+		</select>
+		<input type="text" class="textbox" id="name" name="name" />
+		<input type="hidden" value="FxDetail" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		
+		<input type="button" style="float:right;" class="button" value="删除" onclick="log_delete();">
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="log"  
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,user_id|get_uname:会员,create_time|to_date:缴费时间,fx_price|format_price:缴费总金额（元）,fx_charge_price|format_price:代理商佣金（元）,user_id|get_pname:推荐人,rebate|format_price:推荐人佣金（元）"
+	actionlist="log_delete:{%FOREVERDEL}"
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

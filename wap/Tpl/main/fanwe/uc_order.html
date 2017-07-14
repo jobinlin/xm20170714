@@ -1,0 +1,173 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<style type="text/css">
+	a.totop{
+		bottom: 5.2rem;
+	}
+</style>
+<!-- <script type="text/javascript">
+		var url=new Array();
+		url[0] = '{url r="index" a="uc_order" go="pay_status=0"}';
+		url[1] = '{url r="index" a="uc_order" go="pay_status=1"}';
+		url[2] = '{url r="index" a="uc_order" go="pay_status=2"}';
+		url[3] = '{url r="index" a="uc_order" go="pay_status=3"}';
+		url[4] = '{url r="index" a="uc_order" go="pay_status=4"}';
+		url[9] = '{url r="index" a="uc_order" go="pay_status=9"}';
+		var pay_status={$data.pay_status};
+    </script> -->
+<div class="page page-index " id="uc_order">
+	{include file="style5.2/inc/auto_header.html"}
+	{if $data.page_type eq 1}
+	<script type="text/javascript">
+		var url=new Array();
+		url[0] = '{url r="index" a="uc_order" go="pay_status=0&tuan=1"}';
+		url[1] = '{url r="index" a="uc_order" go="pay_status=1&tuan=1"}';
+		/*url[2] = '{url r="index" a="uc_order" go="pay_status=2&tuan=1"}';*/
+		url[2] = '{url r="index" a="uc_order" go="pay_status=2&tuan=1"}';
+		url[3] = '{url r="index" a="uc_order" go="pay_status=3&tuan=1"}';
+		url[9] = '{url r="index" a="uc_order" go="pay_status=9&tuan=1"}';
+		var pay_status={$data.pay_status};
+    </script>
+	<div class="buttons-tab">
+		<span class="tab-link button {if $data.pay_status eq 0}active{/if}"><span>全部</span></span>
+		<span class="tab-link button {if $data.pay_status eq 1}active{/if}"><span>待付款</span><span>{if $data.not_pay gt 0}({$data.not_pay}){/if}</span></span>
+		<span class="tab-link button {if $data.pay_status eq 2}active{/if}"><span>待使用</span><span>{if $data.not_use_coupon gt 0}({$data.not_use_coupon}){/if}</span></span>
+		<span class="tab-link button {if $data.pay_status eq 3}active{/if}"><span>待评价</span></span>
+		<span class="bottom_line"></span>
+	</div>
+	{else}
+	<script type="text/javascript">
+		var url=new Array();
+		url[0] = '{url r="index" a="uc_order" go="pay_status=0"}';
+		url[1] = '{url r="index" a="uc_order" go="pay_status=1"}';
+		/*url[2] = '{url r="index" a="uc_order" go="pay_status=2"}';*/
+		url[2] = '{url r="index" a="uc_order" go="pay_status=2"}';
+		url[3] = '{url r="index" a="uc_order" go="pay_status=3"}';
+		url[9] = '{url r="index" a="uc_order" go="pay_status=9"}';
+		var pay_status={$data.pay_status};
+    </script>
+	<div class="buttons-tab {if $data.pay_status gt 3}hide{/if}">
+		<span class="tab-link button {if $data.pay_status eq 0}active{/if}"><span>全部</span></span>
+		<span class="tab-link button {if $data.pay_status eq 1}active{/if}"><span>待付款</span><span>{if $data.not_pay gt 0}({$data.not_pay}){/if}</span></span>
+		<!-- <span class="tab-link button {if $data.pay_status eq 2}active{/if}"><span>待发货</span></span> -->
+		<span class="tab-link button {if $data.pay_status eq 2}active{/if}"><span>待收货</span></span>
+		<span class="tab-link button {if $data.pay_status eq 3}active{/if}"><span>待评价</span></span>
+		{if $data.pay_status gt 3}<span class="tab-link button active"><span>来啊</span></span>{/if}
+		<span class="bottom_line"></span>
+	</div>
+	{/if}
+	<div class="content infinite-scroll  infinite-scroll-bottom" {if $data.pay_status lt 5}style="top: 4.2rem;padding-top: 0.5rem"{/if}>
+		<div class="tabBox">
+			{foreach from=$data.tab_box key=key item=tab_box name="tab_box"}
+			{if $tab_box}
+				<div class="tab_box {if $data.pay_status eq $key}active{/if} j_ajaxlist_{$key}">
+				<div class="j_ajaxadd_{$key}">
+				{foreach from=$tab_box item=item name="item"}
+				<div class="list-block m-cart">
+					<a href='{$item.url}' style="display: block" data-no-cache="true">
+						<div class="orderId" style="display:none">
+							<div class="order_id b-line">
+								<p>{$item.order_sn}</p>
+								<span class="order_state">{$item.status_name}</span>
+							</div>
+						</div>
+						{foreach from=$item.deal_order_item item=deal_order_item name="deal_order_item"}
+						<div class="m-conBox m-check-order m-modify">
+							<!--列表头部开始-->
+							<div class="m-title  item-content b-line">
+								<div class="item-inner">
+									<div class="item-title-row">
+										<div class="item-title"><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$deal_order_item.supplier_name}<i class="iconfont u-icon">&#xe607;</i></div>
+										<span class="order_state">{$deal_order_item.status_name}</span>
+									</div>
+								</div>
+							</div>
+							<!--列表头部结束-->
+							{if $deal_order_item.count lt 2}
+							<!--当商品只有一件时-->
+							<ul class="m-cart-list j-select-body">
+								<li class="item-content">
+									<div class="item-inner">
+										<div class="item-media shopImg">
+											<img src="{$deal_order_item.list.0.deal_icon}">
+										</div>
+										<div class="z-opera z-opera-sure">
+											<div class="item-subtitle shopTi">
+												<div class="shop_txt">{$deal_order_item.list.0.name}</div>
+												{if $deal_order_item.list.0.attr_str neq ""}<p class="sizes">规格: {$deal_order_item.list.0.attr_str}</p>{/if}
+											</div>
+											<div class="shop_price tr">
+												<p class="u-sm-price"><span class="u-money">{if $deal_order_item.list.0.buy_type eq 1}<i>{$deal_order_item.list.0.return_score.bai}</i></span>积分{else}¥<i>{$deal_order_item.list.0.discount_unit_price.bai}</i>.{$deal_order_item.list.0.discount_unit_price.fei}</span>{/if}</p>
+												<p class="shop-count">x<i>{$deal_order_item.list.0.number}</i></p>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							{else}
+							<div class="shopBox j-order-lamp j-order-lamp1">
+								<div class="swiper-wrapper">
+									{foreach from=$deal_order_item.list item=good name="good"}
+									<div class="shopShow swiper-slide">
+										<div class="shopImg">
+											<img src="{$good.deal_icon}">
+											<p class="shop_num">{$good.number}</p>
+										</div>
+									</div>
+									{/foreach}
+								</div>
+							</div>
+							{/if}
+						</div>
+						{/foreach}
+					</a>
+
+					<div class="order_total">
+					{if $item.pay_status neq 2}
+						<div class="order_dt b-line">
+							<p class="u-lg-price">共<i>{$item.count}</i>件商品需付款：<span class="u-money">{$item.format_total_price}</span></p>
+						</div>
+					{/if}
+					{if $item.operation}
+						<div class="order_dt order_bt">
+							{foreach from=$item.operation item=operation}
+							{if $operation.type eq 'j-payment'}
+							<a href="{$operation.url}" class="go_pay btn" data-no-cache="true">{$operation.name}</a>
+							{elseif $operation.type eq 'j-cancel'}
+							<a href="javascript:void(0);" class="manage-order btn" message="确定要取消该订单？" ajaxUrl="{$operation.url}" class="cancelBtn btn">{$operation.name}</a>
+							{elseif $operation.type eq 'j-coupon'}
+							<a href="{$operation.url}"class="go_coupon btn" data-no-cache="true">{$operation.name}</a>
+							{elseif $operation.type eq 'j-dp'}
+							<a href="{$operation.url}" class="cancelBtn btn" data-no-cache="true">{$operation.name}</a>
+							{elseif $operation.type eq 'j-del'}
+							<a href="javascript:void(0);" message="确定要删除该订单?" ajaxUrl="{$operation.url}" class="manage-order btn">{$operation.name}</a>
+							{else}
+							<a href="{$operation.url}" class="look_load btn" data-no-cache="true">{$operation.name}</a>
+							{/if}
+							{/foreach}
+						</div>
+					{/if}
+					</div>
+					<div class="blank_line"></div>
+				</div>
+				{/foreach}
+				</div>
+				<div class="blank"></div>
+				<div class="pages hide">{$pages}</div>
+				<div class="blank"></div>
+			</div>
+			{else}
+				{if $app_index eq 'app'}
+					<div class="tab_box {if $data.pay_status eq $key}active{/if} j_ajaxlist_{$key}">{if $data.pay_status eq $key}<div class="tipimg no_data">列表这么空，不如去买买买～</div>{/if}</div>
+				{else}
+					<div class="tab_box {if $data.pay_status eq $key}active{/if} j_ajaxlist_{$key}">{if $data.pay_status eq $key}<div class="tipimg no_data wap_nodata">列表这么空，不如去买买买～</div>{/if}</div>
+				{/if}
+			{/if}
+			{/foreach}
+		</div>
+	</div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}
+

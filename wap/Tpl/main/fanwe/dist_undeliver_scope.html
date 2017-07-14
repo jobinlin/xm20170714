@@ -1,0 +1,19 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dist_undeliver_scope">
+    <script src="http://api.map.baidu.com/getscript?v=2.0&ak={$data.baidu_m_key}&services=&t=20170207140543">
+    </script>
+    {include file="style5.2/inc/dist_header.html"}
+    <div class="b-line bar bar-nav flex-box">
+       <span>地址:{$data.distribution.address}</span>
+    </div>
+    <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={function name=app_conf v="BAIDU_MAP_APPKEY"}"></script> -->
+    <div id="allmap"></div>
+    <div id="result">
+        <input type="hidden" name="xpoint" value="{$data.distribution.xpoint}">
+        <input type="hidden" name="ypoint" value="{$data.distribution.ypoint}">
+        <input type="hidden" name="xpoints" value="{$data.distribution.xpoints}">
+        <input type="hidden" name="ypoints" value="{$data.distribution.ypoints}">
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,17 @@
+	{if $hiz_account_info}
+	<li class="header-nav-item transition {if MODULE_NAME==index}active{/if}">
+		<a href="{url r="hiz"}">【{$hiz_account_info.name}】{$hiz_account_info.account_name}</a>
+	</li>
+	<li class="header-nav-item transition {if ACTION_NAME==edit_password}active{/if}">
+		<a href="{url x="hiz" r="user#edit_password"}">修改密码</a>
+	</li>
+	{/if}
+	<li class="header-nav-item transition">
+		<a href="{url r="index"}">首页</a>
+	</li>
+	{if $hiz_account_info}
+	<li class="header-nav-item transition">
+		<a href="{url x="hiz" r="user#logout"}">退出</a>
+	</li>
+	{/if}
+

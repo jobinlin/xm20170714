@@ -1,0 +1,61 @@
+.picker-items-col{
+	width: 100%;
+}
+
+.m-event-submit-head .title{
+	font-weight: normal;
+	font-size: @f_size2;
+	padding: 0 2rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.head-btn{
+	display: block;
+	position: absolute;
+	line-height: 2.2rem;
+	font-size: 1.1rem;
+}
+
+.head-btn.go-back{
+	left: .5rem;
+	padding-right: 1rem;
+}
+
+.head-btn.more{
+	right: .5rem;
+	padding-left: 1rem;
+}
+
+.m-event-submit{
+	background: #fff;
+	padding-left: .5rem;
+}
+
+.m-event-submit .submit-box{
+	line-height: @lh;
+	padding-right: .5rem;
+	font-size: @f_size3;
+}
+
+.m-event-submit .submit-lab{
+	width: 5em;
+	padding-right: .5rem;
+	color: @f_color2;
+}
+
+.m-event-submit .submit-input{
+	height: @lh;
+	color: @f_color1;
+	font-size: @f_size3;
+}
+
+.m-event-submit .iconfont{
+	font-size: 1rem;
+}
+
+.event-submit{
+	margin-top: 1rem;
+	padding-left: 0;
+}

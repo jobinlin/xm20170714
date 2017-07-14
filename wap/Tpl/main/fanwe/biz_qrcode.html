@@ -1,0 +1,62 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="biz_qrcode">
+	{include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+		<div class="qrcode-info">
+			<div class="biz_qrcode_div">
+				<div class="m-conBox voucher_box">
+					<a href="javascript:void(0);" class="item-content item-link">
+						<div class="item-media"><i class="icon icon-f7"></i></div>
+						<div class="item-inner u-common-inline {if $data.location_count gt 1}j-reward{/if}">
+							<div class="item-title">
+								<i class="iconfont u-shop-icon u-icon">&#xe616;</i>
+								<span class="j-reward-money">{$data.location_list.0.name}</span>
+							</div>
+							{if $data.location_count gt 1}
+							<i class="iconfont u-icon f_r">&#xe607;</i>
+							{/if}
+						</div>
+					</a>
+				</div>
+				<div class="qrcode">
+					<img src="{$data.store_pay_qrcode_url}" alt="">
+				</div>
+				<p class="user-name">打开微信扫一扫，优惠买单</p>
+			</div>
+			<a href='{$data.store_pay_qrcode_urls}' class="biz_qrcode_save">保存二维码</a>
+		</div>
+	</div>
+	<div class="popup-box">
+		<div class="pup-box-bg j-box-bg"></div>		
+		<div class="list-block m-trans-way j-red-reward voucher_box">
+			<div class="item-content u-common-box t-line-white trans-way-bg">
+				<p class="u-ti tc">门店</p>
+			</div>
+			
+			<ul class="j-reward-list m-tv-list">
+				{foreach from=$data.location_list item=location key=key}
+					<li class="t-line-white">
+						<label class="label-checkbox item-content trans-way-bg">
+							<div class="item-inner">
+								<div class="item-title pay-way-name" qrcode="{$location.qrcode_url}" qrcode_urls="{$location.qrcode_urls}">{$location.name}</div>
+								<div class="item-after">
+									<input type="radio" name="location_id" value="{$location.id}" {if $key eq 0}checked="checked"{/if}>
+									<div class="item-media">
+										<i class="icon icon-form-checkbox"></i>
+									</div>
+								</div>
+							</div>
+						</label>
+					</li>
+				{/foreach}
+			</ul>
+			<div class="item-content u-common-box">
+				<p class="u-ti tc j-cancel">取消</p>
+			</div>
+		</div>
+		<input type="hidden" name="id" value="{$id}" />
+		<input type="hidden" name="buy_type" value="{$buy_type}" />
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

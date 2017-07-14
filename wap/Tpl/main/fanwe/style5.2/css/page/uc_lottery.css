@@ -1,0 +1,87 @@
+.m-lottery-head .head-btn{
+	display: block;
+	position: absolute;
+	line-height: 2.2rem;
+	font-size: 1.1rem;
+}
+
+.m-lottery-head .head-btn.go-back{
+	left: .5rem;
+}
+
+.m-lottery-head .head-btn.more{
+	right: .5rem;
+	font-size: 1.1rem;
+	color: #8d8f99;
+	padding-left: 1rem;
+}
+
+.m-warning{
+	position: relative;
+	height: 1.85rem;
+	line-height: 1.85rem;
+	background: #fffbeb;
+	padding-left: @comspacing;
+	font-size: @f_size3;
+	color: @f_color2;
+	overflow: hidden;
+	-webkit-animation: warning 1s;	/* Safari 和 Chrome */
+			animation: warning 1s;
+	-webkit-transition: height .3s;
+			transition: height .3s;
+}
+
+.m-warning .iconfont{
+	font-size: @f_size2;
+	color: @f_colortheme;
+	margin-right: .25rem;
+
+}
+
+.m-warning .close-warning{
+	position: absolute;
+	right: .5rem;
+	color: @f_icon_color;
+	margin-right: 0;
+	padding-left: 1rem;
+}
+
+.m-lottery-list .lottery-item{
+	background: #fff;
+	padding: .5rem 0;
+	padding-left: @comspacing;
+	margin-bottom: @rowspacing;
+}
+
+.m-lottery-list .lottery-item .lottery-img{
+	width: 3.4rem;
+	height: 3.4rem;
+	margin-right: .4rem;
+}
+
+.m-lottery-list .lottery-item .lottery-name{
+	padding-right: @comspacing;
+	font-size: @f_size3;
+	line-height: .925rem;
+}
+
+.m-lottery-list .lottery-item .lottery-id{
+	margin-top: .7rem;
+	font-size: @f_size2;
+}
+
+.m-lottery-list .lottery-item .lottery-id em{
+	font-weight: bold;
+}
+
+@-webkit-keyframes warning /* Safari 和 Chrome */
+{
+	from {height: 0;}
+	to {height: 1.85rem;}
+}
+
+@keyframes warning
+{
+	from {height: 0;}
+	to {height: 1.85rem;}
+}

@@ -1,0 +1,72 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="help">
+<script>
+	var settingid = '{$data.settingid}';
+</script>
+	<div class="help-search">
+		<a href="{url a="index" r="help#search"}" class="search-link flex-box"><div class="iconfont">&#xe621;</div><p>有问题？点我搜搜看~</p></a>
+	</div>
+	{if $data.data}
+	<div class="m-nav-tab b-line">
+		<ul class="nav-tab flex-box">
+			<?php $index = 0; ?>
+			{foreach from=$data.data item=item}
+			<li class="j-nav-item flex-1 <?php if ($index == 0) { echo 'active';} ?>"><span class="nav-item">{$item.title}</span></li>
+			<?php $index++; ?>
+			{/foreach}
+			
+			<!-- <li class="j-nav-item flex-1"><span class="nav-item">其他问题</span></li> -->
+		</ul>
+		<div class="tab-line"></div>
+	</div>
+	{/if}
+	<div class="help-menu flex-box t-line">
+		{if $app_index=='app' && isOpenXN()}
+		<a class="flex-1 xnOpenSdk">
+			<div class="iconfont">&#xe693;</div>
+			<p>在线客服</p>
+		</a>
+		{/if}
+		<a href="tel:{$data.shop_tel}" class="flex-1">
+			<div class="iconfont">&#xe6ed;</div>
+			<p>咨询电话</p>
+		</a>
+	</div>
+    {include file="style5.2/inc/auto_header.html"}
+    <div class="content">
+      <!-- 页面主体 -->
+      	{if $data.data}
+		<div class="m-bar-list">
+			<?php $index = 0; ?>
+			{foreach from=$data.data item=lists}
+			<ul class="bar-list <?php if ($index == 0) { echo 'active';} ?>">
+			{foreach from=$lists.list item=list}
+				<li class="b-line">
+					<a href="{$list.url}" class="flex-box">
+						<p class="flex-1 bar-tit">{$list.title}</p>
+						<div class="iconfont">&#xe607;</div>
+					</a>
+				</li>
+			{/foreach}
+			<?php $index++; ?>
+			</ul>
+			{/foreach}
+
+			<!-- <ul class="bar-list active">
+				<li class="b-line">
+					<a href="" class="flex-box">
+						<p class="flex-1 bar-tit">商品咨询</p>
+						<div class="iconfont">&#xe607;</div>
+					</a>
+				</li>
+			</ul> -->
+		</div>
+		{else}
+		<div class="tipimg no_data">
+		暂无帮助文章
+		</div>
+		{/if}
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

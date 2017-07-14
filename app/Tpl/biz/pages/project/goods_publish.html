@@ -1,0 +1,382 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/project.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/kindeditor.css";
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/kindeditor.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/deal.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/deal.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/goods.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/goods.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/publish.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/publish.js";
+
+?>
+{include file="inc/header.html"}
+<script>
+var ajax_url = '{$ajax_url}';
+var is_shop = 1;
+var carriage_number={$carriage_number};
+var carriage_add_url='{url b="biz" x="carriage_template#add"}';
+var carriage_detail_url='{url b="biz" x="goods#get_carriage_detail"}'
+var shop_cate_2={$shop_cate_2};
+var img_index = 0;
+var brand_id = 0;
+</script>
+<div class="blank20"></div>
+<div class="page wrap_full">
+	<div class="left_box">
+		{include file="inc/biz_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="content">
+			<div class="head_box clearfix">
+				<h2 class="f_l">{$page_title}</h2>
+				<div class="publish_project_btn f_r"><a href="{$go_list_url}"><button class="ui-button " rel="white" type="button">返回列表</button></a></div>
+			</div>
+			
+			<div class="form_box">
+				<form name="goods_publish_form" action="{url r="biz" b="goods#do_save_publish"}" method="post">
+				<div class="publish_box ">
+						<ul class="publish_cons">
+						<!-- 基本信息 -->
+							<li class="con_item curr">
+								<table class="form_teble_box add_border">
+									<colgroup>
+										<col width="120">
+										<col width="600">
+									</colgroup>
+									<tbody>
+										<tr class="buy_type_0">
+											<td class="t_field_name">支持门店:</td>
+											<td class="t_field_value">
+												{foreach from=$location_infos item=row}
+													<label class="ui-checkbox" rel="common_cbo"><input class="location_id_item" type="checkbox" name="location_id[]" value="{$row.id}" />{$row.name}</label>
+												{/foreach}
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name">商品分类:</td>
+											<td class="t_field_value">
+												<!--<select class="ui-select filter_select medium" name="shop_cate_id" >
+													<option value="0">==请选择类型==</option>
+													{foreach from=$shop_cate_tree item=row}
+														<option value="{$row.id}">{$row.title_show}</option>
+													{/foreach}
+												</select>-->
+												<select name="shop_cate_1" size="15" style="width:200px;height: 300PX;">
+													{foreach from=$shop_cate_1 item=row}
+														<option value="{$row.id}" data-name="{$row.name}">{$row.name}</option>
+													{/foreach}
+												</select>
+												<select name="shop_cate_2" size="15" style="width:200px;height: 300PX;">
+													<option value=""></option>
+												</select>
+												<button id="addcate" class="ui-button addcate" rel="orange" type="button">添加分类</button>
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name">已选择分类:</td>
+											<td class="t_field_value addcate_info" >
+											<input type="hidden" name="shop_cate_id" value="">
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name ">基本信息:</td>
+											<td class="t_field_value">
+												<table class="t2" frame=void border="0" rules=none>
+													<tr>
+														<td class="t_field_name2"><i class="iconfont required">&#xe606;</i>商品标题:</td>
+														<td class="t_field_value"><input class="ui-textbox long_input" name="name" value="" maxlength="30" />&nbsp;<span class="t_tip">0/30</span></td>
+													</tr>
+													<tr>
+														<td class="t_field_name2"><i class="iconfont required">&#xe606;</i>商品简称:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="sub_name" value="" maxlength="18"/>&nbsp;<span class="t_tip">0/18</span></td>
+													</tr>
+													<tr>
+														<td class="t_field_name2">URL别名:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="uname" value=""/></td>
+													</tr>
+													<tr>
+														<td class="t_field_name2">商品卖点:</td>
+														<td class="t_field_value"><input class="ui-textbox long_input" name="brief" value="" maxlength="60" />&nbsp;<span class="t_tip">0/60</span></td>
+													</tr>
+													<tr>
+														<td class="t_field_name2"><i class="iconfont required">&#xe606;</i>商品图片:</td>
+														<td class="t_field_value">
+															{include file="inc/imgupload.html"}
+														</td>
+													</tr>
+													<tr>
+														<td class="t_field_name2">合并购买:</td>
+														<td class="t_field_value relate_td">												
+															<div class="select_relate" id='relate2'>
+																<div class="add_icon">
+																<img src="{$TMPL}/images/add_img_icon.png" />
+																	<button type="button" class="btn" id="add_relate_goods">添加关联商品</button>
+																</div>
+															</div>
+															<div class="text_info" style="clear: both;padding: 5px 0;">最多关联6个商品</div>
+														</td>
+													</tr>	
+													<tr class="buy_type_0">
+														<td class="t_field_name2">商品标签:</td>
+														<td class="t_field_value">
+															{$tags_html}
+														</td>
+													</tr>
+													<tr class="buy_type_0">
+														<td class="t_field_name2">品牌名称:</td>
+														<td class="t_field_value" id="brand">
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name ">库存/规格:</td>
+											<td class="t_field_value">
+												<table class="t2" frame=void border="0">
+													<tr>
+														<td class="t_field_name2">上架时间:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="begin_time" value="" readonly="readonly" /><a href="javascript:void(0);" class="clear_input_btn " title="清空时间">清空</a><span class="t_tip">[不设置立即上架]</span></td>
+													</tr>	
+													<tr>
+														<td class="t_field_name2">下架时间:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="end_time" value=""/><a href="javascript:void(0);" class="clear_input_btn " title="清空时间">清空</a><span class="t_tip">[不设置永不下架]</span></td>
+													</tr>
+													<tr class="max_bought_row">
+														<td class="t_field_name2">结算费率:</td>
+														<td class="t_field_value"><input type="hidden" class="ui-textbox" name="publish_verify_balance" value="{function name="floatval" v="$account_info.publish_verify_balance"}" readonly="readonly" holder/>{function name="floatval" v="$account_info.publish_verify_balance"}<span class="t_tip">%</span></td>
+													</tr>
+													<tr class="buy_type_0">
+														<td class="t_field_name2"><i class="iconfont required">&#xe606;</i>价格:</td>
+														<td class="t_field_value">
+															<div style="width: 100%;height: 33px;">
+																<div class="price_item">
+																	<span class="price_title ">销售价</span>
+																	<input class="ui-textbox f_l" style="width: 80px;" name="current_price" value=""/>
+																</div>
+																<div class="price_item">
+																	<span class="price_title">原价</span>
+																	<input class="ui-textbox f_l" style="width: 80px;" name="origin_price" value=""/>
+																</div>
+																<div class="price_item">
+																	<span class="price_title">结算价</span>
+																	<input class="ui-textbox f_l" style="width: 80px;background: #ccc;" name="balance_price" value="" readonly="readonly" holder />
+																</div>
+															</div>
+															
+															<div><p>毛利率：0.00%   毛利额：0.00</p></div>
+														</td>
+													</tr>
+													<tr>
+														<td class="t_field_name2">商品属性:</td>
+														<td class="t_field_value">
+															<div class="goods_type_box f_l">
+															<select class="ui-select filter_select medium" name="deal_goods_type" >
+																<option value="0">==请选择类型==</option>
+																{foreach from=$goods_type_list item=row}
+																	<option value="{$row.id}">{$row.name}</option>
+																{/foreach}
+															</select>
+															</div>
+															<div class="f_l" style="margin-top:7px;display: none;">
+															<span class="f_l" style="display:block;height: 23px;line-height: 23px;">属性没有符合你的？</span>
+															<div class="f_l"><button class="ui-button add_goods_type" rel="white" type="button">新增</button></div>
+															</div>
+														</td>
+													</tr>
+													<tr id="deal_attr2_tr" style="display:none;">
+														<td class="t_field_name2"></td>
+														<td class="t_field_value">
+															<div id="deal_attr2"></div>
+														</td>
+													</tr>
+													<tr  class="deal_attr_row" style="display:none;">
+														<td class="t_field_name2">商品库存:</td>
+														<td class="t_field_value">
+															<div class="f_l">递增商品价<input class="ui-textbox" name="syn_price" value=""/>元，库存<input class="ui-textbox" name="syn_stock_cfg" value=""/></div><div class="f_l" style="margin: 5px;"><button class="ui-button syn_price_setting" rel="white" type="button">批量设置</button></div>
+														</td>
+													</tr>
+													<tr class="deal_attr_row" style="display:none;">
+														<td class="t_field_name2"></td>
+														<td class="t_field_value">
+															<div id="stock_table"></div>
+														</td>
+													</tr>
+													<tr class="max_bought_row">
+														<td class="t_field_name2">总库存:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="max_bought" value=""/></td>
+													</tr>
+													<tr>
+														<td class="t_field_name2">最大购买量:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="user_max_bought" value=""/></td>
+													</tr>
+													<tr>
+														<td class="t_field_name2">最小购买量:</td>
+														<td class="t_field_value"><input class="ui-textbox" name="user_min_bought" value=""/></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name ">物流配置:</td>
+											<td class="t_field_value">
+												<table class="t2" frame=void border="0">
+													<colgroup>
+														<col width="120">
+														<col width="570">
+													</colgroup>
+													<tr>
+														<td class="t_field_name2">配送方式:</td>
+														<td class="t_field_value">
+															{foreach from=$delivery_type item="item"}
+															<label class="ui-radiobox" rel="common_cbo"><input type="radio" name="delivery_type" value="{$item.value}" {if $item.is_default==1}checked="checked"{/if} />{$item.name}</label>
+															{/foreach}
+														</td>
+													</tr>
+													<tr style="display: none;">
+														<td class="t_field_name">是否配送:</td>
+														<td class="t_field_value">
+															<select class="ui-select filter_select medium" name="is_delivery">
+																<option value="1">是</option>
+																<option value="0">否</option>
+															</select>
+														</td>
+													</tr>
+													<tr id="tr_carriage_template_id">
+														<td class="t_field_name2"><i class="iconfont required"></i>运费模板:</td>
+														<td class="t_field_value">
+															<div style="goods_type_box f_l">
+																<select class="ui-select filter_select medium" name="carriage_template_id" data-url="{url x="biz" b="goods#getCarriageTemplate"}">
+																<option value="0" selected="selected">==请选择运费模板==</option>
+																{foreach from=$carriage_template item=item}
+																<option value="{$item.id}" valuation_type="{$item.type}"{if $item.id==$deal_info.carriage_template_id} selected="selected"{/if}>{$item.name}</option>
+																{/foreach}
+																</select>
+																<div class="box-gray J_transportTpl" >
+																	<div id="J_hintDefault"  style="display: none;">
+																	   <div id="carriage_default_carriage">默认运费：1.0千克内1.00元，每增加1.0千克，加1.00元
+																	   </div>
+																	</div>
+																	<div id="deliver-warn" style="display: none;">发货地：<span id="carriage_teplate_address">阿富汗</span></div>
+															   </div>
+															</div>
+														</td>
+													</tr>
+													<tr id="tr_weight">
+														<td class="t_field_name2">配送重量:</td>
+														<td class="t_field_value">
+															<input class="ui-textbox" name="weight" value="{$deal_info.weight}"/>
+															<span class="t_tip">（千克） 当前运费模板，按物流重量（含包装）计费</span>
+														</td>
+													</tr>
+													<tr id="is_pick">
+														<td class="t_field_name2">
+														<label class="ui-checkbox" rel="common_cbo"><input class="location_id_item" type="checkbox" name="is_pick" value="1" />允许自提</label>
+														</td>
+														<td class="t_field_value">
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name ">电脑端描述:</td>
+											<td class="t_field_value">
+												<textarea id="description" name="description"></textarea>
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name">手机端描述:</td>
+											<td class="t_field_value">
+												{include file="inc/phone_description.html"}
+												<input type="hidden" id="phone_description" name="phone_description" value='{$deal_info.phone_description}'>
+											</td>
+										</tr>
+										<tr>
+											<td class="t_field_name">特权/其他设置:</td>
+											<td class="t_field_value">
+												<label class="ui-checkbox" rel="common_cbo"><input class="location_id_item" type="checkbox" name="is_refund" value="1" />支持退款</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+							<!-- 价格数量 -->
+							<li class="con_item">
+								<table class="form_teble_box add_border">
+									<colgroup>
+										<col width="120">
+										<col width="570">
+									</colgroup>
+									<tbody>
+										
+									</tbody>
+								</table>
+							</li>
+							<!-- 规格属性 -->
+							<li class="con_item">
+								<table class="form_teble_box add_border">
+									<colgroup>
+										<col width="120">
+										<col width="570">
+									</colgroup>
+									<tbody>
+                                        
+										<tr id="filter_row">
+											<td class="t_field_name">筛选关键词:</td>
+											<td class="t_field_value">
+												<div id="filter"></div>
+											</td>
+										</tr>
+										
+									
+									</tbody>
+								</table>
+							</li>
+						</ul>
+						<div class="blank10"></div>
+					</div>
+
+					<div class="confirm_form_btn">
+						<div class="sub_form_btn f_l" style="margin-left:13%">
+
+							<button class="ui-button " rel="orange" type="submit">保存</button>
+							<a href="{$go_list_url}">
+								<button class="ui-button " rel="blue" type="button">取消</button>
+							</a>
+						</div>
+						<label class="f_l" style="margin: 10px;"><input type='checkbox' name='continue_add' value='1' />保存，并继续创建下一条</label>
+					</div>
+				</form>
+				<div class="blank10"></div>
+			</div>
+			<div class="blank10"></div>
+		</div>
+	</div>	
+</div>
+
+<div class="blank20"></div>
+{include file="inc/footer.html"}

@@ -1,0 +1,164 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/kindeditor.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/form.css";
+
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/kindeditor.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/supplier_publish.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/supplier_publish.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+?>
+
+{include file="inc/header.html"}
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={function name="app_conf" v="BAIDU_MAP_APPKEY"}"></script> 
+<script type="text/javascript" src="{$TMPL}/js/utils/map.js"></script> 
+<script>
+var ajax_url = '{$ajax_url}';
+var blue_point = "{$APP_ROOT}/system/blue_point.png";
+var red_point = "{$APP_ROOT}/system/red_point.png";
+var key ="<?php echo app_conf("BAIDU_MAP_APPKEY"); ?>";
+var area_item=0;
+</script>
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+	<a class="transition" href="{url r="hiz" b="index"}">首页</a> / <a class="transition" href="{url r="hiz" b="supplier"}">商户列表</a> / <span>商户资料编辑</span>
+	<a href="#" onclick="JavaScript:history.back(-1);" class="header-back">返回</a>
+</div>
+<div class="content">
+	<div class="edit-hd">基本信息</div>
+	<span class="edit-tip">带*的信息为必填内容，请务必认真填写。</span>
+	<form name="supplier_publish_form" action="{url r="hiz" b="supplier#do_publish"}" method="post">
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 商家名称：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="name">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 登录账户：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="account_name">
+			<p class="f_l form-tip">提交后不可修改</p>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 手机号：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="account_mobile">
+			<p class="f_l form-tip">正确填写手机号，以便提现、找回密码等操作</p>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 商家密码：</p>
+			<input type="password" name="account_password" class="f_l ui-textbox edit-input">
+		</div>
+		<div class="img-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 商家logo：</p>
+			<div class="preview_upload_box img-update f_l"></div>
+			<div class="f_l form-file-wrap preview_upbtn">
+				<input type="button" class="form-file preview_btn">
+			</div>
+			<p class="f_l form-tip">建议尺寸：640 x 640 像素，上传大小不超过300kb</p>
+		</div>
+		<div class="img-wrap clearfix">
+			<p class="f_l form-tit">门店图片：</p>
+			<div class="location_upload_box img-update f_l"></div>
+			<div class="f_l form-file-wrap location_upbtn">
+				<input type="button" class="form-file location_btn">
+			</div>
+			<p class="f_l form-tip">建议尺寸：640 x 640 像素，上传大小不超过300kb</p>
+		</div>
+		<div class="cate-select-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 商家分类：</p>
+			<div class="cate-select-list f_l clearfix">
+				<ul class="cate-select main-cate f_l">
+					{foreach from=$cate_list item=item}
+					<li><input id="cate_{$item.id}" type="radio" name="deal_cate_id" value="{$item.id}"><label class="first-cate" for="cate_{$item.id}">{$item.name}</label></li>
+					{/foreach}
+				</ul>
+				{foreach from=$cate_list item=items}
+				<div class="sub-cate-wrap f_l">
+					{if $items.sub_type}
+					<ul class="cate-select sub-cate">
+						{foreach from=$items.sub_type item=item}
+						<li><input value="{$item.id}" id="sub_{$item.id}" type="checkbox" name="deal_cate_type_id[]"><label for="sub_{$item.id}" class="sub-cate">{$item.name}</label></li>
+						{/foreach}
+					</ul>
+					{/if}
+					</div>
+				{/foreach}
+				<p class="form-tip">二级分类可多选</p>
+			</div>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">营业时间：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="open_time">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 商家地址：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="address">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 地图定位：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="api_address">
+			<p class="f_l form-tip">
+			<a href="javascript:void(0);" class="f_l form-btn submit-btn"  name="search_api" id="search_api" >搜索</a>
+			<a href="javascript:void(0);" class="f_l form-btn submit-btn" name="chang_api" id="chang_api">手动定位</a>
+		</div>
+		<div class="map-wrap" id="container"></div>
+		<div style="height:10px; clear:both;"></div>
+		<div style="position:relative; top:-400px;">
+            <div  id="container_front">
+                <a href="javascript:void(0);" id="cancel_btn">关闭&nbsp</a>
+                <div id="container_m"></div>
+                <span class="prompt">鼠标拖动蓝色标识进行定位</span>
+            </div>
+        </div>
+		<input type="hidden" name="xpoint" />
+		<input type="hidden" name="ypoint" />
+		
+		<div class="edit-hd">资质信息</div>
+		<div class="blank20"></div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important" >*</i> 公司名称：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="h_name">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 公司法人：</p>
+			<input type="text" class="f_l ui-textbox edit-input"  name="h_faren">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 法人联系电话：</p>
+			<input type="text" class="f_l ui-textbox edit-input"  name="h_tel">
+		</div>
+		<div class="img-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 营业执照：</p>
+			<div class="license_upload_box img-update f_l"></div>
+			<div class="f_l form-file-wrap license_upbtn">
+				<input type="button" class="form-file license_btn">
+			</div>
+			<p class="f_l form-tip">上传大小不超过300kb</p>
+		</div>
+		<div class="img-wrap clearfix">
+			<p class="f_l form-tit">其他资质：</p>
+			<div class="other_upload_box img-update f_l"></div>
+			<div class="f_l form-file-wrap other_upbtn">
+				<input type="button" class="form-file other_btn">
+			</div>
+			<p class="f_l form-tip">上传大小不超过300kb</p>
+		</div>
+		<button class="submit-btn form-submit supplier-submit" type="button">保存</button>
+	</form>
+</div>
+{include file="inc/footer.html"}

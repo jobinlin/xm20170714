@@ -1,0 +1,56 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="dist_undeliver_verify_log_detail">
+    {include file="style5.2/inc/dist_header.html"}
+    <div class="content">
+        <div class="v-record-hd">验证信息</div>
+        <div class="v-record-bd">
+            <ul class="v-record-info">
+                <li class="b-line flex-box">
+                    <p class="v-record-tit">会<em></em>员&nbsp;:</p>
+                    <p class="v-record-tip flex-1">{$data.user_info.user_name}</p>
+                </li>
+                <li class="b-line flex-box">
+                    <p class="v-record-tit">电<em></em>话&nbsp;:</p>
+                    <p class="v-record-tip flex-1">{$data.user_info.mobile}</p>
+                </li>
+                <li class="b-line flex-box address">
+                    <p class="v-record-tit">收货地址&nbsp;:</p>
+                    <p class="v-record-tip flex-1">{$data.user_info.address}</p>
+                </li>
+                <li class="goods-code">
+                    <p class="v-record-tit">验证时间&nbsp;:</p>
+                    <p class="v-record-tip flex-1">{if $data.user_info.confirm_time eq 0}未验证{else}{$data.user_info.confirm_time}{/if}</p>
+                </li>
+                <li class="goods-code">
+                    <p class="v-record-tit">验证券码&nbsp;:</p>
+                    <p class="v-record-tip flex-1">{$data.user_info.sn}</p>
+                </li>
+				{if $data.payment_info}
+				<li class="b-line flex-box address">
+                    <p class="v-record-tit">{$data.payment_info.name}&nbsp;:</p>
+                    <p class="v-record-tip flex-1" style="color: #f24;">{$data.payment_info.money}</p>
+                </li>
+				{/if}
+            </ul>
+        </div>
+        <div class="v-record-hd">商品详情</div>
+        <div class="v-record-bd">
+            <ul class="v-goods-list">
+                {foreach from=$data.deal_order_item item=goodslist}
+                <li class="b-line">
+                    <p class="detail-name">{$goodslist.name}</p>
+
+                    <div class="goods-info flex-box">
+                        <p class="price flex-1">
+                            &yen;{$goodslist.unit_price}&nbsp;&nbsp;<span style="color:#333333;">x{$goodslist.number}</span>
+                        </p>
+
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

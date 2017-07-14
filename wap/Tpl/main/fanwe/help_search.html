@@ -1,0 +1,46 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="help_search">
+<script>
+	var searchurl = '{url a="index" r="help#do_search"}';
+</script>
+    {if $app_index=='app'}
+    	<div class="help-header flex-box b-line">
+    		{if $page_finsh}
+    		<a  href="javascript:App.page_finsh();" class="iconfont">&#xe604;</a>
+    		{else}
+    		<a {if $back_url}data-no-cache="true"{/if} href="" class="iconfont {if $back_url}go_back{else}back{/if}">&#xe604;</a>
+    		{/if}
+    		<div class="search-bar flex-1 flex-box">
+    			<div class="iconfont search-ico">&#xe61a;</div>
+    			<input type="text" class="flex-1 search-input" placeholder="请输入您的问题">
+    			<div class="input-clear iconfont j-clear">&#xe6b3;</div>
+    			<div>搜索</div>
+    		</div>
+    	</div>
+    {else}
+    	<div class="help-header flex-box b-line">
+    		<a {if $back_url}data-no-cache="true"{/if} href="" class="iconfont {if $back_url}go_back{else}back{/if}">&#xe604;</a>
+    		<div class="search-bar flex-1 flex-box">
+    			<div class="iconfont search-ico">&#xe61a;</div>
+    			<input type="text" class="flex-1 search-input" placeholder="请输入您的问题">
+    			<div class="input-clear iconfont j-clear">&#xe6b3;</div>
+    		</div>
+    		<div class="help-search-btn">搜索</div>
+    	</div>
+    {/if}
+    <div class="content">
+      <!-- 页面主体 -->
+		<div class="m-bar-list">
+			<ul class="bar-list">
+				<!-- <li class="b-line">
+					<a href="" class="flex-box">
+						<p class="flex-1 bar-tit">商品咨询</p>
+						<div class="iconfont">&#xe607;</div>
+					</a>
+				</li> -->
+			</ul>
+		</div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

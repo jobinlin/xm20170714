@@ -1,0 +1,45 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current" id="store_tuan">
+ 	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+ 		<!-- 页面主体 -->
+    {if $tuan}
+    <div class="j-ajaxlist">
+        <ul class="tuan-list j-ajaxadd">
+          {foreach from=$tuan item=tuan key=k}
+            <li>
+              <a href="{$tuan.tuan_url}">
+                <div class="tuan-img">
+                  <img alt="" date-load="1" data-src="{$tuan.icon}" src="{$tuan.icon}"/>
+                </div>
+                <div class="tuan-info">
+                  <h2 class="tuan-name">{$tuan.name}</h2>
+                  <div class="tuan-sale">
+                    <p class="price">{$tuan.current_price}{if $tuan.origin_price gt 0}<del class="p-price">{$tuan.origin_price}</del>{/if}</p>
+                    {if $tuan.buy_count gt 0}
+                    <p class="sale">已售{$tuan.buy_count}</p>
+                    {/if}
+                  </div>
+                </div>
+              </a>
+            </li>
+          {/foreach}
+        </ul>
+        {if $data.tuan_count lte 5}
+        <div class="m-search-header flex-box"><h2 class="page-title flex-1">没有更多了....</h2></div>
+       	{/if}
+        <div class="pages hide">{$pages}</div>
+        <div class="blank"></div>
+    </div>
+    {else}
+    <div class="tipimg no_data">暂无团购</div>
+    {/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

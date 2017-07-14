@@ -1,0 +1,161 @@
+.content{
+	top: 90px;
+	background:#fff;
+	padding-bottom: 40px;
+}
+.edit-hd{
+	line-height: 40px;
+	padding:0 20px;
+	background:#f7f7f7;
+	font-size:16px;
+}
+.edit-tip{
+	line-height: 40px;
+	font-size:12px;
+	color:#f20;
+	padding:0 20px;
+}
+.input-wrap,.img-wrap,.cate-select-wrap{
+	padding:0 20px;
+	margin-bottom: 16px;
+	line-height: 26px;
+}
+.form-tit{
+	position: relative;
+	width:120px;
+	text-align: right;
+	margin-right: 20px;
+}
+.form-tip{
+	color:#999;
+	font-size:12px;
+	margin-left: 10px;
+}
+.form-tit .form-important{
+	color:#f20;
+}
+.input-wrap .edit-input{
+	padding:0 10px;
+	height: 26px;
+	width:360px;
+}
+.cate-select-list .cate-select{
+	width:180px;
+	height:200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border:1px solid #ddd;
+	margin-right: 20px;
+}
+.cate-select-list .form-tip{
+	margin-left: 0;
+}
+.cate-select-list label{
+	display: block;
+	padding:0 10px;
+}
+.cate-select-list label.active {
+	color:#fff;
+	background:@btn_color;
+}
+.cate-select-list .sub-cate-wrap{
+	display:none;
+}
+.cate-select-list input{
+	display:none;
+}
+.form-btn{
+	height:28px;
+	width:100px;
+	margin-right: 10px;
+	line-height:28px;
+}
+.map-wrap{
+	width:600px;
+	height:400px;
+	margin-left: 160px;
+	border:1px solid #ddd;
+	margin-bottom: 20px;
+}
+.form-file-wrap{
+	width:80px;
+	height:80px;
+	position: relative;
+	background-image:url(../images/upload-img.png);
+	background-repeat:no-repeat;
+	margin-bottom: 10px;
+}
+.form-file-wrap:hover{
+	background-position:0 -80px;
+}
+.form-file-wrap input{
+	cursor: pointer;
+	position: absolute;
+	width:80px;
+	height:80px;
+	top:0;
+	left: 0;
+	filter:alpha(opacity=0);
+	      -moz-opacity:0;
+	      -khtml-opacity: 0;
+	      opacity: 0;
+}
+.img-update{
+	margin-bottom: 10px;
+}
+.img-update img{
+	display: block;
+	width:80px;
+	height:80px;
+	margin-right: 10px;
+}
+.img-update span {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    float: left;
+    margin-right: 5px;
+    position: relative;
+}
+.img-update span{
+	*display:inline;
+}
+.img-update span a {
+    display: block;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: url(http://localhost/o2onew/app/Tpl/hiz/images/del_img.png) no-repeat 0 bottom;
+    z-index: 10;
+    filter:alpha(opacity=0);
+          -moz-opacity:0;
+          -khtml-opacity: 0;
+          opacity: 0;
+    -moz-transition: all .25s;
+    -webkit-transition: all .25s;
+    transition: all .25s;
+}
+.img-update span a:hover{
+	filter:alpha(opacity=100);
+	      -moz-opacity:1;
+	      -khtml-opacity: 1;
+	      opacity: 1;
+}
+.form-submit{
+	width:200px;
+	margin-left: 160px;
+	cursor: pointer;
+}
+#container_front{width: 600px; height:500px; border: 1px solid #000; position: absolute; top: -40px; left:160px; background-color: #fff; overflow: hidden;}
+#container_front .prompt{display:block;text-align:center;}
+#container_m{ width: 550px; height: 450px; margin: 0 auto;}
+#cancel_btn{display: block; width: 600px; height: 18px; line-height: 18px; text-align: right;}
+.form-textarea{
+	padding:10px;
+	height: 100px;
+	resize:none;
+	width:360px;
+}

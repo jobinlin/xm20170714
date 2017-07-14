@@ -1,0 +1,60 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="biz_dealv_record">
+	{include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+		{if $data.rscoupon}
+		<div class="v-record-hd">验证信息</div>
+		<div class="v-record-bd">
+			<ul class="v-record-info">
+				<li class="b-line flex-box">
+					<p class="v-record-tit">会<em></em>员</p>
+					<p class="v-record-tip flex-1">{$data.rscoupon.user_name}</p>
+				</li>
+				<li class="b-line flex-box">
+					<p class="v-record-tit">验证时间</p>
+					<p class="v-record-tip flex-1">{if $data.rscoupon.confirm_time eq 0}未验证{else}{$data.rscoupon.confirm_time}{/if}</p>
+				</li>
+				<li class="b-line flex-box">
+					<p class="v-record-tit">验证门店</p>
+					<p class="v-record-tip flex-1">{$data.rscoupon.location_name}</p>
+				</li>
+				<li class="goods-code">
+					<p class="v-record-tit">验证券码</p>
+					<ul class="goods-code-list flex-1">
+						<li>{$data.rscoupon.sn}</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="v-record-hd">购买详情</div>
+		<div class="v-record-bd">
+			<ul class="v-goods-list">
+				<li class="b-line">
+					<p class="detail-name">订座类型：{$rs_list.cart_list.0.name}</p>
+					<p class="detail-name">预定时间：{$rs_list.cart_list.0.table_time_format}</p>
+				</li>
+				{if $menu_list}
+				<li class="b-line">
+					<p class="detail-name">预定菜肴：</p>
+    				{foreach from=$menu_list.cart_list item=menu_item}
+    				<div class="flex-box" style="margin-left: 3.2rem;">
+    					{$menu_item.name}
+    					<p class="num" style="margin-left: 1.5rem;">x{$menu_item.num}</p>
+    					<p class="price flex-1 tr" style="color:red;">
+                            {function name=format_price v=$menu_item.unit_price g=2}
+    					</p>
+    				</div>
+    				{/foreach}
+    			</li>
+    			{/if}
+    			<li class="b-line"><p class="detail-name">定金：<span style="margin-left: 1.3rem;color:red;">{function name=format_price v=$rs_list.total_data.total_price g=2}</span></p></li>
+			</ul>
+		</div>
+		{else}
+		<div class="v-record-hd">记录不存在，或已被删除！</div>
+		{/if}
+	</div>
+
+</div>
+{include file="style5.2/inc/footer.html"}

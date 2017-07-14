@@ -1,0 +1,58 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="store_payment_done">
+	
+	<script>
+		var AJAX_URL = '{url x="index" r="ajax"}';
+		var id={$data.order_id};
+	</script>
+	<!-- <header class="bar bar-nav">
+		<a class="button button-link button-nav pull-left back" data-transition='slide-out'>
+			<span class="iconfont">&#xe604;</span>
+		</a>
+		<h1 class="title">{$data.page_title}</h1>
+	</header> -->
+	{include file="style5.2/inc/auto_header.html"}
+
+	<div class="content" style="bottom: 0">
+		<div class="list-block m-order-common media-list" style="margin-bottom: 0">
+			<div class="item-content m-order-state">
+				<div class="item-inner">
+					<div class="item-subtitle u-order-state-font">{$data.page_title}</div>
+				</div>
+				<div class="u-order-state-img">
+					<img src="{$TMPL}/style5.2/images/static/pay_done.png" alt="恭喜，付款成功">
+				</div>
+			</div>
+			<div class="item-content b-line u-order-ident">
+				<div class="item-title">订单编号：{$data.order_sn}</div>
+			</div>
+			
+		</div>
+
+		<div class="list-block pay-btn-box">
+			<div class="item-content">
+				<div class="item-inner">
+					{if $app_index eq 'app'}
+					<a class="button u-look-order payBtn" href="javascript:App.app_detail(307,0)" data-no-cache="true">查看订单</a>
+					<a href="javascript:App.app_detail(1,0)" class="button u-look-shop payBtn" data-no-cache="true">再逛逛</a>
+					{else}
+					<a class="button u-look-order payBtn" href="{url i="index" r="uc_store_pay_order"}" data-no-cache="true">查看订单</a>
+					<a href="{url i="index" r="index"}" class="button u-look-shop payBtn" data-no-cache="true">再逛逛</a>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="codeShowBox">
+		<div class="blackBox blackBox-i"></div>
+		<div class="codeImgBox">
+			<h4 class="codeName"></h4>
+			<img class="codeImg" src="">
+		</div>
+	</div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}

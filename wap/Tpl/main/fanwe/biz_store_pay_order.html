@@ -1,0 +1,41 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_store_pay_order">
+    {include file="style5.2/inc/biz_header.html"}
+    <div class="content">
+    	<div class="m-order-pay-order j-ajaxlist">
+    		<div class="month-select j-month-select flex-box">金额：
+    			<p class="month-num flex-1"><span>&yen;</span>{$data.total_income}</p>
+    			<p class="months">{$data.date_ym}</p>
+    			<i class="iconfont">&#xe607;</i>
+    			<div class="m-month-list">
+    				<div class="arrow"></div>
+    				<ul class="month-list">
+						{foreach from=$data.date_list key=key item=create_ym}
+    					<li>
+    						<a href="javascript:void(0);" data-href='{url i="biz" r="store_pay_order" g="create_ym=$key"}' class="j-month" value="{$key}">{$create_ym}</a>
+    					</li>
+						{/foreach}
+    				</ul>
+    			</div>
+    		</div>
+			{if !empty($data.item)}
+    		<ul class="m-pay-order-list">
+				{foreach from=$data.item item=store_list}
+    			<li>
+    				<p class="pay-order-hd b-line"><span>买单门店：</span>{$store_list.location_name}</p>
+    				<p><span>会员名称：</span>{$store_list.user_name}</p>
+    				<p><span>消费金额：</span><em>&yen;</em>{$store_list.total_price}</p>
+    				<p><span>优惠金额：</span><em>&yen;</em>{$store_list.discount_price}</p>
+    				<p class="price"><span>实付金额：</span><em>&yen;</em>{$store_list.pay_amount}</p>
+    				<p><span>买单时间：</span>{$store_list.create_time}</p>
+    			</li>
+				{/foreach}
+    		</ul>
+			{else}
+    		<div class="tipimg no_data">暂时没有买单记录</div>
+			{/if}
+    	</div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

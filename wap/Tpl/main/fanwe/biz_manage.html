@@ -1,0 +1,112 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_manage">
+	<div class="dc-mask j-close-popup"></div>
+	<div class="dc-popup j-dc-popup">
+		<div class="dc-popup-hd">请选择管理门店</div>
+		<ul class="dc-shop-list">
+		{foreach from=$data.locations item=location}
+			<li>
+				<a href="{url a="biz" r="dc_order" go="lid=$location.id"}" class="flex-box dc-shop j-close-popup b-line">
+					<p class="flex-1 shop-name">{$location.name}</p>
+					{if $location.location_dcorder_count gt 0}
+					<p class="flex-1 shop-name" style="text-align: right;">{$location.location_dcorder_count}</p>
+					{/if}
+				</a>
+			</li>
+		{/foreach}
+		</ul>
+	</div>
+	<div class="dc-popup j-rs-popup">
+		<div class="dc-popup-hd">请选择管理门店</div>
+		<ul class="dc-shop-list">
+		{foreach from=$data.locations item=location}
+			<li>
+				<a href="{url a="biz" r="dc_resorder" go="lid=$location.id"}" class="flex-box dc-shop j-close-popup b-line">
+					<p class="flex-1 shop-name">{$location.name}</p>
+					{if $location.location_rsdcorder_count gt 0}
+					<p class="flex-1 shop-name" style="text-align: right;">{$location.location_rsdcorder_count}</p>
+					{/if}
+				</a>
+			</li>
+		{/foreach}
+		</ul>
+	</div>
+    {include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+		<ul class="biz-manage-list">
+			<li class="b-line">
+				{if $data.goodso_auth eq 0}
+				<a class="flex-box j-unauth" href="javascript:void(0);">
+				{else}
+				<a href="{url a="biz" r="shop_order" g="type=1"}" class="flex-box" data-no-cache="true">
+				{/if}
+					<p class="flex-1">商城订单</p>
+					<p class="tip">{$data.shop_count}个待发货</p>
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			<li class="b-line">
+				{if $data.dealo_auth eq 0}
+				<a class="flex-box j-unauth" href="javascript:void(0);">
+				{else}
+				<a href="{url a="biz" r="tuan_order#index"}" class="flex-box" data-no-cache="true">
+				{/if}
+					<p class="flex-1">团购订单</p>
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			<li class="b-line">
+				{if $data.store_pay_order_auth eq 0}
+				<a class="flex-box j-unauth" href="javascript:void(0);">
+				{else}
+				<a href="{url a="biz" r="store_pay_order#index"}" class="flex-box" data-no-cache="true">
+				{/if}
+					<p class="flex-1">买单订单</p>
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			<li class="b-line">
+				<a class="flex-box j-open-dc" href="javascript:void(0);">
+					<p class="flex-1">外卖订单</p>
+					{if $data.dc_order_count gt 0}
+					<p class="tip">{$data.dc_order_count}个待接单</p>
+					{/if}
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			<li class="b-line">
+				<a class="flex-box j-open-rs" href="javascript:void(0);">
+					<p class="flex-1">预定订单</p>
+					{if $data.dc_resorder_count gt 0}
+					<p class="tip">{$data.dc_resorder_count}个待接单</p>
+					{/if}
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			<li class="b-line">
+				{if $data.refund_order_auth eq 0}
+				<a class="flex-box j-unauth" href="javascript:void(0);">
+				{else}
+				<a href="{url a="biz" r="refund_order"}" class="flex-box" data-no-cache="true">
+				{/if}
+					<p class="flex-1">退款维权</p>
+					<p class="tip">{$data.refund_count}个待处理</p>
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			{if $data.is_dc_delivery eq 1 && $data.dc_location_count gt 0}
+			<li class="b-line">
+				<a href="{url a="biz" r="dc_order#abnormal_order"}" class="flex-box" data-no-cache="true">
+					<p class="flex-1">异常订单</p>
+					{if $data.dc_abnormal_count gt 0}
+						<p class="tip">{$data.dc_abnormal_count}个待处理</p>
+					{/if}
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			{/if}
+		</ul>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

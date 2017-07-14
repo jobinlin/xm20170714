@@ -1,0 +1,42 @@
+<?php if(IS_DC_DELIVERY==1){ ?>
+
+<div class="xorder-box">
+	<div class="circle"></div>
+	<div class="xorder-hd">您有<span class="order_num">0</span>个异常订单未处理 <div class="close-xorder-box">X</div></div>
+	<div class="xorder-box-btn">
+		<a href="{url i="biz" r="dcxorder"}" class="xorder-btn">点击处理</a>
+	</div>
+</div>
+
+<?php } ?>
+
+<script>
+    var abnormal_order_url="{url i="biz" r="dcxorder"}";
+	$(".close-xorder-box").bind('click',function(){
+		$(".xorder-box").hide();
+	});
+	check_order_status();
+	function check_order_status(){
+		var CheckOrderObj = setInterval(function(){
+			var query = new Object();
+			query.act = "get_abnormal_order_num";
+			$.ajax({
+				url:abnormal_order_url,
+				dataType: "json",
+				data:query,
+		        type:"POST",
+		        global:false,
+				success:function(data)
+				{
+				    if(data.status)			    		   
+				    {	
+						$(".xorder-box .xorder-hd .order_num").html(data.num);
+
+				    }
+				}
+			});
+		},1000);
+	}
+	
+
+</script>

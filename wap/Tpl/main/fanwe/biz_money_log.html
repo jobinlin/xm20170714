@@ -1,0 +1,39 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var type_1='{$type}';
+</script>
+<div class="page page-current" id="biz_money_log">
+	<div class="list-nav b-line">
+		<ul class="flex-box">
+			<li class="list-nav-item flex-1 j-list-choose {if $type eq 0} active {/if}" type="0" data-href="{url i="biz" r="withdrawal#money_log"}"><span>商城</span></li>
+			<li class="list-nav-item flex-1 j-list-choose {if $type eq 1} active {/if}" type="1" data-href="{url i="biz" r="withdrawal#money_log" g="type=1"}"><span>外卖/预定</span></li>
+		</ul>
+		<div class="list-nav-line"></div>
+	</div>
+{include file="style5.2/inc/biz_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		{if $data.item}
+		<div class="biz-money-log j-ajaxlist-{$type}">
+		<ul class="record-list j-ajaxadd-{$type}">
+			{foreach from=$data.item item=row}
+			<li class="flex-box b-line">
+				<div class="user-info">
+					<p class="bank-name">{$row.log_info}</p>
+					<p class="time">{$row.create_time}</p>
+				</div>
+				<div class="price-status flex-1">
+					<p class="price">{$row.money}</p>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+		{else}
+		<div class="tipimg no_data">暂无记录</div>
+		{/if}
+	</div>
+	<div class="blank"></div>
+</div>
+{include file="style5.2/inc/footer.html"}

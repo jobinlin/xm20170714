@@ -1,0 +1,39 @@
+
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<PHP>echo app_conf("BAIDU_MAP_APPKEY");</PHP>&s=1"></script>
+<div id="allmap" style="height:400px; width: 600px; margin: 0;"></div>
+<div id="result">
+</div>
+
+<!--加载鼠标绘制工具-->
+<script type="text/javascript">
+	var map = new BMap.Map("allmap");
+    var polygon;
+	var xpoint, ypoint;
+    var xpoints = ypoints = [];
+    var mapzoom = 11;
+    var styleOptions = {
+        strokeColor:"blue",    //边线颜色。
+        strokeWeight: 2,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.5,       //边线透明度，取值范围0 - 1。
+    };
+    var Bpoints = [];
+	<if condition="$has_map eq 1">
+        xpoint = {$vo.xpoint}, ypoint = {$vo.ypoint};
+        map.centerAndZoom(new BMap.Point(xpoint, ypoint), mapzoom);
+        marker = new BMap.Marker(new BMap.Point(xpoint, ypoint));
+        map.addOverlay(marker);
+        <foreach name="xpoints" item="x" key="k">
+            xpoints.push({$x});
+            ypoints.push({$y});
+            Bpoints.push(new BMap.Point({$x}, {$ypoints.$k}));
+        </foreach>
+        polygon = new BMap.Polygon(Bpoints, styleOptions);
+        map.addOverlay(polygon);
+
+	</if>
+    // /
+	map.enableScrollWheelZoom();
+    
+
+
+</script>

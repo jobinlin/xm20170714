@@ -1,0 +1,56 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="biz_dealv_record">
+	{include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+		<div class="v-record-hd">验证信息</div>
+		<div class="v-record-bd">
+			<ul class="v-record-info">
+				<li class="b-line flex-box">
+					<p class="v-record-tit">会<em></em>员</p>
+					<p class="v-record-tip flex-1">{$data.verify_info.user_name}</p>
+				</li>
+				<li class="b-line flex-box">
+					<p class="v-record-tit">验证时间</p>
+					<p class="v-record-tip flex-1">{if $data.verify_info.confirm_time eq 0}未验证{else}{$data.verify_info.confirm_time}{/if}</p>
+				</li>
+				<li class="b-line flex-box">
+					<p class="v-record-tit">验证门店</p>
+					<p class="v-record-tip flex-1">{$data.verify_info.location_name}</p>
+				</li>
+				<li class="goods-code">
+					<p class="v-record-tit">验证券码</p>
+					<ul class="goods-code-list flex-1">
+					{foreach from=$data.verify_info.sn item=codelist}
+						<li>{$codelist}</li>
+					{/foreach}
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="v-record-hd">购买详情</div>
+		<div class="v-record-bd">
+			<ul class="v-goods-list">
+			{foreach from=$data.buy_info item=goodslist}
+				<li class="b-line">
+					<p class="detail-name">{$goodslist.name}</p>
+					{if $goodslist.attr}
+						<p class="spec">
+							{foreach from=$goodslist.attr item=speclist}
+								<span>{$speclist.name}：{$speclist.value}</span>
+							{/foreach}
+						</p>
+					{/if}
+					<div class="goods-info flex-box">
+						<p class="price flex-1">
+							&yen;{$goodslist.unit_price}
+						</p>
+						<p class="num">x{$goodslist.number}</p>
+					</div>
+				</li>
+			{/foreach}
+			</ul>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

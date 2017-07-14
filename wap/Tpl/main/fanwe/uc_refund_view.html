@@ -1,0 +1,95 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<style type="text/css">
+    a.totop{
+        bottom: 5.2rem;
+    }
+</style>
+<div class="page page-index" id="refund_view">
+    {include file="style5.2/inc/auto_header.html"}
+    <div class="content" style="background: #fff">
+        <div class="refund_cause flex-box">
+            <div class="explain">退款原因：</div>
+            <div class="causeBox flex-1">{$item.0.content}</div>
+        </div>
+        <div class="blank5"></div>
+
+        <div class="list-block m-cart">
+        {foreach from=$item item=deal}
+            <div class="m-conBox m-check-order m-modify">
+                <!--列表头部开始-->
+                <div class="m-title  item-content b-line">
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title"><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$deal.supplier_name}</div>
+                        </div>
+                    </div>
+                </div>
+                <!--列表头部结束-->
+                <ul class="m-cart-list j-select-body">
+                    <li class="item-content b-line">
+                        <div class="item-inner">
+                            <div class="item-media shopImg">
+                                <img src="{$deal.deal_icon}">
+                                <!-- <p class="u-surplus">仅剩3件</p> -->
+                            </div>
+                            <div class="z-opera z-opera-sure">
+                                <div class="item-subtitle shopTi">
+                                    <a href="{url a="index" r="deal" p="data_id=$deal.deal_id"}" data-no-cache="true" >{$deal.name}</a>
+                                    {if $deal.attr_str}
+                                    <p class="sizes">{$deal.attr_str}</p>
+                                    {/if}
+                                    {if $deal.password}
+                                    <p class="sizes">团购券：{$deal.password}</p>
+                                    {/if}
+                                </div>
+                                <div class="shop_price tr">
+                                    <p class="u-sm-price"><span class="u-money">¥<i>{$deal.unit_price}</i></span></p>
+                                    <p class="shop-count">x<i>{$deal.number}</i></p>
+                                </div>
+                                <div class="item-subtitle shopTi" style="position: absolute;bottom: 0;right: .5rem;font-size: .6rem;">
+                                    <p class="oreder_pay_state" style="color: red;">{$deal.refund_info}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="refund-status t-line">
+                        	{if $deal.rs2 eq 1}
+                            <div class="status flex-box">
+                                <i class="iconfont waiting">&#xe689;</i>
+                                <p>退款申请已提交，请等待审核</p>
+                            </div>
+                            <p class="refund-tip">申请时间：<span>{$deal.create_time}</span></p>
+                            {elseif $deal.rs2 eq 2}
+                            <div class="status flex-box">
+                                <i class="iconfont success">&#xe68d;</i>
+                                <p>退款成功</p>
+                            </div>
+                            <p class="refund-tip">申请时间：<span>{$deal.create_time}</span></p>
+                            <p class="refund-tip">退款金额：<span class="price">&yen;{$deal.refund_money}</span></p>
+                            <p class="refund-tip">钱款去向：<span>账户余额</span></p>
+                            {if $deal.admin_memo}
+                            <p class="refund-tip">退款备注：<span>{$deal.admin_memo}</span></p>
+                            {/if}
+                            {elseif $deal.rs2 eq 3}
+                            <div class="status flex-box">
+                                <i class="iconfont fail" style="vertical-align: -1px;">&#xe68e;</i>
+                                <p>退款申请已被拒绝</p>
+                            </div>
+                            <p class="refund-tip">申请时间：<span>{$deal.create_time}</span></p>
+                            {if $deal.admin_memo}
+                            <p class="refund-tip">退款备注：<span>{$deal.admin_memo}</span></p>
+                            {/if}
+                            {/if}
+                        </div>
+                        <div class="price-count t-line">商品退款总计：<span class="price">&yen;{$deal.refund_money}</span></div>
+                    </li>
+                </ul>
+            </div>
+          {/foreach}
+         </div>
+    </div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}
+

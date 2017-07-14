@@ -1,0 +1,191 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<style>
+    table.form th {
+        height: 25px;
+        text-align: center;
+        background: #edf3f7;
+        line-height: 25px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #navs{ background:url(__TMPL__Common/images/navbgs.png) 0px 24px repeat-x; height:28px; position:relative;}
+    #navs ul{position:absolute;  }
+    #navs ul li{ float:left; display:inline; padding:0px 5px; width:90px; }
+
+    #navs a.show{ display:block; background:#4E6A81 0px 0px repeat-x; color:#fff;  padding:0px 10px;text-align:center; text-decoration:none; line-height:25px; height:28px; font-weight:bold; }
+    #navs a.show.current{  color:#fff; background:#8EA7BB repeat-x; line-height:28px;  }
+    #stock_table table th {
+        background: white;
+        padding: 10px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #stock_table table td {
+        text-align: center;
+        padding: 10px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #stock_table table {
+        border-spacing: 0px;
+        border-top: solid 1px #ccc;
+        border-left: solid 1px #ccc;
+    }
+</style>
+<script type="text/javascript">
+	function show_detail(id)
+	{
+		$.weeboxs.open(ROOT+'?m=Deal&a=show_detail&id='+id, {contentType:'ajax',showButton:false,title:LANG['COUNT_TOTAL_DEAL'],width:600,height:330});
+	}
+	function preview(id)
+	{
+		window.open("__ROOT__/index.php?ctl=preview&act=deal&id="+id+"&type=0");
+	}
+</script>
+<php>
+	function a_get_deal_type($type,$id)
+	{
+		$deal = M("Deal")->getById($id);
+		if($deal['is_coupon'])
+		return l("COUNT_TYPE_".$deal['deal_type']);
+		else
+		return l("NO_DEAL_COUPON_GEN");
+		
+	}
+    function get_deal_no_city_name($city_id){
+    if($city_id){
+    return get_city_name($city_id);
+    }else{
+    return "全国";
+    }
+    }
+	function a_get_time_status($time_status,$deal_id)
+	{
+		$str = l("TIME_STATUS_".$time_status);
+
+		return $str;
+	}
+	function a_get_buy_status($buy_status,$deal_id)
+	{
+		
+			$is_coupon = M("Deal")->where("id=".$deal_id)->getField("is_coupon");
+			if($is_coupon == 1)
+			{
+				$link = "&nbsp;&nbsp;[ <a href='".__APP__."?m=DealCoupon&a=index&deal_id=".$deal_id."' style='color:red;'>".l("DEAL_COUPON")."</a> ]";
+			}
+			$count = "&nbsp;&nbsp;[<a href='javascript:void(0);' onclick='show_detail(".$deal_id.")'; style='color:red;'>".l("COUNT_TOTAL_DEAL")."</a>]";
+		
+		
+		return l("BUY_STATUS_".$buy_status).$link.$count;
+	}
+	function get_buy_type_title($buy_type)
+	{
+		return l("DEAL_BUY_TYPE_".$buy_type);
+	}
+    function show_attr_stock($id,$name){
+        $link='';
+        $count=M("AttrStock")->where("deal_id=".$id)->count();
+        if($count){
+        $link = "<a href=\"javascript:show_attr_stock(".$id.",'".$name."')\">规格库存</a>";
+        }
+        return $link;
+    }
+    function get_new_deal_cate_name($cate_id,$deal_id){
+       if($cate_id){
+          $col=$GLOBALS['db']->getCol("select name from ".DB_PREFIX."deal_cate where id in(".$cate_id.")");
+          if(count($col)>1){
+             return  $col[0]."...";
+          }else{
+             return  $col[0];
+          }
+       }else{
+            $col=$GLOBALS['db']->getCol("select b.name from ".DB_PREFIX."deal_cate_type_deal_link a left join ".DB_PREFIX."deal_cate_type b on b.id=a.deal_cate_type_id where a.deal_id =".$deal_id);
+            if(count($col)>1){
+             return  $col[0]."...";
+            }else{
+             return  $col[0];
+            }
+     }
+
+    }
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+    <div id="navs">
+        <div>
+            <ul>
+                <li ><a class="show <if condition="$status==0">current</if>" href="{:u("Deal/index",array("status"=>0,"type"=>$type))}">出售中</a></li>
+                <li><a class="show <if condition="$status==1">current</if>" href="{:u("Deal/index",array("status"=>1,"type"=>$type))}">已售罄</a></li>
+                <li><a class="show <if condition="$status==2">current</if>" href="{:u("Deal/index",array("status"=>2,"type"=>$type))}">仓库中</a></li>
+            </ul>
+        </div>
+        <div style="float:right">
+            <a style="color:black;margin: 0 10px 0 0;font-weight: bold;font-size: 14px;" href="{:u("Deal/trash",array("type"=>3))}">商品回收站</a>
+        </div>
+    </div>
+<div class="search_row">
+    <div class="button_row" style="float: left;">
+        <input type="button" class="button" style="background:#FF9900;"  value="新增商品" onclick="add();" />
+        <input type="button" class="button" value="{%DEL}" onclick="del();" />
+        <if condition="$status==2">
+            <input type="button" class="button" value="上架" onclick="up_line();" />
+            <span class="item_input">注：如果无法上架，请查看库存和团购开始结束时间是否有问题</span>
+        <else />
+            <input type="button" class="button" value="下架" onclick="down_line();" />
+        </if>
+
+    </div>
+    <div style="float: right;">
+	<form name="search" action="__APP__" method="get">
+		<select name="city_id">
+			<option value="0" <if condition="intval($_REQUEST['city_id']) eq 0">selected="selected"</if>>所有城市</option>
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" <if condition="intval($_REQUEST['city_id']) eq $city_item['id']">selected="selected"</if>>{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		<select name="cate_id">
+			<option value="0" <if condition="intval($_REQUEST['cate_id']) eq 0">selected="selected"</if>>所有分类</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}" <if condition="intval($_REQUEST['cate_id']) eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+			</foreach>
+		</select>
+        <input type="text" class="textbox" name="name" value="{:strim($_REQUEST['name'])}" placeholder="商品名"/>
+		<input type="text" class="textbox" name="supplier_name" value="{:strim($_REQUEST['supplier_name'])}" size="10" placeholder="商家名"/>
+		<input type="hidden" value="Deal" name="m" />
+		<input type="hidden" value="index" name="a" />
+        <input type="hidden" value="{$status}" name="status" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+     </div>
+    <div style="clear:both;"></div>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,name|msubstr_name:{%DEAL_NAME}:edit
+		,cate_id|get_new_deal_cate_name=$deal['id']:{%DEAL_CATE}
+		,city_id|get_deal_no_city_name:城市
+		,supplier_id|get_supplier_name:商家
+		,buy_status|a_get_buy_status=$deal['id']:{%DEAL_BUY_STATUS}
+		,sort|get_sort=$deal['id']:{%SORT}"
+	actionlist="edit:{%EDIT}, del:{%DEL}, preview:{%PREVIEW},id|show_attr_stock=$name" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

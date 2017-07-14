@@ -1,0 +1,40 @@
+{if $supplier_data_list}
+<div class="data_list">
+	<dl>
+		{foreach name="supplier_data_list" from=$supplier_data_list item=data key=key}
+		{if ($is_more eq 1 and $key gt $page_size) or $is_more eq 0}
+		<dd class="clearfix {if $is_more eq 1}ajax_add{/if}">
+				<span class="dl_img">
+					<a href="{$data.url}" title="{$data.name}" target="_blank"><img src="{function name="get_spec_image" v=$data.icon w=100 h=100 g=1}" width="100" height="100"  /></a>
+				</span>
+				<span class="dl_name">
+					<a class="shop-name" href="{$data.url}" title="{$data.name}" target="_blank">{$data.sub_name}</a>
+					<p class="shop-tip">{function name="msubstr" v=$data.name b=0 e=50}</p>
+					<p class="sale-num">已售{$data.buy_count}</p>
+				</span>
+				<span class="dl_time">
+					有效期：{$data.end_time}
+				</span>
+				<span class="dl_price">
+					<table>
+						<td>
+							<i class="current">&yen;{function name="round" v=$data.current_price l=2}</i>
+							{if $data.origin_price gt 0}<i>门市价&yen;{function name="round" v=$data.origin_price l=2}</i>{else}{/if}
+						</td>
+					</table>
+				</span>
+			<a href="{$data.url}" class="tuan-btn">立即抢购</a>
+		</dd>
+		{/if}
+		{/foreach}
+	</dl>
+	{if $total gt $page_size}
+		<a href="javascript:void(0);" class="check-more j-check-more" url='{url x="index" r="ajax#store_load_supplier_deal"}'>
+			查看更多
+			<i class="iconfont">&#xe647;</i>
+		</a>
+		<input type="hidden" name="store_id" value="{$store_id}">
+		<input type="hidden" name="is_more" value="{$is_more}">
+	{/if}
+</div>
+{/if}

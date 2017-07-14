@@ -1,0 +1,9 @@
+<header class="bar bar-nav">
+	<h1 class="header-title">{$data.location_name}</h1>
+	{if $page_finsh}
+		<a href="javascript:App.page_finsh();"  class="header-btn header-left iconfont">&#xe604;</a>
+    {else}
+	<a class="header-btn header-left iconfont go-back back">&#xe604;</a>
+	{/if}
+	<a href="{$data.stores_explain_url}" class="header-txt header-right">买单说明</a>
+</header>

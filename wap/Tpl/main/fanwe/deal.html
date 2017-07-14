@@ -1,0 +1,439 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="deal">
+	<div class="m-mask j-close-qrcode"></div>
+	<div class="m-qrcode-box">
+		<p class="qrcode-hd b-line">分享二维码</p>
+		<div class="qrcode-img"><img src="{$TMPL}/style5.2/images/loading/no-image.png" alt=""></div>
+		<p class="qrcode-bd">请打开微信扫一扫，扫描二维码</p>
+	</div>
+	{include file="style5.2/inc/auto_header.html"}
+<!--添加商品部分初始化参数-->
+<script type="text/javascript">
+var deal_id = {$data.id};
+var ajax_url = '{url r="index" p="deal"}';
+var get_recommend_data_url='{url r="index" p="deal#get_recommend_data" z="data_id=$data.id"}';
+var get_dp_detail_url='{url r="index" p="deal#dp_detail" z="data_id=$data.id"}';
+var deal_price = {$data.current_price};
+var deal_buy_count = {$data.buy_count};
+var deal_stock = '{$data.max_bought}';
+var deal_attr_stock_json = {$data.deal_attr_stock_json};
+var deal_user_min_bought = parseInt({$data.user_min_bought});  //会员最小购买
+var deal_user_max_bought = parseInt({$data.user_max_bought});	 //会员最大购买
+var now_buy=1;//判断是立即购买还是加入购物车
+var cart_url='{url a="index" r="cart"}';
+
+</script>
+	<nav class="bar bar-tab m-deal-nav flex-box">
+	{if $data.buy_type eq 0}
+		{if $app_index=='app' && isOpenXN()}
+		<a class="nav-item link-btn r-line {if $data.settingid}xnOpenSdk{/if}" {if $data.settingid} settingid="{$data.settingid}" goodsTitle="{$data.goodsTitle}" goods_URL="{$data.goods_URL}" goodsPrice="{$data.goodsPrice}" goods_showURL="{$data.goods_showURL}"{/if}>
+			<i class="iconfont">&#xe693;</i>
+			<p>客服</p>
+		</a>
+		{/if}
+		{if $data.location_id}
+		<a href="{if $data.location_id}{url a="index" r="store"  p="data_id=$data.location_id"}{else}{url a="index" r="index"}{/if}" class="nav-item link-btn r-line">
+			<i class="iconfont">&#xe616;</i>
+			<p>店铺</p>
+		</a>
+		{/if}
+		<a href="javascript:void(0);" data-isdel="{if $data.is_collect neq 1}0{else}1{/if}" class="nav-item link-btn r-line collection j-collection ">
+			<i class="iconfont icon-collection {if $data.is_collect eq 1}isCollection{/if}"></i>
+			<p>收藏</p>
+		</a>
+		{if $data.in_cart eq 1}
+
+			<a href="{if $app_index=='app'}javascript:App.app_detail(106,0);{else}{url a="index" r="cart"}{/if}" class="nav-item link-btn"  data-no-cache="true">
+				<i class="iconfont">&#xe617;</i>
+				<p>购物车</p>
+				<em class="cart-num {if $data.cart_num eq 0}hide{/if}">{$data.cart_num}</em>
+			</a>
+		{/if}
+		<div class="flex-1 flex-box">
+			{if $data.check_deal_time.status eq 1}
+			{if $data.in_cart eq 1}
+			<a href="javascript:void(0);" class="nav-item func-btn add-cart flex-1 j-addcart" data-num="2">
+			加入购物车
+			</a>
+			{/if}
+			<a href="javascript:void(0);" class="nav-item func-btn now-buy flex-1 j-nowbuy" data-num="2">
+				立即购买
+			</a>
+			{else}
+			<div href="javascript:void(0);" class="nav-item func-btn flex-1 isOver" data-num="2">
+
+
+				{if $data.check_deal_time.data eq $data.check_deal_time.DEAL_NOTICE}
+				未开始{/if}
+				{if $data.check_deal_time.data eq $data.check_deal_time.DEAL_HISTORY}
+				已结束{/if}
+				{if $data.check_deal_time.data eq $data.check_deal_time.COUPON_HISTORY}
+				消费券已过期{/if}
+			</div>
+			{/if}
+		</div>
+	{else}
+		<a href="javascript:void(0);" class="nav-item func-btn flex-1 now-buy {if $data.score_button.status eq 1}  j-nowbuy{/if}" {if $data.score_button.status eq -1} style="background:#ccc;"{/if} data-num="2">
+			{$data.score_button.name}
+		</a>
+
+	{/if}
+	</nav>
+
+	<div class="content  infinite-scroll">
+		<div class="content-block m-deal-content">
+			<div class="tabs">
+				<div id="tab1" class="tab active">
+					<div style="position: relative;z-index: 1;width: 100%;">
+						<div class="j-deal-content-banner deal-banner" data="{$data.images_count}">
+							<div class="swiper-wrapper">
+							{if $data.f_images}
+								{foreach from=$data.f_images item=img name=img}
+								<div class="swiper-slide" rel="{$smarty.foreach.img.iteration}">
+									{if $data.is_shop eq 0}
+									<a href="#tab2" class="j-detail tab-link" data="1" data-type="0">
+										<img alt="" date-load="1" data-src="{$img}" src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%">
+									</a>
+									{else}
+									<img alt="" date-load="1" data-src="{$img}" src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%">
+									{/if}
+								</div>
+								{/foreach}
+							{else}
+								<!--没有图片的情况-->
+								<div class="swiper-slide">
+									<img src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%" />
+								</div>
+							{/if}
+							</div>
+						</div>
+						<!--   <div class="qrcode-btn j-open-qrcode iconfont">&#xe60e;</div>  -->
+						<div class="banner-bottom">
+							{if $data.is_shop neq 0 && $data.images_count gt 0}
+							<div class="slideindex">
+								<em></em>&nbsp;/&nbsp;{$data.images_count}
+							</div>
+							{/if}
+							{if $data.is_shop eq 0}
+							<div class="tuan-goodinfo">
+								<div class="goodname">{$data.supplier_name}</div>
+								<div class="gooddetail">
+								{$data.brief}
+								</div>
+							</div>
+							{/if}
+						</div>
+					</div>
+
+					<!-- 商品信息开始 -->
+					<div class="m-good-info">
+						{if $data.is_shop eq 1}
+							<div class="good-name">
+							{$data.name}
+							</div>
+							<div class="good-general">
+								{$data.brief}
+							</div>
+						{/if}
+						<div class="good-price b-line">
+
+							{if $data.buy_type eq 0}
+						  	<em class="price-unit">&yen;</em><em class="num-int">{$data.f_current_price_arr.0}</em><em class="num-float">.{$data.f_current_price_arr.1}</em>
+							&nbsp;
+							{if $data.f_origin_price gt 0}<em class="old-price">&yen;{$data.f_origin_price}</em>{/if}
+							<span class="tuan-saleNum">
+								<i class="iconfont icon-style" style="vertical-align: -1px;">&#xe62d;</i>
+								已售{$data.buy_count}
+							</span>
+							{else}
+							<em class="num-int">{$data.return_score_show}</em><em class="num-float">积分</em>
+							{/if}
+							
+							<div class="left_time login-status" >
+								{if $data.user_login_status}
+								{$data.discount_name}
+								{else}
+								登录后确认是否享有会员优惠价
+								{/if}
+							</div>
+							{if $data.is_shop eq 0 && $data.end_time neq 0}
+							<div class="tuan-residuetime left_time AdvLeftTime" data="{$data.f_end_time}">
+								还剩
+								<span class="s day">--</span><span class="l">天</span><span class="s hour">--</span><span class="l">:</span><span class="s min">--</span><span class="l">:</span><span class="s sec">--</span>
+							</div>	
+							{/if}
+						</div>
+
+
+						<?php $this->_var['data']['promotes_count'] = count($this->_var['data']['promotes_list_arr']);?>
+						{if $data.promotes_list_arr && $data.buy_type eq 0}
+						<ul class="shop-active b-line j-activeopen" rel="1">
+							{foreach from = $data.promotes_list_arr item=row}
+							<li class="active-item">
+								{if $row.type eq "free"}
+								<i class="iconfont icon-style">&#xe669;</i>
+								{/if}
+								{if $row.type eq "return"}
+								<i class="iconfont icon-style">&#xe668;</i>
+								{/if}
+								{if $row.type eq "minus"}
+								<i class="iconfont icon-style">&#xe66a;</i>
+								{/if}
+								{$row.content}
+							</li>
+							{/foreach}
+							{if $data.promotes_count gt 1}
+								<i class="iconfont f_r icon-style icon-more">&#xe608;</i>
+								<i class="iconfont f_r icon-style icon-less">&#xe606;</i>
+							{/if}
+						</ul>
+						{/if}
+						<?php $this->_var['data']['deal_tags_count'] = count($this->_var['data']['deal_tags']);?>
+						{if $data.deal_tags && $data.buy_type eq 0}
+						<div class="shop-fuli">
+							<ul class="shop-active j-activeopen" rel="2">
+							{foreach from=$data.deal_tags item=row}
+								<li class="shop-active-item">{$row.v}</li>
+							{/foreach}
+								<i class="iconfont f_r icon-style icon-more">&#xe608;</i>
+								<i class="iconfont f_r icon-style icon-less">&#xe606;</i>
+							</ul>
+						</div>
+						{/if}
+					</div>
+					{if $data.deal_attr && $data.buy_type eq 0}
+					<div class="j-open-choose good-specifications" data-num="{$data.deal_attr.length}">
+
+						<span>请选择
+							{foreach from=$data.deal_attr item=attr }
+								<i class="spec-item">&nbsp;&nbsp;{$attr.name}</i>
+							{/foreach}
+						</span>
+						<i class="iconfont f_r icon-style">&#xe612;</i>
+					</div>
+					{/if}
+					
+					<!-- 商品信息结束 -->
+					{if $data.supplier_location_list}
+					<div class="tuan-shopinfo">
+						<div class="name-range">
+							<div class="shopName" onclick ="javascript:location.href='{url a="index" r="store"  p="data_id=$data.supplier_0.id"}'">{$data.supplier_0.name}</div>
+
+							<div class="shopRange">{$data.supplier_0.distance}</div>
+
+						</div>
+						<div class="addressTel">
+							<div class="shop-address r-line"><a href="{url a="index" r="position" p="location_id=$data.supplier_0.id"}">{$data.supplier_0.address}</a></div>
+							<div class="shop-tel">
+								<a href="tel:{$data.supplier_0.tel}">
+									<i class="iconfont">&#xe618;</i>
+								</a>
+							</div>
+						</div>
+						
+						{if $data.supplier_location_count gt 1}
+						<a class="tuan-showMore t-line" href="{url a="index" r="location" g="data_id=$data.id"}">
+							查看全部{$data.supplier_location_count}家分店
+							<i class="iconfont f_r icon-style">&#xe607;</i>
+						</a>
+						{/if}
+					</div>
+					{/if}
+
+
+<!-- ———————————————————————————————————————————————————团购———————————————————————————————————————————————————————————— -->
+
+{if $data.is_shop eq 1 && $data.buy_type eq 0}
+					{if $data.relate_data.goodsList}
+					<dl class="best-group">
+						<dt class="best-group-tit">
+							<a href="{url a="index" r="dealgroup" g="data_id=$data.id"}">
+								最佳组合
+								<i class="iconfont f_r icon-style">&#xe607;</i>
+							</a>
+						</dt>
+						{if $data.relate_data.goodsList.0}
+						<dd class="bestimg-box">
+							<a href="{url a="index" r="deal" g="data_id=$data.relate_data.goodsList.0.id"}">
+								<img alt="{$data.relate_data.goodsList.0.name}" date-load="1" data-src="{$data.relate_data.goodsList.0.f_icon_middle}" src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%">
+								<div class="best-price">&yen;{$data.relate_data.goodsList.0.current_price}</div>
+							</a>
+						</dd>
+						{/if}
+						{if $data.relate_data.goodsList.1}
+						<dd class="best-add">+</dd>
+						<dd class="bestimg-box">
+							<a href="{url a="index" r="deal" g="data_id=$data.relate_data.goodsList.1.id"}">
+								<img alt="{$data.relate_data.goodsList.1.name}" date-load="1" data-src="{$data.relate_data.goodsList.1.f_icon_middle}" src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%">
+								<div class="best-price">&yen;{$data.relate_data.goodsList.1.current_price}</div>
+							</a>
+						</dd>
+						{/if}
+						{if $data.relate_data.goodsList.2}
+						<dd class="best-add">+</dd>
+						<dd class="bestimg-box">
+							<a href="{url a="index" r="deal" g="data_id=$data.relate_data.goodsList.2.id"}">
+								<img alt="{$data.relate_data.goodsList.2.name}" date-load="1" data-src="{$data.relate_data.goodsList.2.f_icon_middle}" src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%">
+								<div class="best-price">&yen;{$data.relate_data.goodsList.2.current_price}</div>
+							</a>
+						</dd>
+						{/if}
+					</dl>
+					{/if}
+{/if}
+					{if $data.buy_type eq 0}
+					<div class="tuan-packageInfo">
+						{if $data.is_shop eq 0}
+						{if $data.set_meal}
+						<div class="tuan-tit b-line">套餐内容</div>
+						<div class="">
+							{$data.set_meal}
+						</div>
+						{/if}
+						{/if}
+						<div class="deal-detail" style="{if !$data.description}background:transparent;{/if}">
+						{if $data.description}
+							{$data.description}
+						{else}
+							<div class="tipimg no_data">
+							暂无详情
+							</div>
+						{/if}
+						</div>
+					</div>
+					{/if}
+					{if $data.notes neq ''}
+					<div class="consume-tip">
+						<div class="tuan-tit b-line">消费提示</div>
+						<div class="">
+							{$data.notes}
+						</div>
+					</div>
+					{/if}
+
+			<div id="dp_list_click"></div>
+
+					{if $data.other_location_deal && $data.is_shop eq 0}
+					<div class="tuan-shopoher">
+						<div class="tuan-tit b-line">本商家其他热卖{if $data.is_shop eq 1}商品{else}团购{/if}</div>
+						<ul class="tuan-list">
+							{foreach from=$data.other_location_deal item=other_deal_item}
+							<li>
+								<a href="{url a="index" r="deal" g="data_id=$other_deal_item.id"}">
+									<div class="tuan-img">
+										<img date-load="1" data-src="{$other_deal_item.f_icon}" src="{$TMPL}/style5.2/images/loading/no-image.png" width="100%">
+									</div>
+									<div class="tuan-info">
+										<h2 class="tuan-name">{$other_deal_item.name}</h2>
+										<div class="tuan-sale">
+											<p class="price">&yen;{$other_deal_item.f_current_price_arr.0}.<span>{$other_deal_item.f_current_price_arr.1}</span>{if $other_deal_item.f_origin_price gt 0}<del class="p-price">&yen;{$other_deal_item.f_origin_price}</del>{/if}</p>
+											{if $other_deal_item.buy_count gt 0}<p class="sale">已售{$other_deal_item.buy_count}</p>{/if}
+										</div>
+									</div>
+								</a>
+							</li>
+							{/foreach}
+
+						</ul>
+						{if $data.count_other_location_deal gt 0}
+							<div class="tuan-showMore t-line j-tuan-showMore">
+									<span id="other" content="查看剩余{$data.count_other_location_deal}个{if $data.is_shop eq 1}商品{else}团购{/if}">查看剩余{$data.count_other_location_deal}个{if $data.is_shop eq 1}商品{else}团购{/if}</span>
+									<i class="iconfont f_r icon-style icon-more">&#xe608;</i>
+									<i class="iconfont f_r icon-style icon-less">&#xe606;</i>
+							</div>
+						{/if}
+					</div>
+					{/if}
+					<!--商户推荐团购-->
+            <div id="recommend_data"></div>
+			{if $data.buy_type eq 1}
+				<div class="deal-detail" style="{if !$data.description}background:transparent;{/if}">
+					{if $data.description}
+						{$data.description}
+					{else}
+						<div class="tipimg no_data">
+						暂无详情
+						</div>
+					{/if}
+				</div>
+			{/if}
+		</div>
+		<div id="tab3" class="tab comment-list j-ajaxlist"  style="{if !$data.dp_list}background:transparent;{/if}">
+			<dl class="m-comment j-ajaxadd">
+					<div class="tipimg no_data no_dp_data">
+					暂无评价
+					</div>
+			</dl>
+		</div>
+
+			</div>
+		</div>
+	</div>
+<!-- 弹出层 -->
+<div class="flippedout-spec">
+
+<!-- 规格选择框开始 -->
+	<div class="spec-choose t-line">
+		<form id="goods-form" action="{url a="index" r="cart#addcart" }"  method="post">
+			<input type="hidden" name="buy_type" value="{$data.buy_type}" />
+			<div class="close-btn j-spec-choose-close">
+				<img class="close-img" src="{$TMPL}/style5.2/images/static/close-btn.png" alt="">
+			</div>
+			<div class="good-info b-line">
+				<div class="spec-choose-img">
+					<img src="{$data.f_icon}" alt="商品图片"/>
+				</div>
+				<div class="spec-goodprice">
+				{if $data.buy_type eq 1}
+					{$data.return_score_show}积分
+				{else}
+					&yen;{$data.f_current_price}
+				{/if}	
+				</div>
+				<div class="spec-goodstock">库存:{if $data.max_bought eq -1}不限{elseif $data.max_bought  eq 0}库存不足{elseif $data.max_bought  gt 0}{$data.max_bought}件{/if}
+				</div>
+				{if $data.deal_attr}
+				<div class="spec-goodspec"></div>
+				{/if}
+			</div>
+			<div class="spec-info">
+				{foreach from=$data.deal_attr item=attr}
+					<div class="choose-part">
+						<div class="spec-tit unchoose">{$attr.name}</div>
+						<ul class="choose-list">
+							{foreach from=$attr.attr_list item=attr_item}
+								<li class="j-choose choose-item choose-item-big" data-value="{$attr_item.name}" data-id="{$attr_item.id}" pirce="{$attr_item.price}">{$attr_item.name}</li>
+							{/foreach}
+						</ul>
+						<input type="hidden" class="spec-data" name="deal_attr[{$attr.id}]"  />
+					</div>
+				{/foreach}
+				<div class="choose-part t-line clearfix">
+					<div class="spec-tit">数量<em>{if $data.user_min_bought gt 0}每人最少购买{$data.user_min_bought}件{if $data.in_cart eq 1}，可分别购买{/if}{if $data.user_max_bought gt 0},{else}。{/if}{/if}{if $data.user_max_bought gt 0}每人限购{$data.user_max_bought}件。{/if}</em></div>
+					<i class="nummiuns add-miuns j-add-miuns j-miuns isUse" data-operate="-">&#45;</i>
+					<input type="text" name="num" class="numplusminus" value="1"  data-max="{if $data.user_max_bought gt 0}{$data.user_max_bought}{else}100{/if}" data-min="1">
+					<i class="numadd add-miuns j-add-miuns j-add" data-operate="+" id="addnum" max-num="{$data.max_bought}">&#43;</i>
+					<!-- <input type="hidden" name="num" value="1" /> -->
+					<input type="hidden" name="id" value="{$data.id}"  />
+					<input type="hidden" name="type" value="0"  />
+					<input type="hidden" name="max_bought" value="{$data.max_bought}"  />
+				</div>
+			</div>
+			<div class="spec-btn-list flex-box t-line">
+				<input type="hidden" class="deal_attr_stock_str" data-value="" />
+				{if $data.in_cart eq 1}
+				<a href="javascript:void(0);" class="flex-1 joincart">加入购物车</a>
+				{/if}
+				<a href="javascript:void(0);" class="flex-1 nowbuy">{if $data.buy_type eq 1}立即兑换{else}立即购买{/if}</a>
+				<a href="javascript:void(0);" class="flex-1 isOk">确定</a>
+				<div class="flex-1 noStock">确定</div>
+			</div>
+		</form>
+	</div>
+<!-- 规格选择框结束 -->
+	<div class="close-flippedout j-flippedout-close">
+	</div>
+</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,71 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="uc_order_message">
+    {include file="style5.2/inc/auto_header.html"}
+    <nav class="bar bar-tab ">
+        <input type="button" class="submitBtn" value="提交申请">
+    </nav>
+
+    <div class="content" style="bottom: 2.5rem;background: #fff">
+    <form  action="{url i="index" r="uc_order#do_refund" }" id="order_msg">
+        <div class="ba_color_box">
+            <div class="causeBox">
+                <h3>退款说明</h3>
+                <div class="treaBox">
+                    <textarea class="write_cause" name="content" placeholder="请输入不超过100字的退款原因~"></textarea>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="deal_id" value="{$deal_id}"> 
+        <input type="hidden" name="coupon_id" value="{$coupon_id}"> 
+	</form>
+	
+
+        <div class="list-block m-cart">
+            <!--购物车列表开始-->
+            {foreach from=$data.item key=key item=item}
+            <div class="m-conBox m-check-order m-modify">
+                <!--列表头部开始-->
+                <div class="m-title  item-content b-line">
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <a href="#" class="item-title"><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$item.supplier_name}<i class="iconfont u-icon">&#xe607;</i></a>
+                        </div>
+                    </div>
+                </div>
+                <!--列表头部结束-->
+
+                <ul class="m-cart-list j-select-body">
+                	{foreach from=$item.list key=k item=good}
+                    <li class="item-content b-line">
+                        <div class="item-inner">
+                            <div class="item-media shopImg">
+                                <img src="{$good.deal_icon}" alt="">
+                                <!--<span class="u-cut"></span>-->
+                                <!--{if $cart.stock}<p class="u-surplus">仅剩{$cart.stock}件</p>{/if}-->
+                            </div>
+                            <div class="z-opera z-opera-sure">
+                                <div class="item-subtitle shopTi">
+                                    <a href="javascript:void(0)">{$good.name}</a>
+                                    {if $good.attr_str neq ""}<p class="sizes">规格: {$good.attr_str}</p>{/if}
+                                    {if $good.password neq ""} <p class="number_xl">券码: {$good.password}</span>{/if}
+                                </div>
+                                <div class="shop_price tr">
+                                    <p class="u-sm-price"><span class="u-money">¥<i>{$good.format_unit_price.bai}</i>.{$good.format_unit_price.fei}</span></p>
+                                    <p class="shop-count">x<i>{$good.number}</i></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+            {/foreach}
+            <!--购物车列表结束-->
+        </div>
+		<!-- 弹出层 -->
+
+</div>
+
+{include file="style5.2/inc/footer.html"}

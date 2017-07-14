@@ -1,0 +1,49 @@
+.score-now{
+	background: #fff;
+	height: 5rem;
+	padding: 0 .5rem;
+}
+.score-now .score-tip{
+	font-size: @f_size4;
+	color:@f_color3;
+	line-height: 1.3rem;
+}
+.score-now .score-num{
+	font-size: 1.5rem;
+	color:#e4274f;
+	line-height: 1.7rem;
+}
+.score-list{
+	margin-top: .5rem;
+	padding-left: .5rem;
+	background: #fff;
+}
+.score-list li{
+	min-height: 3.6rem;
+	padding-right: .5rem;
+}
+.score-list li:last-child::after{
+	display: none;
+}
+.score-list li .score-info{
+	width: 70%;
+}
+.score-list li .goods-name{
+	line-height: 1.3rem;
+	word-break:break-all;
+}
+.score-list li .time{
+	color:@f_color3;
+	font-size: @f_size4;
+	line-height: 1.1rem;
+}
+.score-list li .score-num{
+	text-align: right;
+	font-size: 1rem;
+}
+.score-list li .add{
+	color:#e4274f;
+}
+.score-list li .min{
+	color:#18b814;
+}

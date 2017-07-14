@@ -1,0 +1,91 @@
+.m-shop-verify-bar::after{
+	content:none;
+}
+.shop-verify-bar{
+	height:2.2rem;
+	line-height: 2.2rem;
+}
+.shop-verify-bar .to-qrcode .iconfont{
+	font-size:.8rem;
+	margin-right: .2rem;
+	display: inline-block;
+	vertical-align: top;
+}
+.biz-code-input{
+	height:4.6rem;
+	background:@themecolor;
+}
+.biz-code-input .code-input{
+	height:2.6rem;
+	font-size:@f_size2;
+	display: block;
+	margin: 0 .5rem;
+	border-radius:.25rem;
+	background:#fff;
+	line-height: 1rem;
+	text-align: center;
+}
+.biz-code-input .code-input::-webkit-input-placeholder {
+　　color: @f_color3;
+    font-size:@f_size2;
+}
+.biz-link-bar{
+	background:#fff;
+}
+.biz-link-bar a{
+	height:3rem;
+	-webkit-box-pack: center;
+	-webkit-justify-content:center;
+	justify-content:center;
+}
+.biz-link-bar .icon{
+	width:1.65rem;
+	height:1.65rem;
+}
+.biz-link-bar p{
+	font-size:@f_size4;
+	margin-left: .4rem;
+}
+.biz-sale-bar{
+	margin-top: .5rem;
+	background:#fff;
+}
+.biz-sale-bar li{
+	height:4rem;
+}
+.biz-sale-bar li .sale-info{
+	width:100%;
+	text-align: center;
+}
+.biz-sale-bar li .num{
+	line-height: 1rem;
+	font-size:.8rem;
+}
+.biz-sale-bar li .sale-item{
+	font-size:@f_size4;
+	color:@f_color3;
+	line-height: 1.1rem;
+}
+.biz-manager-bar{
+	margin-top: .5rem;
+	background:#fff;
+}
+.biz-manager-bar li{
+	height:4.5rem;
+	width:25%;
+	float: left;
+}
+.biz-manager-bar li .manager-info{
+	width:100%;
+	text-align: center;
+}
+.biz-manager-bar li .icon{
+	width:1.1rem;
+	height:1.1rem;
+	margin: .6rem auto 0;
+	display: block;
+}
+.biz-manager-bar li p{
+	line-height: 1.7rem;
+	font-size:@f_size4;
+}

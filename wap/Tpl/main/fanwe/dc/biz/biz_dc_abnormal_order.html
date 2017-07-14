@@ -1,0 +1,129 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var ajax_url="{url i="biz" a="dc_order"}";
+var is_open_dada_delivery=parseInt('{$data.is_open_dada_delivery}');
+var delivery_money_enough=parseInt('{$data.delivery_money_enough}');
+</script>
+<div class="page page-current" id="biz_dc_abnormal_order">
+    {include file="style5.2/inc/biz_header.html"}
+    <div class="content infinite-scroll infinite-scroll-bottom">
+    	<div class="biz-order-list j-ajaxlist active">
+    	{if $data.order_list}
+    		<ul class="j-ajaxadd order-list">
+    		{foreach from=$data.order_list item=dc_order}
+    			<li>
+    				<a href="javascript:void(0);" class="order-list-item">
+    					<div class="order-hd flex-box b-line">
+    						<p class="order-time flex-1">{$dc_order.name}</p>
+    					</div>
+    					<ul class="remind">
+    						<li>
+    							<p class="remind-tit">异常原因</p>
+    							<p class="remind-tip flex-1">{$dc_order.delivery_cancel_reason}</p>
+    						</li>
+    						<li>
+    							<p class="remind-tit">联系人</p>
+    							<p class="remind-tip flex-1">{$dc_order.consignee}</p>
+    						</li>
+    						<li>
+    							<p class="remind-tit">电话</p>
+    							<p class="remind-tip flex-1">{$dc_order.mobile}</p>
+    						</li>
+    						<li>
+    							<p class="remind-tit">配送地址</p>
+    							<p class="remind-tip flex-1">{$dc_order.api_address}{$dc_order.address}</p>
+    						</li>
+    					</ul>
+    					<div class="order-edit t-line">
+	    					<a href="javascript:void(0);" class="order-btn j-handle" data-id="{$dc_order.id}" dada-account="{$dc_order.dada_account}">处理</a>
+	    				</div>
+    				</a>
+    			</li>
+    		{/foreach}
+<!--     			<li>
+    				<a href="" class="order-list-item">
+    					<div class="order-hd flex-box b-line">
+    						<p class="order-time flex-1">2016-05-01 12:12:12</p>
+    						<p class="status">未接单</p>
+    					</div>
+    					<div class="rs-info">
+    						<p class="rs-type">预约到店</p>
+    						<p class="rs-time">2015-04-01 12:12:12</p>
+    					</div>
+    				</a>
+    			</li> -->
+    		</ul>
+    		<div class="pages hide">{$pages}</div>
+    	{else}
+			<div class="tipimg no_data">暂无异常订单</div>
+    	{/if}
+    	</div>
+<!-- 		{if $type_arr}
+			{foreach from=$type_arr item=type_item}
+			<div class="biz-order-list j-ajaxlist-{$type_item}"></div>
+			{/foreach}
+		{/if} -->
+  	</div>
+  	
+  	<div class="popup-box">
+		<div class="pup-box-bg j-box-bg"></div>		
+		<div class="list-block m-trans-way j-red-reward voucher_box">
+			<div class="item-content u-common-box t-line-white trans-way-bg">
+				<p class="u-ti tc">配送方式选择</p>
+				<input type="hidden" name="order_id" value="">
+				<input type="hidden" name="dada_account" value="">
+			</div>
+			
+			<ul class="j-reward-list m-tv-list">
+				<li class="t-line-white">
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">商家自己配送</div>
+							<div class="item-after">
+								<input type="radio" name="delivery_part" value="1">
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+				{if $data.is_open_dada eq 1}
+				<li id="dada-data">
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">
+							委托达达配送
+							</div>
+							<div class="item-after">
+								<input type="radio" name="delivery_part" value="2">
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+				{/if}
+				<li>
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">交易关闭，不接这单了</div>
+							<div class="item-after">
+								<input type="radio" name="delivery_part" value="-1">
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+			</ul>
+			<div class="item-content u-common-box">
+				<p class="u-ti tc j-cancel">取消</p>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

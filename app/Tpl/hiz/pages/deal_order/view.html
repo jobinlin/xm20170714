@@ -1,0 +1,367 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/view.css";
+
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dealo/dealo.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dealo/dealo.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/view.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/view.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+    <p>订单号：{$root.order_sn}</p>
+    <a href="{if $root.type eq 4}
+    {url r="hiz" b="deal_order#self_order"}
+    {elseif $root.type eq 6}
+    {url r="hiz" b="deal_order#shop_order"}
+    {elseif $root.type eq 5}
+    {url r="hiz" b="deal_order#tuan_order"}
+    {/if}" 
+    class="header-back">
+    	返回
+    </a>
+</div>
+<div class="content">
+	<div class="view-hd clearfix">
+		<div class="main-left f_l">
+			<div class="info-wrap clearfix">
+				{if $root.consignee_info}
+				<div class="user-info f_l">
+					<div class="info-detail">
+						<div class="info-hd">收货人信息</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">收货人：</p>
+							<p class="info-tip">{$root.consignee_info.name}</p>
+						</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">收货地址：</p>
+							<p class="info-tip">{$root.consignee_info.address}</p>
+						</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">联系电话：</p>
+							<p class="info-tip">{$root.consignee_info.mobile}</p>
+						</div>
+						{if $root.consignee_info.zip}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">邮编：</p>
+							<p class="info-tip">{$root.consignee_info.zip}</p>
+						</div>
+						{/if}
+						{if $root.consignee_info.memo}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">买家备注：</p>
+							<p class="info-tip">{$root.consignee_info.memo}</p>
+						</div>
+						{/if}
+					</div>
+				</div>
+				{/if}
+				{if $root.pick_location}
+				<div class="user-info f_l">
+					<div class="info-detail">
+						<div class="info-hd">自提信息</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">自提门店：</p>
+							<p class="info-tip">{$root.pick_location.location_name}</p>
+						</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">门店地址：</p>
+							<p class="info-tip">{$root.pick_location.location_address}</p>
+						</div>
+						{if $root.pick_location.tel}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">联系电话：</p>
+							<p class="info-tip">{$root.pick_location.tel}</p>
+						</div>
+						{/if}
+						{if $root.pick_location.memo}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">买家备注：</p>
+							<p class="info-tip">{$root.pick_location.memo}</p>
+						</div>
+						{/if}
+					</div>
+				</div>
+				{/if}
+				{if $root.order_info}
+				<div class="order-info f_l">
+					<div class="info-detail">
+						<div class="info-hd">订单信息</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">下单会员：</p>
+							<p class="info-tip">{$root.order_info.user_name}</p>
+						</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">下单时间：</p>
+							<p class="info-tip">{$root.order_info.create_time}</p>
+						</div>
+						{if $root.order_info.type eq 4}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">驿站配送：</p>
+							<p class="info-tip">{if $root.order_info.distribution_id neq 0}{$root.order_info.distribution_name}{/if}
+							{if $root.order_info.delivery_status eq 0}
+							<a href="javascript:void(0);" class="submit-btn dis-btn" data-href="{url a="hiz" b="deal_order#changeDist" c="id=$root.order_id"}">{if $root.order_info.distribution_id neq 0}分配{else}未分配{/if}</a>
+							{/if}
+							</p>
+						</div>
+						{/if}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">订单状态：</p>
+							<p class="info-tip">{$root.order_info.order_info}</p>
+						</div>
+						{if $root.order_info.delivery_status neq 5}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">发货状态：</p>
+							<p class="info-tip">{$root.order_info.delivery_info}</p>
+						</div>
+						{/if}
+					</div>
+				</div>
+				{/if}
+				{if $root.order_money}
+				<div class="money-info f_l">
+					<div class="info-detail">
+						<div class="info-hd">资金明细</div>
+						{foreach from=$root.order_money.feeinfo item=item name=odd}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">{$item.hiz_name}：</p>
+							<p class="info-tip">{if $item.symbol eq -1}-{/if}{if $item.buy_type eq 0}&yen;{/if}{$item.value}</p>
+						</div>
+						{/foreach}
+						{foreach from=$root.order_money.paid item=item name=odd}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">{$item.hiz_name}：</p>
+							<p class="info-tip">{if $item.symbol eq -1}-{/if}{if $item.buy_type eq 0}&yen;{/if}{$item.value}</p>
+						</div>
+						{/foreach}
+						<!-- <div class="info-bd clearfix">
+							<p class="info-tit f_l">应支付金额：</p>
+							<p class="info-tip pay-price">&yen;{$root.order_money.order_pay_price}</p>
+						</div> -->
+					</div>
+				</div>
+				{/if}
+			</div>
+		</div>
+		{if $root.payment_info}
+		<div class="main-right f_l">
+			<div class="info-wrap">
+				<div class="pay-info">
+					<div class="info-detail">
+						<div class="info-hd">付款信息</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">付款单号：</p>
+							<p class="info-tip">{$root.payment_info.notice_sn}</p>
+						</div>
+						{if $root.payment_info.class_name neq 'Voucher' and $root.payment_info.class_name neq 'Account' and $root.payment_info.class_name neq 'Cod'}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">支付平台交易号：</p>
+							<p class="info-tip">{$root.payment_info.outer_notice_sn}</p>
+						</div>
+						{/if}
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">收款方式：</p>
+							<p class="info-tip">{$root.payment_info.name}</p>
+						</div>
+						<div class="info-bd clearfix">
+							<p class="info-tit f_l">付款时间：</p>
+							<p class="info-tip">{$root.payment_info.pay_time}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{/if}
+	</div>
+	<div class="view-md clearfix">
+		<div class="main-left f_l" {if !$root.delivery_info}style="width: 100%;"{/if}>
+			<div class="info-wrap">
+				<div class="info-detail">
+					<div class="info-hd">{$root.deal_order_item.name}</div>
+			        <div class="hiz-table">
+			            <table>
+			            	<colgroup>
+				                <col>
+				                <col width="15%">
+				                <col width="15%">
+				                <col width="15%">
+				                <col width="140px">
+			            	</colgroup>
+			                <thead>
+			                    <td style="text-align: left;">商品名称</td>
+			                    <td>数量</td>
+			                    <td>单价</td>
+			                    <td>商品状态</td>
+			                    {if 0}
+			                    <td>操作</td>
+			                    {/if}
+			                </thead>
+			                <tbody>
+								{foreach from=$root.deal_order_item.list item=item name=odd}
+			                    <tr class="odd transition">
+			                        <td class="order-info">
+										<p class="shop-name">{$item.name}</p>
+			                        </td>
+			                        <td>{$item.number}</td>
+			                        <td>&yen;{$item.unit_price}</td>
+			                        <td>{$item.deal_status}</td>
+			                        {if 0}
+			                        <td>
+										{if $item.is_deliver eq 1 or $item.is_receipt eq 1 or $item.is_return eq 1 or $item.is_check eq 1}
+										{if $item.is_check eq 1}
+										<a class="transition do_verify" href="javascript:void(0);" data-href='{url a="hiz" b="deal_order#do_verify" c="coupon_id=$item.coupon_id"}'>管理员验证消费</a>
+										{/if}
+										{if $item.is_deliver eq 1}
+										<a class="transition delivery" href="javascript:void(0);" data-id='{$root.order_id}'>发货</a>
+										{/if}
+										{if $item.is_receipt eq 1}
+										<a class="transition do_verify" href="javascript:void(0);" data-href='{url a="hiz" b="deal_order#do_verify" c="order_item_id=$item.id"}'>强制收货</a>
+										{/if}
+										{if $item.is_return eq 1}
+										<a class="transition j-del-shop do_refund" style="border-left: 1px solid #ddd;" href="javascript:void(0);" 
+										{if $item.coupon_id gt 0 and $item.is_shop eq 0}data-href='{url a="hiz" b="deal_order#refund" c="coupon_id=$item.coupon_id"}'{/if}
+										{if $item.is_shop eq 1}data-href='{url a="hiz" b="deal_order#refund" c="order_item_id=$item.id"}'{/if}
+										>退款</a>
+										{/if}
+										{else}
+										-
+										{/if}
+									</td>
+									{/if}
+			                    </tr>
+								{/foreach}
+			                </tbody>
+			            </table>
+			        </div>
+			        <ul class="count-list">
+			        	{foreach from=$root.order_money.feeinfo item=item name=odd}
+						<li class="clearfix">
+				        	<p class="count-tip f_r">{if $item.symbol eq -1}-{/if}{if $item.buy_type eq 0}&yen;{/if}{$item.value}</p>
+			        		<p class="count-tit f_r">{$item.hiz_name}：</p>
+			        	</li>
+						{/foreach}
+						{foreach from=$root.order_money.paid item=item name=odd}
+						<li class="clearfix">
+			        		<p class="count-tip f_r">{if $item.symbol eq -1}-{/if}{if $item.buy_type eq 0}&yen;{/if}{$item.value}</p>
+			        		<p class="count-tit f_r">{$item.hiz_name}：</p>
+			        	</li>
+						{/foreach}
+						<!-- <li class="clearfix">
+			        		<p class="count-tip f_r price">&yen;{$root.order_money.order_pay_price}</p>
+			        		<p class="count-tit f_r">应付总额：</p>
+			        	</li> -->
+			        </ul>
+				</div>
+			</div>
+		</div>
+		{if $root.delivery_info}
+		<div class="main-right f_l">
+			<div class="info-wrap">
+				<div class="info-detail">
+					<div class="info-hd">发货信息</div>
+			        <div class="hiz-table">
+			            <table>
+			            	<colgroup>
+				                <col>
+				                <col width="100px">
+			            	</colgroup>
+							{foreach from=$root.delivery_info item=item name=odd}
+			                <thead>
+			                    <td style="text-align: left;">{$item.name}</td>
+			                    <td>数量</td>
+			                </thead>
+			                <tbody>
+								{foreach from=$item.list item=deal_item }
+			                    <tr class="odd transition">
+			                        <td class="order-info">
+										<p class="shop-name">{$deal_item.name}</p>
+			                        </td>
+			                        <td>{$deal_item.number}</td>
+			                    </tr>
+								{/foreach}
+			                </tbody>
+							{/foreach}
+			            </table>
+			        </div>
+				</div>
+			</div>
+		</div>
+		{/if}
+	</div>
+	<div class="view-bd">
+		<div class="info-wrap">
+			<div class="info-detail">
+				<div class="info-hd">操作日志</div>
+		        <div class="hiz-table">
+		            <table>
+		            	<colgroup>
+			                <col width="180px">
+			                <col>
+		            	</colgroup>
+		                <thead>
+		                    <td>操作时间</td>
+		                    <td style="text-align: left;">日志</td>
+		                </thead>
+		                <tbody>
+							{foreach from=$root.order_log item=item }
+		                    <tr class="odd transition">
+		                        <td>{function name=to_date v=$item.log_time x='Y.m.d　H:i:s'}</td>
+                                <td class="order-info">
+        							<p class="shop-name">{$item.log_info}</p>
+                                </td>
+		                    </tr>
+							{/foreach}
+		                </tbody>
+		            </table>
+		        </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mask j-close-mask"></div>
+<div class="dis-select">
+	<div class="dis-hd">
+		<p>驿站分配</p>
+		<div class="j-close-mask"><i class="iconfont">&#xe619;</i></div>
+	</div>
+	<form action="">
+		<div class="input-wrap">
+			<input type="text" class="ui-textbox" holder="驿站名称" name="dist_skey"><button class="submit-btn dist_search">搜索</button>
+		</div>
+		<div class="input-wrap" id="dist_select">
+			<select name="" id="" class="ui-select search-select">
+				<option value="0">请选择</option>
+			</select>
+		</div>
+		<div class="select-btn">
+			<a href="javascript:void(0);" class="submit-btn cancle-btn j-close-mask">取消</a>
+			<a href="javascript:void(0);" class="submit-btn dist_submit">确定</a>
+		</div>
+	</form>
+</div>
+{include file="inc/footer.html"}

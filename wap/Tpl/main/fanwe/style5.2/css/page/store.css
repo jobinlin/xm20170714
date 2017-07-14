@@ -1,0 +1,620 @@
+#store .bar-nav .header-title{
+	left: 4rem;
+	right: 4rem;
+}
+.m-store-youhui{
+	width:100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	background:#fff;
+	padding:.25rem;
+}
+.store-youhui .youhui-item{
+	width:40%;
+	padding:0 .5rem;
+	display: block;
+	background:#ffa500;
+	height:4rem;
+	margin:0 .25rem;
+	color:#fff;
+	line-height: 1rem;
+	position: relative;
+}
+.store-youhui .youhui-item::before,.store-youhui .youhui-item::after{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width:2px;
+	background-repeat:repeat-y;
+	background-size:100% auto;
+	border-radius:3px;
+}
+.store-youhui .youhui-item::before{
+	background-image:url(@url/static/store-youhui-border-l.jpg);
+	left: 0;
+}
+.store-youhui .youhui-item::after{
+	background-image:url(@url/static/store-youhui-border-r.jpg);
+	right: 0;
+}
+.store-youhui .youhui-price{
+	font-size:@f_size1;
+	line-height: 1.4rem;
+	margin-top: .2rem;
+}
+.store-youhui .youhui-tip{
+	font-size:@f_size4;
+}
+.store-youhui .youhui-time{
+	color:@f_color1;
+	font-size: @f_size5;
+}
+.store-youhui .youhui-price span{
+	font-size:@f_size4;
+}
+.vhide{visibility: hidden;}
+
+.m-store-head{
+	position: relative;
+	line-height: 2.2rem;
+}
+
+.m-store-head .title{
+	color: #353d44;
+	padding: 0 2rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.m-store-head .head-btn{
+	position: absolute;
+	display: block;
+	z-index: 2;
+	color: #878993;
+	font-size: 1.1rem;
+}
+
+.m-store-head .more{
+	top: 0;
+	right: 0;
+	padding: 0 .5rem;
+}
+
+.m-store-head .go-back{
+	top: 0;
+	left: 0;
+	padding: 0 .5rem;
+}
+
+.m-store-banner{
+	position: relative;
+	margin-bottom: @rowspacing;
+	background-size:cover !important; 
+}
+
+.m-store-banner .banner-img{
+	width: 100%;
+}
+
+.m-store-banner .banner-con{
+	width: 100%;
+	padding: .4rem 0;
+	padding-left: @comspacing;
+}
+
+.m-store-banner .banner-con:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-store-banner .store-logo{
+	float: left;
+	width: 3.4rem;
+	height: 3.4rem;
+}
+
+.m-store-banner .store-logo img{
+	width: 100%;
+}
+
+.m-store-banner .store-info{
+	float: left;
+	padding-top: .6rem;
+	padding-left: .425rem;
+}
+
+.m-store-banner .tit-start{
+	display: inline-block;
+    width: 79px;
+    height: 13px;
+}
+
+.m-store-banner .comment-num{
+	color: #ffa800;
+	font-size: @f_size2;
+	vertical-align: -1px;
+}
+
+.m-store-banner .average-pay{
+	font-size: @f_size3;
+	color: #fff;
+}
+
+.m-store-banner .business-area{
+	font-size: @f_size3;
+	color: #fff;
+}
+
+.m-store-banner .open-store-detail{
+	position: absolute;
+	bottom: .875rem;
+	right: 0;
+	width: 4.6rem;
+	text-indent: .5rem;
+	line-height: 1.1rem;
+	background: rgba(255, 223, 47, 0.8);
+	font-size: @f_size4;
+	color: @f_color1;
+	border-radius: .55rem 0 0 .55rem;
+}
+
+.m-store-banner .open-store-detail .iconfont{
+	float: right;
+	padding-right: .5rem;
+}
+
+.m-store-banner .open-store-detail .on{
+	display: block;
+}
+
+.m-store-banner .open-store-detail.isOver{
+	text-align: center;
+}
+
+.m-store-banner .open-store-detail.isOver .on{
+	display: none;
+}
+
+.m-store-banner .open-store-detail .off{
+	display: none;
+}
+
+.m-store-banner .open-store-detail.isOver .off{
+	display: block;
+}
+
+.store-detail{
+	position: relative;
+	margin: @rowspacing 0;
+}
+
+.preferential-check{
+	display: block;
+	padding: 0 @comspacing;
+	line-height: @lh;
+	background: #fff;
+	color: @f_color1;
+	font-size: @f_size3;
+}
+
+.preferential-check .icon-hui{
+	display: inline-block;
+	width: .85rem;
+	height: .85rem;
+	background: url(@url/static/icon-hui.png) center center no-repeat;
+	background-size: cover;
+	vertical-align: -.2rem;
+	margin-right: .5rem;
+}
+
+.preferential-info{
+	color: @f_color3;
+	font-size: @f_size4;
+}
+
+.preferential-check .iconfont{
+	font-size: @f_size2;
+}
+
+.store-detail-info{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0;
+	line-height: 1.125rem;
+	overflow: scroll;
+	z-index: 10;
+	background: #f3f6f5;
+	-webkit-transition: height .3s;
+			transition: height .3s;
+}
+
+.store-detail-info .store-detail-info-part{
+	padding-left: @comspacing;
+	margin: @rowspacing 0;
+	background: #fff;
+}
+
+.store-detail-info .store-detail-info-part:first-child{
+	margin-top: 0;
+}
+
+.store-detail-info .store-detail-info-part:last-child{
+	margin-bottom: 0;
+}
+
+.store-detail-info .info-tit{
+	padding-right: @comspacing;
+	line-height:@lh;
+	color: @f_color3;
+	font-size: @f_size3;
+}
+
+.store-detail-info .info-con-list{
+	padding: .55rem 0;
+}
+
+.store-detail-info .info-con-item{
+	line-height: 1.5rem;
+	color: @f_color1;
+}
+
+.store-detail-info .info-con-item .iconfont{
+	color: #878993;
+	margin-right: .625rem;
+}
+
+.store-detail-info .store-lab-list{
+	padding-bottom: .5rem;
+}
+
+.store-detail-info .store-lab-list:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.store-detail-info .store-lab-item{
+	float: left;
+	line-height: 1.05rem;
+	padding: 0 .25rem;
+	border: 0.045rem solid #e3e5e9;
+	margin-right: .15rem;
+	margin-bottom: .15rem;
+	font-size: .55rem;
+}
+
+.store-detail-info .store-lab-item:last-child{
+	margin-right: 0;
+}
+
+.store-detail-info .store-bief{
+	padding: .4rem 0;
+	line-height: 1rem;
+	color: @f_size1;
+	font-size: @f_size3
+}
+
+#store .m-shopinfo{
+	padding-left: 0;
+}
+
+.m-shopinfo .name-range{
+	padding-right: @comspacing;
+	padding-top: .75rem;
+}
+
+.m-shopinfo .name-range:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-shopinfo .name-range .shopName{
+	float: left;
+	font-size: @f_size2;
+	color: @f_color1;
+	font-weight: bold;
+}
+
+.m-shopinfo .name-range .shopRange{
+	float: right;
+	font-size: @f_size3;
+	color: @f_color3;
+}
+
+.m-shopinfo .addressTel{
+	padding: .5rem 0;
+}
+
+.m-shopinfo .addressTel:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-shopinfo .addressTel .shop-address{
+	float: left;
+	width: 85%;
+	padding-right: 1rem;
+	line-height: .95rem;
+	font-size: @f_size3;
+	color: @f_color3;
+
+}
+
+.m-shopinfo .addressTel .shop-tel{
+	float: right;
+	width: 15%;
+	padding-right: @comspacing;
+	text-align: right;
+	font-size: 1rem;
+	color: @f_colortheme;
+}
+
+.m-shopinfo .addressTel .shop-tel .iconfont{
+	color: @f_colortheme;
+}
+
+.m-coupon-info{
+	background: #fff;
+	margin: @rowspacing 0;
+	padding-left: @comspacing;
+}
+
+.m-coupon-info .coupon-info-tit{
+	display: block;
+	line-height: @lh;
+	padding-right: @comspacing;
+}
+
+.m-coupon-info .coupon-info-tit .icon-quan{
+	display: inline-block;
+	width: .85rem;
+	height: .85rem;
+	background: url(@url/static/icon-quan.png) center center no-repeat;
+	background-size: cover;
+	vertical-align: -.2rem;
+	margin-right: .5rem;
+}
+
+.m-coupon-info .coupon-info-tit .icon-active{
+	display: inline-block;
+	width: .85rem;
+	height: .85rem;
+	background: url(@url/static/icon-active.png) center center no-repeat;
+	background-size: cover;
+	vertical-align: -.2rem;
+	margin-right: .5rem;
+}
+
+.m-coupon-info .coupon-info-tit em{
+	color: @f_color3;
+	font-size: @f_size4;
+}
+
+.m-coupon-info .coupon-info-item{
+	display: block;
+	line-height: @lh;
+	padding-right: @comspacing;
+	color: @f_color1;
+}
+
+#store .m-comment{
+	padding-left: 0;
+	background: @bg_color;
+	margin: @rowspacing 0;
+}
+
+#store .m-comment .comment-tit{
+	position: relative;
+	line-height: @tit_lh;
+	padding: 0 @comspacing;
+	font-size: @f_size2;
+	color: @f_color1;
+	margin: 0;
+}
+
+.m-comment .tit-start{
+	display: inline-block;
+	width: 79px;
+	height: 13px;
+}
+
+.m-comment .comment-num{
+	color: #ffa800;
+}
+
+#store .m-comment .comment-con{
+	padding-bottom: .5rem;
+	padding-right: .5rem;
+	margin-bottom: 0;
+}
+
+.m-comment .comment-con .commenter{
+	padding-top: 0.5rem; 
+}
+
+.m-comment .comment-con .commenter:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-comment .avatar{
+	display: inline-block;
+	border-radius: 50%;
+	margin-right: .5rem;
+}
+.m-comment .user-date{
+	padding: .15rem;
+}
+
+.m-comment .username{
+	font-size: @f_size3;
+	color: @f_color1;
+}
+
+.m-comment .date{
+	font-size: @f_size5;
+	color: @f_color3;
+}
+
+#store .m-comment .more-comment{
+	line-height: @tit_lh;
+	padding: 0 @comspacing;
+}
+
+.m-comment .con-start{
+	position: absolute;
+	top: 1rem;
+	right: .5rem;
+	width: 2.5rem;
+	height: .4rem;
+}
+
+.m-comment .comment-txt{
+	font-size: @f_size3;
+	line-height: .85rem;
+	color: @f_color1;
+	padding: .5rem 0;
+}
+
+.m-comment .comment-imglist{
+	max-height: 3.4rem;
+	overflow: hidden;
+}
+
+.m-comment .comment-imglist:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-comment .comment-imglist-nolimit{
+	height: auto;
+}
+
+.m-comment .comment-imgitem{
+	float: left;
+	margin-right: .5rem;
+	margin-bottom: .5rem;
+}
+
+.m-comment .showmorecomment{
+	display: inline-block;
+	width: 100%;
+}
+#store .swiper-slide{
+	overflow-y: auto;
+}
+.star-box{
+	display: inline-block;
+	float: right;
+}
+.light-txt{
+	position: fixed;
+	bottom: -100%;
+	color: #fff;
+	width: 100%;
+	text-align: left;
+	padding: 0 .5rem .25rem .5rem;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.light-txt.z-open{
+	bottom: 0;
+}
+
+.light-name:after{
+	content:" ";
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.light-con{
+	font-size: @f_size4;
+	word-break: break-all;
+}
+
+.tuan-shopoher{
+	background: @bg_color;
+	padding-left: @comspacing;
+	margin-top: @rowspacing;
+}
+
+#store .tuan-shopoher .tuan-list-height{
+	height: auto; 
+	overflow: hidden;
+}
+
+#store  .tuan-shopoher .tuan-list{
+	height: auto; 
+	padding-right: .5rem;
+}
+
+.tuan-shopoher .tuan-list li{
+	height: 4.4rem;
+}
+
+.tuan-tit{
+	line-height: @tit_lh;
+	font-size: @f_size2;
+	color: @f_color1;
+}
+
+.show-more-lsit{
+	display: block;
+	width: 100%;
+	line-height: @tit_lh;
+	color: @f_color3;
+	font-size: @f_size3;
+}
+
+.show-more-lsit .iconfont{
+	padding-right: .5rem;
+	float: right;
+}
+
+.show-more-lsit .iconfont:before{
+	content: "\e607";
+}
+
+.icon-tuan{
+	display: inline-block;
+	width: .85rem;
+	height: .85rem;
+	background: url(@url/static/icon-tuan.png) center center no-repeat;
+	background-size: cover;
+	vertical-align: -.2rem;
+	margin-right: .5rem;
+}
+
+.icon-good{
+	display: inline-block;
+	width: .85rem;
+	height: .85rem;
+	background: url(@url/static/icon-good.png) center center no-repeat;
+	background-size: cover;
+	vertical-align: -.2rem;
+	margin-right: .5rem;
+}

@@ -1,0 +1,15 @@
+{if $app_index=='app'}
+	<header class="bar bar-nav b-line">
+		{if $page_finsh}
+		<a class="header-btn header-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+		{else}
+		<a class="header-btn header-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}{else}data-no-cache="true"{/if} href="">&#xe604;</a>
+		{/if}
+		<h1 class="header-title">{$data.page_title}</h1>
+	</header>
+{else}
+	<header class="bar bar-nav b-line">
+		<a class="header-btn header-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}{else}data-no-cache="true"{/if} href="" >&#xe604;</a>
+		<h1 class="header-title">{$data.page_title}</h1>
+	</header>
+{/if}

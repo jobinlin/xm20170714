@@ -1,0 +1,95 @@
+.m-sort_nav{
+	margin-bottom: .5rem;
+}
+.m-goods-list{
+	margin-top: 0;
+}
+.tuan-list-tit{
+	text-align: center;
+}
+.m-guess .tit span .iconfont{
+	width:.75rem;
+	line-height: .75rem;
+	border-radius:.75rem;
+	background:#ffc001;
+	color:#fff;
+	font-size:.5rem;
+}
+.m-guess{
+	position: relative;
+}
+#main #type-cube{
+	display:none;
+}
+#main .type-list li{
+	margin-bottom: 0;
+}
+.tuan-more{
+	background:#fff;
+	padding:0 @comspacing;
+}
+.tuan-more .more-tip{
+	color:@f_color3;
+	font-size:@f_size4;
+	line-height: 1.8rem;
+}
+.tuan-more .tuan-more-list{
+	padding: @rowspacing 0 .2rem;
+	min-height: 2.5rem;
+	overflow: hidden;
+}
+.tuan-more .tuan-more-list li{
+	width:calc(33.33% - 0.2rem);
+	float: left;
+	margin-right: .3rem;
+	margin-bottom: .3rem;
+	border:1px solid @bordercolor;
+	text-align: center;
+	line-height: 1.5rem;
+	border-radius:2px;
+}
+.tuan-more .tuan-more-list li a{
+	display: block;
+}
+.tuan-more .tuan-more-list li:nth-child(3n){
+	margin-right: 0;
+}
+.tuan-header{
+	height:2.2rem;
+}
+.tuan-header a{
+	display: block;
+	color:@f_icon_color;
+}
+.tuan-header .hd-ico{
+	font-size:1.1rem;
+}
+.tuan-header .tuan-location{
+	text-align: center;
+	font-size:@f_sizebig;
+}
+.tuan-header .tuan-location .iconfont{
+	font-size:.6rem;
+}
+.swiper-container-horizontal>.swiper-pagination{
+	bottom: 0;
+}
+.swiper-pagination-bullets{
+	height:.8rem;
+	-webkit-box-pack: center;
+	-webkit-justify-content:center;
+	justify-content:center;
+}
+#main .swiper-pagination-bullets .swiper-pagination-bullet{
+	display: block;
+}
+.sort-pagination .swiper-pagination-bullet{
+	width:.4rem;
+	height:.4rem;
+	margin: 0 .2rem;
+	border-radius:.2rem;
+	background:#e3e3e3;
+}
+.sort-pagination .swiper-pagination-bullet-active{
+	background:@themecolor;
+}

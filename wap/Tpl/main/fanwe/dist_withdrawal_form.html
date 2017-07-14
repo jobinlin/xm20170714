@@ -1,0 +1,59 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+	AJAX_URL = '{url a="index" p="ajax"}';
+	var add_url="{url a="dist" p="withdrawal#bindbank"}";
+	var all_money=parseFloat('{$data.money}');
+	var is_bank=0;
+	{if $data.is_bank}
+	is_bank={$data.is_bank};
+	{/if}
+</script>
+<div class="page page-current" id="dist_withdrawal_form">
+{include file="style5.2/inc/dist_header.html"}
+	<div class="content">
+	 	<div id="withdraw">
+	 	<form action="{url r="dist" b="withdrawal#do_submit"}" method="post" name="withdrawal_form">
+	 		<div class="bank-select load_page flex-box" url="{url r="dist" p="withdrawal#bindbank"}"  js_url='{$tmpl_path}Tpl/main/fanwe/style5.2/js/load/dist_withdrawal_bindbank.js'>
+	 			<div class="bank-info flex-1">
+ 				{if $data.is_bank}
+	 				<p class="bank-name">{$data.bank_info}</p>
+	 				<p class="user-info">{$data.bank_user}</p>
+	 			</div>
+	 			<i class="iconfont right-arrow">&#xe607;</i>
+ 				{else}
+	 				<p class="bank-name">暂无银行卡</p>
+	 			</div>
+	 			<i class="iconfont right-arrow">&#xe607;</i>
+				{/if}
+	 		</div>
+	 		<div class="can-use">
+	 			<p class="can-use-num">{if $data.money gt 0}可提现余额 {$data.money}元{else}无可提现余额{/if}</p>
+	 		</div>
+			<ul class="address-input withdraw-list">
+				<li class="b-line">
+					<span>提现金额</span>
+					<input class="ui-textbox" value="" type="text" name="money" {if $data.money eq 0}disabled="disabled"  placeholder="无可提现余额"{else} placeholder="请输入提现金额"{/if}  pattern="([0-9]*)|(\d+(\.\d{1,2}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') " />
+					<input type="hidden" name="bank_name" value="{$dist_info.bank_name}"/>
+					<input type="hidden" name="bank_info" value="{$dist_info.bank_card}"/>
+					<input type="hidden" name="bank_user" value="{$dist_info.bank_user}"/>
+				</li>
+				<li class="b-line">
+					<span>登录密码</span>
+					<input class="ui-textbox" value="" name="pwd_verify" type="password"  placeholder="请输入登录密码" {if $data.money eq 0}disabled="disabled"{/if}/>
+				</li>
+				<!-- {foreach from=$data.bank_list item=item key=key}
+				<li class="b-line bank" >
+					<label>{$item.bank_name}<span  bank_name="{$item.bank_name}" rel="{$item.id}"  {if $key eq 0}class="checked"{/if}></span></label>
+				</li>
+				{/foreach} -->
+				</ul>
+				<div class="big-btn">
+					<input type="submit" class="sub goahead btn-con" value="确认提现" {if $data.money eq 0}disabled="disabled"{/if}>
+				</div>
+				</form>
+			</ul>
+	 	</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

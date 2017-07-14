@@ -1,0 +1,9 @@
+.f-btn{
+	display: block;
+	width: 100%;
+	height: 2.25rem;
+	text-align: center;
+	border-radius: 3px;
+	color: #FFF;
+	background: @themecolor;
+}

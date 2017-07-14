@@ -1,0 +1,111 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index" id="uc_address_map_pick">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		<script>
+			var jumpurl = "{$jumpurl}";
+			var searchRegion = "{$region}";
+		</script>
+		<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=FaLrHFa51TeAUqd90O5bCOoC"></script> -->
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<PHP>echo app_conf("BAIDU_MAP_APPKEY");</PHP>&s=1"></script>
+		<div id="r-result"><input type="text" id="suggestId" value="{$region}" placeholder="输入小区、学校、街道" /></div>
+		<div id="baidu_searchResultPanel"></div>
+		<div id="baidu_mapBox">
+			<div id="baidu_allmap"></div>
+			<span></span>
+		</div>
+		<div>附近配送地址</div>
+		<div id="baidu-m-result"></div>
+
+		<script type="text/javascript">
+			// 百度地图API功能
+			var map = new BMap.Map("baidu_allmap");
+			var point = new BMap.Point(0,0);
+			map.centerAndZoom(point,16);
+			map.enableScrollWheelZoom(true);
+			if (!searchRegion) {
+				var geolocation = new BMap.Geolocation();
+				geolocation.getCurrentPosition(function(r){
+					if(this.getStatus() == BMAP_STATUS_SUCCESS){
+						map.panTo(r.point);
+					}
+					else {
+						
+					}        
+				},{enableHighAccuracy: true, poiRadius: 50})
+			}
+			
+			var geoc = new BMap.Geocoder();
+
+			map.addEventListener('moveend', getLoc); // 移动结束检索地区
+			function getLoc() {
+				var p = map.getCenter();
+				geoc.getLocation(p, function(rs) {
+					var addComp = rs.addressComponents;
+					var lstr = /*addComp.province + addComp.city + addComp.district +*/ addComp.street + addComp.streetNumber;
+					var sstr = addComp.street ? addComp.street : addComp.district;
+					var surrPois = rs.surroundingPois;
+					var res = '<div onclick="pickmap(\''+sstr+'\',\''+lstr+'\')">'+sstr+'<br/>'+lstr+'</div>';
+					if (surrPois) {
+						for (i in surrPois) {
+							res += '<div onclick="pickmap(\''+surrPois[i]['title']+'\',\''+surrPois[i]['address']+'\');">'+surrPois[i]['title']+'<br/>'+surrPois[i]['address']+'</div>';
+						}
+					}
+					$('#baidu-m-result').html(res);
+				});
+			}
+
+			// 搜索方法
+			var ac = new BMap.Autocomplete({'input':'suggestId', 'location': map});
+			ac.addEventListener('onhighlight', function(e) {
+				var str = '';
+				var _value = e.fromitem.value;
+				var value = '';
+				if (e.fromitem.index > -1) {
+					value = _value.province + _value.city + _value.district + _value.street;
+				}
+				str = "FromItem<br />index = " + e.fromitem.index + "<br />value= " + value;
+
+				value = "";
+				if (e.toitem.index > -1) {
+					_value = e.toitem.value;
+					value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+				}    
+				str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+				$("#baidu_searchResultPanel").html(str);
+			});
+
+			var myValue = searchRegion;
+			ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+			var _value = e.item.value;
+				myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+				$("#baidu_searchResultPanel").html("onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue);
+
+				setPlace();
+			});
+			setPlace();
+
+			function setPlace(){
+				function myFun(){
+					var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+					map.centerAndZoom(pp, 18);
+				}
+				var local = new BMap.LocalSearch(map, { //智能搜索
+				  onSearchComplete: myFun
+				});
+				local.search(myValue);
+			}
+
+			// 地址选择后的新增和跳转处理方法
+			function pickmap(street, addr) {
+				var addrurl = jumpurl;
+				addrurl += '&street='+encodeURIComponent(street);
+				addrurl += '&addr='+encodeURIComponent(addr);
+				$.router.load(addrurl, true);
+			}
+		</script>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

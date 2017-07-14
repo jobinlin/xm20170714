@@ -1,0 +1,19 @@
+<nav class="bar bar-tab">
+    <a class="tab-item {if $MODULE_NAME == 'dist_undeliver' && $ACTION_NAME =='index'}active{/if}" href="{url a="dist" r="undeliver"}" data-no-cache="true">
+    <span class="icon iconfont i-shop_verify"></span>
+    <span class="tab-label">工作台</span>
+    </a>
+    <!--<a class="tab-item {if $MODULE_NAME == 'uc_fx' && $ACTION_NAME =='deal_fx'}active{/if}-->
+<!--" href="{url r="biz" b="manage"}">-->
+    <!--<span class="icon iconfont i-order"></span>-->
+    <!--<span class="tab-label">订单</span>-->
+    <!--</a>-->
+    <a class="tab-item {if $MODULE_NAME == 'discover'}active{/if}" href="{url r="dist" r="msg"}">
+    <span class="icon iconfont i-msg"></span>
+    <span class="tab-label">消息</span>
+    </a>
+    <a data-no-cache="true" class="tab-item {if $MODULE_NAME == 'dist_center'}active{/if}" href="{url r="dist" b="center"}">
+    <span class="icon iconfont i-biz"></span>
+    <span class="tab-label">我的</span>
+    </a>
+</nav>

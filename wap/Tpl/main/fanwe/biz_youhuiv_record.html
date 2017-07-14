@@ -1,0 +1,45 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="biz_youhuiv_record">
+	{include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+		<div class="v-record-hd">验证信息</div>
+		<div class="v-record-bd">
+			<ul class="v-record-info">
+				<li class="b-line flex-box">
+					<p class="v-record-tit">会<em></em>员</p>
+					<p class="v-record-tip flex-1">{$data.verify_info.user_name}</p>
+				</li>
+				<li class="b-line flex-box">
+					<p class="v-record-tit">验证时间</p>
+					<p class="v-record-tip flex-1">{if $data.verify_info.confirm_time eq 0}未验证{else}{$data.verify_info.confirm_time}{/if}</p>
+				</li>
+				<li class="b-line flex-box">
+					<p class="v-record-tit">验证门店</p>
+					<p class="v-record-tip flex-1">{$data.verify_info.location_name}</p>
+				</li>
+				<li class="flex-box">
+					<p class="v-record-tit">验证券码</p>
+					<p class="v-record-tip flex-1">{$data.verify_info.youhui_sn}</p>
+				</li>
+			</ul>
+		</div>
+		<div class="v-record-hd">购买详情</div>
+		<div class="v-record-bd">
+			<div class="v-record-detail">
+				<p class="detail-name">{$data.buy_info.name}</p>
+				<p class="price b-line">
+					{if $data.buy_info.youhui_type eq 0}
+					&yen;{$data.buy_info.youhui_value}
+					{else}
+					{$data.buy_info.youhui_value}<span>折</span>
+					{/if}
+				</p>
+				<p class="time">
+					有效期：{if $data.buy_info.begin_time eq 0 && $data.buy_info.end_time eq 0}永久有效{else}{$data.buy_info.begin_time} 至 {$data.buy_info.end_time}{/if}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

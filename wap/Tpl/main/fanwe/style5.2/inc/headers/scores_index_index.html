@@ -1,0 +1,17 @@
+{if $app_index=='app'}
+<header class="bar bar-nav">
+    <h1 class="header-title">{$data.page_title}</h1>
+    {if $page_finsh}
+        <a href="javascript:App.page_finsh();"  class="header-btn header-left iconfont">&#xe604;</a>
+    {else}
+        <a class="header-btn header-left iconfont back">&#xe604;</a>
+    {/if}
+    <a href="{url i="index" r="uc_order" p="pay_status=9"}" class="header-txt header-right">兑换记录</a>
+</header>
+{else}
+<header class="bar bar-nav m-scores-index-head">
+    <h1 class="header-title">{$data.page_title}</h1>
+    <a class="header-btn header-left iconfont back">&#xe604;</a>
+    <a href="{url i="index" r="uc_order" p="pay_status=9"}" data-no-cache="true" class="header-txt header-right">兑换记录</a>
+</header>
+{/if}

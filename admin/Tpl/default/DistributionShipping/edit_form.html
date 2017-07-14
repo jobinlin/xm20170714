@@ -1,0 +1,127 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+ $(document).ready(function(){
+     init_dist_id_search();
+ });
+ function init_dist_id_search(){
+     $("#dist_id_search").bind("click",function(){
+         var skey=$("input[name=dist_id_search]").val();
+         var prov_id = $('select[name="region_lv2"]').val();
+         var city_id = $('select[name="region_lv3"]').val();
+         if(!skey){alert("搜索框不能为空！");return;}
+         var param = {};
+         param.name = skey;
+         if (prov_id != 0) {
+         	param.prov_id = prov_id;
+         }
+         if (city_id != 0) {
+         	param.city_id = city_id;
+         }
+         
+         $.post("{:u("DistributionShipping/get_distribution")}",param,function(data){
+             var options='<option value="0">=={%EMPTY_SELECT}==</option>';
+             for(var i in data){
+                 options+='<option rel="'+data[i].name+'" value="'+data[i].id+'">'+data[i].name+'</option>';
+             }
+             $("select[name=dist_id]").html(options);
+         },"json");
+     });
+ }
+</script>
+<div class="main">
+<div class="main_title"> {$page_title}<a href="{:u("DistributionShipping/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr id="city_list" >
+		<td class="item_title">{%SHIPPING_CITY}:</td>
+		<td class="item_input">
+		<select name="region_lv1" style="display:none;" onchange="ajax_load_region(1)">	
+			<option value="0">=={%EMPTY_SELECT}==</option>	
+			<foreach name="regionLv1List" item="regionLv1Item">				
+				<option value="{$regionLv1Item.id}" rel="{$regionLv1Item.name}" selected="selected">{$regionLv1Item.name}</option>
+			</foreach>
+		</select>
+		<select id="region_lv2" name="region_lv2" onchange="ajax_load_region(2)">	
+			<option value="0">=={%EMPTY_SELECT}==</option>	
+			<foreach name="regionLv2List" item="regionLv2Item">	
+				<option value="{$regionLv2Item.id}" rel="{$regionLv2Item.name}"  <if condition="$vo['region_lv2'] eq $regionLv2Item['id']">selected="selected"</if>>{$regionLv2Item.name}</option>
+			</foreach>
+		</select>
+		<select id="region_lv3" name="region_lv3" onchange="ajax_load_region(3)">	
+			<option value="0">=={%EMPTY_SELECT}==</option>	
+			<foreach name="regionLv3List" item="regionLv3Item">
+				<option value="{$regionLv3Item.id}" rel="{$regionLv3Item.name}"  <if condition="$vo['region_lv3'] eq $regionLv3Item['id']">selected="selected"</if>>{$regionLv3Item.name}</option>
+			</foreach>
+		</select>
+		<select id="region_lv4" name="region_lv4" onchange="ajax_load_region(4)">	
+			<option value="0">=={%EMPTY_SELECT}==</option>	
+			<foreach name="regionLv4List" item="regionLv4Item">
+				<option value="{$regionLv4Item.id}" rel="{$regionLv4Item.name}"  <if condition="$vo['region_lv4'] eq $regionLv4Item['id']">selected="selected"</if>>{$regionLv4Item.name}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SHIPPING_BELONG_DIST}:</td>
+		<td class="item_input">
+		<select name="dist_id">	
+			<option value="0">=={%EMPTY_SELECT}==</option>	
+			<foreach name="distData" item="dist">				
+				<option value="{$dist.id}" rel="{$dist.name}" <if condition="$vo['dist_id'] eq $dist['id']">selected="selected"</if>>{$dist.name}</option>
+			</foreach>
+		</select>
+        <input class="textbox" name="dist_id_search" type="text">
+        <input id="dist_id_search" class="button" value="搜索" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SHIPPING_NAME}:</td>
+		<td class="item_input">
+			<a id="map_select" href="javascript:void(0);">
+            	<input type="text" name="poi_name" value="{$vo.poi_name}" class="ui-textbox" style="width:400px;" />
+            </a>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SHIPPING_ADDR}:</td>
+		<td class="item_input">
+            <input type="text" name="poi_addr" value="{$vo.poi_addr}" class="ui-textbox" placeholder="例:工业路666号" style="width: 500px;" />
+            <input type="button" value="定位" class="local_search">
+            <input type="hidden" value="{$vo.poi_addr}" class="orig_key">
+            <input type="hidden" name="addr_check" value="1">
+		</td>
+	</tr>	
+	<tr>
+		<td class="item_title">地图定位:</td>
+		<td class="item_input">
+			<include file="Public:baidu_dist_shipping" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+		<!--隐藏元素-->
+		<input type="hidden" name="{:conf("VAR_MODULE")}" value="DistributionShipping" />
+		<input type="hidden" name="{:conf("VAR_ACTION")}" value="save" />
+		<input type="hidden" name="id" value="{$vo.id}" />
+		
+		
+		<input type="hidden" name="edit_type" value="{$editType}" />
+		<!--隐藏元素-->
+		<input type="submit" class="button" value="保存" />
+		<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

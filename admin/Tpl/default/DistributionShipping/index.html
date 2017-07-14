@@ -1,0 +1,64 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function disable_status ($disabled, $distship) {
+		$disableds = array(
+			0 => '正常',
+			1 => '禁用'
+		);
+		$label = '<a href="javascript:void(0);" class="switch_disable" data-id="'.$distship["id"].'" rel="'.$disabled.'">';
+		$label .= $disableds[$disabled];
+		$label .= '</a>';
+		return $label;
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="location.href='__APP__?m=DistributionShipping&a=add'" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		所属社区驿站：<input type="text" class="textbox" name="name" value="{:strim($_REQUEST['name'])}" />		
+		地址名称：<input type="text" class="textbox" name="poi_name" value="{:strim($_REQUEST['poi_name'])}" />
+		详细地址：<input type="text" class="textbox" name="poi_addr" value="{:strim($_REQUEST['poi_addr'])}" />
+		<input type="hidden" value="DistributionShipping" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="distship" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:所属社区驿站,poi_name:配送点名称,poi_addr:详细地址,region:地区,disabled|disable_status=$distship:状态"
+	actionlist="edit:{%EDIT}, del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<script>
+	var statusStr = ['正常', '禁用'];
+	$('.switch_disable').bind('click', function() {
+		var that = this;
+		var id = $(that).attr('data-id');
+		var rel = $(that).attr('rel');
+		var param = {'id':id};
+		$.get("{:u("DistributionShipping/disable")}",param,function(data){
+	        if (data.status) {
+	        	var newrel = rel ^= 1;
+	        	$(that).attr('rel', newrel);
+	        	$(that).html(statusStr[newrel]);
+	        }
+	    },"json");
+	})
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,101 @@
+.list-nav~.content{
+	top: 4.2rem;
+}
+.list-nav{
+	height:2rem;
+	position: absolute;
+	top: 2.2rem;
+	left: 0;
+	right: 0;
+	background:#fff;
+}
+.list-nav ul{
+	height:2rem;
+	text-align: center;
+}
+.list-nav .list-nav-line{
+	position: absolute;
+	bottom: 0;
+	border-radius:2px 2px 0 0;
+	height: 2px;
+	background:@themecolor;
+	-webkit-transition: all .3s ease;
+	        transition: all .3s ease;
+}
+.list-nav .list-nav-item.active{
+	color:@f_colortheme;
+}
+.biz-order-list{
+	margin-top: .5rem;
+}
+.biz-order-list li{
+	margin: 0 .5rem;
+	border-radius:3px;
+	margin-bottom: .5rem;
+	background:#fff;
+}
+.biz-order-list .order-list-item{
+	display: block;
+	padding:0 .5rem;
+}
+.biz-order-list .order-hd{
+	height:2rem;
+}
+.biz-order-list .order-time{
+	font-size:@f_size4;
+	color:@f_color3;
+}
+.biz-order-list .status{
+	color:@f_colortheme;
+}
+.biz-order-list .address{
+	padding:.5rem 0;
+	line-height: 1rem;
+}
+.biz-order-list .price-info{
+	height:2rem;
+}
+.biz-order-list .price{
+	color:#f24;
+}
+.biz-order-list .order-edit{
+	position: relative;
+	margin:0 .5rem;
+	height:2rem;
+}
+.biz-order-list .order-btn{
+	position: relative;
+	top: 50%;
+	float: right;
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
+	width:3rem;
+	text-align: center;
+	display: block;
+	border-radius:3px;
+	line-height: 1.2rem;
+	font-size:@f_size4;
+	border:1px solid #ddd;
+}
+.biz-order-list .remind{
+	padding:.25rem 0;
+}
+.biz-order-list .remind li{
+	margin: 0;
+	padding: .25rem 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	line-height: 1rem;
+}
+.biz-order-list .remind .remind-tit{
+	width:4em;
+	margin-right: 1rem;
+}
+.biz-order-list .rs-info{
+	padding:.25rem 0;
+}
+.biz-order-list .rs-info p{
+	line-height: 1rem;
+	padding:.25rem 0;
+}

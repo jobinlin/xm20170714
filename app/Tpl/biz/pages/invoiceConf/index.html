@@ -1,0 +1,83 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/invoice.css";
+
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/invoiceconf/invoiceconf.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/invoiceconf/invoiceconf.js";
+
+?>
+
+{include file="inc/header.html"}
+
+<div class="blank20"></div>
+<div class="page wrap_full">
+	<div class="left_box">
+		{include file="inc/biz_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="content">
+			<div class="head_box">
+				<h2>{$head_title}</h2>
+			</div>
+			<form action="{url r="biz" b="invoiceconf#update"}" name="invoice">
+				<div class="invoice-type">
+					发票类型：
+					<label class="ui-radiobox" rel="common_rdo"><input type="radio" name="invoice_type" class="invoice_type" value="0" {if $invoice.invoice_type eq 0}checked{/if}/>不支持发票</label>
+					<label class="ui-radiobox" rel="common_rdo"><input type="radio" name="invoice_type" class="invoice_type" value="1" {if $invoice.invoice_type eq 1}checked{/if}/>开具普通发票</label>
+				</div>
+				<div class="invoice-info content-box {if $invoice.invoice_type eq 0}hide{/if}">
+					<div class="add-invoice-info">
+						发票内容：<input type="text" class="ui-textbox pre-content" holder="" /><a class="add-content" href="javascript:void(0);">添加</a><span style="margin-left: 10px;" class="text_info">请输入要增加的内容选项，每项不能超过6个字</span>
+					</div>
+					<!-- <div class="text_info">请输入要增加的内容选项，每项不能超过6个字</div> -->
+					<div class="content-list clearfix">
+						<!-- <div class="content-item">
+							<span>明细</span>
+							<input type="hidden" name="invoice_content[]" value="明细">
+						</div> -->
+						{if $invoice.invoice_content}
+						{foreach from=$invoice.invoice_content item=content}
+						<div class="content-item">
+							<span>{$content}</span>
+							<input type="hidden" name="invoice_content[]" value="{$content}">
+							<span class="del">X</span>
+							<input type="button" value="删除" onclick="delRow(this)">
+						</div>
+						{/foreach}
+						{/if}
+					</div>
+				</div>
+				<div style="padding: 0 20px;">
+					<button class="ui-button" rel="orange" type="submit">保存</button>
+				</div>
+			</form>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<div class="blank20"></div>
+{include file="inc/footer.html"}

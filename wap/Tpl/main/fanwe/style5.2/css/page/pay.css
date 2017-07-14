@@ -1,0 +1,161 @@
+/*sui样式重置*/
+
+
+.list-block{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.list-block .item-content{
+    padding-left: 0.5rem;
+    min-height: 0rem;
+}
+.list-block .item-inner{
+    padding-right: 0.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 0rem;
+}
+.list-block .item-inner:after,.list-block ul,.list-block ul:before{
+    background: transparent;
+}
+.content-block-title{
+    margin:0.6rem 0.5rem;
+}
+
+.list-block .item-media{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+/*sui样式重置*/
+
+
+/*头部开始*/
+.bar .title{
+    font-size: @f_size2;
+}
+.bar .button-link .iconfont{
+    font-size: 1.1rem;
+}
+/*头部结束*/
+.u-common-box{
+    height: 2.25rem;
+    background: #FFFFFF;
+}
+
+.u-pay-title .item-title{
+    font-size: @f_size3;
+    color: @f_color1;
+}
+
+.m-my-conut .content-block-title,.m-payway .content-block-title{
+    font-size: @f_size4;
+    color: @f_color3;
+}
+
+.m-my-conut .item-title,.m-payway .item-title {
+    font-size: @f_size4;
+    color: @f_color1;
+    line-height: 2.25rem;
+}
+.m-payway ul{
+    background: #FFFFFF;
+}
+.m-payway li{
+    margin-left: 0.5rem;
+}
+.m-payway  .item-content{
+    padding-left: 0;
+}
+.m-my-conut .item-title span.my-money{
+    color: @f_colortheme;
+    margin-left: 1.25rem;
+}
+label.u-square-checkbox i.icon-form-checkbox{
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 0rem;
+}
+.pay-way-name i.iconfont{
+    font-size: 1.1rem;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+}
+.pay-way-name i.alipay-icon{
+    color: #4a90e2;
+}
+.pay-way-name i.wechatpay-icon{
+    color: #88bf27;
+}
+.u-pay-btn{
+    background: transparent;
+    margin-top: 1.4rem;
+}
+
+.u-sure-pay{
+    display: block;
+    width: 100%;
+    height: 2.3rem;
+    line-height: 2.3rem;
+    border: none;
+    background: @themecolor;
+    color: #FFFFFF;
+    font-size: @f_size3;
+    overflow: hidden;
+    -webkit-text-size-adjust:none;
+}
+.u-sure-pay span.u-money{
+    font-size: @f_size4;
+    height: 2.3rem;
+    margin-left: 0.15rem;
+    display: inline-block;
+    vertical-align: bottom;
+}
+.u-sure-pay span.u-money i{
+    font-size: @f_sizebig;
+    margin-left: 0.1rem;
+}
+/*价格通用开始*/
+p.u-lg-price{
+    font-size: @f_size3;
+    color: @f_color1;
+    line-height: 0.7rem;
+}
+p.u-lg-price span.u-money{
+    font-size: @f_size4;
+    color: @f_colortheme;
+}
+p.u-lg-price span.u-money i{
+    font-size: @f_sizebig;
+    margin-left: 0.1rem;
+}
+p.u-lg-count{
+    font-size: @f_size4;
+    color: @f_color3;
+    line-height: 0.6rem;
+    margin-top: 0.25rem;
+}
+.pay_logo{
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-right: 10px;
+}
+.pay_logo img{width:100%;}
+
+a.u-sure-pay:hover, a.u-sure-pay:active, a.u-sure-pay:link, a.u-sure-pay:visited {
+    text-decoration: none;
+    color: #fff;
+}
+#payment_done .list-block .item-content{
+    padding-left: 0;
+}
+/*价格通用结束*/
+p.u-lg-price-score span.u-money{
+    font-size: @f_size4;
+    color: @f_colortheme;
+}
+p.u-lg-price-score span.u-score{
+    font-size: @f_size4;
+    color: #ff9800;
+}
+

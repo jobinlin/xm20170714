@@ -1,0 +1,77 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_fxwithdraw">
+    <script>
+        var fx_money=parseFloat('{$data.fx_money}');
+    </script>
+    
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+	 	<div id="withdraw">
+	 	<form action="{url r="index" p="uc_fxwithdraw#save"}" method="post" name="withdraw">
+	 		<!-- <div class="bank-select {if !$bank_list}load_page{/if} flex-box" {if !$bank_list} url="{url r="index" p="uc_money#add_card"}"  js_url='{$tmpl_path}js/load/add_card.js'{/if}> -->
+	 		<div class="bank-select flex-box">
+	 			<div class="bank-info flex-1">
+	 				<p class="bank-name">{$data.bank_info}</p>
+	 				<p class="user-info">{$data.bank_user}</p>
+	 			</div>
+	 			<!-- <i class="iconfont right-arrow">&#xe607;</i> -->
+	 		</div>
+	 		<div class="can-use">
+	 			<p class="can-use-num">可提现余额 {$data.fxmoney}元{if $data.fx_withdraw_rate},提现手续费率{$data.fx_withdraw_rate}‰{/if}</p>
+	 		</div>
+			<ul class="address-input withdraw-list">
+				<li class="b-line">
+					<span>提现金额</span>
+					<input class="ui-textbox" value="" type="text" name="money" {if !$data.fxmoney}disabled="disabled"  placeholder="无可提现余额"{else} placeholder="请输入提现金额"{/if}  pattern="([0-9]*)|(\d+(\.\d{1,2}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') " />
+				</li>
+				{if $data.fx_withdraw_rate}
+				<li class="b-line">
+					<span>手续费</span>
+					<input class="ui-textbox withdraw-rate" value="" type="text"  placeholder="请先输入提现金额" readonly rate-data={$data.fx_withdraw_rate}/>
+				</li>
+				{/if}
+				<li class="b-line">
+					<span>登录密码</span>
+					<input class="ui-textbox" value="" name="pwd" type="password"  placeholder="请输入登录密码" {if !$data.fxmoney}disabled="disabled"{/if}/>
+				</li>
+				<!-- {foreach from=$data.bank_list item=item key=key}
+				<li class="b-line bank" >
+					<label>{$item.bank_name}<span  bank_name="{$item.bank_name}" rel="{$item.id}"  {if $key eq 0}class="checked"{/if}></span></label>
+				</li>
+				{/foreach} -->
+				<input type="hidden" value="{$data.default_id}" name="bank_id"/>
+				</ul>
+				<div class="big-btn">
+					<input type="submit" class="sub goahead btn-con" value="确认提现">
+				</div>
+				</form>
+			</ul>
+	 	</div>
+	</div>
+	<!-- <div class="select-bank">
+		<div class="mask"></div>
+		<div class="bank-list">
+			<div class="close-btn"><img src="{$TMPL}/style5.2/images/static/close-btn.png" alt=""></div>
+			<div class="hd b-line">选择提现方式</div>
+			<ul>
+			{foreach from=$bank_list item=item key=key}
+				<li class="flex-box b-line" bank_id="{$item.id}">
+					<div class="bank-info flex-1">
+						<p class="bank-name">{$item.bank_name}</p>
+						<p class="user-info">{$item.bank_user}</p>
+					</div>
+					
+					<i class="iconfont {if $item.id eq $data.default_id}selected{/if}">&#xe66c;</i>
+					
+				</li>
+			{/foreach}
+			</ul>
+			<a href="javascript:void(0);" url="{url r="index" p="uc_money#add_card"}" class="flex-box add-bank b-line t-line load_page" js_url='{$tmpl_path}js/load/add_card.js'>
+				<p class="flex-1">添加新卡提现</p>
+				<i class="iconfont right-arrow">&#xe607;</i>
+			</a>
+		</div>
+	</div> -->
+</div>
+{include file="style5.2/inc/footer.html"}

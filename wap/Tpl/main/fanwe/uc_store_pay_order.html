@@ -1,0 +1,40 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index" id="uc_store_pay_order">
+{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll  infinite-scroll-bottom">
+	{if $data.item}
+		<div class="list-block m-cart j-ajaxlist">
+			<div class="j-ajaxadd">
+			{foreach from=$data.item item=item}
+			<div class="m-conBox m-check-order">
+				<!--列表头部开始-->
+				<div class="orderId">
+					<div class="order_id b-line">
+						<p><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$item.location_name}<i class="iconfont u-icon">&#xe607;</i></p>
+						<span class="order_state">{$item.status}</span>
+					</div>
+				</div>
+				<!--列表头部结束-->
+				<div class="pay_info">
+					<p>消费金额：<span class="money_info">¥ <i>{$item.total_price}</i></span></p>
+					<p>优惠金额：<span class="money_info">¥ <i>{$item.discount_price}</i></span></p>
+					<p>积分抵扣：<span class="money_info">¥ <i>{$item.exchange_money}</i></span></p>
+					<p>实付金额：<span class="money_info actual_mon">¥ <i>{$item.pay_amount}</i></span></p>
+					<p>买单时间：<span class="money_info"><i>{$item.create_time}</i></span></p>
+				</div>
+			</div>
+			{/foreach}
+			</div>
+			<div class="blank"></div>
+			<div class="pages hide">{$pages}</div>
+			<div class="blank"></div>
+		</div>
+	{else}
+		<div class="tipimg no_data">暂无数据～</div>
+	{/if}
+	</div>
+</div>
+
+{include file="style5.2/inc/footer.html"}

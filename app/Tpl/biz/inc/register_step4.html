@@ -1,0 +1,70 @@
+<div class="con_box">
+	<div class="shupplier_info">
+		{if $supplier_data.is_publish eq 2}
+		<div class="check-status check-status-2">
+			<h2>【审核未通过】</h2>
+			<div class="memo"><span>拒绝原因: {$supplier_data.memo}</span><a href="javascript:recheck();">[ 重新提交资料 ]</a></div>
+		</div>
+		{elseif $supplier_data.is_publish eq 1}
+		<div class="check-status check-status-1">
+			<h2>【审核已通过】</h2>
+			<div class="memo"><span>审核通过请: </span><a href="{url x="biz" r="user#login" }">[ 重新登录 ]</a></div>
+		</div>
+		{/if}
+		<div class="con_item">
+			<div class="t_title">
+				<span>商户身份信息</span>
+			</div>
+			<div class="blank20"></div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">绑定会员</label>
+				<span class="c_text">{$user_info.user_name}</span>
+			</div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">登录帐号</label>
+				<span class="c_text">{$user_info.mobile}</span>
+			</div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">商户名称</label>
+				<span class="c_text">{$supplier_data.name}</span>
+			</div>
+			
+		</div>
+		<div class="con_item">
+			<div class="t_title">
+				<span>公司信息</span>
+			</div>
+			<div class="blank20"></div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">企业名称</label> 
+				<span class="c_text">{$supplier_data.h_name}</span>
+			</div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">法人信息</label> 
+				<span class="c_text">{$supplier_data.h_faren}</span>
+			</div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">联系电话</label> 
+				<span class="c_text">{$supplier_data.h_tel}</span>
+			</div>
+		</div>
+		<div class="con_item">
+			<div class="t_title">
+				<span>银行账户信息</span>
+			</div>
+			<div class="blank20"></div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">开户银行户名</label> 
+				<span class="c_text">{$supplier_data.h_bank_user}</span>
+			</div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">开户银行名称</label> 
+				<span class="c_text">{$supplier_data.h_bank_name}</span>
+			</div>
+			<div class="field_group_long_2">
+				<label class="f_label_2">开户银行帐号</label> 
+				<span class="c_text">{$supplier_data.h_bank_info}</span>
+			</div>
+		</div>
+	</div>
+</div>

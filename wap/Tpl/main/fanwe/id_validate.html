@@ -1,0 +1,75 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index" style="background: #FFFFFF" id="idvalidate">
+	<script>
+        var fx_money=parseFloat('{$data.fx_money}');
+    </script>
+    
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		{if $data.card_info.status eq 0}
+			<form action="{url x="index" r="idvalidate#scanId"}" method="post" name="idvalidate_scanId">
+				<ul class="address-input withdraw-list">
+					<li class="b-line">
+						<span>身份证号码</span>
+						<input class="ui-textbox" value="{$data.card_info.idnum}" type="text" name="idvalidate" placeholder="请输入身份证号码"  />
+					</li>
+					<li class="b-line">
+						<span>姓　　　名</span>
+						<input class="ui-textbox" value="{$data.card_info.name}" type="text" name="name" placeholder="请输入姓名"  />
+						<span>性别</span>
+						<select name="sex" style="margin-right: 10%;">
+							<option value ="1" {if $data.card_info.sex eq '男'}selected = "selected"{/if}>男</option>
+							<option value ="0" {if $data.card_info.sex eq '女'}selected = "selected"{/if}>女</option>
+						  </select>
+					</li>
+					<!-- {foreach from=$data.bank_list item=item key=key}
+					<li class="b-line bank" >
+						<label>{$item.bank_name}<span  bank_name="{$item.bank_name}" rel="{$item.id}"  {if $key eq 0}class="checked"{/if}></span></label>
+					</li>
+					{/foreach} -->
+				</ul>
+				<div class="big-btn">
+					<input type="submit" class="sub goahead btn-con" value="提交认证">
+				</div>
+				
+			</form>
+		{else}
+			<div class="validate-up">
+				<div class="face-img validate-img"><img src="{$TMPL}/style5.2/images/static/id_face.png" alt=""><i class="iconfont id-success">&#xe68d;</i></div>
+				<p>你的身份信息已上传</p>
+			</div>
+			<ul class="validate-list">
+				<li class="flex-box b-line">
+					<p class="validate-tit flex-1">姓名</p>
+					<p class="validate-tip">{$data.card_info.name}</p>
+				</li>
+				<li class="flex-box b-line">
+					<p class="validate-tit flex-1">性别</p>
+					<p class="validate-tip">{$data.card_info.sex}</p>
+				</li>
+				<li class="flex-box">
+					<p class="validate-tit flex-1">身份证号</p>
+					<p class="validate-tip">{$data.card_info.idnum}</p>
+				</li>
+				<li class="flex-box">
+					<p class="validate-tit flex-1">审核状态</p>
+					<p class="validate-tip">{if $data.is_id_validate eq 1}通过{elseif $data.is_id_validate eq 2}审核中{elseif $data.is_id_validate eq 3}失败{/if}</p>
+				</li>
+				{if $data.is_id_validate eq 3 and 0}
+				<li class="flex-box">
+					<p class="validate-tit flex-1">失败原因</p>
+					<p class="validate-tip">长的太丑</p>
+				</li>
+				{/if}
+			</ul>
+			{if $data.card_info.status eq 3} 
+			<div class="big-btn">
+				<input type="button" class="sub goahead btn-con idvalidate_del" data-url="{url x="index" r="idvalidate#delete"}" value="重新提交">
+			</div>
+			{/if}
+		{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

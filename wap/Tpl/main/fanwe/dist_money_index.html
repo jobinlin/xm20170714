@@ -1,0 +1,51 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_money_index">
+    {include file="style5.2/inc/dist_header.html"}
+    <div class="content">
+      <!-- 页面主体 -->
+
+      <div class="uc-money flex-box">
+      	<div class="uc-money-info">
+      		<p class="uc-money-tip">账户余额（元）</p>
+      		<p class="uc-money-num">{$dist_info.money}</p>
+      	</div>
+      </div>
+      <ul class="uc-money-list">
+      	<li class="b-line">
+      		<a href="{url a="dist" r="withdrawal#money_log"}" class="flex-box" data-no-cache="true">
+      			<svg class="icon" aria-hidden="true">
+      				<use xlink:href="#icon-k"></use>
+      			</svg>
+      			<p class="list-item flex-1">资金明细</p>
+      			<i class="iconfont right-arrow">&#xe607;</i>
+      		</a>
+      	</li>
+      	<li class="b-line">
+      		<a href="{url a="dist" r="withdrawal#submit_form"}" class="flex-box" data-no-cache="true">
+      			<i class="iconfont special-ico withdraw">&#xe66e;</i>
+      			<p class="list-item flex-1">提现</p>
+      			<i class="iconfont right-arrow">&#xe607;</i>
+      		</a>
+      	</li>
+      	<li class="b-line">
+      		<a href="{url a="dist" r="withdrawal#withdraw_log"}" class="flex-box" data-no-cache="true">
+      			<i class="iconfont special-ico" style="color:#86cf4b">&#xe8cf;</i>
+      			<p class="list-item flex-1">提现明细</p>
+      			<i class="iconfont right-arrow">&#xe607;</i>
+      		</a>
+      	</li>
+      </ul>
+      <ul class="uc-money-list">
+      	<li>
+      		<a href="{url a="dist" r="withdrawal#bindbank"}" class="flex-box" data-no-cache="true">
+      			<i class="iconfont special-ico bank-list">&#xe8d3;</i>
+      			<p class="list-item flex-1">我的银行卡</p>
+      			<p class="bank-list-tip">{if $dist_info.bank_name}{$dist_info.bank_name}{else}未绑定{/if}</p>
+      			<i class="iconfont right-arrow">&#xe607;</i>
+      		</a>
+      	</li>
+      </ul>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

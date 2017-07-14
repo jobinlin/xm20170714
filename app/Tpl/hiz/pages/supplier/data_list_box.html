@@ -1,0 +1,150 @@
+<div class="comments_details">
+	{if $ACTION_NAME eq 'index'}
+	<table class="table_box ">
+					<colgroup>
+						<col width="90">
+						<col width="200">
+						<col width="150">
+						<col width="150">
+						<col width="150">
+						<col width="100">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>编号</th>
+							<th>名称</th>
+							<th>商城营业额</th>
+							<th>外卖营业额</th>
+							<th>买单营业额</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{if $list}
+					{foreach from=$list item=row}
+						<tr data-id="{$row.id}">
+							<td class="rate">
+								{$row.id}
+							</td>
+							<td>
+								<div>
+									<p class="rate" title="{$row.name}">{function name="msubstr" v=$row.name l=0 e=65}</p>
+									{if $row.preview}
+										<ul class="photos_box clearfix">
+												<li>
+													<a href="{$row.preview}" target="_blank">
+														<img src="{function name="get_spec_image" v=$row.preview h=40 w=40 g=1}" lazy="true"/>
+													</a>
+												</li>
+										</ul>
+									{/if}
+									
+								</div>
+							</td>
+							<td >
+								<p>{function name=format_price v=$row.deal_sale_money}</p>
+							</td>
+							<td >
+								<p>{function name=format_price v=$row.dc_sale_money}</p>
+							</td>
+							<td >
+								<p>{function name=format_price v=$row.store_pay_money}</p>
+							</td>
+							<td class="operate">
+								<a href="{$row.edit_url}"><button class="ui-button edit_btn" rel="white" type="button" data-id="{$row.id}">资料修改</button></a>
+							</td>
+						</tr>
+					{/foreach}
+					{else}
+						<tr data-id="{$row.id}">
+							<td colspan="5">
+								<div class="empty_tip">
+									没有相关数据
+								</div>
+							</td>
+						</tr>
+					{/if}		
+					</tbody>
+				</table>
+	{else}
+	<table class="table_box ">
+					<colgroup>
+						<col width="90">
+						<col width="220">
+						<col width="200">
+						<col width="150">
+						<col width="100">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>
+								编号
+							</th>
+							<th>
+								名称
+							</th>
+							<th>
+
+								电话
+							</th>
+							<th>
+
+								申请时间
+							</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{if $list}
+					{foreach from=$list item=row}
+						<tr data-id="{$row.id}">
+							<td class="rate">
+								{$row.id}
+							</td>
+							<td class="review_cnt">
+								<div>
+									<p class="rate" title="{$row.name}">{function name="msubstr" v=$row.name l=0 e=65}</p>
+									{if $row.h_supplier_logo}
+										<ul class="photos_box clearfix">
+												<li>
+													<a href="{$row.h_supplier_logo}" target="_blank">
+														<img src="{function name="get_spec_image" v=$row.h_supplier_logo h=40 w=40 g=1}" lazy="true"/>
+													</a>
+												</li>
+										</ul>
+									{/if}
+								</div>
+							</td>
+							
+							<td class="status_p">{$row.account_mobile}</td>
+							<td class="status_p">{function name=to_date v=$row.create_time}</td>
+							<td class="operate">
+
+									<a href="{$row.edit_url}">
+									<button class="ui-button edit_btn" rel="white" type="button" data-id="{$row.id}">查看</button>
+									</a>
+
+									<button class="ui-button del_btn" rel="white" type="button" data-id="{$row.id}">删除</button>
+								
+							
+							</td>
+						</tr>
+					{/foreach}
+					{else}
+						<tr>
+							<td colspan="5">
+								<div class="empty_tip">
+									没有相关数据
+								</div>
+							</td>
+						</tr>
+					{/if}		
+					</tbody>
+				</table>
+	{/if}
+	<div class="blank"></div>
+	<div class="pages">
+		{$pages}
+	</div>
+</div>
+		

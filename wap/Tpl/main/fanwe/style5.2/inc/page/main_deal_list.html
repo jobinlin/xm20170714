@@ -1,0 +1,23 @@
+{if $data.deal_list}
+	{foreach from=$data.deal_list item=supplier_deal_item name=supplier_deal_item key=key}
+		<li class="b-line">
+			<a href="{$supplier_deal_item.url}">
+				<div class="goods-img">
+					<img alt="" date-load="1" data-src="{if $supplier_deal_item.f_icon neq ""}{$supplier_deal_item.f_icon}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}" src="{$TMPL}/style5.2/images/loading/no-image.png"/>
+					<div class="tuan-sale-info">
+						<p class="sale">{if $supplier_deal_item.buy_count gt 0}已售{$supplier_deal_item.buy_count}{/if}</p>
+						<p class="distance">{$supplier_deal_item.distance}</p>
+					</div>
+				</div>
+				<div class="goods-info">
+					<div class="tuan-name"><h2>{$supplier_deal_item.supplier_name}</h2><p class="distance">{$supplier_deal_item.distance}</p></div>
+					<p class="tuan-tip">{$supplier_deal_item.brief}</p>
+					<div class="sale-info">
+						<p class="price">{$supplier_deal_item.current_price}<del class="p-price">{$supplier_deal_item.origin_price}</del></p>
+						<p class="sale">{if $supplier_deal_item.buy_count gt 0}已售{$supplier_deal_item.buy_count}{/if}</p>
+					</div>
+				</div>
+			</a>
+		</li>
+	{/foreach}
+{/if}	

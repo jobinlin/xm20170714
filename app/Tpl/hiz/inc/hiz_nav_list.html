@@ -1,0 +1,16 @@
+{if $nav_list}
+<div class="f-main-nav">
+	<a href="{url r="hiz" b="index"}" class="nav-tit active">首页</a>
+	{foreach from=$nav_list item=nav_item key=nav_key}
+	<dl class="main-nav {if $nav_item.current eq 1 }j-open {/if}">
+		<dt class="nav-tit j-nav-tit "><i class="iconfont">&#xe68a;</i><span>{$nav_item.name}</span></dt>
+		{foreach from=$nav_item.node item=s_nav_item key=s_nav_key}
+		<dd>
+			<a class="nav-item transition {if $s_nav_item.current eq 1 }active{/if}" href="{$s_nav_item.url}">{$s_nav_item.name}</a>
+		</dd>
+		{/foreach}
+	</dl>
+	{/foreach}
+</div>
+{/if}
+</div>

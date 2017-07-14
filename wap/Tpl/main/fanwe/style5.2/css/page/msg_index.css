@@ -1,0 +1,189 @@
+.m-msg-head .head-btn{
+	display: block;
+	position: absolute;
+	line-height: 2.2rem;
+	font-size: 1.1rem;
+}
+
+.m-msg-head .head-btn.go-back{
+	left: .5rem;
+}
+
+.m-msg-head .head-btn.more{
+	right: .5rem;
+	font-size: 1.1rem;
+	color: #8d8f99;
+	padding-left: 1rem;
+}
+
+.msg-type{
+	padding: .8rem 0;
+	background: #fff;
+	padding-left: @comspacing;
+	visibility: hidden;
+}
+
+.msg-type .msg-num{
+	position: relative;
+}
+
+.msg-type .msg-num em{
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	background: @themecolor;
+	min-width: 1rem;
+	max-height: 1rem;
+	text-align: center;
+	line-height: 1rem;
+	border-radius: .5rem;
+	color: #fff;
+}
+
+.msg-type .type-icon{
+	display: block;
+	width: 2.125rem;
+	height: 2.125rem;
+	line-height: 2.125rem;
+	font-size: 1rem;
+	text-align: center;
+	border-radius: 50%;
+	color: #fff;
+	margin-right: .625rem;
+}
+
+.msg-type .type-icon.icon-1{
+	background: #1bd0ec;
+}
+
+.msg-type .type-icon.icon-2{
+	background: #feb300;
+}
+
+.msg-type .type-icon.icon-3{
+	background: #00d3c8;
+}
+
+.msg-type .type-icon.icon-4{
+	background: #879dff;
+}
+
+.msg-type .msg-type-con{
+	padding-right: .5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.msg-type .msg-type-con .lab-date{
+	font-size: @f_size3;
+	color: @f_color1;
+	line-height: 1.25rem;
+}
+
+.msg-type .msg-type-con .lab-date .date{
+	float: right;
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+.msg-type .msg-type-con .msg-con{
+	width: 100%;
+	line-height: .875rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+.m-msg-list .msg-item{
+	padding: 0 @comspacing;
+}
+
+.m-msg-list .msg-item .msg-date{
+	text-align: center;
+	font-size: @f_size4;
+	color: @f_color3;
+	padding: .75rem 0 .625rem 0;
+}
+
+.m-msg-list .msg-item .msg-detail{
+	border: 1px solid @bordercolor;
+	border-radius: 5px;
+	background: #fff;
+	line-height: 1.35rem;
+	padding: .35rem .5rem;
+}
+
+.m-msg-list .msg-item .new-msg{
+	font-size: @f_size3;
+	color: @f_color1;
+}
+
+.m-msg-list .msg-item .new-con{
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+.m-msg-list .msg-item .new-con .iconfont{
+	font-size: .7rem;
+	float: right;
+}
+
+.nowrap{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.vshow{
+	visibility: visible;
+}
+
+.move-1{
+	-webkit-animation-name: move;
+	-webkit-animation-duration: .2s;
+			animation-name: move;
+			animation-duration: .2s;
+}
+
+.move-2{
+	-webkit-animation-name: move;
+	-webkit-animation-duration: .2s;
+	-webkit-animation-delay:.2s;
+			animation-name: move;
+			animation-duration: .2s;
+			animation-delay:.2s;
+}
+
+.move-3{
+	-webkit-animation-name: move;
+	-webkit-animation-duration: .2s;
+	-webkit-animation-delay:.4s;
+			animation-name: move;
+			animation-duration: .2s;
+			animation-delay:.4s;
+}
+
+.move-4{
+	-webkit-animation-name: move;
+	-webkit-animation-duration: .2s;
+	-webkit-animation-delay:.6s;
+			animation-name: move;
+			animation-duration: .2s;
+			animation-delay:.6s;
+}
+
+@-webkit-keyframes move /* Safari 和 Chrome */
+{
+	from {-webkit-transform: translateY(-100%);transform: translateY(-100%);visibility: hidden;}
+	to {-webkit-transform: translateY(0);transform: translateY(0);visibility: visible;}
+}
+
+@keyframes move /* Safari 和 Chrome */
+{
+	from {-webkit-transform: translateY(-100%);transform: translateY(-100%);visibility: hidden;}
+	to {-webkit-transform: translateY(0);transform: translateY(0);visibility: visible;}
+}

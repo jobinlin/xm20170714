@@ -1,0 +1,30 @@
+/* 通用头部 */
+.m-com-header{
+	height:2.2rem;
+}
+.m-com-header a{
+	display: block;
+	color:@f_icon_color;
+	position: absolute;
+	top: 0;
+	line-height: 2.2rem;
+}
+.m-com-header .hd-ico{
+	font-size:1.1rem;
+	left: .5rem;
+}
+.m-com-header .hd-link{
+	right: .5rem;
+	left: auto;
+}
+.m-com-header .j-opendropdowm{
+	right: .5rem;
+	left: auto;
+}
+.m-com-header .page-title{
+	font-size:@f_size2;
+	text-align: center;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}

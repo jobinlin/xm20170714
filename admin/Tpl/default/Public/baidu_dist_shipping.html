@@ -1,0 +1,199 @@
+
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<PHP>echo app_conf("BAIDU_MAP_APPKEY");</PHP>&s=1"></script>
+<load href='__TMPL__Common/js/baidumapEventWrapper.js' />
+<div id="l-map" style="height: 400px;width: 600px;margin: 0;"></div>
+
+<input type="hidden" name="post_xpoint" id="post_xpoint" value="{$vo.xpoint}"/>
+<input type="hidden" name="post_ypoint" id="post_ypoint" value="{$vo.ypoint}"/>
+<script type="text/javascript">
+	// 百度地图API功能
+	function G(id) {
+		return document.getElementById(id);
+	}
+
+	var map = new BMap.Map("l-map", {enableMapClick:false});
+	var marker, point;
+	var geoc = new BMap.Geocoder();
+
+	var xpoint = $('input[name=post_xpoint]').val();
+	var ypoint = $('input[name=post_ypoint]').val();
+	if (!xpoint || !ypoint) {
+		xpoint = 116.331398;
+        ypoint = 39.897445;
+	}
+	markerinit(xpoint, ypoint);
+	map.enableScrollWheelZoom();
+
+	// 坐标初始化
+	function markerinit(x, y) {
+		point = new BMap.Point(x, y);
+		if (marker) {
+			marker.setPosition(point);
+			setpoint(point);
+		} else {
+			map.centerAndZoom(point,14);
+			marker = new BMap.Marker(point);
+			map.addOverlay(marker);
+			marker.enableDragging();
+			marker.setTitle('拖动更换地址');
+			marker.addEventListener('dragend', markerPoint);
+		}
+		
+	}
+
+	function setpoint(pp) {
+		$('input[name=post_xpoint]').val(pp.lng);
+		$('input[name=post_ypoint]').val(pp.lat);
+		$('input[name="addr_check"]').val('1');
+	}
+	// 设置坐标
+	function markerPoint() {
+		var pp = marker.getPosition();
+		setpoint(pp);
+		geoc.getLocation(pp, function(rs) {
+			var addComp = rs.addressComponents;
+			var lstr = /*addComp.province + addComp.city + addComp.district +*/ addComp.street + addComp.streetNumber;
+			$('input[name="poi_addr"]').val(lstr);
+			/*var sstr = '';
+			if (addComp.street) {
+				sstr = addComp.street;
+			} else {
+				sstr = addComp.district;
+			}
+			$('input[name="poi_name"]').val(sstr);*/
+		})
+	}
+
+	var regionUrl = "{:U('DistributionShipping/getRegionApi')}";
+	
+	// 异步加载地区
+	function ajax_load_region (level) {
+		if (level < 4) {
+			var nextLevel = level + 1;
+			$('#region_lv' + nextLevel).html('<option value="0">=={%EMPTY_SELECT}==</option>');
+			if (nextLevel < 3) {
+				for (var i = nextLevel; i <= 4; i++) {
+					$('#region_lv' + i).html('<option value="0">=={%EMPTY_SELECT}==</option>');
+				}
+			}
+			
+			var pid = $('#region_lv' + level).val();
+			if (!pid) {
+				alert('请选择：上级地区！');
+				return false;
+			}
+			$.get(regionUrl, { pid : pid }, function (data) {
+				if (1 != data.status) {
+					return false;
+				}
+				if (data.info) {
+					$.each(data.info, function (key, val) {
+						$("<option value="+key+">"+val+"</option>").appendTo($("#region_lv" + nextLevel));
+					});
+				}
+			}, 'json');
+		}
+		regionMap(level);
+	}
+	
+	function regionMap(level) {
+		// var maplevel = 13;
+		var region = '';
+		for (var i = 2; i <= 4; i++) {
+			var id = '#region_lv'+i;
+			var val = $(id).val();
+			if (val != 0) {
+				region += $("#city_list option[value='"+val+"']").html();
+			}
+		}
+		var maplevel = (level <= 4 ? 14 : 13);
+		if (region != '') {
+			BMapLib.EventWrapper.addListenerOnce(map, 'moveend', markerMove);
+			map.centerAndZoom(region, maplevel);
+		}
+		getdist(level);
+	}
+	function markerMove() {
+        var center = map.getCenter();
+        marker.setPosition(center);
+        setpoint(center);
+    }
+    function getdist(level) {
+    	if (level == 4) {
+    		return;
+    	}
+    	var options = '<option value="0">=={%EMPTY_SELECT}==</option>';
+    	var param = {};
+    	var prov_id, city_id;
+    	if (level == 2) {
+    		prov_id = $('#region_lv2').val();
+    		if (prov_id == 0) {
+				$("select[name=dist_id]").html(options);
+				return;
+    		}
+    		param.prov_id = prov_id;
+    	}
+    	if (level == 3) {
+    		var city_id = $('#region_lv3').val();
+    		if (city_id == 0) {
+    			prov_id = $('#region_lv2').val();
+    			if (prov_id == 0) {
+    				$("select[name=dist_id]").html(options);
+    				return;
+    			}
+    			param.prov_id = prov_id;
+    		} else {
+    			param.city_id = city_id;
+    		}
+    	}
+    	$.post("{:u("DistributionShipping/get_distribution")}",param,function(data){
+	            for(var i in data){
+	                options+='<option rel="'+data[i].name+'" value="'+data[i].id+'">'+data[i].name+'</option>';
+	            }
+	            $("select[name=dist_id]").html(options);
+	        },"json");
+    }
+
+	// 定位
+	$('.local_search').bind('click', function(e) {
+		var region = '';
+		for (var i = 2; i <= 4; i++) {
+			var id = '#region_lv'+i;
+			var val = $(id).val();
+			if (val != 0) {
+				region += $("#city_list option[value='"+val+"']").html();
+			} else {
+				alert('请先选择省市地区');
+				return false;
+			}
+		}
+		region = $.trim(region);
+		var search = $.trim($('input[name="poi_addr"]').val());
+		if (!search) {
+			alert('请输入定位地址');
+			return;
+		}
+		var origv = $.trim($('.orig_key').val());
+		if (origv == search) {
+			return;
+		}
+		$('.orig_key').val(search);
+		geoc.getPoint(region+search, function(point) {
+			if (point) {
+				map.centerAndZoom(point, 18);
+				markerinit(point.lng, point.lat);
+			} else {
+				alert('地址解析错误');
+			}
+		})
+	});
+	$('input[name="poi_addr"]').bind('input propertychange', function() {
+		var origv = $.trim($('.orig_key').val());
+		var currv = $.trim($(this).val());
+		var check = 0;
+		if (origv == currv) {
+			check = 1;
+		}
+        $('input[name="addr_check"]').val(check);
+    });
+</script>

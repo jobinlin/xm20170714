@@ -1,0 +1,122 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<load href='__TMPL__Common/js/youhui.js' />
+
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<div class="main">
+    <div class="main_title">{%ADD} <a href="{:u("Youhui/index")}" class="back_list">{%BACK_LIST}</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">优惠券名称:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="name" placeholder="请输入优惠券名称" maxlength="15"/><span id="name_count">0/15</span></td>
+            </tr>
+            <tr>
+                <td class="item_title">发放开始时间:</td>
+                <td class="item_input">
+                    <input type="text" style="width:130px;" class="textbox" value="{:strim($_REQUEST['begin_time'])}" name="begin_time" id="begin_time" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');"/>
+                    <input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+                    <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />【不设置表示现在开始】
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">发放结束时间:</td>
+                <td class="item_input">
+                    <input type="text" style="width:130px;"  class="textbox" value="{:strim($_REQUEST['end_time'])}" name="end_time" id="end_time" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');"/>
+                    <input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+                    <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />【不设置表示永久使用】
+                </td>
+
+            </tr>
+            <tr>
+                <td class="item_title">面额:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="youhui_value" /><span class="tip_span">(只能输入1-999整数)</span></td>
+            </tr>
+            <tr>
+                <td class="item_title">发放总数量:</td>
+                <td class="item_input"><input type="text" class="textbox" name="total_num" />张 <span class="tip_span">（不填或0表示无数量限制）</span></td>
+            </tr>
+            <tr>
+                <td class="item_title">领券限制:</td>
+                <td class="item_input">
+                    每人最多可领取<input type="text" class="textbox" name="user_limit" />张，
+                    且每天最多只能领取<input type="text" class="textbox" name="user_everyday_limit" />张
+                    <span class="tip_span">（不填或0表示不限制）</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">使用限制:</td>
+                <td class="item_input">
+                    <label class="cbox_div">订单满<input type="text" class="textbox" name="start_use_price" />元可用<span class="tip_span">（金额为整数，不填或0表示无数量限制）</span></label>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">有效期设置:</td>
+                <td class="item_input" id="valid">
+                    <lable><input type="radio" name="valid_type" value="2" checked="checked" />固定日期有效</lable>
+                    <lable><input type="radio" name="valid_type" value="1" />领券后固定有效天数</lable>
+                </td>
+            </tr>
+
+            <tr class="valid_day" style="display: none;" >
+                <td class="item_title">有效天数:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="expire_day" id="expire_day" style="width:50px" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;天<span class="tip_span">&nbsp;[不填写（或填写0）默认为永久]</span>
+                </td>
+            </tr>
+
+            <tr class="valid_time">
+                <td class="item_title">有效期开始时间:</td>
+                <td class="item_input">
+                    <input type="text" style="width:130px;" class="textbox" value="{:strim($_REQUEST['use_begin_time'])}" name="use_begin_time" id="use_begin_time" onfocus="return showCalendar('use_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_use_begin_time');"/>
+                    <input type="button" class="button" id="btn_use_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('use_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_use_begin_time');" />
+                    <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#use_begin_time').val('');" />【不设置表示现在开始】
+                </td>
+            </tr>
+            <tr class="valid_time">
+                <td class="item_title">有效期截止时间:</td>
+                <td class="item_input">
+                    <input type="text" style="width:130px;" class="textbox" value="{:strim($_REQUEST['use_end_time'])}" name="use_end_time" id="use_end_time" onfocus="return showCalendar('use_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_use_end_time');"/>
+                    <input type="button" class="button" id="btn_use_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('use_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_use_end_time');" />
+                    <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#use_end_time').val('');" />【不设置表示永久使用】
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+
+        <div class="blank5"></div>
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="Youhui" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+
+                    <input type="submit" id="seleyouhui_btn" class="button" value="{%SUBMIT}">
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="Public:footer" />

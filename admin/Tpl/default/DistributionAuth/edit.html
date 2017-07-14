@@ -1,0 +1,96 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title"> 查看驿站入驻申请<a href="{:u("DistributionAuth/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NAME}:</td>
+		<td class="item_input">{$vo.name}</td>
+	</tr>
+	<tr>
+		<td class="item_title">账户名:</td>
+		<td class="item_input">{$vo.username}</td>
+	</tr>
+	<tr>
+		<td class="item_title">省市:</td>
+		<td class="item_input">{$region}</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_ADDRESS}:</td>
+		<td class="item_input">{$vo.address}</td>
+	</tr>
+	<tr id="lbs_info">
+		<td class="item_title">地图定位:</td>
+		<td class="item_input">
+			<include file="Public:baidu_polygon-3" />	
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">驿站负责人:</td>
+		<td class="item_input">{$vo.contact}</td>
+	</tr>
+	<tr>
+		<td class="item_title">手机号码:</td>
+		<td class="item_input">{$vo.tel}</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_OPENTIME}:</td>
+		<td class="item_input">{$vo.open_time}</td>
+	</tr>
+	
+	<if condition="$vo.status == 0">
+		<tr>
+			<td class="item_title">状态:</td>
+			<td class="item_input">未审核</td>
+		</tr>
+		<div class="blank5"></div>
+		<tr>
+			<td class="item_title">审核结果:</td>
+			<td><input type="radio" name="status" value="1">同意入驻 <input type="radio" name="status" value="2">拒绝入驻</td>
+		</tr>
+		<tr>
+			<td class="item_title">审核备注:</td>
+			<td><input type="text" name="adm_memo" value=""></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="DistributionAuth" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="save" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="审核" />
+			</td>
+		</tr>
+	<else />
+		<tr>
+			<td class="item_title">状态:</td>
+			<td class="item_input">已审核</td>
+		</tr>
+		<div class="blank5"></div>
+		<tr>
+			<td class="item_title">审核结果:</td>
+			<td class="item_input">{$status_str}</td>
+		</tr>
+		<tr>
+			<td class="item_title">审核备注:</td>
+			<td class="item_input">{$vo.adm_memo}</td>
+		</tr>
+	</if>
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

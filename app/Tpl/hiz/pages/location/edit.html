@@ -1,0 +1,206 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/project.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/kindeditor.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/form.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/location.css";
+
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-ui.min.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/kindeditor.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/location/upload.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/location/upload.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/location_update.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/location_update.js";
+?>
+
+{include file="inc/header.html"}
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={function name="app_conf" v="BAIDU_MAP_APPKEY"}"></script> 
+<script type="text/javascript" src="{$TMPL}/js/utils/map.js"></script> 
+<script>
+var ajax_url = '{$ajax_url}';
+var url = '{$url}';
+var blue_point = "{$APP_ROOT}/system/blue_point.png";
+var red_point = "{$APP_ROOT}/system/red_point.png";
+var key ="<?php echo app_conf("BAIDU_MAP_APPKEY"); ?>";
+var area_item='{$area_item}';
+</script>
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+	<a class="transition" href="{url r="hiz" b="index"}">首页</a> / <a class="transition" href="{url r="hiz" b="supplier"}">门店列表</a> / <span>{$page_title}</span>
+	<a href="{url r="hiz" b="location"}" class="header-back">返回</a>
+</div>
+<div class="content">
+	<div class="edit-hd">基本信息<p class="form-tip" style="display:inline">基本信息修改需要申请审核</p></div>
+	<span class="edit-tip">带*的信息为必填内容，请务必认真填写。</span>
+	<form name="location_update_form" action="{url r="hiz" b="location#do_location_update"}" method="post">
+		<input type="hidden" name="id"  value="{$info.id}"/>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 门店名称：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="name" value="{$info.name}">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">标签：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="tags" value="{$info.tags}">
+			<label class="sign" style="margin-left:10px;color:#c8c7cc;">多个标签以空格分隔</label>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">外卖设置：</p>
+			<label class="ui-checkbox" rel="common_cbo"><input type="checkbox" value="1" name="is_dc" {if $info.is_dc eq 1}checked="checked"{/if}>支持外卖</label>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">配送设置：</p>
+			<div class="f_l delivery_box"></div>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 地区列表：</p>
+			<div class="area-select f_l">
+				<select name="area_id" id="area_select" class="ui-select form-select">
+					<option value="">请选择区/县</option>	
+					{foreach from=$area_list item=item}
+					<option value="{$item.id}" {if $item.is_check eq 1}selected="selected"{/if}>{$item.name}</option>
+					{/foreach}
+				</select>
+				{foreach from=$area_list item=item}
+				<ul class="area-list" id="sub_area_{$item.id}">
+					{foreach from=$item.sub_area_list item=sub}
+					<li class="f_l"><label rel="common_cbo" class="ui-checkbox area-checkbox"><input type="checkbox" name="sub_area_id[]" class="sub_area" value="{$sub.id}" {if $sub.is_check eq 1}checked="checked"{/if}>{$sub.name}</label></li>
+					{/foreach}
+				</ul>
+				{/foreach}
+			</div>
+		</div>
+		<div class="cate-select-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 经营分类：</p>
+			<div class="cate-select-list f_l clearfix">
+				<ul class="cate-select main-cate f_l">
+					{foreach from=$cate_list item=item}
+					<li><input id="cate_{$item.id}" type="radio" name="deal_cate_id" value="{$item.id}"  {if $item.is_check eq 1}checked="checked"{/if}><label class="first-cate {if $item.is_check eq 1}active{/if}" for="cate_{$item.id}">{$item.name}</label></li>
+					{/foreach}
+				</ul>
+				{foreach from=$cate_list item=items}
+				<div class="sub-cate-wrap f_l" {if $items.is_check eq 1}style="display:block"{/if}>
+					{if $items.sub_type}
+					<ul class="cate-select sub-cate">
+						{foreach from=$items.sub_type item=item}
+						<li><input value="{$item.id}" name="deal_cate_type_id[]" id="sub_{$item.id}" type="checkbox"  {if $item.is_check eq 1}checked="checked"{/if}><label for="sub_{$item.id}" class="sub-cate {if $item.is_check eq 1}active{/if}"">{$item.name}</label></li>
+						{/foreach}
+					</ul>
+					{/if}
+					</div>
+				{/foreach}
+				<p class="form-tip">二级分类可多选</p>
+			</div>
+		</div>
+		<div class="edit-hd">店铺信息</div>
+		<div class="blank20"></div>
+		<div class="img-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> LOGO：</p>
+			<div class="preview_upload_box img-update f_l">
+				{if $info.preview}
+				<span>
+					<a href="javascript:void(0);" ></a><img src="{$info.preview}">
+					<input type="hidden" name="preview" value="{$info.preview}">
+				</span>
+				{/if}
+			</div>
+			<div class="f_l form-file-wrap preview_upbtn" {if $info.preview}style="display:none"{/if}>
+				<input type="button" class="form-file preview_btn">
+			</div>
+			<p class="f_l form-tip">建议尺寸：640 x 640 像素，上传大小不超过300kb</p>
+		</div>
+		<div class="img-wrap clearfix">
+			<p class="f_l form-tit">门店图片：</p>
+			<div class="location_upload_box img-update f_l">
+				{if $info.location_images}
+					{foreach from=$info.location_images item=item}
+					<span>
+						<a href="javascript:void(0);" ></a><img src="{$item}">
+						<input type="hidden" name="supplier_location_images[]" value="{$item}">
+					</span>
+					{/foreach}
+				{/if}
+			</div>
+			<div class="f_l form-file-wrap location_upbtn" {if $info.img_count eq 8}style="display:none"{/if}>
+				<input type="button" class="form-file location_btn">
+			</div>
+			<p class="f_l form-tip">建议尺寸：640 x 640 像素，上传大小不超过300kb，最多可上传8张图片</p>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 地址：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="address" value="{$info.address}">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 地图定位：</p>
+			<input type="text" class="f_l ui-textbox edit-input" name="api_address" value="{$info.api_address}">
+			<p class="f_l form-tip">
+			<a href="javascript:void(0);" class="f_l form-btn submit-btn"  name="search_api" id="search_api" >搜索</a>
+			<a href="javascript:void(0);" class="f_l form-btn submit-btn" name="chang_api" id="chang_api">手动定位</a>
+		</div>
+		<div class="map-wrap" id="container"></div>
+		<div style="height:10px; clear:both;"></div>
+		<div style="position:relative; top:-400px;">
+            <div  id="container_front">
+                <a href="javascript:void(0);" id="cancel_btn">关闭&nbsp</a>
+                <div id="container_m"></div>
+                <span class="prompt">鼠标拖动蓝色标识进行定位</span>
+            </div>
+        </div>
+		<input type="hidden" name="xpoint"  value="{$info.xpoint}"/>
+		<input type="hidden" name="ypoint"  value="{$info.ypoint}"/>
+		<input type="hidden" name="district"  value="{$info.district}"/>
+
+		<div class="blank20"></div>
+		<div class="edit-hd">其他信息</div>
+		<div class="blank20"></div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">交通路线：</p>
+			<textarea name="route" id="" class="form-textarea ui-textarea">{$info.route}</textarea>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 联系人：</p>
+			<input type="text" name="contact" class="f_l ui-textbox edit-input" value="{$info.contact}">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit"><i class="form-important">*</i> 联系电话：</p>
+			<input type="text" name="tel" class="f_l ui-textbox edit-input" value="{$info.tel}">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">营业时间：</p>
+			<input type="text" name="open_time" class="f_l ui-textbox edit-input" value="{$info.open_time}">
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">部门简介：</p>
+			<div class="editer">
+				<textarea id="brief" name="brief">{$info.brief}</textarea>
+			</div>
+		</div>
+		<div class="input-wrap clearfix">
+			<p class="f_l form-tit">手机端简介：</p>
+			<div class="editer">
+				<textarea rows="12" cols="40" name="mobile_brief">{$info.mobile_brief}</textarea>
+			</div>
+		</div>
+		<button class="submit-btn form-submit location-update" type="button">保存</button>
+	</form>
+</div>
+{include file="inc/footer.html"}

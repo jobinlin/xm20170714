@@ -1,0 +1,61 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="publish">
+	{include file="style5.2/inc/auto_header.html"}
+	<script>
+		var ajax_url = "{url a="index" r="uc_home"}";
+		var AJAX_URL = "{url a="index" r="ajax"}";
+		var LOADING_IMG = '{$TMPL}/images/loading.gif';
+		var add_img_icon = '{$TMPL}/images/add_img_icon.png';
+	</script>
+
+	<div class="content" style="background:#fff;">
+		<div class="wrap">
+
+			<div class="main">
+				<form name="publish_form"  method="post" action="{url r="index" p="uc_home#do_publish"}">
+				<div class="form-box">
+					<div class="txt-box">
+						<textarea id="publish_item_textarea" placeholder="也来说两句" style="height:80px;width:100%" class="j_editor_content editor_input editor_content"></textarea>
+					</div>
+					<div class="act-box">
+						<div class="act-item">
+							<div class="i-btn add_expression" onclick="add_expression()"><i class="iconfont">&#xe670;</i></div>
+							<div class="i-btn lr-border add_img" ><i class="iconfont">&#xe653;</i><input class="file-btn" id="file-btn" type="file" capture="camera" /></div>
+
+							<div class="i-sub-btn"><button type="submit" class="publish_btn">发表</button></div>
+						</div>
+
+					</div>
+					<div class="expression">
+						<div class="expression-show-box">
+							<div class="expression-show-box-viewport swiper-container" id="face_box_hd_publish_item_textarea" >
+								<div class="expression-list swiper-wrapper">
+									{foreach from=$expression key=key item=item}
+									<div class="emotion emotion-item emotion_publish_item_textarea swiper-slide" >
+										<div class="ibox">
+											{foreach from=$item item=exp}
+											<a href="javascript:void(0);" title="{$exp.title}" rel="{$exp.emotion}"><img src="{$exp.filename}" /></a>
+											{/foreach}
+										</div>
+									</div>
+									{/foreach}
+								</div>
+								<div id="expression-nav" class="expression-nav"></div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="img-show-box">
+
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}

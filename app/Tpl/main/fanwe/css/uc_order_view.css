@@ -1,0 +1,207 @@
+.right_box{
+	font-family:Microsoft Yahei;
+}
+.right_box .main_box{
+	padding:0 20px;
+}
+.order-hd{
+	line-height: 40px;
+	height:40px;
+	font-size:16px;
+	color:@main_color;
+}
+.order-pay-bar{
+	height:40px;
+	line-height: 40px;
+	background:#fff8e1;
+	margin-bottom: 15px;
+}
+.order-pay-bar .order-pay-btn{
+	height:40px;
+	display: block;
+	width:100px;
+	background:#f40;
+	color:#fff;
+	text-align: center;
+}
+.order-pay-bar .order-info{
+	padding:0 15px;
+}
+.info-bar{
+	border:1px solid #eee;
+	padding:0 15px;
+	margin-bottom: 15px;
+	line-height: 40px;
+}
+.info-bar .info-hd{
+	border-bottom:1px #ddd dashed;
+	height:40px;
+	font-size:14px;
+}
+.info-bar .shop-name{
+	line-height: 40px;
+	height:40px;
+}
+.order-list-hd{
+	line-height: 54px;
+	height:54px;
+	background:#f3f3f3;
+}
+.order-list{
+	margin-bottom: 15px;
+}
+.order-list-hd li{
+	text-align: center;
+}
+.order-info{
+	width:400px;
+	float: left;
+}
+.order-price{
+	width:120px;
+	float: left;
+}
+.order-num{
+	width:90px;
+	float: left;
+}
+.order-status{
+	width:180px;
+	float: left;
+}
+.goods-list li{
+	height:110px;
+	border:1px solid #eee;
+	border-top:0;
+}
+.goods-list .order-info{
+	width:399px;
+}
+.goods-list .goods-img{
+	width:80px;
+	height:80px;
+	float: left;
+	margin: 15px 10px 15px 15px;
+}
+.goods-list .goods-img img{
+	width:100%;
+	height:100%;
+}
+.goods-list .goods-info{
+	padding:11px 0;
+}
+.goods-list .goods-name{
+	line-height: 20px;
+	height:60px;
+	display:block;
+	font-size:14px;
+	overflow: hidden;
+}
+.goods-list .goods-type{
+	color:#999;
+	line-height: 18px;
+	margin-top: 8px;
+}
+.goods-list .order-price{
+	line-height: 110px;
+	font-weight: bold;
+	text-align: center;
+}
+.goods-list .order-num{
+	line-height: 110px;
+	text-align: center;
+}
+.goods-list .order-status{
+	text-align: center;
+	width:179px;
+	height:110px;
+	line-height: 30px;
+}
+.goods-list .order-status a{
+	display: block;
+}
+.goods-list .order-status .code{
+	color:#999;
+}
+.pay-info{
+	text-align: right;
+	    padding:0 15px 15px;
+}
+.pay-info p{
+	line-height: 26px;
+	font-size: 14px;
+	color: #333;
+}
+.pay-info .order-count{
+	margin-top: 10px;
+	font-size:16px;
+}
+.order-tip-hd{
+	line-height: 40px;
+	height:40px;
+	background:#f3f3f3;
+	text-align: center;
+	margin-top: 10px;
+}
+.order-tip-list li{
+	line-height: 40px;
+	border-bottom:1px dashed #eee;
+	margin-bottom: -1px;
+}
+.order-tip{
+	width:558px;
+	line-height: 20px;
+	padding:10px 0;
+}
+.order-time{
+	width:200px;
+	text-align: center;
+}
+.logistics-hd{
+	height:40px;
+	line-height: 40px;
+	background:#fff8e1;
+}
+.logistics-confirm{
+	width:100px;
+	line-height: 40px;
+	display: block;
+	color:#fff;
+	background:#f40;
+	text-align: center;
+}
+.logistics-info{
+	padding:0 15px;
+}
+.logistics-info .logistics-code{
+	padding-left: 60px;
+	margin-right: 30px;
+}
+.shop-tip{
+	padding:10px 0;
+	line-height: 20px;
+}
+.station-tip .iconfont{
+	color:@main_color;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 5px;
+}
+.station-tip .iconfont{
+	*display:inline;
+}
+.station-info{
+	width:100%;
+	margin-bottom: 15px;
+	text-align: center;
+	border:1px solid #f3f3f3;
+}
+.station-info .station-info-hd{
+	height:54px;
+	line-height: 54px;
+	background:#f3f3f3;
+}
+.station-info .station-info-bd tr{
+	height:54px;
+	line-height: 54px;
+}

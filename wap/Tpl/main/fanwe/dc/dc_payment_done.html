@@ -1,0 +1,48 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_payment_done">
+    {include file="style5.2/inc/module/pop-light-img.html"}
+    {include file="style5.2/inc/headers/dc_header.html"}
+    
+    <div class="content" style="bottom: 0">
+        <div class="list-block m-order-common media-list" style="margin-bottom: 10px;">
+            <div class="item-content m-order-state">
+                <div class="item-inner">
+                    <div class="item-subtitle u-order-state-font">付款成功</div>
+                </div>
+                <div class="u-order-state-img">
+                    <img src="{$TMPL}/style5.2/images/static/pay_done.png" alt="">
+                </div>
+            </div>
+            <div class="item-content b-line u-order-ident">
+                <div class="item-title">订单编号:{$data.order_sn}</div>
+            </div>
+            {if $data.is_rs eq 0}
+            <div class="item-content b-line">
+                <div class="item-inner">
+                    <div class="item-subtitle user-name">收货人:{$data.consignee}<span class="u-phoneNum">{$data.mobile}</span>
+                    </div>
+                    <div class="item-text user-address">{$data.address}</div>
+                </div>
+            </div>
+            {/if}
+        </div>
+        <div class="list-block pay-btn-box">
+            <div class="item-content">
+                <div class="item-inner">
+                    <a class="button u-look-order payBtn" href="{$data.view_url}" data-no-cache="true">查看订单</a>
+                    <a class="button u-look-shop payBtn" href="{$data.index_url}" data-no-cache="true">继续逛</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="codeShowBox">
+        <div class="blackBox blackBox-i"></div>
+        <div class="codeImgBox">
+            <h4 class="codeName"></h4>
+            <img class="codeImg" src="">
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

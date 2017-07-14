@@ -1,0 +1,39 @@
+.m-qrcode-box{
+	z-index:20;
+	background:#fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	opacity:0;
+	border-radius:3px;
+	pointer-events:none;
+	-webkit-transform: translate3d(-50%,-50%,0) scale(.2);
+	        transform: translate3d(-50%,-50%,0) scale(.2);
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+}
+.m-qrcode-box.active{
+	opacity:1;
+	pointer-events:auto;
+	-webkit-transform: translate3d(-50%,-50%,0) scale(1);
+	        transform: translate3d(-50%,-50%,0) scale(1);
+}
+.m-qrcode-box .qrcode-hd{
+	line-height: 2rem;
+	text-align: center;
+	font-size:@f_size2;
+	margin-bottom: 1rem;
+}
+.m-qrcode-box .qrcode-bd{
+	line-height: 2rem;
+	text-align: center;
+	color:@f_color3;
+}
+.m-qrcode-box .qrcode-img{
+	margin: 0 auto;
+	padding:0 1.2rem;
+}
+.m-qrcode-box img{
+	max-width:10rem;
+	display: block;
+}

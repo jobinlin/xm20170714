@@ -1,0 +1,282 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="store">
+	<div class="m-mask j-close-qrcode"></div>
+	<div class="m-qrcode-box">
+		<p class="qrcode-hd b-line">分享二维码</p>
+		<div class="qrcode-img"><img src="{$TMPL}/style5.2/images/loading/no-image.png" alt=""></div>
+		<p class="qrcode-bd">请打开微信扫一扫，扫描二维码</p>
+	</div>
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		<div class="m-store-banner" style="background: url({$TMPL}/style5.2/images/text/store-banner-bg.png);">
+			<div class="banner-con">
+				<div class="store-logo"><img src="{$data.store_info.preview_v1}" alt="商家logo"></div>
+				<div class="store-info">
+					<div class="m-start tit-start">
+						<div class="start-num" style="width: {$data.store_info.bfb}%"></div>
+					</div>
+					<em class="comment-num">{$data.store_info.avg_point}</em>
+					{if $data.store_info.ref_avg_price > 0}
+					<em class="average-pay">人均: ¥ {$data.store_info.ref_avg_price}</em>
+					{/if}
+					<div class="business-area" style="width:10rem">{$data.store_info.area_str}</div>
+				</div>
+				<div class="open-store-detail j-open-store-detail">
+					<div class="on">店铺信息<i class="iconfont">&#xe608;</i></div>
+					<div class="off">关闭<i class="iconfont">&#xe606;</i></div>
+				</div>
+			</div>
+		</div>
+		<div class="store-detail">
+			{if $data.store_info.open_store_payment eq 1}
+			<a href="{$data.store_pay_url}" class="preferential-check">
+				<i class="icon-hui"></i>优惠买单
+				<i class="iconfont f_r">&#xe607;</i>
+				{foreach from=$data.store_info.promotes item=promotes}
+				{if $promotes.class_name neq "Appdiscount"}
+				<em class="preferential-info f_r"> &nbsp;&nbsp;{$promotes.description}</em>
+				{/if}
+				{/foreach}
+			</a>
+			{/if}
+
+<!-- ————————————————————隐藏的店铺详细信息开始—————————————————————————— -->
+			<div class="store-detail-info">
+				<div class="store-detail-info-height">
+					<div class="store-detail-info-part">
+						<div class="info-tit b-line">店铺信息</div>
+						<div class="info-con-list">
+							{if $data.store_info.address neq "" or $data.store_info.route or "" and $data.store_info.tel neq ""}
+							{if $data.store_info.address neq ""}<div class="info-con-item"><i class="iconfont">&#xe62f;</i>{$data.store_info.address}</div>{/if}
+							{if $data.store_info.route neq ""}<div class="info-con-item"><i class="iconfont">&#xe665;</i>{$data.store_info.route}</div>{/if}
+							{if $data.store_info.tel neq ""}<div class="info-con-item"><i class="iconfont">&#xe618;</i>{$data.store_info.tel}</div>{/if}
+							{else}
+							{$data.store_info_non_existent}
+							{/if}
+						</div>
+						{if $data.store_info.tags.0}
+						<ul class="store-lab-list">
+							{foreach from=$data.store_info.tags item=tag}
+							<li class="store-lab-item">{$tag}</li>
+							{/foreach}
+						</ul>
+						{/if}
+					</div>
+					{if $data.store_info.brief}
+					<div class="store-detail-info-part">
+						<div class="info-tit b-line">店铺简介</div>
+						<div class="store-bief">
+							{$data.store_info.brief}
+						</div>
+					</div>
+					{/if}
+					{if $data.other_supplier_location}
+					<div class="store-detail-info-part">
+						<div class="info-tit b-line">其他分店</div>
+						{foreach from=$data.other_supplier_location item=location}
+						<div class="m-shopinfo b-line">
+							<div class="name-range">
+								<div class="shopName" onclick ="javascript:location.href='{url a="index" r="store"  p="data_id=$location.id"}'">{$location.name}</div>
+								<div class="shopRange">{$location.distance}</div>
+							</div>
+							<div class="addressTel">
+								<div class="shop-address r-line">{$location.address}</div>
+								<div class="shop-tel">
+									<a href="tel:{$location.tel}">
+										<i class="iconfont">&#xe618;</i>
+									</a>
+								</div>
+							</div>
+						</div>
+						{/foreach}
+					</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	<!-- ————————————————————隐藏的店铺详细信息结束—————————————————————————— -->
+		{if $data.youhui_list}
+		<div class="m-store-youhui swiper-container-horizontal">
+			<div class="store-youhui clearfix swiper-wrapper">
+				{foreach from=$data.youhui_list item=item}
+				<a href="javascript:void(0);" class="youhui-item swiper-slide" url="{url x="index" r="youhui#download_youhui" p="data_id=$item.id"}">
+					<p class="youhui-price"><span>&yen;</span>{$item.youhui_value}</p>
+					<p class="youhui-tip">
+						{if $item.start_use_price}
+							本店满{$item.start_use_price}元使用
+						{else}
+							无金额限制
+						{/if}
+					</p>
+				<p class="youhui-time">{$item.use_end_time}</p>
+				</a>
+				{/foreach}
+
+			</div>
+		</div>
+		{/if}
+		<div class="other-content">
+			<!--6.5版本不要这个-->
+			<!--{if $data.youhui_list}
+			<div class="m-coupon-info">
+				<div class="coupon-info-tit b-line">
+					<i class="icon-quan"></i>优惠券
+					<em class="f_r">线上领券，到店立享优惠</em>
+				</div>
+				{foreach from=$data.youhui_list item=youhui}
+				<a href="{$youhui.youhui_url}" class="coupon-info-item b-line" data-no-cache="true">
+					{$youhui.name}
+					<i class="iconfont f_r">&#xe607;</i>
+				</a>
+				{/foreach}
+			</div>
+			{/if}-->
+
+			{if $data.event_list}
+			<div class="m-coupon-info">
+				<div class="coupon-info-tit b-line">
+					<i class="icon-active"></i>活动
+					<em class="f_r">免费线下活动火热报名中 </em>
+				</div>
+				{foreach from=$data.event_list item=event}
+				<a href="{$event.event_url}" class="coupon-info-item b-line" data-no-cache="true">
+					{$event.name} 
+					<i class="iconfont f_r">&#xe607;</i>
+				</a>
+				{/foreach}
+			</div>
+			{/if}
+
+			{if $data.tuan_count gt 0}
+			<div class="tuan-shopoher">
+				<div class="tuan-tit b-line"><i class="icon-tuan"></i>团购</div>
+				<div class="tuan-list-height">
+					<ul class="tuan-list">
+						{foreach from=$data.tuan_list item=tuan name=tuan}
+						{if $smarty.foreach.tuan.index lt 3}
+						<li>
+							<a href="{$tuan.tuan_url}" class="flex-box" data-no-cache="true" >
+								<div class="tuan-img">
+									<img alt=""src="{$tuan.icon_v1}">
+								</div>
+								<div class="tuan-info flex-1">
+									<h2 class="tuan-name">{$tuan.name}</h2>
+									<div class="tuan-sale">
+										<p class="price">{$tuan.current_price}{if $tuan.origin_price gt 0}<del class="p-price">¥{$tuan.origin_price}</del>{/if}</p>
+										{if $tuan.buy_count gt 0}<p class="sale">已售{$tuan.buy_count}</p>{/if}
+									</div>
+								</div>
+							</a>
+						</li>
+						{/if}
+						{/foreach}
+					</ul>
+				</div>
+				{if $data.tuan_count gt 3}
+
+				<a class="show-more-lsit j-show-more-lsit t-line" href="{url a="index" r="store#tuan" p="data_id=$data.id"}">
+					查看全部{$data.tuan_count}个团购<i class="iconfont"></i>
+				</a>
+				{/if}
+			</div>
+			{/if}
+
+			{if $data.deal_count gt 0}
+			<div class="tuan-shopoher">
+				<div class="tuan-tit b-line"><i class="icon-good"></i>商品</div>
+				<div class="tuan-list-height">
+					<ul class="tuan-list">
+						{foreach from=$data.deal_list item=deal name=deal}
+						{if $smarty.foreach.deal.index lt 3}
+						<li>
+							<a href="{$deal.deal_url}" class="flex-box" data-no-cache="true">
+								<div class="tuan-img">
+									<img alt="" src="{$deal.icon_v1}">
+								</div>
+								<div class="tuan-info flex-1">
+									<h2 class="tuan-name">{$deal.name}</h2>
+									<div class="tuan-sale">
+										<p class="price">{$deal.current_price}{if $deal.origin_price gt 0}<del class="p-price">¥{$deal.origin_price}</del>{/if}</p>
+										{if $deal.buy_count gt 0}<p class="sale">已售{$deal.buy_count}</p>{/if}
+									</div>
+								</div>
+							</a>
+						</li>
+						{/if}
+						{/foreach}
+					</ul>
+				</div>
+				{if $data.deal_count gt 3}
+				<a class="show-more-lsit j-show-more-lsit t-line" href="{url a="index" r="store#shop" p="data_id=$data.id"}">
+					查看全部{$data.deal_count}个商品<i class="iconfont"></i>
+				</a>
+				{/if}
+			</div>
+			{/if}
+
+			<dl class="m-comment">
+				<div class="comment-tit">
+					<a href="{url a="index" r="store#reviews" p="data_id=$data.id"}" class="" data="2" data-no-cache="true">
+						评价
+						{if $data.store_info.dp_count gt 0}<em class="comment-count">（{$data.store_info.dp_count}）</em>{/if}
+						<i class="iconfont f_r icon-style">&#xe607;</i>
+						<div class="star-box">
+							<div class="m-start tit-start">
+								<div class="start-num" style="width: {$data.store_info.bfb}%"></div>
+							</div>
+							<em class="comment-num">{$data.store_info.avg_point}</em>
+						</div>
+					</a>
+				</div>
+				{if $data.store_info.dp_count gt 0}
+				<!--单条点评数据-->
+				{foreach from=$data.dp_list item=dp name=dp}
+				{if $smarty.foreach.dp.index lt 2}
+				<dd class="comment-con">
+					<div class="t-line">
+						<div class="commenter">
+							<img alt="用户头像" class="avatar f_l"src="{$dp.user_avatar}" width="42">
+							<div class="user-date f_l">
+								<p class="username">{$dp.user_name}</p>
+								<p class="date">{$dp.create_time}</p>
+							</div>
+							<div class="m-start con-start">
+								<div class="start-num" style="width: {$dp.bfb}%"></div>
+							</div>
+						</div>
+
+						<div class="comment-txt">
+							{$dp.content}
+						</div>
+						{if $dp.images_v1}
+						<ul class="comment-imglist">
+							{foreach from=$dp.images_v1 item=images key=key name=images}
+							<li class="comment-imgitem j-comment-item" data="{$smarty.foreach.images.iteration}">
+								<img src="{$images}" data-lingtsrc="{$dp.oimages.$key}" width="65" alt="有图评论-1" />
+							</li>
+							{/foreach}
+						</ul>
+						{/if}
+					</div>
+				</dd>
+				{/if}
+				{/foreach}
+				{else}
+				<div style="text-align: center;line-height: 2rem;" class="t-line">
+					暂无评价
+				</div>
+				{/if}
+				{if $data.store_info.dp_count gt 2}
+				<dd class="more-comment t-line">
+					<a href="{url a="index" r="store#reviews" p="data_id=$data.id"}" class="showmorecomment j-detail" data="2" data-no-cache="true">
+						查看全部评价
+						<i class="iconfont f_r icon-style">&#xe607;</i>
+					</a>
+				</dd>
+				{/if}
+			</dl>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

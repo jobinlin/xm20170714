@@ -1,0 +1,17 @@
+<input name="delivery_type" type="radio" value="0" {if $location_info.delivery_type eq 0 } checked = "checked" {/if} />商家自己配送<br>
+
+<?php if(IS_OPEN_DADA==1){?>
+{if $is_open_dada_delivery eq 0}
+	<input name="delivery_part" type="radio" value="2" disabled />自动接单，并由达达配送（未开启达达配送）<br>
+{else}
+	{if $dada_account eq ''}
+		<input name="delivery_type" type="radio" value="2" disabled  />自动接单，并由达达配送（本门店未注册达达门店帐号）<br>
+	{elseif $delivery_money_enough eq 0}
+		<input name="delivery_type" type="radio" value="2" disabled />自动接单，并由达达配送（余额不足,请先充值）<br>
+	{else}
+		<input name="delivery_type" type="radio" value="2"  {if $location_info.delivery_type eq 2 } checked = "checked" {/if}自动接单，并由达达配送<span style="color:#ccc">（本门店达达帐号：{$location_info.dada_account}）<br>
+	{/if}
+{/if}
+<?php } ?>
+
+<input name="delivery_type" type="radio" value="1"  {if $location_info.delivery_type eq 1 } checked = "checked" {/if} />手动接单，手动指派<br>

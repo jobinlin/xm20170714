@@ -1,0 +1,99 @@
+.v-record-hd{
+	padding:0 .5rem;
+	line-height: 1.8rem;
+	font-size:@f_size4;
+}
+.v-record-bd .v-record-info{
+	background:#fff;
+	padding-left: .5rem;
+}
+.v-record-bd .v-record-info li{
+	min-height:2.1rem;
+	line-height: 2.1rem;
+}
+.v-record-bd .v-record-info .goods-code{
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+}
+.v-record-bd .v-record-info .goods-code-list{
+	padding:.55rem 0;
+}
+.v-record-bd .v-record-info .goods-code li{
+	min-height:1rem;
+	line-height: 1rem;
+}
+.v-record-bd .v-record-tit{
+	color:@f_color3;
+	margin-right: .65rem;
+}
+.v-record-bd .v-record-tit em{
+	display: inline-block;
+	vertical-align: top;
+	width:2em;
+}
+.v-record-bd .v-record-tit i{
+	display: inline-block;
+	vertical-align: top;
+	width:.5em;
+}
+.v-record-bd .v-record-tip{
+	font-size:@f_size2;
+	margin-right: .5rem;
+}
+.v-record-detail{
+	background:#fff;
+	padding-left:.5rem;
+	padding-top: .5rem;
+}
+#biz_eventv_record .v-record-detail{
+	padding-bottom: .5rem;
+}
+.v-record-bd .detail-name{
+	display:-webkit-box;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	word-break:break-all;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp:2;
+	line-height: 1rem;
+	padding-right: .5rem;
+}
+.v-record-detail .price{
+	line-height: 1.8rem;
+	color:#ff2244;
+}
+.v-record-detail .time,.v-record-detail .address{
+	font-size:@f_size4;
+	color:@f_color3;
+	line-height: 1.65rem;
+	padding-right: .5rem;
+}
+#biz_eventv_record .v-record-detail .time,#biz_eventv_record .v-record-detail .address{
+	line-height: 1rem;
+}
+.v-goods-list{
+	padding-left: .5rem;
+	background:#fff;
+}
+.v-goods-list li{
+	padding: .5rem;
+	padding-left: 0;
+}
+.v-goods-list li:last-child::after{
+	height:0;
+}
+.v-goods-list .spec{
+	font-size:@f_size4;
+	color:@f_color3;
+	margin-top: .5rem;
+}
+.v-goods-list .spec span{
+	margin-right: .5rem;
+}
+.v-goods-list .goods-info{
+	margin-top: .5rem;
+}
+.v-goods-list .goods-info .price{
+	color:#ff2244;
+}

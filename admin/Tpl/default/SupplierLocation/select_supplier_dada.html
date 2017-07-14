@@ -1,0 +1,19 @@
+<label class="ui-radiobox" rel="common_rdo"><input name="delivery_type" type="radio" value="0" <if condition="$location_info['delivery_type'] eq 0 "> checked = "checked" </if> />自动接单，并由商家配送</label><br/><br/>
+
+<php> if(IS_OPEN_DADA==1){ </php>
+
+	<if condition="$data['is_open_dada_delivery'] eq 0">
+		<label class="ui-radiobox" rel="common_rdo" ><input name="delivery_type" type="radio" value="2" disabled />自动接单，并由达达配送（未开启达达配送）</label><br/><br/>
+	<else />
+		<if condition="$location_info['dada_account'] eq '' ">
+			<label class="ui-radiobox" rel="common_rdo" ><input name="delivery_type" type="radio" value="2" disabled  />自动接单，并由达达配送（本门店未注册达达门店帐号）</label><br/><br/>
+		<elseif condition="$data['delivery_money_enough'] eq 0 "/>
+			<label class="ui-radiobox" rel="common_rdo" ><input name="delivery_type" type="radio" value="2" disabled />自动接单，并由达达配送（余额不足,请先充值）</label><br/><br/>
+		<else />
+		<label class="ui-radiobox" rel="common_rdo"><input name="delivery_type" type="radio" value="2"  <if condition="$location_info['delivery_type'] eq 2 "> checked = "checked" </if> />自动接单，并由达达配送<span style="color:#ccc">（本门店达达帐号：{$location_info.dada_account}）</span></label><br/><br/>
+		</if>
+	</if>
+	
+<php> } </php>
+													
+<label class="ui-radiobox" rel="common_rdo"><input name="delivery_type" type="radio" value="1"  <if condition="$location_info['delivery_type'] eq 1 "> checked = "checked" </if> />手动接单，手动指派</label>

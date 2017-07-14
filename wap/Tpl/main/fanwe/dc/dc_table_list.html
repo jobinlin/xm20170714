@@ -1,0 +1,119 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_table_list">
+	<div class="dc-list-nav flex-box b-line">
+		<div class="dc-nav-item j-open-select flex-box flex-1">
+			<p class="nav-item-txt now-cate-name">{$data.current_cate_name}</p>
+			<p class="iconfont">&#xe608;</p>
+		</div>
+		<div class="dc-nav-item j-open-select flex-box flex-1">
+			<p class="nav-item-txt now-sort">{if $param.sort eq 1}综合评分{else}距离最近{/if}</p>
+			<p class="iconfont">&#xe608;</p>
+		</div>
+		<div class="dc-nav-item j-open-select flex-box flex-1">
+			<p class="nav-item-txt now-area-name">商圈</p>
+			<p class="iconfont">&#xe608;</p>
+		</div>
+	</div>
+	<div class="dc-mask j-close-select"></div>
+	<form action="{url i="index" a="dctable#lists"}" name="dc_location_param">
+			<div class="dc-select dc-cate-list">
+				<div class="j-ajaxchoose j-close-select dc-select-item flex-box b-line">
+					<p class="select-tit flex-1">全部</p>
+					{if $data.cate_total}<p class="select-num">{$data.cate_total}</p>{/if}
+				</div>
+				{foreach from=$data.cate_list item=item}
+				{if $item.count > 0}
+				<div class="j-ajaxchoose j-close-select dc-select-item flex-box b-line {if $item.id eq $param.cid}active{/if}" data-id="{$item.id}">
+					<p class="select-tit flex-1">{$item.name}</p>
+					{if $item.count}<p class="select-num">{$item.count}</p>{/if}
+				</div>
+				{/if}
+				{/foreach}
+				<input type="hidden" name="cid" value="{$param.cid}">
+			</div>
+			<div class="dc-select dc-dp-dis">
+				<div class="j-ajaxchoose j-close-select dc-select-item b-line flex-box" data-id="0">
+					<p class="select-tit">距离最近</p>
+				</div>
+				<div class="j-ajaxchoose j-close-select dc-select-item b-line flex-box" data-id="1">
+					<p class="select-tit">评价最高</p>
+				</div>
+				<input type="hidden" name="sort" value="{$param.sort}">
+			</div>
+			<div class="dc-select dc-area">
+				<ul class="area-nav">
+					{foreach from=$data.area_list item=area key=pid}
+					<li class="j-area b-line {if $pid==$data.rid}active{/if}">{$area.name}</li>
+					{/foreach}
+					<!-- <li class="j-area b-line">晋安区</li> -->
+				</ul>
+				{foreach from=$data.area_list item=list key=pid}
+				<ul class="area-list {if $pid==$param.aid}active{/if}" data-id={$pid}>
+					{foreach from=$list.list item=sub}
+					{if $sub.count > 0}
+					<li class="j-ajaxchoose j-close-select area-item flex-box {if $sub.id==$param.qid}active{/if}" data-id={$sub.id}>
+						<p class="flex-1 select-tit">{$sub.name}</p>
+						{if $sub.count > 0}
+						<p class="num">{$sub.count}</p>
+						{/if}
+					</li>
+					{/if}
+					{/foreach}
+					<!-- <li class="j-ajaxchoose j-close-select area-item flex-box">
+						<p class="flex-1 select-tit">全城2</p>
+						<p class="num">1</p>
+					</li> -->
+				</ul>
+				{/foreach}
+				<input type="hidden" name="aid" value="{$param.aid}">
+				<input type="hidden" name="qid" value="{$param.qid}">
+				<!-- <ul class="area-list">
+					<li class="j-ajaxchoose j-close-select area-item flex-box active">
+						<p class="flex-1">全城</p>
+						<p class="num">1</p>
+					</li>
+				</ul>
+				<ul class="area-list">
+					<li class="j-ajaxchoose j-close-select area-item flex-box active">
+						<p class="flex-1">全城</p>
+						<p class="num">1</p>
+					</li>
+				</ul> -->
+			</div>
+		</form>
+	    {include file="style5.2/inc/headers/dc_search_header.html"}
+	    <div class="content infinite-scroll infinite-scroll-bottom">
+	      	<div class="dc-shop-list j-ajaxlist">
+	      		{if $data.dc_location_list}
+	      		<ul class="j-ajaxadd shop-list">
+	      			{foreach from=$data.dc_location_list item=item}
+	      			<li class="b-line">
+	      				<a href="{url a="index" r="dctable#detail" g="lid=$item.id"}" class="shop-item" data-no-cache="true">
+	      					<div class="shop-logo"><img src="{$item.preview}" alt="">{if $item.is_close eq 1}<span class="close-mask" style="background-color: rgb(192,192,192);">店铺休息{/if}</div>
+	      					<div class="shop-info flex-1">
+	      						<p class="shop-name">{$item.name}</p>
+	      						<div class="shop-start flex-box">
+	      							<div class="m-start">
+	      								<div class="start-num" style="width: {$item.point_percent}%"></div>
+	      							</div>
+		      						<p class="start-point">{$item.format_point}分</p>
+	      						</div>
+	      						<div class="price-distance flex-box">
+	      							<p class="shop-area">{$item.area_name}</p>
+	      							<p class="shop-cate">{$item.cate_name}</p>
+	      							<p class="shop-distance flex-1">{$item.format_distance}</p>
+	      						</div>
+	      					</div>
+	      				</a>
+	      			</li>
+	      			{/foreach}
+	      		</ul>
+	      		<div class="pages hide">{$pages}</div>
+				{else}
+				<div class="tipimg no_data">暂无商家</div>
+				{/if}
+	      </div>  	
+	  </div>
+</div>
+{include file="style5.2/inc/footer.html"}

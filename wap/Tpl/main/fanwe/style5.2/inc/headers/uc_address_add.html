@@ -1,0 +1,18 @@
+{if $app_index eq 'app'}
+	<header class="bar bar-nav b-line">
+	{if $page_finsh}
+
+    {else}
+    <a class="header-btn header-left iconfont back map-pop" data-transition='slide-out'>&#xe635;</a>
+    {/if}
+	
+	<h1 class="header-title">{$data.page_title}</h1>
+	<span class="header-txt header-right" check="{$check}">完成</span>
+</header>
+{else}
+<header class="bar bar-nav b-line">
+	<a class="header-btn header-left iconfont back map-pop" data-transition='slide-out'>&#xe635;</a>
+	<h1 class="header-title">{$data.page_title}</h1>
+	<span class="header-txt header-right active u-edit_all" check="{$check}">完成</span>
+</header>
+{/if}

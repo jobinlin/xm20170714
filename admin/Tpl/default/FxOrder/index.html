@@ -1,0 +1,74 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title">推荐会员分销订单</div>
+<div class="blank5"></div>
+<PHP>
+
+function get_fxorder_status($status)
+{
+	
+	if($status==1)return "已结单";
+	else return "未结单";
+}
+function get_fx_refund($status)
+{
+	
+	if($status==0)return "无退款";
+	elseif($status==1) return "申请退款";
+	elseif($status==2) return "确认退款";
+	elseif($status==3) return "拒绝退款";
+}
+</PHP>
+<div class="blank5"></div>
+
+
+<form name="search" action="__APP__" method="get">	
+<div class="button_row">
+
+	<input type="submit" class="button" value="{%SEARCH}" />
+
+
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+
+		{%ORDER_SN}：<input type="text" class="textbox" name="order_sn" value="{:strim($_REQUEST['order_sn'])}" style="width:100px;" />
+		{%DEAL_ID}：<input type="text" class="textbox" name="deal_id" value="{:strim($_REQUEST['deal_id'])}" style="width:30px;" />
+		{%USER_NAME_S}：<input type="text" class="textbox" name="user_name" value="{:strim($_REQUEST['user_name'])}" style="width:100px;" />
+		
+
+
+		订单状态: 
+		<select name="order_status">
+				<option value="-1" <if condition="intval($_REQUEST['order_status']) eq -1">selected="selected"</if>>全部</option>
+				<option value="1" <if condition="intval($_REQUEST['order_status']) eq 1">selected="selected"</if>>未结单</option>
+				<option value="2" <if condition="intval($_REQUEST['order_status']) eq 2">selected="selected"</if>>已完成</option>
+		</select>
+
+		<input type="hidden" value="FxOrder" name="m" />
+		<input type="hidden" value="index" name="a" />
+		
+
+</div>
+</form>
+
+		<div class="blank5"></div>
+
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="charge" 
+
+
+	datasource="list" 
+	show="id:{%ID}|50px,order_sn:所属订单号,deal_name:商品名称,fx_salary:销售佣金,fx_salary_total:总佣金,fx_salary_all:佣金详情,fx_user_id|get_user_name:分销会员,order_status|get_fxorder_status:订单状态,refund_status|get_fx_refund:是否退款" 
+	
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

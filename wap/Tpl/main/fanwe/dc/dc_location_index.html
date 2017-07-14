@@ -1,0 +1,227 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script type="text/javascript">
+	var dc_title='{$s_info.dc_title}';
+	var location_id='{$dclocation.id}';
+	var supplier_id='{$dclocation.supplier_id}';
+	var dc_type='{$data.dc_type}';
+	var tid='{$tid}';
+	var distance='{$dclocation.distance}';
+	var ajaxurl="{url a="index" i="dcajax"}";
+	var package_start_price=parseFloat("{$data.package_info.package_start_price}")?parseFloat("{$data.package_info.package_start_price}"):0;
+	var package_price=parseFloat("{$data.package_info.package_price}")?parseFloat("{$data.package_info.package_price}"):0;
+	var start_price = parseFloat("{$dclocation.location_delivery_info.start_price}")?parseFloat("{$dclocation.location_delivery_info.start_price}"):0;
+	var delivery_price=parseFloat("{$dclocation.location_delivery_info.delivery_price}")?parseFloat("{$dclocation.location_delivery_info.delivery_price}"):0;
+	var buy_url="{url i="index" a="dcorder#cart" g="lid=$dclocation.id"}";
+	var is_in_open_time={$data.is_in_open_time};
+	var is_free_delivery={$data.is_free_delivery};
+	var is_allow_add_cart={$data.is_allow_add_cart};
+	var menu_id=parseInt("{$menu_add.id}");
+	var menu_num=parseInt("{$menu_add.cart_count}");
+	var payonline_conf={$dclocation.payonline_conf};
+    var base_url = '{$base_url}';
+</script>
+<div class="page page-current" id="dc_location_index">
+{if $app_index=='app'}
+    <div class="dc-header">
+        {if $page_finsh}
+        <a class="header-btn hearder-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+        {else}
+        <a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a>
+        {/if}
+        <h1 class="header-title">{if $data.is_in_open_time}{$data.page_title}{else}店铺休息中{/if}</h1>
+        <a href="javascript:void(0);" class="header-right header-btn iconfont add_location_collect" action-url="{url i="index" a="dcajax#add_location_collect" g="location_id=$dclocation.id"}"></a>
+    </div>
+    {include file="style5.2/inc/module/pop-light-img.html"}
+{else}
+    <div class="dc-header">
+        <a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >&#xe604;</a>
+        <h1 class="header-title">{if $data.is_in_open_time}{$data.page_title}{else}店铺休息中{/if}</h1>
+        <a href="javascript:void(0);" class="header-right header-btn iconfont add_location_collect {if $dclocation.is_collected eq 1}collected{/if}" action-url="{url i="index" a="dcajax#add_location_collect" g="location_id=$dclocation.id"}"></a>
+    </div>
+    <!-- 弹出层 -->
+    {include file="style5.2/inc/module/pop-light-img.html"}
+{/if}
+    <div class="dc-hd j-open-detail {if $data.is_in_open_time eq 0 || is_free_delivery eq 2}shop-close{/if}">
+        <div class="shop-hd flex-box">
+            <div class="shop-logo"><img src="{$dclocation.preview}" alt=""></div>
+            <div class="shop-info flex-1">
+                <p>起送价 {if $dclocation.location_delivery_info.start_price}{$dclocation.location_delivery_info.format_start_price}{else}￥0{/if} |  {if $dclocation.location_delivery_info.delivery_price}配送费 {$dclocation.location_delivery_info.format_delivery_price}{else}免配送费{/if}</p>
+                {if $dclocation.dc_location_notice}
+                <div class="shop-notice flex-box">
+                    <p class="notice-txt flex-1">{$dclocation.dc_location_notice}</p>
+                    <i class="iconfont">&#xe607;</i>
+                </div>
+                {/if}
+            </div>
+        </div>
+        {if $dclocation.promote_count}
+        <div class="shop-youhui flex-box">
+            <div class="m-youhui-info flex-1">
+                <ul class="youhui-info swiper-wrapper">
+                    {if $dclocation.payonlinediscount}
+                    <li class="flex-box swiper-slide"><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt=""></div><p class="youhui-txt flex-1">{$dclocation.payonlinediscount.description}</p></li>
+                    {/if}
+                    {if $dclocation.firstorderdiscount}
+                    <li class="flex-box swiper-slide"><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico2.png" alt=""></div><p class="youhui-txt flex-1">{$dclocation.firstorderdiscount.description}</p></li>
+                    {/if}
+                </ul>
+            </div>
+            <p>{$dclocation.promote_count}个活动</p>
+            <i class="iconfont">&#xe607;</i>
+        </div>
+        {/if}
+    </div>
+    <div class="m-shop-tab b-line">
+        <ul class="shop-tab flex-box">
+            <li class="j-tab-item j-menu-tab active flex-1"><span>商品</span></li>
+            <li class="j-tab-item j-comment-tab flex-1"><span>评价</span></li>
+        </ul>
+        <div class="tab-line"></div>
+    </div>
+    <div class="m-fly"></div>
+    <div class="content infinite-scroll infinite-scroll-bottom" {if $dclocation.promote_count}style="top: 10.2rem"{/if}>
+    	<div class="dc-bd">
+    		<div class="j-shop-item shop-item menu active">
+    			{if $menu_list}
+    			<ul class="menu-cate">
+    				{foreach from=$menu_list key=key item=menu_item}
+    				<li class="b-line j-cate-select {if $key eq 0}active{/if}">{$menu_item.main_cate.name}</li>
+    				{/foreach}
+    			</ul>
+    			<div class="m-cate-list">
+    				{foreach from=$menu_list key=key item=menu_item}
+    				<dl class="dc-cate-list">
+    					<dt class="cate-title" scroll-type="false">{$menu_item.main_cate.name}</dt>
+    					{if $menu_item.sub_menu}
+    					{foreach from=$menu_item.sub_menu item=sub}
+    					<dd class="flex-box b-line">
+    						<div class="goods-img"><img src="{if $sub.image}{$sub.image}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}" alt=""></div>
+    						<div class="goods-info flex-1" data_id="{$sub.id}">
+    							<p class="goods-name">{$sub.name}</p>
+    							<div class="price-info flex-box">
+    								<p class="price flex-1" price="{$sub.price}">{$sub.format_price}</p>
+    								<div class="goods-num-box no-num flex-box">
+    									<a href="javascript:void(0);" class="min iconfont" data_id="{$sub.id}" onclick="dc_change_num({$sub.id},0,-1);">&#xe915;</a>
+    									<p class="goods-num" data_id="{$sub.id}">0</p>
+										<a href="javascript:void(0);" class="iconfont plus" data_id="{$sub.id}" onclick="dc_change_num({$sub.id},0,1);">&#xe685;</a>
+    								</div>
+    							</div>
+    						</div>
+    					</dd>
+    					{/foreach}
+    					{/if}
+    				</dl>
+    				{/foreach}
+    			</div>
+    			<div class="cart-bar t-line flex-box">
+    				<div class="cart-count">
+    					<div class="flex-box cart-edit-bar">
+    						<p class="flex-1">购物车</p>
+    						<p class="j-close-edit cart-del" onclick="dc_cart_clear();">清空全部</p>
+    					</div>
+						<ul class="edit-list">
+							
+						</ul>
+    				</div>
+    				<div class="cart-ico j-show-edit" id="target"><i class="iconfont">&#xe68b;</i><div class="num-count hide" value="0" ></div></div>
+    				<p class="cart-price"></p>
+                    <p class="send-price flex-1"></p>
+    				<p class="no-goods-txt flex-1">购物车是空的</p>
+    				{if $data.is_in_open_time eq 0}
+    				<div class="no-goods-btn cart-btn">休息中</div>
+	   				{else}
+	    			<div class="no-goods-btn cart-btn">{$dclocation.location_delivery_info.format_start_price}起送</div>
+    				{/if}
+    				
+    			</div>
+    			<div class="cart-mask j-close-edit"></div>
+    			{else}
+    			<div class="tipimg no_data">暂无商品</div>
+    			{/if}
+    		</div>
+    		<div class="j-shop-item shop-item comment">
+                {if $dp_list}
+    			<div class="comment-count flex-box">
+    				<p class="flex-1">总体评价</p>
+    				<div class="m-start">
+    					<div class="start-num" style="width: {$dclocation.dc_avg_point_p}%"></div>
+    				</div>
+    				<p class="comment-point">{$dclocation.dc_avg_point}</p>
+    			</div>
+    			<div class="dc-comment-list j-ajaxlist ">
+    				<ul class="comment-list j-ajaxadd">
+    					{foreach from=$dp_list item=item}
+    					<li class="comment-item">
+    						<div class="comment-hd flex-box">
+    							<div class="user-img"><img src="{$item.user_avatar}" alt=""></div>
+    							<div class="flex-1 user-info">
+    								<div class="flex-box">
+    									<p class="user-name flex-1">{$item.user_name}</p>
+    									<div class="m-start">
+    										<div class="start-num" style="width: {$item.point_p}%"></div>
+    									</div>
+    								</div>
+    								<p class="comment-time">{$item.create_time_format}</p>
+    							</div>
+    						</div>
+    						<p class="comment-txt">{$item.content}</p>
+    						{if $item.images}
+    						<ul class="comment-imglist flex-box comment-imglist-nolimit">
+    							{foreach from=$item.images item=img key=key}
+    							<li class="comment-imgitem j-comment-item" data="{$key}">
+    								<img dfasf="{$img}" src="{$img}" data-lingtsrc="{$img}" width="70" height="70" alt="有图评论-1" />
+    							</li>
+    							{/foreach}
+    						</ul>
+    						{/if}
+    					</li>
+    					{/foreach}
+    				</ul>
+    				<div class="pages hide">{$pages}</div>
+    			</div>
+                {else}
+                <div class="tipimg no_data dc-comment-list">暂无评价</div>
+                {/if}
+    		</div>
+    	</div>
+  	</div>
+  	<div class="dc-shop-detail j-close-detail">
+  		<div class="shop-detail-hd">
+	  		<p class="shop-name">{$dclocation.name}</p>
+	  		<div class="m-start">
+	  			<div class="start-num" style="width: {$dclocation.dc_avg_point_p}%"></div>
+	  		</div>
+	  		<p class="shop-price-info">起送价 {if $dclocation.location_delivery_info.start_price}{$dclocation.location_delivery_info.format_start_price}{else}￥0{/if} |  {if $dclocation.location_delivery_info.delivery_price}配送费 {$dclocation.location_delivery_info.format_delivery_price}{else}免配送费{/if}</p>
+	  		{if $dclocation.cate_data}
+	  		<p class="shop-cate">{foreach from=$dclocation.cate_data item=cate}{$cate}&nbsp;{/foreach}</p>
+	  		{/if}
+	  		{if $dclocation.promote_count}
+	  		<div class="detail-info">
+	  			<p class="shop-detail-tit"><span>优惠信息</span></p>
+	  			<ul class="youhui-list">
+	  				{if $dclocation.payonlinediscount}
+	  				<li><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt=""></div><p class="youhui-txt flex-1">{$dclocation.payonlinediscount.description}</p></li>
+	  				{/if}
+	  				{if $dclocation.firstorderdiscount}
+	  				<li><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico2.png" alt=""></div><p class="youhui-txt flex-1">{$dclocation.firstorderdiscount.description}</p></li>
+	  				{/if}
+	  			</ul>
+	  		</div>
+	  		{/if}
+	  		{if $dclocation.dc_location_notice}
+	  		<div class="detail-info">
+	  			<p class="shop-detail-tit"><span>商家公告</span></p>
+	  			<p class="shop-publish">{$dclocation.dc_location_notice}</p>
+	  		</div>
+	  		{/if}
+	  		<div class="detail-info">
+	  			<p class="shop-detail-tit"><span>商家信息</span></p>
+	  			<p class="shop-address">地址：{$dclocation.address}</p>
+	  			<p class="shop-time">营业时间：{$dclocation.open_time_cfg_str}</p>
+	  		</div>
+  		</div>
+  		<div class="shop-detail-ico iconfont">&#xe68e;</div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

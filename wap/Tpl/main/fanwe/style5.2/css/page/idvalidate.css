@@ -1,0 +1,126 @@
+.validate-hd{
+	line-height: 2rem;
+	font-size:.7rem;
+	text-align: center;
+	color:#666;
+}
+.validate-up{
+	background:#fff;
+	text-align: center;
+	margin: 0 .5rem .5rem;
+	padding-top: 1rem;
+	border-radius:5px;
+	position: relative;
+}
+.validate-up .validate-img{
+	width:9rem;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.validate_detail .validate-up .validate-img{
+	width:6rem;
+}
+.validate-up .validate-img img{
+	width:100%;
+}
+.validate-up p{
+	font-size:1rem;
+	font-weight:bold;
+	color:#666;
+	line-height: 2rem;
+}
+.validate_detail .validate-up p{
+	line-height: 3rem;
+}
+.validate-up .update-img{
+	position: absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	left: 0;
+	z-index:10;
+	opacity:0;
+}
+.validate-up .validate-img .iconfont{
+	display: block;
+	font-size:3.5rem;
+	position: absolute;
+	color:#666;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
+}
+.validate-up .validate-img .id-success{
+	font-size:2.5rem;
+	top: auto;
+	left: auto;
+	bottom: 0;
+	right: 0;
+	-webkit-transform: translate(50%, 30%);
+	        transform: translate(50%, 30%);
+}
+.validate-up .user-img{
+	position: absolute;
+	top: .5rem;
+	bottom: .5rem;
+	left: .5rem;
+	right: .5rem;
+	overflow: hidden;
+}
+.validate-up .user-img img{
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width:100%;
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
+}
+.validate-up .delete-img{
+	display: block;
+	font-size:.75rem;
+	width:1.2rem;
+	border-radius:.6rem;
+	line-height: 1.2rem;
+	text-align: center;
+	position: absolute;
+	color:#666;
+	top: 0;
+	right: 0;
+	color:#fff;
+	z-index:11;
+	background:rgba(0, 0, 0, .5);
+}
+.validate-bd img{
+	width:100%;
+}
+.validate-next{
+	line-height: 2.5rem;
+	width:100%;
+	display: block;
+	text-align: center;
+	font-size:.8rem;
+	background:@main_color;
+	color:#fff !important;
+}
+.validate_detail .validate-up{
+	margin: 0 0 .5rem;
+}
+.validate-list{
+	background:#fff;
+	padding-left: .5rem;
+}
+.validate-list li{
+	height:2.5rem;
+	line-height: 2.5rem;
+	padding-right: .5rem;
+}
+.validate-list .validate-tit{
+	font-size:.65rem;
+	color:#333;
+}
+.validate-list .validate-tip{
+	font-size:.6rem;
+	color:#999;
+}

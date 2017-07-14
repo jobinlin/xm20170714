@@ -1,0 +1,136 @@
+{include file="style5.2/inc/header1.html"}
+
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_fx">
+<script>
+	var ajax_url = '{$ajax_url}';
+	var deal_json={$data.deal_json};
+	var APP_INDEX='{$app_index}';
+</script>
+{if $app_index=='app'}
+
+{else}
+<div class="flippedout ">
+<!-- 导航下拉开始 -->
+
+	<div class="m-nav-dropdown">
+		<div class="nav-dropdown-con">
+			<div class="flex-box func-list">
+				<div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+			</div>
+			{include file="style5.2/inc/module/dropdown-navlist.html"}
+		</div>
+	</div>
+<!-- 导航下拉结束 -->
+
+<!-- 分享弹出 -->
+	<div class="box_share" id="box_share">
+		<div class="box_content">
+			<div class="social_share">
+				<!-- JiaThis Button BEGIN -->
+				<div class="jiathis_style_32x32">
+					<div class="flex-box">
+						<a class="jiathis_button_weixin flex-1"><i class="iconfont icon-pyq">&#xe636;</i><p>朋友圈</p></a>
+						<a class="jiathis_button_tsina flex-1"><i class="iconfont icon-sina">&#xe639;</i><p>新浪微博</p></a>
+						<a class="jiathis_button_cqq flex-1"><i class="iconfont icon-QQ">&#xe63b;</i><p>QQ</p></a>
+					</div>
+					<div class="flex-box">
+						<a class="jiathis_button_qzone flex-1"><i class="iconfont icon-qzone">&#xe63a;</i><p>QQ空间</p></a>
+						<a class="jiathis_button_douban flex-1"><i class="iconfont icon-douban">&#xe670;</i><p>豆瓣</p></a>
+						<a class="jiathis_button_copy flex-1"><i class="iconfont icon-copy">&#xe637;</i><p>复制链接</p></a>
+					</div>
+				</div>
+				<script type="text/javascript">
+					var jiathis_config = {
+							siteNum:6,
+						    sm:"weixin,tssina,cqq,qzone,douban,copy",
+					};
+				</script>
+
+
+				<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8" defer="defer"></script>
+				<!-- JiaThis Button END -->
+
+			</div>
+			<a class="box_close t-line" id="boxclose_share">取消</a>
+			<div class="clear"></div>
+		</div>
+	</div>
+<!-- 分享弹出结束 -->
+	<div class="close-flippedout j-flippedout-close" rel="1">
+		<i class="iconfont">&#xe635;</i>
+	</div>
+</div>
+
+
+
+{/if}
+
+	{include file="style5.2/inc/auto_header.html"}
+	{include file="style5.2/inc/module/fx_nav.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="fx-hd flex-box">
+			<div class="user-avatar">
+				<div class="avatar" {if $data.u_level} style="height: 2.35rem;"{/if}>
+					<img src="{$data.user_data.user_avatar}" alt="头像">
+				</div>
+				{if $data.u_level}
+				<div class="vip-info">
+					<em>{$data.u_level}</em>
+				</div>
+				{/if}
+			</div>
+			<!-- <p class="level">经理</p> -->
+			<div class="user-info flex-1">
+				<a href="{url r="index" b="uc_fx#income"}" class="user-name">{$data.user_data.user_name}</a>
+				<p class="my-reference">{if $data.user_data.pname}我的推荐人：{$data.user_data.pname}{/if}</p>
+			</div>
+			<a href="{url r="index" b="uc_fx#income"}" class="fx-money">可提现：{$data.user_data.fx_money}元<i class="iconfont">&#xe607;</i></a>
+		</div>
+		<div class="fx-tab flex-box">
+			<a href="{url r="index" b="uc_fx#mall"}" class="r-line flex-1">浏览小店</a>
+			<a href="{url r="index" b="uc_fx#qrcode"}" class="flex-1">分享二维码</a>
+		</div>
+		<div class="j-ajaxlist">
+		{if $data.item}
+		<ul class="fx-list j-ajaxadd">
+			{foreach from=$data.item item=row}
+			<li class="flex-box" data_id="{$row.id}">
+				<a href="{$row.share_url}" class="fx-img">
+					<!-- 商品图片 -->
+					<img src="{$row.icon}" alt="">
+				</a>
+				<div class="fx-info flex-1">
+					<a href="{$row.share_url}" class="fx-link">
+						<!-- 商品名字 -->
+						<p class="goods-name">{$row.name}</p>
+						<div class="goods-info flex-box">
+							<!-- 佣金 -->
+							<p class="fx-num flex-1">佣金：<span>{$row.fx_salary_money}元</span></p>
+							<!-- 销量 -->
+							<p class="goods-num">销量：{$row.buy_count} | {$row.current_price}元</p>
+						</div>
+					</a>
+					<!-- 按钮 -->
+					<div class="fx-btn-box flex-box">
+						<a href="javascript:void(0)" data_id="{$row.id}" class="fx-btn flex-1 {if $row.is_fx eq 1 || $row.ud_is_effect}goods-down{else}goods-up{/if}">
+						{if $row.is_fx eq 1 || $row.ud_is_effect}下架{else}上架{/if}
+						</a>
+						{if $row.is_fx eq 1 || $row.ud_is_effect}
+						<a href="javascript:void(0)" class="fx-btn flex-1 share {if $app_index eq 'app'}j-app-share-btn {else}j-openshare {/if}" {if $app_index eq 'app'} data-url="{$row.share_url}" data-img="{$row.icon}"  data-title="{$row.name}" {/if} data_id="{$row.id}">分享</a>
+						{else}
+						<a href="javascript:void(0)" class="fx-btn flex-1 cancle-fx" data_id="{$row.id}" {if $app_index eq 'app'} data-url="{$row.share_url}" data-img="{$row.icon}"  data-title="{$row.name}" {/if}>取消分销</a>
+						{/if}
+					</div>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+        {else}
+        <div class="tipimg no_data">暂无数据</div>
+		{/if}
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

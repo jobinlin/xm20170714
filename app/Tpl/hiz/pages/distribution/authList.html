@@ -1,0 +1,84 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/distribution.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/distribution.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>驿站列表</span>
+    <!-- <a href="#" onclick="JavaScript:history.back(-1);" class="header-back">返回</a> -->
+</div>
+<div class="content">
+	<div class="table-content">
+		<div class="table-nav clearfix">
+			<ul class="nav-list cleafix f_l">
+				<li class="f_l"><a class="nav-item transition" href="javascript:void(0);" data-href="{url r="hiz" b="distribution"}">驿站列表</a></li>
+				<li class="f_l"><a class="nav-item transition active" href="javascript:void(0);" data-href="{url r="hiz" b="distribution#authList"}">待审核驿站</a></li>
+			</ul>
+			<a href="{url r="hiz" b="distribution#edit"}" class="f_r table-nav-btn transition">新增驿站</a>
+			<div class="table-line transition"></div>
+		</div>
+		<div class="j-ajax-content">
+			{if $list}
+			<div class="hiz-table">
+				<table>
+					<col width="15%">
+					<col width="12%">
+					<col width="12%">
+					<col>
+					<col width="10%">
+					<col width="160px">
+					<thead>
+						<td style="text-align: left;">驿站名称</td>
+						<td>联系人</td>
+						<td>联系电话</td>
+						<td>详细地址</td>
+						<td>状态</td>
+						<td>操作</td>
+					</thead>
+					<tbody>
+						{foreach from=$list item=item name=odd}
+					<tr class="{if $smarty.foreach.odd.index%2 eq 0}odd{/if} transition">
+							<td class="shop-name">{$item.name}</td>
+							<td>{$item.contact}</td>
+							<td>{$item.tel}</td>
+							<td>{$item.address}</td>
+							<td>{if $item.status eq 0}未审核{elseif $item.status eq 1}审核通过{else}拒绝申请{/if}</td>
+							<td>
+								<a class="transition" href="{url r="hiz" b="distribution#authInfo" p="id=$item.id"}">查看详情</a>{if $item.status eq 0}<a class="transition dist_del" style="border-left: 1px solid #ddd;" data-act="authDel" data-id="{$item.id}">彻底删除</a>{/if}
+							</td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</div>
+			<div class="pages">
+				{$pages}
+			</div>
+			{else}
+			<div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+			<div class="no-data">暂无驿站</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

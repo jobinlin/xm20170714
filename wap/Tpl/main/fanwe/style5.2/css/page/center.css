@@ -1,0 +1,298 @@
+/*个人中心*/
+.person-head{
+    width: 100%;
+    position: relative;
+}
+.person-head .bg-img{
+    width: 100%;
+}
+.person-head .bg-img img{
+    display: block;
+    width: 100%;
+    height: auto;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
+
+.person-head .contentBox{
+    width: 100%;
+    height: 100%;
+    background: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.contentBox a.icon-posi{
+    display: block;
+    width: 2rem;
+    height: 2.2rem;
+    line-height: 1rem;
+    position: absolute;
+    top: 0rem;
+    font-size: 1rem;
+    padding: 0.6rem 0.5rem;
+}
+
+.contentBox a.icon-posi .iconfont{
+    color: #ffffff;
+}
+.contentBox a.setting{
+    left: 0rem;
+}
+.contentBox a.message{
+    right: 0rem;
+}
+
+.contentBox a.message em.tishi{
+    display: block;
+    width: 0.325rem;
+    height: 0.325rem;
+    border-radius: 50%;
+    background: #ff8400;
+    position: absolute;
+    right: 0.42rem;
+    top: 0.56rem;
+}
+.contentBox .headImg{
+    width: 2.7rem;
+    height: 2.7rem;
+    border: 0.075rem solid rgba(250,250,250,0.5);
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0.85rem auto 0;
+}
+.headImg img{
+    display: block;
+    width: 100%;
+}
+/*账户管理*/
+.contentBox a.manage{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: rgba(0,0,0,.5);
+    color: #ffffff;
+    height: 1.05rem;
+    line-height: 1.05rem;
+    padding: 0 0.5rem;
+    border-bottom-left-radius: 0.8rem;
+    border-top-left-radius: 0.8rem;
+    font-size: 0.55rem;
+    color: #f7d430;
+}
+.contentBox a.manage i.iconfont{
+    color: #f7d430;
+    font-size: 0.65rem;
+}
+/*账户管理*/
+
+.contentBox .userName{
+    width: 100%;
+    text-align: center;
+    font-size: @f_size2;
+    color: #FFFFFF;
+    line-height: 1.35rem;
+}
+
+/*vip会员显示部分*/
+.contentBox .vipBox{
+    width: 100%;
+    height: 0.75rem;
+    margin-top: 0.5rem;
+    -webkit-box-pack: center;
+    -webkit-justify-content:center;
+    justify-content:center;
+}
+.vipBox li{
+    height: 0.75rem;
+    font-size: 0.55rem;
+    line-height: 0.75rem;
+    color: #FFFFFF;
+}
+.vipBox li .vipName{
+    display: block;
+    width: auto;
+    line-height: 0.75rem;
+    background: rgba(0,0,0,.5);
+    border-radius: 0.35rem;
+    padding-right: 0.5rem;
+    padding-left: 0.8rem;
+    position: relative;
+    color: #ffffff;
+}
+.vipName .icon-vip{
+    display: block;
+    width: 0.85rem;
+    height: 0.85rem;
+    background: url("@url/static/vip_icon.png")no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: -0.2rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 50%;
+}
+.vipBox .r-line::after{
+    background:rgba(0,0,0,0.5);
+}
+.vipBox .share_other{
+    margin-left: 0.5rem;
+    color: #FFFFFF;
+}
+.vipBox .share_other .iconfont{
+    color: #FFFFFF;
+    font-size: 0.76rem;
+    margin-right: 0.1rem;
+    vertical-align: top;
+}
+/*vip会员显示部分*/
+.blank5{
+    width: 100%;
+    height: 0.5rem;
+    clear: both;
+}
+
+.u-prompt{
+    width: 100%;
+    height: 1.55rem;
+    background: #fffbeb;
+    padding: 0 @rowspacing;
+    font-size: @f_size4;
+    line-height: 1.55rem;
+    color: @f_color2;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+}
+.u-trans{
+    height: 0;
+}
+.u-prompt i.iconfont{
+    color: @f_colortheme;
+    vertical-align: top;
+    font-size: @f_size1;
+    margin-right: 0.2rem;
+}
+.u-prompt a{
+    font-size: @f_size3;
+    padding: 0 .2rem;
+}
+.u-prompt span{
+    color: @f_colortheme;
+    font-size: @f_size3;
+    padding: 0 .2rem;
+}
+.u-prompt .pro_close_btn{
+    float: right;
+}
+.u-prompt .pro_close_btn .iconfont{
+    color: @f_color3;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
+
+
+
+
+/*我的订单部分*/
+.my-order{
+    background:#fff;
+    margin-bottom: .5rem;
+}
+#user_center .hd-bar{
+    margin-left: .5rem;
+    line-height: 2rem;
+}
+.my-order .order-box{
+    padding-bottom: .5rem;
+}
+.my-order .order-item{
+    width:25%;
+    float: left;
+    text-align: center;
+    padding-top:.5rem;
+    position: relative;
+}
+#user_center .uc-ico{
+    width:1rem;
+    padding:.25rem 0;
+    margin: 0 auto;
+    position: relative;
+}
+#user_center .uc-ico img{
+    width:1rem;
+}
+.my-order .order-item .order-num{
+    display:-webkit-box;
+    display:-webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items:center;
+    align-items:center;
+    -webkit-box-pack: center;
+    -webkit-justify-content:center;
+    justify-content:center;
+    width:.6rem;
+    height:.6rem;
+    line-height: .6rem;
+    border:1px solid #fff;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+    border-radius:.6rem;
+    background:@themecolor;
+    color:#fff;
+    font-size:.4rem;
+    position: absolute;
+    top: 0;
+    right:-.35rem;
+}
+/*我的订单部分*/
+/* 分销 */
+.my-fx{
+    background:#fff;
+    margin-bottom: .5rem;
+}
+.my-fx .fx-item{
+    float: left;
+    width:25%;
+    padding:.5rem 0;
+    text-align: center;
+}
+/* 账户余额 */
+.user-balance{
+    background:#fff;
+    margin-bottom: .5rem;
+    background:#fff;
+    padding:.25rem;
+    line-height:1rem;
+    text-align: center;
+}
+.user-balance .balance-item{
+    display: block;
+}
+.user-balance .balance-item::after{
+    height:1rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+.user-balance .balance-tit{
+    font-size:@f_size4;
+}
+.center-list{
+    padding-left: .5rem;
+    background:#fff;
+    margin-bottom: .5rem;
+}
+.center-list li a{
+    height:2rem;
+    padding-right: .5rem;
+}
+.center-list .list-tip{
+    color:@f_color3;
+    font-size:@f_size4;
+}

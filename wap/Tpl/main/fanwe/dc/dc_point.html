@@ -1,0 +1,51 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_point">
+    {include file="style5.2/inc/module/pop-light-img.html"}
+    {include file="style5.2/inc/headers/dc_header.html"}
+    <div class="content infinite-scroll infinite-scroll-bottom">
+        <a href="" class="comment-count flex-box">
+            <p class="flex-1">总体评价</p>
+            <div class="m-start">
+                <div class="start-num" style="width: {$data.dclocation.point_percent}%"></div>
+            </div>
+            <p class="comment-point">{$data.dclocation.avg_point}</p>
+        </a>
+        <div class="dc-comment-list j-ajaxlist ">
+            {if $data.dp_list}
+            <ul class="comment-list j-ajaxadd">
+                {foreach from=$data.dp_list item=item}
+                <li class="comment-item">
+                    <div class="comment-hd flex-box">
+                        <div class="user-img"><img src="{$item.user_avatar}" alt=""></div>
+                        <div class="flex-1 user-info">
+                            <div class="flex-box">
+                                <p class="user-name flex-1">{$item.user_name}</p>
+                                <div class="m-start">
+                                    <div class="start-num" style="width: {$item.point_percent}%"></div>
+                                </div>
+                            </div>
+                            <p class="comment-time">{$item.create_time_format}</p>
+                        </div>
+                    </div>
+                    <p class="comment-txt">{$item.content}</p>
+                    {if $item.images}
+                    <ul class="comment-imglist flex-box comment-imglist-nolimit">
+                        {foreach from=$item.images item=img}
+                        <li class="comment-imgitem j-comment-item" data="1">
+                            <img dfasf="{$img}" src="{$img}" data-lingtsrc="{$img}" width="65" alt="有图评论-1" />
+                        </li>
+                        {/foreach}
+                    </ul>
+                    {/if}
+                </li>
+                {/foreach}
+            </ul>
+            <div class="pages hide">{$pages}</div>
+            {else}
+            <div class="tipimg no_data">暂无评价</div>
+            {/if}
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

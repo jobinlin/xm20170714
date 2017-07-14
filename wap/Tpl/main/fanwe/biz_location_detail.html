@@ -1,0 +1,42 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_location_detail">
+    {include file="style5.2/inc/biz_header.html"}
+    <div class="content">
+        <ul class="biz-location-detail">
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">门店名称</p>
+        		<p class="detail-tip">{$data.item.name}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">城市</p>
+        		<p class="detail-tip">{$data.item.city_name}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">门店地址</p>
+        		<p class="detail-tip">{$data.item.address}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">负责人</p>
+        		<p class="detail-tip">{$data.item.contact}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">联系电话</p>
+        		<p class="detail-tip">{$data.item.tel}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">营业时间</p>
+        		<p class="detail-tip">{$data.item.open_time}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">默认门店</p>
+        		<p class="detail-tip">{if $data.item.is_main eq 1}是{else}否{/if}</p>
+        	</li>
+        	<li>
+        		<p class="detail-tit flex-1">到店支付</p>
+        		<p class="detail-tip">{if $data.item.open_store_payment eq 1}支持{else}不支持{/if}</p>
+        	</li>
+        </ul>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

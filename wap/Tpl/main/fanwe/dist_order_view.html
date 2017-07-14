@@ -1,0 +1,79 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dist_order_view">
+    {include file="style5.2/inc/biz_header.html"}
+    {if $data.do_delivery eq 0}
+  	<nav class="bar bar-tab">
+		<a href="javascript:void(0);" action="{url i="dist" a="order#do_delivery" go="data_id=$data.order.id"}" class="do_delivery dist-order-btn {$op.js_obj}">发货</a>
+  	</nav>
+  	{/if}
+  	
+  	
+    <div class="content">
+     {if $data.order}
+    	<div class="shop-order-bar flex-box">
+    		<p class="code flex-1"><span>订单号：</span>{$data.order.order_sn}</p>
+    		<p class="num">{$data.order.status.info}</p>
+    	</div>
+    	{if $data.order.consignee}
+    	<div class="shop-address-info">
+    		<p class="user-info">收货人：{$data.order.consignee} {$data.order.mobile}</p>
+    		<p class="address">{$data.order.address}</p>
+    	</div>
+    	{/if}
+    	<div class="shop-address-info">
+    		<p class="user-info">备注：{if $data.order.memo}{$data.order.memo}{else}--{/if}</p>
+    	</div>
+    	{if $data.order.order_item}
+    	<ul class="shop-view-list">
+    		{foreach from=$data.order.order_item item=deal_order_item}
+    		<li class="b-line">
+    			<div class="goods-img"><img src="{$deal_order_item.deal_icon}" alt="{$deal_order_item.name}"></div>
+    			<div class="goods-info flex-1">
+    				<div class="name-status">
+    					<div class="goods-detail flex-1">
+	    					<p class="goods-name">{$deal_order_item.name}</p>
+	    					
+	    					<p class="goods-type">{if $deal_order_item.attr_str}规格：{$deal_order_item.attr_str}{/if}&nbsp;</p>
+	    					
+    					</div>
+    					<div class="status">
+    						<p class="price">{$deal_order_item.unit_price}</p>
+    						<p>x{$deal_order_item.number}</p>
+    					</div>
+    				</div>
+    				
+    				
+    				
+    				<div class="price-info flex-box">
+    					<p class="price flex-1">服务费：{$deal_order_item.distribution_fee}</p>
+    					<p class="status">{$deal_order_item.status.info}</p>
+    				</div>
+    			</div>
+    		</li>
+    		{/foreach}
+    	</ul>
+    	{/if}
+    	<div class="shop-order-bar flex-box b-line">
+    		<p class="flex-1">下单时间</p>
+    		<p class="time">{$data.order.create_time}</p>
+    	</div>
+		{if $data.order.payment_info}
+		<div class="shop-order-bar flex-box b-line">
+    		<p class="flex-1">{$data.order.payment_info.name}</p>
+    		<p class="price" style="color: #f24;">{$data.order.payment_info.money}</p>
+    	</div>
+		{/if}
+    	<div class="order-count">
+    		<div class="flex-box">
+    			<p class="flex-1"></p>
+    			<p class="price">共 {$data.order.item_count} 件商品，实付：{$data.order.total_price}(运费{$data.order.delivery_fee})</p>
+    		</div>
+    		<div class="all-count">
+    			服务费合计：<em class="price">{$data.order.distribution_fee}</em>
+    		</div>
+    	</div>
+    	{/if}
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

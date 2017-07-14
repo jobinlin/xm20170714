@@ -1,0 +1,64 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_fx_mall">
+<script>
+var ajax_url = '{$ajax_url}';
+</script>
+  {include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+      <div class="mall-hd flex-box">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="{$data.user_data.user_avatar}" alt="">
+          </div>
+          <p class="user-name">{$data.user_data.user_name}的小店</p>
+        </div>
+      </div>
+      <div class="mall-tab flex-box">
+        <a href="javascript:void(0);" data-href="{url r="index" b="uc_fx#mall" p="type=1&r=$r" }" rel='1' class="flex-1 r-line mall-tab-item {if $data.type}active{/if}">
+          <p class="tab-num">{$data.goods_count}</p>
+          <p class="tab-type">商城</p>
+        </a>
+        <a href="javascript:void(0);" data-href="{url r="index" b="uc_fx#mall" p="type=0&r=$r" }" rel='0' class="flex-1 mall-tab-item {if $data.type eq 0}active{/if}">
+          <p class="tab-num">{$data.tuan_count}</p>
+          <p class="tab-type">团购</p>
+        </a>
+      </div>
+      <div id="item-content">
+      <div class="j_ajaxlist_{$data.type}" id="tab{$data.type}">
+      {if $data.deal_list}
+        <!-- 商品列表 -->
+        <div class="m-goods-list">
+          <ul class="type-list clearfix j_ajaxadd_{$data.type}">
+            {foreach from=$data.deal_list item=deal}
+            <li>
+              <a data-no-cache="true" href="{$deal.url}">
+                <div class="goods-img"><img alt="" src="{$deal.icon_85}"/></div>
+                <div class="goods-info">
+                  <h2 class="goods-name">{$deal.name}</h2>
+                  <div class="sale-info">
+                    <p class="price">&yen;{$deal.current_price}
+                      {if $deal.origin_price neq 0}
+                      <del class="p-price">&yen;{$deal.origin_price}</del>
+                      {/if}
+                    </p>
+                    
+                    {if $deal.buy_count neq 0}
+                          <p class="sale">已售{$deal.buy_count}</p>
+                    {/if}
+                  </div>
+                </div>
+              </a>
+            </li>
+            {/foreach}
+          </ul>
+          <div class="pages hide">{$pages}</div>
+        </div>
+        {else}
+        <div class="tipimg no_data">暂无数据</div>
+        {/if}
+      </div>
+      </div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

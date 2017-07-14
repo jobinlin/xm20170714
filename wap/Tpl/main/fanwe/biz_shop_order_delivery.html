@@ -1,0 +1,147 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_shop_order_delivery">
+<form action="{url i="biz" a="shop_order#do_delivery"}" method="post"  name="do_delivery">
+    {include file="style5.2/inc/biz_header.html"}
+  	<nav class="bar bar-tab">
+  		<div class="delivery-nav flex-box">
+  			<i class="iconfont j-all-goods"></i>
+  			<p class="flex-1">全选</p>
+  			<button type="submit" class="delivery-sub-btn">发货(<span class="delivery-count">0</span>)</button>
+  		</div>
+  	</nav>
+    <div class="content">
+     	<ul class="delivery-hd">
+     		<input type="hidden" name="is_delivery" {if $data.is_delivery eq 1}value="1"{else}value="0"{/if}>
+     		<li class="flex-box b-line j-shop-select">
+     			<p class="flex-1">发货门店</p>
+     			<p class="delivery-tip shop-name">{$data.location_list.0.name}</p>
+     			<input type="hidden" name="location_id" value="{$data.location_list.0.id}">
+     			<i class="iconfont">&#xe607;</i>
+     		</li>
+     		{if $data.is_delivery eq 1}
+     		<li class="flex-box b-line j-logistics-select">
+     			<p class="flex-1">配送方式</p>
+     			<p class="delivery-tip logistics-name">{$data.express_list.0.name}</p>
+     			<input type="hidden" name="express_id" value="{$data.express_list.0.id}">
+     			<i class="iconfont">&#xe607;</i>
+     		</li>
+     		<li class="flex-box b-line j-logistics-code">
+     			<p class="flex-1">快递单号</p>
+     			<p class="delivery-tip logistics-code">请输入快递单号</p>
+     			<!-- <i class="iconfont">&#xe607;</i> -->
+     		</li>
+     		{/if}
+     		<li class="flex-box j-remark">
+     			<p class="flex-1">发货备注</p>
+     			<p class="delivery-tip remark">请输入发货备注</p>
+     			<!-- <i class="iconfont">&#xe607;</i> -->
+     		</li>
+     	</ul>
+     	{if $data.is_delivery eq 1}
+     	<div class="user-delivery-info">
+     		<p class="user-name">收货人：{$data.address_data.consignee}&nbsp;&nbsp;{$data.address_data.mobile}</p>
+     		<p class="user-tip">{$data.address_data.address}</p>
+     	</div>
+     	{/if}
+     	{if $data.doi_list}
+     	<ul class="delivery-goods-list">
+     	{foreach from=$data.doi_list item=row}
+     		<li>
+     			<div class="flex-box goods j-goods-item
+     				{if $data.is_delivery eq 1}
+     					{if $row.is_delivery eq 0}
+     					  disable
+    					{/if}
+    				{else}
+    					{if $row.is_delivery eq 1}
+    					  disable
+    					{/if}
+    				{/if}
+     			"  is-delivery="{$row.is_delivery}">
+     				<input type="checkbox" value="{$row.id}" name="doi_ids[]" 
+     				{if $data.is_delivery eq 1}
+     					{if $row.is_delivery eq 0}
+     					  disabled="disabled"
+     					{/if}
+     				{else}
+     					{if $row.is_delivery eq 1}
+     					  disabled="disabled"
+     					{/if}
+     				{/if}
+     				>
+     				<i class="iconfont"></i>
+     				<div class="goods-item flex-box flex-1">
+     					<div class="goods-img"><img src="{$row.deal_icon}" alt=""></div>
+     					<div class="goods-info flex-1">
+     						<p class="goods-name">{$row.name}</p>
+     						<p class="goods-type">{if $row.attr_str}规格：{$row.attr_str}{/if}</p>
+     						<div class="price-info flex-box">
+     							<p class="price"><span>&yen;</span>{$row.unit_price}</p>
+     							<p class="num flex-1">x{$row.number}</p>
+     							<p class="status">待发货</p>
+     						</div>
+     					</div>
+     				</div>
+     			</div>
+     		</li>
+    	{/foreach}
+     	</ul>
+     	{/if}
+  	</div>
+  	<div class="delivery-mask"></div>
+  	<!-- 门店选择 -->
+  	<div class="shop-select">
+  		<ul class="shop-list">
+  			{foreach from=$data.location_list key=key item=location}
+  			<li class="flex-box b-line {if $key eq 0}active{/if}">
+  				<p class="shop-name flex-1" data-id="{$location.id}">{$location.name}</p>
+  				<i class="iconfont">&#xe667;</i>
+  			</li>
+  			{/foreach}
+  		</ul>
+  		<div class="delivery-btn-wrap flex-box t-line">
+  			<div class="delivery-btn shop-cancle delivery-cancle flex-1">取消</div>
+  			<div class="delivery-btn shop-confirm delivery-confirm flex-1">确定</div>
+  		</div>
+  	</div>
+  	<!-- 物流选择 -->
+  	{if $data.express_list}
+  	<div class="logistics-select">
+  		<ul class="logistics-list">
+  		{foreach from=$data.express_list key=key item=express}
+  			<li class="flex-box b-line {if $key eq 0}active{/if}">
+  				<p class="logistics-name flex-1" data-id="{$express.id}">{$express.name}</p>
+  				<i class="iconfont">&#xe667;</i>
+  			</li>
+ 		{/foreach}
+  		</ul>
+  		<div class="delivery-btn-wrap flex-box t-line">
+  			<div class="delivery-btn logistics-cancle delivery-cancle flex-1">取消</div>
+  			<div class="delivery-btn logistics-confirm delivery-confirm flex-1">确定</div>
+  		</div>
+  	</div>
+  	{/if}
+  	{if $data.is_delivery eq 1}
+  	<!-- 输入单号 -->
+  	<div class="write-logistics-code">
+  		<input type="text" class="logistics-code" name="delivery_sn" placeholder="">
+  		<div class="delivery-btn-wrap flex-box t-line">
+  			<div class="delivery-btn logistics-code-cancle delivery-cancle flex-1">取消</div>
+  			<div class="delivery-btn logistics-code-confirm delivery-confirm flex-1">确定</div>
+  		</div>
+  	</div>
+  	{/if}
+  	<!-- 输入备注 -->
+  	<div class="write-remark">
+      <div class="remark-wrap flex-box">
+        <textarea maxlength="200" name="memo" id="remark" class="remark flex-1" placeholder="请输入发货备注(200字以内)"></textarea>
+      </div>
+  		<div class="delivery-btn-wrap flex-box t-line">
+  			<div class="delivery-btn remark-cancle delivery-cancle flex-1">取消</div>
+  			<div class="delivery-btn remark-confirm delivery-confirm flex-1">确定</div>
+  		</div>
+  	</div>
+  	</form>
+</div>
+{include file="style5.2/inc/footer.html"}

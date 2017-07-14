@@ -1,0 +1,106 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/project.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/location.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/delivery_setting/dada_acount.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/delivery_setting/dada_acount.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+
+
+
+?>
+
+{include file="inc/header.html"}
+
+<div class="blank20"></div>
+<div class="page wrap_full">
+	<div class="left_box">
+		{include file="inc/biz_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="content">
+			<div class="head_box">
+				<h2>{$head_title}</h2>
+			</div>
+			
+			<div class="info_table">
+				<div class="blank"></div>
+				<form name="delivery_form" action="{url x="biz" r="delivery_setting#dada_account_create"}" method="post">
+
+					<table class="form_teble_box add_border">
+									<colgroup>
+										<col width="120">
+										<col width="570">
+									</colgroup>
+									<tbody>
+										<tr>
+											<td class="t_field_name "><i class="iconfont required">&#xe606;</i>用户名:</td>
+											<td class="t_field_value"><input class="ui-textbox long_input f_l" name="dada_account" value=""/>
+											包含数字和字母,不得使用中文和特殊字符
+											</td>
+										</tr>
+										
+										<tr>
+											<td class="t_field_name "><i class="iconfont required">&#xe606;</i>密码:</td>
+											<td class="t_field_value"><input class="ui-textbox long_input f_l" name="dada_password" value=""/>
+											必须包含数字和字母,长度在6~16内
+											</td>
+										</tr>
+										
+										<tr>
+											<td class="t_field_name "><i class="iconfont required">&#xe606;</i>确认密码:</td>
+											<td class="t_field_value"><input class="ui-textbox long_input f_l" name="dada_confirm_password" value=""/>
+											必须包含数字和字母,长度在6~16内
+											</td>
+										</tr>
+			
+
+
+									</tbody>
+						</table>
+						<input type="hidden" name="id" value="{$id}"/>
+				</form>
+				
+				<table style="border:none;">
+							<tbody>
+								<tr>
+									<td class="t_field_name "></td>
+									<td class="t_field_value">
+										<div class=" f_l">
+											<button class="ui-button delivery_form_btn" rel="orange" type="button">注册</button>
+										</div>
+											
+
+									</td>
+								</tr>
+
+							</tbody>
+				</table>	
+				
+			</div>	
+
+		</div>
+	</div>	
+</div>
+
+<div class="blank20"></div>
+{include file="inc/footer.html"}

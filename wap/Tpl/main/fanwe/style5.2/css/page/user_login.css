@@ -1,0 +1,20 @@
+.popup-agreement{
+	padding-bottom: 2.2rem;
+	overflow-y: auto;
+}
+.popup-hd{
+	position: relative;
+}
+.popup-agreement .title{
+	margin: 0;
+}
+.popup-hd .close-popup{
+	position: absolute;
+	left: .5rem;
+	top: 0;
+	font-size: 1.1rem;
+	line-height: 2.2rem;
+}
+#user_register .content,#user_getpassword .content,#uc_account_phone .content,#changepassword .content{
+	background:#fff;
+}

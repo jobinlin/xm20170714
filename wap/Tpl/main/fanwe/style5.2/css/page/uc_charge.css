@@ -1,0 +1,77 @@
+#uc_charge .content{
+	background:#fff;
+}
+.charge-hd{
+	line-height: 2rem;
+	padding:0 .5rem;
+	font-size:@f_size2;
+}
+.charge-bd{
+	padding:0 .25rem .5rem;
+}
+.select_num{
+	width:30%;
+	margin:0 .25rem;
+	line-height: 2rem;
+	border:1px solid #ddd;
+	text-align: center;
+	border-radius:2px;
+	height:2rem;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+}
+.charge-bd .selected{
+	border-color:@themecolor;
+	color:@f_colortheme;
+}
+.charge-bd .select_num1{
+	line-height: normal;
+}
+#uc_charge .pay-way{
+	padding-left: .5rem;
+}
+#uc_charge .payment-id{
+	display:none;
+}
+#uc_charge .pay_select{
+	padding-right: .5rem;
+	line-height: 2.5rem;
+}
+#uc_charge .pay_select .iconfont{
+	font-size:1rem;
+	color:#ddd;
+}
+#uc_charge .pay_select .iconfont::before{
+	display: block;
+	content:'\e688';
+}
+#uc_charge .pay_select .checked{
+	color:@themecolor;
+}
+#uc_charge .pay_select .checked::before{
+	content:'\e66b';	
+}
+.subbox{
+	margin-top: 1rem;
+	padding:0 .5rem;
+}
+#uc_charge .select_num{
+    width:30%;
+    float: left;
+    margin: 0 0.2rem 0.5rem;
+}
+#uc_charge .select_other{
+    width:30%;
+    float: left;
+    margin: 0 0.2rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-sizing: content-box;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+#uc_charge .content .selected {
+    border-color: #ff2244!important;
+    color: #ff2244;
+}

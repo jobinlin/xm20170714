@@ -1,0 +1,88 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/store_pay_order.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/order.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+?>
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+
+<script>
+</script>
+
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>商家订单列表</span>
+</div>
+<div class="content">
+    <div class="table-content">     
+	<div class="hiz-table">
+
+
+			<div class="info_box">
+
+
+				<div class="bg_box growth_content">
+					
+					<div class="info_items">
+						<ul>
+							<li><label>订单编号：</label><span class="main_color">{$store_pay_order_info.order_sn}</span></li>							
+							<li><label>消费时间：</label><span class="main_color">{function name="to_date" v=$store_pay_order_info.create_time}</span></li>								
+							<li><label>门店名称：</label><span class="main_color">{$store_pay_order_info.supplier_location_name}</span></li>	
+							<li><label>顾客名称：</label><span class="main_color">{$store_pay_order_info.user_name}</span></li>
+							<li><label>消费内容：</label><span class="main_color">到店支付{function name="format_price" v=$store_pay_order_info.pay_amount}</span></li>
+						
+							{if $store_pay_order_info.promote}
+								{foreach from=$store_pay_order_info.promote item=promote}
+								<li><label>{$promote.name}：</label><span class="main_color">{function name="format_price" v=$promote.discount_price}</span></li>
+								{/foreach}
+							{/if}
+						</ul>
+					</div>
+				</div>
+			</div>		
+		 
+			<div class="info_table">
+				<table>
+					<tbody>
+						<tr>
+							<td class="shop-name">实付金额</td>
+							<td class="shop-name">=</td>
+							<td class="shop-name">消费金额</td>
+							<td class="shop-name">-</td>
+							<td class="shop-name">优惠金额</td>
+						</tr>
+						<tr class="alt">
+                               <td>{function name="format_price" v=$store_pay_order_info.pay_amount}</td>
+                               <td></td>
+                               <td>{function name="format_price" v=$store_pay_order_info.total_price}</td>
+                               <td></td>
+                               <td>{function name="format_price" v=$store_pay_order_info.discount_price}</td>                    
+                         </tr>
+					</tbody>
+				</table>
+				
+			</div>	
+			
+			<div class="pages">{$pages}</div>			
+			 		
+		
+
+		</div>
+	</div>	
+</div>
+
+
+{include file="inc/footer.html"}

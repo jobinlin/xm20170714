@@ -1,0 +1,47 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var sort_1='{$sort}';
+</script>
+<div class="page page-current" id="biz_dc_rsorder">
+	<div class="list-nav b-line">
+		<ul class="flex-box">
+			<li class="list-nav-item flex-1 j-list-choose {if $sort eq 0 }active{/if}" sort="0" data-href="{url i="biz" r="dc_resorder" g="lid=$data.lid"}"><span>全部</span></li>
+			<li class="list-nav-item flex-1 j-list-choose {if $sort eq 1 }active{/if}" sort="1" data-href="{url i="biz" r="dc_resorder" g="lid=$data.lid&sort=1"}"><span>待接单{if $data.dc_new_order_count gt 0}({$data.dc_new_order_count}){/if}</span></li>
+			<li class="list-nav-item flex-1 j-list-choose {if $sort eq 2 }active{/if}" sort="2" data-href="{url i="biz" r="dc_resorder" g="lid=$data.lid&sort=2"}"><span>待验证 {if $data.dc_wait_order_count gt 0}({$data.dc_wait_order_count}){/if}</span></li>
+		</ul>
+		<div class="list-nav-line"></div>
+	</div>
+    {include file="style5.2/inc/biz_header.html"}
+    <div class="content infinite-scroll infinite-scroll-bottom">
+    	<div class="biz-order-list j-ajaxlist-{$sort}">
+    	{if $data.dc_order}
+    		<ul class="j-ajaxadd-{$sort} order-list">
+    		{foreach from=$data.dc_order item=dc_order}
+    			<li>
+    				<a href="{$dc_order.dcresorder_url}" class="order-list-item">
+    					<div class="order-hd flex-box b-line">
+    						<p class="order-time flex-1">{$dc_order.create_time_format}</p>
+    						<p class="status">{$dc_order.biz_order_state.state_format}</p>
+    					</div>
+    					<div class="rs-info">
+    						<p class="rs-type">{$dc_order.order_menu.rs_list.cart_list.0.name}</p>
+    						<p class="rs-time">{$dc_order.order_menu.rs_list.cart_list.0.table_time_format}</p>
+    					</div>
+    				</a>
+    				{if $dc_order.biz_order_state.state eq 2}
+    				<div class="order-edit t-line">
+    					<a href="javascript:void(0);" class="order-btn j-submit" data_url="{$dc_order.biz_order_state.act.0.url}">接单</a>
+    				</div>
+    				{/if}
+    			</li>
+    		{/foreach}
+    		</ul>
+    		<div class="pages hide">{$pages}</div>
+    	{else}
+			<div class="tipimg no_data">暂时没有订单</div>
+    	{/if}
+    	</div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

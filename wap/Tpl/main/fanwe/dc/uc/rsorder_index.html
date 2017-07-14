@@ -1,0 +1,81 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="rsorder_index">
+	{include file="style5.2/inc/headers/dc_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="dc-order-list j-ajaxlist">
+			{if $data.order_list}
+			<ul class="order-list j-ajaxadd">
+				{foreach from=$data.order_list item=item}
+				<li>
+					<a href="{url r="index" p="dc_rsorder#view" g="id=$item.id"}" class="order-hd" data-no-cache="true">
+						<div class="shop-img"><img src="{$item.preview}" alt="" class="img-comment"></div>
+						<div class="shop-info flex-1">
+							<div class="shop-info-hd flex-box b-line">
+								<p class="shop-name flex-1 name-comment">{$item.location_name}</p>
+								<p class="order-status">{$item.order_state.state_format}</p>
+							</div>
+							<div class="order-info flex-box">
+								<div class="rs-info flex-1">
+									<p>预约内容：{$item.rs_info[0].name}</p>
+									<p>预约时间：{$item.rs_info[0].table_time_format}</p>
+								</div>
+								<p class="price">{function name=format_price v=$item.total_price g=2}</p>
+							</div>
+						</div>
+						<input name="location_id" type="hidden" value="{$item.location_id}"/>
+						<input name="order_id" type="hidden" value="{$item.id}"/>
+					</a>
+					{if $item.order_state.act}
+					{foreach from=$item.order_state.act item=act}
+					{if $item.order_state.state eq 1}
+					<div class="order-edit-bar t-line">
+						<a href="javascript:void(0);" jump_url="{$act.url}" data_url="{url r="index" p="dcorder#to_pay" g="id=$item.id"}"class="order-btn j-confirm to-pay">去支付</a>
+					</div>
+					{elseif $item.order_state.state eq 4}
+					<div class="order-edit-bar t-line">
+						<a href="javascript:void(0);" class="order-btn j-open-comment">评价</a>
+					</div>
+					{/if}
+					{/foreach}
+					{/if}
+				</li>
+				{/foreach}	
+			</ul>
+			<div class="pages hide">{$pages}</div>
+			{else}
+			<div class="tipimg no_data">暂无订单</div>
+			{/if}	
+		</div>
+	</div>
+	<div class="popup popup-comment">
+		<div class="popup-header b-line">
+			<p class="popup-tit">评价</p>
+			<div class="iconfont j-close-popup">&#xe604;</div>
+		</div>
+		<div class="shop-info flex-box">
+			<div class="shop-img"><img src="" alt="" class="img-comment-1"></div>
+			<p class="shop-name flex-1 name-comment-1"></p>
+		</div>
+		<div class="comment-point flex-box">
+			<p class="comment-tit">总评</p>
+			<ul class="comment-stars flex-box">
+				<li value="1" class="iconfont j-point">&#xe65b;</li>
+				<li value="2" class="iconfont j-point">&#xe65b;</li>
+				<li value="3" class="iconfont j-point">&#xe65b;</li>
+				<li value="4" class="iconfont j-point">&#xe65b;</li>
+				<li value="5" class="iconfont j-point">&#xe65b;</li>
+			</ul>
+			<input type="hidden" id="star-value">
+		</div>
+		<div class="comment-text">
+			<textarea name="content" id="" placeholder="请输入不超过140字的评价" style="border: 1px solid #e6e6e6;border-radius: 0.3rem;padding: 0 0.25rem;"></textarea>
+		</div>
+		<input name="location_id_1" type="hidden" value=""/>
+		<input name="order_id_1" type="hidden" value=""/>
+		<div class="comment-sub t-line">
+			<a href="javascript:void(0);" class="comment-btn j-comment-sub" action="{url i="index" r="dcreview#save"}">发表评价</a>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

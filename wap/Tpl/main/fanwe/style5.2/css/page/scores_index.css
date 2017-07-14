@@ -1,0 +1,206 @@
+
+
+.m-user-info{
+	position: relative;
+	background: -webkit-linear-gradient(120deg, #ff2445, #fc7858); /* Safari 5.1 - 6.0 */
+	background: linear-gradient(120deg,#ff2445, #fc7858); /* 标准的语法 */
+	padding: .675rem .5rem;
+	-webkit-transform: translate3d(0,0,0);
+			transform: translate3d(0,0,0);
+}
+
+.m-user-info .ulogin{
+	color: #fff;
+	width: 100%;
+	line-height: 3rem;
+}
+
+.m-user-info .ulogin .iconfont{
+	font-size: .8rem;
+	vertical-align: top;
+	color: #fff;
+}
+
+.m-user-info .user-avatar{
+	position: relative;
+	padding: 0 .25rem;
+}
+
+.m-user-info .user-avatar .avatar{
+	display: block;
+	width: 2.55rem;
+	height: 2.35rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.m-user-info .user-avatar .avatar img{
+	width: 100%;
+	border-radius: 50%;
+	border: 2px solid rgba(255,255,255,.3);
+}
+
+.m-user-info .user-avatar .vip-info{
+	display: block;
+	width: auto;
+	line-height: 0.75rem;
+	background: rgba(0,0,0,.5);
+	border-radius: 0.35rem;
+	padding-left: .65rem;
+	padding-right: 0.5rem;
+	position: relative;
+	color: #ffffff;
+	font-size: .45rem;
+}
+
+.m-user-info .user-avatar .vip-info em{
+	font-size: @f_size3;
+}
+
+.m-user-info .user-avatar .vip-icon{
+	position: absolute;
+	left: -0.2rem;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+	width: 0.9rem;
+	height: 0.9rem;
+	border-radius: 50%;
+	border: 2px solid rgba(0,0,0,.3);
+	border-right: 2px solid rgba(0,0,0,0);
+}
+
+.m-user-info .user-info{
+	padding-left: 1rem;
+}
+
+.m-user-info .user-info .user-name{
+	color: #fff;
+	line-height: 1.25rem;
+}
+
+.m-user-info .user-info .score{
+	font-size: @f_size3;
+	color: #fff;
+	line-height: 1.15rem;
+}
+
+.m-user-info .user-info .score em{
+	color: #f2c632;
+}
+
+.m-user-info .user-info .sign-day{
+	font-size: .55rem;
+	color: #ff8989;
+}
+
+.m-user-info .sign{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	padding-right: 1rem;
+	line-height: 1.05rem;
+	background: rgba(0,0,0,.2);
+	padding-left: .5rem;
+	border-radius: .5rem 0 0 .5rem;
+	color: #f2c632;
+	font-size: .55rem;
+	vertical-align: top;
+	transform: translateY(-50%);
+}
+
+.m-user-info .sign .iconfont:before{
+	content: "\e8d6";
+	color: #f2c632;
+	vertical-align: -1px;
+}
+
+.m-user-info .sign .iconfont:after{
+	content: "\e607";
+	position: absolute;
+	right: .5rem;
+	color: #f2c632;
+	vertical-align: -1px;
+}
+
+.m-score-type{
+	background-color: #fff;
+	width:100%;
+	overflow: hidden;
+}
+
+.m-score-type .type-item{
+	width: 20%;
+	text-align: center;
+	padding: .825rem 0;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.m-score-type .type-item .yuan{
+	border-radius: 36%;
+	display: block;
+	margin: 0 auto;
+	height: 2rem;
+	width: 2rem;
+	line-height: 2rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.8rem;
+}
+.m-score-type .type-item .txt{
+	color: #353d44;
+	font-size: .6rem;
+	line-height: 1.2rem;
+	display: block;
+}
+
+.m-hot-dui .dui-tit{
+	height: 1.78rem;
+	line-height: 1.78rem;
+	padding-left: .5rem;
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+.m-hot-dui .dui-item{
+	padding: .5rem;
+	background: #fff;
+}
+
+.m-hot-dui .dui-item .good-info{
+	padding-left: .5rem;
+}
+
+.m-hot-dui .dui-item .good-img{
+	display: block;
+	width: 3.4rem;
+	height: 3.4rem;
+}
+
+.m-hot-dui .dui-item .good-name{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	font-size: @f_size3;
+	color: @f_color1;
+	line-height: .9rem;
+}
+
+.m-hot-dui .dui-item .good-score{
+	font-size: @f_size4;
+	color: @f_color2;
+	margin-top: .7rem;
+}
+
+.m-hot-dui .dui-item .good-score em{
+	font-size: @f_size2;
+	color: @f_colortheme;
+}
+
+.m-hot-dui .dui-item .has-ex{
+	color: @f_color3!important;
+	font-size: @f_size3!important;
+}

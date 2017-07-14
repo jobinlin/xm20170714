@@ -1,0 +1,74 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_open_time ($open_time) {
+		return $open_time ? $open_time : '未设置';
+	}
+	
+	function get_location_qq ($location_qq) {
+		return $location_qq ? $location_qq : '未设置';
+	}
+	function shipping_url($dist_id) {
+		$str = '配送点管理';
+		$str = "<a href='".u("DistributionShipping/index",array("dist_id"=>$dist_id))."'>".$str."</a>";
+		return $str;
+	}
+	function disable_status ($disabled, $distribution) {
+		$disableds = array(
+			0 => '正常',
+			1 => '禁用'
+		);
+		$label = '<a href="javascript:void(0);" class="switch_disable" data-id="'.$distribution["id"].'" rel="'.$disabled.'">';
+		$label .= $disableds[$disabled];
+		$label .= '</a>';
+		return $label;
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="location.href='__APP__?m=Distribution&a=add'" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		名称：<input type="text" class="textbox" name="name" value="{:strim($_REQUEST['name'])}" />		
+		<input type="hidden" value="Distribution" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="distribution" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:驿站名称:edit,contact:联系人,tel:手机号码,address:详细地址,money|format_price:帐户余额,service_total_money|format_price:累积收入,unfee|format_price:未结算余额,disabled|disable_status=$distribution:状态" 
+	actionlist="edit:{%EDIT}, del:{%DEL},id|shipping_url" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<script>
+	var statusStr = ['正常', '禁用'];
+	$('.switch_disable').bind('click', function() {
+		var that = this;
+		var id = $(that).attr('data-id');
+		var rel = $(that).attr('rel');
+		var param = {'id':id};
+		$.get("{:u("Distribution/disable")}",param,function(data){
+	        if (data.status) {
+	        	var newrel = rel ^= 1;
+	        	$(that).attr('rel', newrel);
+	        	$(that).html(statusStr[newrel]);
+	        }
+	    },"json");
+	})
+</script>
+<include file="Public:footer" />

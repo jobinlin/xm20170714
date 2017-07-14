@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	var share_url='{$wx_share_url}';
+	var share_title='{$share_title}';
+	var share_content='{$share_content}';
+	var imgUrl = '{$share_img}';
+	{if $is_weixin && $signPackage.appId}
+	var appId = '{$signPackage.appId}';
+	var timestamp = '{$signPackage.timestamp}';
+	var nonceStr = '{$signPackage.nonceStr}';
+	var signature = '{$signPackage.signature}';
+	
+
+	var page_title = '{$data.page_title}';	
+
+
+	{/if}
+</script>
+
+{if $is_weixin && $signPackage.appId}
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{/if}
+

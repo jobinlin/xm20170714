@@ -1,0 +1,19 @@
+{if $app_index eq 'app'}
+<header class="bar bar-nav b-line">
+  <!--  {if $page_finsh}
+		<a class="iconfont header-btn header-left" href="javascript:App.page_finsh();" >&#xe604;</a>
+    {else}
+	   	<a class="header-btn header-left iconfont {if $address_id gt 0}back{else}j-sure-cancel {/if} " data-transition='slide-out'>&#xe604;</a>
+	   	{if $data.invoice_notice}<a href="" class="header-txt header-right j-open-invoice-popup">发票需知</a>{/if}
+    {/if}
+-->
+	<a class="header-btn header-left iconfont {if $address_id gt 0}back{else}j-sure-cancel {/if} " data-transition='slide-out'>&#xe604;</a>
+	<h1 class="header-title">确认订单</h1>
+</header>
+{else}
+<header class="bar bar-nav b-line">
+	<a class="header-btn header-left iconfont {if $address_id gt 0}back{else}j-sure-cancel {/if} " data-transition='slide-out'>&#xe604;</a>
+	<h1 class="header-title">确认订单</h1>
+	{if $data.invoice_notice}<a href="" class="header-txt header-right j-open-invoice-popup">发票需知</a>{/if}
+</header>
+{/if}

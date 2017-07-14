@@ -1,0 +1,87 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_center">
+	{include file="style5.2/inc/biz_nav.html"}
+	<div class="content">
+		<div class="biz-center-hd flex-box">
+			<a href="{url a="biz" r="info_setting"}" class="to-setting"><i class="iconfont">&#xe8ba;</i></a>
+			<div class="user-info flex-1">
+				<div class="user-avatar"><img src="{$item.preview}" alt=""></div>
+				<p class="user-name">{$item.mobile}</p>
+			</div>
+		</div>
+		<ul class="biz-center-list">
+			<li class="b-line">
+				<a href="{url a="biz" r="money_index"}" class="flex-box">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#icon-yue1"></use>
+					</svg>
+					<p class="flex-1">余额</p>
+					<p class="num">{$item.money}</p>
+				</a>
+			</li>
+			<li class="b-line">
+				<a class="flex-box" href="{url a="biz" r="location"}">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#icon-fahuomendian"></use>
+					</svg>
+					<p class="flex-1">发货门店</p>
+					{if $item.location_count gt 0}
+					<p class="list-tip">{$item.location_count}家门店</p>
+					<i class="iconfont">&#xe607;</i>
+					{else}
+					<p class="list-tip">暂无</p>
+					{/if}
+				</a>
+			</li>
+			<li class="flex-box b-line">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-shanghumingcheng"></use>
+				</svg>
+				<p class="flex-1">商户名称</p>
+				<p class="list-tip">{$item.name}</p>
+			</li>
+			<li class="flex-box b-line">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-dailishang"></use>
+				</svg>
+				<p class="flex-1">代理商</p>
+				<p class="list-tip">{$item.agency_name}</p>
+			</li>
+			<li class="flex-box b-line">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-tuikuanshenhe"></use>
+				</svg>
+				<p class="flex-1">退款审核</p>
+				{if $item.allow_refund eq 1}
+				<p class="list-tip">平台/商家</p>
+				{else}
+				<p class="list-tip">平台</p>
+				{/if}
+			</li>
+			<li class="flex-box b-line">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-shangpinfabushenhe"></use>
+				</svg>
+				<p class="flex-1">商品发布审核</p>
+				{if $item.allow_publish_verify eq 1}
+				<p class="list-tip">自动（结算费率{$item.publish_verify_balance}）/人工审核  </p>
+				{else}
+				<p class="list-tip">人工审核 </p>
+				{/if}
+			</li>
+			{if $item['open_xn_talk']}
+			<li class="b-line">
+				<a class="flex-box" href="{url a="biz" r="xn_talk"}">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-shangpinfabushenhe"></use>
+				</svg>
+				<p class="flex-1">查看小能帐户信息</p>
+				<i class="iconfont">&#xe607;</i>
+				</a>
+			</li>
+			{/if}
+		</ul>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

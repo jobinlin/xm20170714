@@ -1,0 +1,26 @@
+{if $app_index=='app'}
+{else}
+<div class="flippedout ">
+<!-- 导航下拉开始 -->
+	<div class="m-nav-dropdown">
+		<div class="nav-dropdown-con">
+			<div class="flex-box func-list">
+				<div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+			</div>
+			{include file="style5.2/inc/module/dropdown-navlist.html"}
+		</div>
+	</div>
+<!-- 导航下拉结束 -->
+	<div class="close-flippedout j-flippedout-close">
+		<i class="iconfont">&#xe635;</i>
+	</div>
+</div>
+<header class="bar bar-nav b-line">
+	<a class="button button-link button-nav pull-left back" href="">
+		<span class="iconfont">&#xe604;</span>
+	</a>
+	<h1 class="title">{$data.page_title}</h1>
+	<a href="javascript:void(0);" class="pull-right share-icon iconfont j-opendropdowm">&#xe624;</a>
+</header>
+<!-- 弹出层 -->
+{/if}

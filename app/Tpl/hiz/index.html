@@ -1,0 +1,123 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/index.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/echarts.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/index.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/index.js";
+?>
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<script type="text/javascript">
+{foreach from=$days item=day key=k}
+var day{$k}=["{$day.ctime}", "{$day.count_id}", "{$day.count_fx}"];
+{/foreach}
+</script>
+<div class="content">
+	<div class="index-hd">
+		<div class="f_l last-data">
+			<div class="wrap">
+				<div class="f_l data-name"><p>昨日数据</p></div>
+				<div class="f_l data-name review"><p>待审事项</p></div>
+				<div class="order-data f_l">
+					<a href="{url x="hiz" r="deal_order#self_order"}" class="data-info transition">
+						<p class="num">{$data.dist_order_count}</p>
+						<p class="data-tit">驿站订单</p>
+					</a>
+				</div>
+				<div class="order-data f_l">
+					<a href="{url x="hiz" r="deal_order#shop_order"}" class="data-info transition">
+						<p class="num">{$data.shop_order_count}</p>
+						<p class="data-tit">商城订单</p>
+					</a>
+				</div>
+				<div class="order-data f_l">
+					<a href="{url x="hiz" r="deal_order#tuan_order"}" class="data-info transition">
+						<p class="num">{$data.tuan_order_count}</p>
+						<p class="data-tit">团购订单</p>
+					</a>
+				</div>
+				<div class="review-data f_l">
+					<div class="data-info">
+						<a href="{url x="hiz" r="supplier#publish_supplier"}" class="review-item transition">
+							<p class="data-tit f_l">待审商家</p>
+							<p class="num f_r">{$data.l_sub_count}<span>家</span></p>
+						</a>
+						<div class="blank20"></div>
+						<a href="{url x="hiz" r="distribution#authList"}" class="review-item transition">
+							<p class="data-tit f_l">待审驿站</p>
+							<p class="num f_r">{$data.dist_sub_count}<span>个</span></p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="f_r quick-menu">
+			<div class="menu">
+				<p class="menu-tit">快捷菜单</p>
+				<a href="{url x="hiz" r="supplier#publish"}" class="menu-btn transition">新增商家</a>
+				<div class="blank20"></div>
+				<a href="{url x="hiz" r="distribution#edit"}" class="menu-btn transition" class="transition">新增驿站</a>
+			</div>
+		</div>
+	</div>
+	<div class="index-md">
+		<div class="data-tit f_l" style="width: 68%;">
+			<p>数据统计<span>（图表展示近7天数据）</span></p>
+		</div>
+		<div class="data-tit f_l" style="width: 32%;">
+			<p>{$hiz_account_info.name}城市<span>（目前数据汇总）</span></p>
+		</div>
+		<div class="index-canvas f_l" id="index-canvas"></div>
+		<div class="data-count f_l">
+			<ul class="data-list clearfix">
+				<li>
+					<a href="{url x="hiz" r="user#user_list"}" class="data-info transition huiyuan">
+						<p class="num">{$data.user_count}</p>
+						<p class="data-name">会员数量</p>
+					</a>
+				</li>
+				<li>
+					<a href="{url x="hiz" r="fx#fx_list"}" class="data-info transition wangbao">
+						<p class="num">{$data.fx_count}</p>
+						<p class="data-name">网宝数量</p>
+					</a>
+				</li>
+				<li>
+					<a href="{url x="hiz" r="distribution#index"}" class="data-info transition yizhan">
+						<p class="num">{$data.dist_count}</p>
+						<p class="data-name">驿站数量</p>
+					</a>
+				</li>
+				<li>
+					<a href="{url x="hiz" r="supplier#index"}" class="data-info transition shangjia">
+						<p class="num">{$data.location_count}</p>
+						<p class="data-name">商家数量</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="index-bd">
+		<p class="data-name">账户信息</p>
+		<ul class="user-info-list">
+			<li>管理员账号：{$data.hiz_info.account_name}</li>
+			<li>最后登录时间：{$data.hiz_info.login_time}</li>
+			<li>最后登录IP：{$data.hiz_info.login_ip}</li>
+			<li>登录次数：{$data.hiz_info.login_count}</li>
+			<li>{$data.version}</li>
+		</ul>
+	</div>
+</div>
+{include file="inc/footer.html"}

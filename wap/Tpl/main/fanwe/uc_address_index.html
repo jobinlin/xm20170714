@@ -1,0 +1,82 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script type="text/javascript">
+	var is_region_lv1_reset = '1';
+</script>	
+<div class="page page-index" {if !$check}id="uc_address_index"{else}id="order_address"{/if}>
+	<script>
+	var set_default_url="{url i="index" r="uc_address#set_default"}";
+	</script>
+	{include file="style5.2/inc/auto_header.html"}
+	<nav class="bar bar-tab u-add-address">
+		<a class="tab-item load_page2"   href="javascript:void(0);" js_url='{$tmpl_path}js/load/address_add.js' url="{$data.add_url}">
+			<span class="tab-label"><i class="iconfont">&#xe62e;</i>添加新地址</span>
+		</a>
+	</nav>
+
+
+	<div class="content">
+		<!-- 页面主体 -->
+		{if $data.is_pick eq 1 && $data.location}
+			{if $data.location}
+			<div class="list-hd">自提门店</div>
+			{/if}
+			<div class="m-pick-shop-list">		
+				<ul class="pick-shop-list">
+					{foreach from=$data.location item=location name="location"}
+					<li class="t-line pick_address" url="{$location.carturl}" >
+						{if $location.name}<p class="shop-name">{$location.name}</p>{/if}
+						{if $location.address}<p class="shop-address">地址：{$location.address}</p>{/if}
+						{if $location.tel}<p class="shop-phone">电话：{$location.tel}</p>{/if}
+					</li>
+					{/foreach}
+				</ul>
+				{if $data.location_count gt 2}
+				<div class="check-more t-line">查看更多<i class="iconfont">&#xe608;</i></div>
+				<div class="check-back t-line">收起<i class="iconfont">&#xe606;</i></div>
+				{/if}
+			</div>
+			{if $data.consignee_list}
+			<div class="list-hd">收货地址</div>
+			{/if}
+		{/if}
+		
+		
+		<div class="list-block">
+			<ul class="m-address-list" is_default="{$data.is_default}">
+				{foreach from=$data.consignee_list item=consignee name="consignee"}
+				<li>
+					<div class="item-content m-address-top {if $check}address{/if}" {if $check}data-id="{$consignee.id}" url="{$consignee.carturl}"{/if}>
+						<div class="item-inner u-address-title">
+							<div class="item-title">{$consignee.consignee}</div>
+							<div class="item-after">{$consignee.mobile}</div>
+						</div>
+					</div>
+					<div class="item-content m-address-body b-line {if $check}address{/if}" {if $check}data-id="{$consignee.id}" url="{$consignee.carturl}"{/if}>
+						<div class="item-inner">
+							<div class="item-text u-address-mess">{$consignee.full_address}</div>
+						</div>
+					</div>
+					<div class="item-content m-address-bottom j-address-set">
+						<label class="label-checkbox j-select-title">
+							<input {if $consignee.is_default eq 1}checked="true"{/if} type="radio" name="my-radio" dfurl="{$consignee.dfurl}">
+							<div class="item-media">
+								<i class="icon icon-form-checkbox"></i>
+								<div class="item-title u-set-default {if $consignee.is_default eq 1}j-address-color{/if}">设为默认</div>
+							</div>
+						</label>
+						<div class="item-inner u-address-edit j-address-color">
+							<div class="item-title-row"></div>
+							<div class="item-after">
+								<a href="javascript:void(0);" js_url='{$tmpl_path}js/load/address_add.js' url="{$consignee.url}" class="u-address-opra load_page2"><i class="iconfont">&#xe600;</i>编辑</a>
+								<span class="u-address-opra confirm-address" del_url="{$consignee.del_url}" data-id="{$consignee.id}"><i class="iconfont">&#xe601;</i>删除</span>
+							</div>
+						</div>
+					</div>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

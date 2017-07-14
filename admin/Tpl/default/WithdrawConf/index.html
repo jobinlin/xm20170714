@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/fx_salary.js' />
+<div class="main">
+<div class="main_title">{$title_name}</div>
+<div class="blank5"></div>
+<div class="button_row">
+<script>
+$(function(){
+});
+</script>
+</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">分销佣金提现审核:</td>
+		<td class="item_input">
+			<select name="FX_AUTO_WITHDRAW">
+				<option value="1" <if condition="$fx_auto_withdraw eq 1">selected="selected"</if>>自动审核</option>
+				<option value="0" <if condition="$fx_auto_withdraw eq 0">selected="selected"</if>>人工审核</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">分销佣金提现手续费率:</td>
+		<td class="item_input">
+			<input type="text" class="textbox pricebox" name="FX_WITHDRAW_RATE" value="{$fx_withdraw_rate}">&nbsp;
+			<span class="ref_salary_unit">‰（可输入数值区间：0.01 - 1000）</span>
+			<p style="color:#999999;font-size:13px">分销员将分销佣金提现至余额、银行卡时，平台收取千分之 x 作为手续费</p>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">分销佣金提现周期:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="FX_WITHDRAW_CYCLE" value="{$fx_withdraw_cycle}">&nbsp;
+			<span class="ref_salary_unit">天</span>
+			<p style="color:#999999;font-size:13px">分销员获得的佣金，在订单结束后 n 天才可提现</p>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">商户提现周期:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="SUPPLIER_WITHDRAW_CYCLE" value="{$supplier_withdraw_cycle}">&nbsp;
+			<span class="ref_salary_unit">天</span>
+			<p style="color:#999999;font-size:13px">订单金额结算给商户 n 天后才可提现</p>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="WithdrawConf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="withdraw_conf_save" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

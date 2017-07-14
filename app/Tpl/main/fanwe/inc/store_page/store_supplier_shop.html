@@ -1,0 +1,47 @@
+{if $supplier_data_list}
+<div class="data_list">
+	<ul class="tuan_list clearfix">
+		{foreach name="supplier_data_list" from=$supplier_data_list item=data key=key}
+		{if ($is_more eq 1 and $key gt $page_size) or $is_more eq 0}
+		<li class="clearfix {if $is_more eq 1}ajax_shop_add{/if}">
+			<div class="tuan_item tuan_item_border">
+				<div class="tuan_img">
+					<div class="tags">
+					{foreach from=$data.deal_tags item=tag}
+					<h2 class="tag{$tag}"></h2>
+					{/foreach}
+					{if $data.buyin_app eq 1}
+					<h2 class="tag_buyinapp"></h2>
+					{/if}
+					</div>
+					<a href="{$deal.url}" class="img"><img lazy="true" src="{function name="get_spec_image" v=$data.icon w=300 h=300 g=1}" /></a>
+					{if $data.brief}
+					<a href="{$deal.url}" class="quan">
+					{$data.brief}
+					</a>
+					{/if}
+				</div><!--团购图片-->
+				<div class="tuan_brief">
+					<a href="{$deal.url}">
+					{$data.name}
+					</a>
+				</div>
+				<div class="tuan_price">
+					<span class="current_price"><i>&yen;</i>{function name="round" v=$data.current_price l=2}</span>
+				</div>
+			</div>
+		</li>
+		{/if}
+		{/foreach}
+	</ul>
+	{if $total gt $page_size}
+		<a href="javascript:void(0);" class="check-more more-shop" url='{url x="index" r="ajax#store_load_supplier_shop"}'>
+
+			查看更多
+			<i class="iconfont">&#xe647;</i>
+		</a>
+		<input type="hidden" name="store_id" value="{$store_id}">
+		<input type="hidden" name="is_more" value="{$is_more}">
+	{/if}
+</div>
+{/if}

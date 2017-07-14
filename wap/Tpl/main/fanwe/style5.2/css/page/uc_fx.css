@@ -1,0 +1,159 @@
+.fx-hd{
+	height: 5.2rem;
+	position: relative;
+	padding: 0 .5rem;
+	background:-webkit-linear-gradient(-45deg, #ff795c, #ff4763);
+	background:linear-gradient(-45deg, #ff795c, #ff4763);
+}
+.fx-hd .user-avatar img{
+	width: 100%;
+}
+.fx-hd .user-info{
+	margin-left: .5rem;
+}
+.fx-hd .user-info .user-name{
+	font-size: .8rem;
+	color:#fff;
+	display: block;
+	line-height: 1rem;
+}
+.fx-hd .user-info .my-reference{
+	line-height: 1rem;
+	color:#fff;
+}
+.fx-hd .fx-money{
+	color:#fff;
+	line-height: 3rem;
+}
+.fx-hd .fx-money .iconfont{
+	color:#fff;
+	font-size: 1rem;
+	display: inline-block;
+	vertical-align: top;
+}
+.fx-tab{
+	background: #fff;
+	height: 2.2rem;
+	line-height: 1.6rem;
+}
+.fx-tab a{
+	display: block;
+	text-align: center;
+}
+.fx-list{
+	margin-top: .5rem;
+}
+.fx-list li{
+	margin-bottom: .5rem;
+	background:#fff;
+	padding: 0;
+	height: 5rem;
+}
+.fx-list li:last-child{
+	margin-bottom: 0;
+}
+.fx-list .fx-img{
+	padding-left:.5rem;
+	width:4.5rem;
+	height: 4rem;
+	display: block;
+}
+.fx-list .fx-img img{
+	width: 100%;
+	height: 100%;
+}
+.fx-list .fx-info{
+	width:50%;
+	margin-left:0;
+	line-height: 1rem;
+}
+.fx-list .fx-link{
+	display: block;
+	padding:.1rem .5rem;
+}
+.fx-list .goods-name{
+	font-size: @f_size2;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.fx-list .fx-num{
+	font-size: @f_size4;
+}
+.fx-list .fx-num span{
+	color:#ff2244;
+}
+
+.fx-list .goods-num{
+	color:@f_color3;
+	font-size: @f_size4;
+}
+.fx-list .fx-btn{
+	display: block;
+	margin:0 1rem;
+	border-radius: 3px;
+	border:1px solid @themecolor;
+	text-align: center;
+	line-height: 1.2rem;
+	margin-top: .5rem;
+	color:@themecolor;
+}
+.fx-list .share{
+	background:@themecolor;
+	color:#fff;
+}
+.fx-list .cancle-fx{
+	background:#ddd;
+	color:#fff;
+	border-color:#ddd;
+}
+
+.user-avatar{
+	position: relative;
+	padding: 0 .25rem;
+}
+
+.user-avatar .avatar{
+	display: block;
+	width: 2.55rem;
+	height: 2.55rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.user-avatar .avatar img{
+	width: 100%;
+	border-radius: 50%;
+	border: 2px solid rgba(255,255,255,.3);
+}
+
+.user-avatar .vip-info{
+	display: block;
+	width: auto;
+	line-height: 0.75rem;
+	background: rgba(0,0,0,.5);
+	border-radius: 0.35rem;
+	padding-left: .65rem;
+	padding-right: 0.5rem;
+	position: relative;
+	color: #ffffff;
+	font-size: .45rem;
+}
+
+.user-avatar .vip-info em{
+	font-size: @f_size3;
+}
+
+.user-avatar .vip-icon{
+	position: absolute;
+	left: -0.2rem;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+	width: 0.9rem;
+	height: 0.9rem;
+	border-radius: 50%;
+	border: 2px solid rgba(0,0,0,.3);
+	border-right: 2px solid rgba(0,0,0,0);
+}
+

@@ -1,0 +1,143 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script type="text/javascript">
+    var order_url='{url ="index" r="uc_order"}';
+</script>
+<style type="text/css">
+    #uc_logistic .buttons-tab .button.active {
+        border-bottom: medium none;
+        color: #353d44;
+    }
+    .buttons-tab .button.active {
+        border-color: #0894ec;
+        color: #0894ec;
+        z-index: 100;
+    }
+</style>
+<div class="page page-index" id="biz_shop_order_logistics">
+    {include file="style5.2/inc/biz_header.html"}
+    {if $data.delivery_count gt 1}
+    <div class="buttons-tab">
+        {if $data.no_delivery_item}
+        <?php for($i=1 ; $i<$this->_var['data']['delivery_count']; $i++){ ?>
+        <span class="tab-link active button"><span>包裹<?php echo $i; ?></span></span>
+        <?php } ?>
+        <span class="tab-link button no_delivery_deal"><span>无需配送</span></span>
+        {else}
+        <?php for($i=1 ; $i<=$this->_var['data']['delivery_count']; $i++){ ?>
+        <span class="tab-link active button"><span>包裹<?php echo $i; ?></span></span>
+        <?php } ?>
+        {/if}
+        <span class="bottom_line"></span>
+    </div>
+    {/if}
+    <!--<nav class="bar bar-tab">-->
+        <!--<input type="button" class="indent_btn confirm_order" value="确认收货">-->
+    <!--</nav>-->
+    <div class="content" style="{if $data.delivery_count gt 1}top: 4.2rem;{/if}background: #fff;bottom: 0rem">
+        {if $data.delivery_notice || $data.no_delivery_item}
+        <div class="tabBox">
+
+            {foreach from=$data.delivery_notice item=delivery_notice key=key}
+            <div class="tab_box {if $key eq 0}active{/if}"  data_id="{$delivery_notice.id}" is_arrival="{$delivery_notice.is_arrival}" status="{$delivery_notice.now_status}">
+                <div class="list-block m-cart">
+                    <div class="logistics">
+                        <h3 class="log_ti">物流状态：<span class="tran_state">{$delivery_notice.state_text}</span></h3>
+                        <div class="order_id">
+                            <p>承运来源：{$delivery_notice.express_company}</p>
+                            <p>快递单号：{$delivery_notice.notice_sn}</p>
+                            <p>订单编号：{$delivery_notice.order_sn}</p>
+                            {if $delivery_notice.memo}
+                            <p>商家备注：{$delivery_notice.memo}</p>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="m-conBox m-check-order m-modify">
+                        {if $delivery_notice.deal_info}
+                        <ul class="m-cart-list j-select-body">
+                            {foreach from=$delivery_notice.deal_info item=deal}
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-media shopImg">
+                                        <img src="{$deal.deal_icon}">
+                                    </div>
+                                    <div class="z-opera z-opera-sure">
+                                        <div class="item-subtitle shopTi">
+                                            <a data-no-cache="true" href="{url i="index" r="deal" g="data_id=$deal.deal_id"}">{$deal.name}</a>
+                                            {if $deal.attr_str} <p class="sizes">规格： {$deal.attr_str}</p>{/if}
+                                        </div>
+                                        <div class="shop_price tr">
+                                            <p class="u-sm-price">{$deal.unit_price_format}</p>
+                                            <p class="shop-count">x<i>{$deal.number}</i></p>
+
+                                        </div>
+
+                                    </div>
+                                    <p class="shop_state">{$deal.deal_status}</p>
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                        {/if}
+                    </div>
+                    {if $delivery_notice.track_data}
+                    <div class="trans_list">
+                        <ul class="tans_ul">
+                            {foreach from=$delivery_notice.track_data item=track}
+                            <li class="active b-line">
+                                <span class="circle"></span>
+                                <p class="tran_info">{$track.context}</p>
+                                <p class="tran_time">{$track.time}</p>
+                            </li>
+                            {/foreach}
+                        </ul>
+                        <span class="ver_line"></span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            {/foreach}
+            {if $data.no_delivery_item}
+            <div class="tab_box {if !$data.delivery_notice}active{/if} no_delivery">
+                <div class="list-block m-cart">
+                    <div class="m-conBox m-check-order m-modify">
+                        <ul class="m-cart-list j-select-body">
+                            {foreach from=$data.no_delivery_item item=no_delivery}
+                            <li class="item-content b-line">
+                                <div class="checkDiv">
+                                    <!--<label class="label_check">-->
+                                        <!--<input type="checkbox" name="my-radio" data_id="{$no_delivery.id}" {if $no_delivery.is_use eq 0}disabled="disabled"{/if}>-->
+                                        <!--<div class="iconBox" {if $no_delivery.is_use eq 0}style="background-color:#dadada"{/if}></div>-->
+                                <!--</label>-->
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-media shopImg">
+                            <img src="{$no_delivery.deal_icon}">
+                        </div>
+
+                        <div class="z-opera z-opera-sure">
+                            <div class="item-subtitle shopTi">
+                                <a data-no-cache="true" href="{url i="index" r="deal" g="data_id=$no_delivery.deal_id"}">{$no_delivery.name}</a>
+                                <p class="sizes">{if $no_delivery.attr_str}规格：{$no_delivery.attr_str}{/if}</p>
+                            </div>
+                            <div class="shop_price tr">
+                                <p class="u-sm-price">{$no_delivery.unit_price_format}</p>
+                                <p class="shop-count">x<i>{$no_delivery.number}</i></p>
+                            </div>
+                        </div>
+                        <span class="shop_state">{$no_delivery.info}</span>
+                    </div>
+                    </li>
+                    {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {/if}
+    </div>
+    {/if}
+</div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}

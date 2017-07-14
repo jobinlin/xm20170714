@@ -1,0 +1,126 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/detail.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/form.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/echarts.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/supplier_publish.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/supplier_publish.js";
+?>
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={function name="app_conf" v="BAIDU_MAP_APPKEY"}"></script> 
+<script type="text/javascript" src="{$TMPL}/js/utils/map.js"></script> 
+<script>
+var ajax_url = '{$ajax_url}';
+var blue_point = "{$APP_ROOT}/system/blue_point.png";
+var red_point = "{$APP_ROOT}/system/red_point.png";
+var key ="<?php echo app_conf("BAIDU_MAP_APPKEY"); ?>";
+var area_item=0;
+</script>
+<div class="header-map">
+	<a class="transition" href="{url r="hiz" b="index"}">首页</a> / <a class="transition" href="{url r="hiz" b="location#publish_location"}">待审核门店列表</a> / <span>待审核门店详情</span>
+	<a href="{url r="hiz" b="location#publish_location"}" class="header-back">返回</a>
+</div>
+<div class="content">
+	<div class="detail-hd">基本信息</div>
+	<div class="detail-bd">
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">商户名称：</p>
+			<p class="detail-info f_l">{$info.s_name}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">门店名称：</p>
+			<p class="detail-info f_l">{$info.name}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">标签：</p>
+			<p class="detail-info f_l">{if $info.tags}{$info.tags}{$info.account_name}{else}--{/if}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">外卖设置：</p>
+			<p class="detail-info f_l">{if $info.is_dc}支持外卖{else}不支持外卖{/if}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">地区列表：</p>
+			<ul class="detail-list f_l">
+				<li>{$info.area_name}</li>
+			</ul>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">商家分类：</p>
+			<p class="detail-info f_l">{$info.cate_name}</p>
+		</div>
+	</div>
+	<div class="detail-hd">店铺信息</div>
+	<div class="detail-bd">
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">LOGO：</p>
+			<div class="detail-logo f_l"><img src="{$info.preview}" alt=""></div>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">门店图片：</p>
+			<div class="detail-logo f_l">{foreach from=$info.supplier_location_images item=item}<img src="{$item}" class="f_l" alt="">{/foreach}</div>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">地址：</p>
+			<p class="detail-info f_l">{$info.address}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">地址定位：</p>
+			<div class="map-wrap" id="container" style="margin-left:0px;margin-top:10px;"></div>
+			<input type="hidden" name="xpoint" value="{$info.xpoint}"/>
+			<input type="hidden" name="ypoint" value="{$info.ypoint}"/>
+		</div>
+	</div>
+	<div class="detail-hd">其他信息</div>
+	<div class="detail-bd">
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">交通路线：</p>
+			<p class="detail-info f_l">{if $info.route}{$info.route}{else}--{/if}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">联系人：</p>
+			<p class="detail-info f_l">{$info.contact}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">联系电话：</p>
+			<p class="detail-info f_l">{$info.tel}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">营业时间：</p>
+			<p class="detail-info f_l">{$info.open_time}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">部门简介：</p>
+			<p class="detail-info f_l">{$info.brief}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">手机端简介：</p>
+			<p class="detail-info f_l">{$info.mobile_brief}</p>
+		</div>
+	</div>
+	<div class="detail-hd">审核信息</div>
+	<div class="detail-bd">
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">审核状态：</p>
+			<p class="detail-info f_l">{$info.status}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">审核备注：</p>
+			<p class="detail-info f_l">{if $info.memo}{$info.memo}{else}无{/if}</p>
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

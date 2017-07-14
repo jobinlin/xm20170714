@@ -1,0 +1,36 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="biz_msg_index">
+	{include file="style5.2/inc/biz_header.html"}
+	<div class="content biz_msg_change">
+		<div class="m-msg-con">
+			<a href="{if $msg.order.url}{$msg.order.url}{else}javascript:void(0);{/if}" class="msg-type b-line flex-box  vshow" data-no-cache="true">
+				<div class="msg-num">
+					<i class="type-icon iconfont icon-1">&#xe66d;</i>
+					{if $msg.order.unread gt 0}<em>{if $msg.order.unread gt 9}9+{else}{$msg.order.unread}{/if}</em>{/if}
+				</div>
+				<div class="flex-1 msg-type-con">
+					<div class="lab-date">
+						<em>订单消息</em>
+						<em class="date">{$msg.order.create_time}</em>
+					</div>
+					<div class="msg-con ">{if $msg.order}{if $msg.order.title}{$msg.order.title}! {/if}{$msg.order.content}{else}暂无消息{/if}</div>
+				</div>
+			</a>
+			<a href="{if $msg.account.url}{$msg.account.url}{else}javascript:void(0);{/if}" class="msg-type flex-box b-line vshow" data-no-cache="true">
+				<div class="msg-num">
+					<i class="type-icon iconfont icon-3">&#xe66e;</i>
+					{if $msg.account.unread gt 0}<em>{if $msg.account.unread gt 9}9+{else}{$msg.account.unread}{/if}</em>{/if}
+				</div>
+				<div class="flex-1 msg-type-con">
+					<div class="lab-date">
+						<em>资产消息</em>
+						<em class="date">{$msg.account.create_time}</em>
+					</div>
+					<div class="msg-con ">{if $msg.account}{if $msg.account.title}{$msg.account.title}! {/if}{$msg.account.content}{else}暂无消息{/if}</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,333 @@
+#uc_logistic .m-cart{
+    margin-bottom: 0.5rem!important;
+}
+#uc_logistic .bar-tab.line-white::before{
+	background:#fff;
+}
+#uc_logistic .buttons-tab .tab-link{
+    font-size: @f_size3;
+    color: @f_color3;
+}
+#uc_logistic .buttons-tab .button.active{
+    color: @f_color1;
+    border-bottom: none;
+}
+#uc_logistic .buttons-tab .bottom_line{
+    display: block;
+    height: 0.1rem;
+    background: @themecolor;
+    position: absolute;
+    bottom: 1px;
+    border-top-right-radius: 0.1rem;
+    border-top-left-radius: 0.1rem;
+    transition: left 0.3s;
+}
+#uc_logistic .buttons-tab{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2.2rem;
+    background: #ffffff;
+    z-index: 10;
+}
+#uc_logistic .tab_box{
+    display: none;
+}
+#uc_logistic .tabBox .active{
+    display: block;
+}
+#uc_logistic .m-cart-list li{
+    background: #f7f8f8;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#uc_logistic .m-cart-list .goods-tip{
+    padding-top: .5rem;
+    line-height: 1rem;
+    font-size:.6rem;
+    color:@f_color3;
+}
+/* #uc_logistic .m-cart-list li:after{
+    background: #ffffff;
+    height: 4px;
+} */
+
+#uc_logistic .m-modify{
+    background: #f7f8f8;
+    margin-bottom: 0;
+}
+#uc_logistic .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+
+#uc_logistic .orderId{
+    width: 100%;
+    height: 2.215rem;
+    line-height: 2.215rem;
+    overflow: hidden;
+    padding-left: 0.5rem;
+    background: #ffffff;
+}
+#uc_logistic .orderId .order_id{
+    width: 100%;
+    height: 100%;
+}
+#uc_logistic .order_id p{
+    font-size: @f_size3;
+    color: @f_color3;
+    line-height: 1.25rem;
+}
+#uc_logistic .order_id .order_state{
+    display: block;
+    width: auto;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    font-size: @f_size2;
+    color: @f_colortheme;
+}
+#uc_logistic .m-conBox .m-title  .u-icon{
+    vertical-align: middle;
+    font-size: 0.8rem;
+}
+
+
+
+#uc_logistic .shopBox{
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0;
+    background: #f7f8f8;;
+}
+#uc_logistic .shopBox .shopShow{
+    width: 3.6rem;
+    height: 3.6rem;
+    margin-left: 0.3rem;
+}
+#uc_logistic .shopBox .swiper-wrapper {
+}
+#uc_logistic .shopImg{
+    width: 3.6rem;
+    height: 3.6rem;
+    position: relative;
+    border: 1px solid #e6e5e9;
+    border-radius: 2px;
+    padding: 2px;
+    background: #ffffff;
+}
+#uc_logistic .shopImg img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+#uc_logistic .shopImg p.shop_num{
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    right: -0.25rem;
+    bottom: -0.1rem;
+    background: @themecolor;
+    font-size: 0.5rem;
+    color: #ffffff;
+    line-height: 0.7rem;
+    z-index: 5;
+}
+
+#uc_logistic .order_total{
+    width: 100%;
+    background: #ffffff;
+    padding-left: 0.5rem;
+}
+#uc_logistic .order_total .order_dt{
+    width: 100%;
+    height: 2.125rem;
+    line-height: 2.125rem;
+    font-size: @f_size3;
+    padding-right: 0.5rem;
+    overflow: hidden;
+}
+#uc_logistic .order_dt .u-lg-price{
+    line-height: 2.125rem;
+    text-align: right;
+    font-size: @f_size3;
+}
+#uc_logistic .order_bt{
+    font-size: 0;
+}
+#uc_logistic .order_bt a{
+    display: inline-block;
+    float: right;
+}
+#uc_logistic .order_dt .btn{
+    padding: 0 0.5rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    height: 1.4rem;
+    line-height: 1.35rem;
+    margin: 0.36rem 0 0.3rem 0.35rem;
+    font-size: @f_size3;
+    color: @f_color1;
+}
+#uc_logistic .order_dt .go_pay{
+    background: @themecolor;
+    color: #ffffff;
+    border: none;
+}
+#uc_logistic .order_dt .confirm,.order_dt .firm_load,.order_dt .go_coupon{
+    border-color: @themecolor;
+    color: @f_colortheme;
+}
+
+#uc_logistic .m-cart-list .shopTi p.sizes {
+    margin-top: 0.7rem;
+}
+#uc_logistic .logistics{
+    width: 100%;
+    padding: 0.3rem 0.5rem;
+}
+#uc_logistic .logistics .log_ti{
+    color: @f_color1;
+    line-height: 1.4rem;
+}
+#uc_logistic .logistics .log_ti .tran_state{
+    font-size: @f_size2;
+    color: #0cb110;
+}
+
+#uc_logistic .trans_list{
+    width: 100%;
+    position: relative;
+    margin-top: 0.5rem;
+}
+#uc_logistic .trans_list span.ver_line{
+    display: block;
+    width: 0.05rem;
+    height: 108%;
+    background: #e2e2e2;
+    position: absolute;
+    top: 0.65rem;
+    left: 1.05rem;
+}
+#uc_logistic .trans_list .tans_ul{
+    margin-left: 2.22rem;
+}
+#uc_logistic .tans_ul li{
+    position: relative;
+    font-size: @f_size3;
+    color: @f_color3;
+    padding: 0.3rem 0.4rem 0.3rem 0;
+}
+#uc_logistic .tans_ul li span.circle{
+    display: block;
+    width: 0.35rem;
+    height: 0.35rem;
+    background: #e2e2e2;
+    position: absolute;
+    left: -1.3rem;
+    top: 0.62rem;
+    border-radius: 50%;
+    z-index: 3;
+}
+#uc_logistic .tans_ul li.active{
+    color: #0cb110;
+}
+#uc_logistic .tans_ul li.active span.circle{
+    background: #0cb110;
+    width: 0.45rem;
+    height: 0.45rem;
+    border: 0.1rem solid rgba(206,239,207,1);
+    left: -1.35rem;
+}
+
+#uc_logistic .indent_btn{
+    width: 3.85rem;
+    height: 1.35rem;
+    line-height: 1.35rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 0.15rem;
+    color: @f_color1;
+    float: right;
+    margin-right: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+
+
+#uc_logistic .m-modify{
+    margin-bottom: 0;
+}
+#uc_logistic .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+#uc_logistic .m-cart-list li{
+    background: #ffffff;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#uc_logistic .m-cart-list .item-inner{
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-right: 0.5rem;
+}
+/*2.0css标配*/
+
+#uc_logistic .refund-sure{
+    font-size: @f_size3;
+    color: @f_color1;
+    line-height: 2.25rem;
+    position: relative;
+    z-index: 99999;
+}
+#uc_logistic .shop_state{
+    font-size: @f_size3;
+    color: @f_color1;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.6rem;
+}
+#uc_logistic .checkDiv{
+    width: 1rem;
+    margin-right: 0.5rem;
+}
+#uc_logistic .label_check{
+    border-radius: 1rem;
+    margin-top: 0rem;
+    background: #ffffff;
+}
+#uc_logistic .label_check input[type=checkbox]{
+    display: none;
+}
+#uc_logistic .iconBox{
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    border-radius: 1rem;
+    border: 1px solid #e3e5e9;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    background-image: url("@url/static/check_bg.png");
+    background-size: 100% 100%;
+}
+#uc_logistic .label_check input[type=checkbox]:checked+.iconBox{
+    background-color: #ff2244;
+    border: 1px solid #ff2244!important;
+}
+
+#uc_logistic .m-cart-list .shopTi p.sizes {
+    margin-top: 0.6rem;
+}
+
+#uc_logistic .choiceDiv{
+    width: 4rem;
+    padding-top: 0.7rem;
+    padding-left: 0.5rem;
+}
+#uc_logistic .choiceDiv .ch_font{
+    font-size: @f_size3;
+    color: @f_color1;
+    margin-left: 0.3rem;
+}

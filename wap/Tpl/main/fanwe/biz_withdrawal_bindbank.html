@@ -1,0 +1,38 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_withdrawal_bindbank">
+{include file="style5.2/inc/biz_header.html"}
+	<div class="content">
+	 	<div id="withdraw">
+			<form action="{url r="biz" p="withdrawal#do_bindbank"}" method="post" name="add_card">
+			<ul class="address-input">
+				<li class="b-line">
+					<span>卡号</span>
+					<input  name="bank_account" value="{$data.supplier_info.bank_info}" type="number" pattern="[0-9]*" class="ui-textbox" placeholder="请输入银行卡号" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+				</li>
+				<li class="b-line">
+					<span>开户行</span>
+					<input  name="bank_name" value="{$data.supplier_info.bank_name}" class="ui-textbox" placeholder="请输开户行名称" />
+				</li>
+				<li class="b-line">
+					<span>持卡人</span>
+					<input  name="bank_user" value="{$data.supplier_info.bank_user}" class="ui-textbox" placeholder="请输入开户银行真实姓名" />
+				</li>
+				<li class="b-line">
+					<span>验证码</span>
+					<input class="ui-textbox ph_verify" id="sms_verify" name="sms_verify" placeholder="请输入验证码" />
+					<div class="l-line">
+						<input class="btn_phone l-line j-sendBtn isUseful" type="Button"  id="btn" lesstime="{$sms_lesstime}" account="1" value="获取验证码"/>
+					</div>
+				</li>
+				<input type="hidden" id="phonenumer" value="{$data.mobile}" name="bank_mobile"/>
+				<div class="big-btn">
+                    <input type="submit" class="sub btn-con" value="提交">
+				</div>
+			</ul>
+			</form>
+	 	</div>
+	</div>
+	{include file="style5.2/inc/module/sms_verify_code.html"}
+</div>
+{include file="style5.2/inc/footer.html"}

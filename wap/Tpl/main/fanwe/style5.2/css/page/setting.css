@@ -1,0 +1,41 @@
+.m-setting-head{
+	line-height: 2.2rem;
+}
+
+.m-setting-head .head-btn{
+	position: absolute;
+	font-size: 1.1rem;
+}
+
+.m-setting-head .go-back{
+	left: .5rem;
+	padding-right: 1rem;
+}
+
+.m-setting-head .more{
+	right: .5rem;
+	padding-left: 1rem;
+}
+
+.m-setting-con{
+	background: #fff;
+	line-height: @lh;
+	padding-left: @comspacing;
+	margin-bottom: @rowspacing;
+}
+
+.m-setting-con .setting-item{
+	padding-right: .5rem;
+}
+
+.m-setting-con .item-con{
+	text-align: right;
+}
+
+.logout .btn-con{
+	color: @f_colortheme;
+	background: #fff;
+}
+.u_img{
+	width:100%;
+}

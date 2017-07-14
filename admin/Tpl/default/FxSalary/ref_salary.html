@@ -1,0 +1,85 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/fx_salary.js' />
+<div class="main">
+<div class="main_title">{$title_name}</div>
+<div class="blank5"></div>
+<div class="button_row">
+<script>
+$(function(){
+	ref_salary_switch();
+	$('input[name="ref_salary_switch"]').bind('change', function() {
+		ref_salary_switch();
+	})
+	function ref_salary_switch(){
+		if($('input[name="ref_salary_switch"]::checked').val()==1){
+			$(".ref_salary_switch").show();
+		}else{
+			$(".ref_salary_switch").hide();
+		}
+	}
+});
+</script>
+</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<div style="border:1px solid #999999;padding:20px;">
+<label><input name="ref_salary_switch" type="radio" value="1" <if condition="$ref_salary_switch eq 1 ">checked="checked"</if> />开启</label>&nbsp;
+<label><input name="ref_salary_switch" type="radio" value="0" <if condition="$ref_salary_switch eq 0 ">checked="checked"</if> />关闭</label>&nbsp;
+<span class='tip_span'>开启推荐商家入驻三级分销</span>
+	<div style="color: #999999;line-height: 20px;font-size: 13px;">
+		<p style="">分销规则</p>
+		<p style="">1、分销员推荐注册的会员成为商家后，产生的每一笔商品和团购订单，该分销员都可以获得一级佣金抽成</p>
+		<p style="">2、该分销员的推荐人，如果也是分销员，则其可获得二级佣金抽成</p>
+		<p style="">3、分销员的上上级，如果也是分销员，则其可获得三级佣金抽成</p>
+	</div>
+</div>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr class="ref_salary_switch">
+		<td class="item_title">分销限制:</td>
+		<td class="item_input ref_salary_type_box" >
+			<input type="text" class="textbox pricebox" name="ref_salary_limit" value="{$ref_salary_limit}">&nbsp;
+			<span class="ref_salary_unit">元（订单商品总额≥ 输入值时，分销员才可获得分佣，输入值必须大等于10；当佣金低于0.01元时，不返佣）</span>
+		</td>
+	</tr>
+	<tr class="ref_salary_switch">
+		<td class="item_title">一级佣金:</td>
+		<td class="item_input ref_salary_type_box" >
+			<input type="text" class="textbox pricebox" name="ref_salary[]" value="{$ref_salary[0]}">&nbsp;
+			<span class="ref_salary_unit">%（可输入数值区间：0.01 - 100）</span>
+		</td>
+	</tr>
+	<tr class="ref_salary_switch">
+		<td class="item_title">二级佣金:</td>
+		<td class="item_input ref_salary_type_box" >
+			<input type="text" class="textbox pricebox" name="ref_salary[]" value="{$ref_salary[1]}">&nbsp;
+			<span class="ref_salary_unit">%（可输入数值区间：0.01 - 100）</span>
+		</td>
+	</tr>
+	<tr class="ref_salary_switch">
+		<td class="item_title">三级佣金:</td>
+		<td class="item_input ref_salary_type_box" >
+			<input type="text" class="textbox pricebox" name="ref_salary[]" value="{$ref_salary[2]}">&nbsp;
+			<span class="ref_salary_unit">%（可输入数值区间：0.01 - 100）</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="FxSalary" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="ref_salary_save" />
+			<input type="hidden" name="fx_set_type" value="{$fx_set_type}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

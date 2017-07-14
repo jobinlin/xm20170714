@@ -1,0 +1,133 @@
+.my-vip{
+	height: 5.2rem;
+	margin: .9rem .5rem .5rem;
+	position: relative;
+	background:-webkit-linear-gradient(-45deg, #ff795c, #ff4763);
+	background:linear-gradient(-45deg, #ff795c, #ff4763);
+	border-radius:4px;
+	text-align: center;
+}
+.my-vip .my-vip-hd{
+	width: 4.4rem;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
+}
+.my-vip .my-vip-hd img{
+	width:100%;
+}
+.my-vip .vip-tit{
+	margin-top: 1rem;
+	display: inline-block;
+	font-size:.9rem;
+	color:#fff;
+	line-height: 1.25rem;
+	font-weight:bold;
+	position: relative;
+}
+.my-vip .vip-tit-pic{
+	font-size:.5rem;
+	line-height: .85rem;
+	color:#fff000;
+	background:#f64254;
+	font-weight:normal;
+	border-radius:3px;
+	position: absolute;
+	padding:0 .2rem;
+	right: -.35rem;
+	min-width: 3.5rem;
+	top: -.1rem;
+	-webkit-transform: translateX(100%);
+	        transform: translateX(100%);
+}
+.my-vip .vip-tit-pic::before{
+	content: '';
+	width:5px;
+	height:5px;
+	background:url(@url/static/vip-tit-pic.png) no-repeat;
+	left: -5px;
+	top: .25rem;
+	position: absolute;
+}
+.my-vip .progress{
+	height:.9rem;
+	padding:0 1.25rem;
+}
+.my-vip .progress p{
+	padding:0 .5rem;
+	color:#fff;
+	font-size:.5rem;
+}
+.my-vip .progress .progress-bar{
+	height:4px;
+	background:#fff;
+}
+.my-vip .progress .progress-bar-inner{
+	background:#ffae00;
+	height:4px;
+	width:0;
+	-webkit-transition: all 2s linear;
+	        transition: all 2s linear;
+}
+.my-vip .vip-tip{
+	line-height: 1.6rem;
+	font-size:@f_size4;
+	color:#e8e3a6;
+}
+.my-exp{
+	margin-top: 0;
+	background:-webkit-linear-gradient(-45deg, #6f9ef5, #7970f5);
+	background:linear-gradient(-45deg, #6f9ef5, #7970f5);
+}
+.my-exp .vip-tit-pic{
+	background:#6973f2;
+}
+.my-exp .vip-tit-pic::before{
+	background:url(@url/static/exp-tit-pic.png) no-repeat;
+}
+.my-exp .vip-tip{
+	color:#96f2fd;
+}
+.my-exp .progress .progress-bar-inner{
+	background:#3ae0f4;
+}
+.account-list{
+	background:#fff;
+	padding-left: .5rem;
+}
+.account-list li{
+	height:2.65rem;
+}
+.account-list li a{
+	height:2.65rem;
+}
+.account-list .flex-box{
+	padding-right: .5rem;
+}
+.account-list .user-img{
+	width:2rem;
+	height: 2rem;
+	border-radius:1rem;
+	overflow: hidden;
+}
+.account-list .user-img img{
+	width:100%;
+}
+.right-arrow{
+	display: block;
+}
+.account-list span{
+	display: block;
+	color:@f_color3;
+}
+.up_avatar{
+	display: block;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}

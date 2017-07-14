@@ -1,0 +1,236 @@
+.m-doder-dp-head .head-btn{
+	display: block;
+	position: absolute;
+	line-height: 2.2rem;
+	font-size: 1.1rem;
+}
+
+.m-doder-dp-head .title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0 1.8rem;
+}
+
+.m-doder-dp-head .head-btn.go-back{
+	left: .5rem;
+}
+
+.m-doder-dp-head .head-btn.more{
+	right: .5rem;
+	font-size: 1.1rem;
+	color: #8d8f99;
+	padding-left: 1rem;
+}
+
+.m-comment .comment-tit{
+	position: relative;
+	line-height: @tit_lh;
+	background: @bg_color;
+	padding: 0 @comspacing;
+	font-size: @f_size2;
+	color: @f_color1;
+	margin-bottom: @rowspacing;
+}
+
+.m-comment .comment-count{
+	color: @f_color3;
+}
+
+
+.star-box{
+	display: inline-block;
+	float: right;
+}
+
+.m-comment .tit-start{
+	display: inline-block;
+	width: 79px;
+	height: 13px;
+}
+
+.m-comment .comment-num{
+	color: #ffa800;
+}
+
+.m-comment .comment-con{
+	padding-left: @comspacing;
+	padding-bottom: .5rem;
+	background: @bg_color;
+}
+
+.m-comment .comment-con .commenter{
+	padding-top: 0.5rem; 
+}
+
+.m-comment .comment-con .commenter:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-comment .good-logo{
+	display: inline-block;
+	width: 3.4rem;
+	height: 3.4rem;
+	padding: .05rem;
+	border: 1px solid @bordercolor;
+	margin-right: .5rem;
+}
+
+.m-comment .avatar{
+	display: inline-block;
+	width: 2.1rem;
+	height: 2.1rem;
+	margin-right: .5rem;
+}
+
+.m-comment .username{
+	font-size: @f_size3;
+	color: @f_color1;
+}
+
+.m-comment .date{
+	font-size: @f_size5;
+	color: @f_color3;
+}
+
+.m-comment .user-date{
+	padding: .15rem;
+	width:50%;
+}
+.m-comment .good-name{
+	line-height: 1rem;
+	height:2rem;
+	font-size: @f_size4;
+	color: @f_color1;
+	display:-webkit-box;
+	overflow:hidden;	
+	text-overflow:ellipsis;
+	word-break:break-all;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp:2;
+	margin-bottom: .4rem;
+}
+
+.m-comment .good-spec{
+	font-size: @f_size4;
+	color: @f_color3;
+	line-height: 1rem;
+}
+
+.m-comment .con-start {
+    position: absolute;
+    top: 1rem;
+    right: .5rem;
+    width: 2.5rem;
+    height: .4rem;
+}
+
+.m-comment .dp-date{
+	line-height: 1.8rem;
+	font-size: @f_size4;
+	color: @f_color3;
+}
+
+#uc_review .m-comment .comment-txt{
+	font-size: @f_size3;
+	line-height: .85rem;
+	color: @f_color1;
+	padding: 0;
+	padding-top: .5rem;
+}
+
+.m-comment .comment-imglist{
+	max-height: 3.4rem;
+	overflow: hidden;
+}
+
+.m-comment .comment-imglist:after{
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.m-comment .comment-imglist-nolimit{
+	height: auto;
+}
+
+.m-comment .comment-imgitem{
+	float: left;
+	margin-right: .5rem;
+	margin-bottom: .5rem;
+}
+
+.m-comment .showmorecomment{
+	display: inline-block;
+	width: 100%;
+}
+
+.m-comment .comment-con{
+	position: relative;
+	padding-bottom: .7rem;
+	margin-bottom: @rowspacing;
+}
+
+.m-comment .shop-reply{
+	padding-right: @comspacing;
+}
+
+.m-comment .shop-reply p{
+	padding: @comspacing;
+	background: #f3f6f5;
+	font-size: @f_size4;
+	line-height: 0.875rem;
+}
+
+.m-comment .shop-reply p em{
+	color: #ffa800;
+}
+
+.m-comment .sjj-up{
+	background: url(@url/static/sjj-up.png) 10% center no-repeat;
+	width: 100%;
+	height: .3rem;
+	background-size: .6rem .3rem;
+}
+
+.m-comment .comment-list .comment-tit{
+	margin-bottom: @rowspacing;
+}
+
+/* 多tab新增样式 */
+.review-tab{
+	position: absolute;
+    top: 2.2rem;
+    left: 0;
+    right: 0;
+    background: #fff;
+    line-height: 2rem;
+    z-index: 10;
+}
+#uc_review .content{
+	top:4.2rem;
+}
+.review-tab .review-tab-item{
+	width:30%;
+	text-align: center;
+}
+.review-tab a{
+	display: inline-block;
+	line-height: 2rem;
+}
+.review-tab .tab-line{
+	display: block;
+	position: absolute;
+	bottom: 0;
+	height: .1rem;
+	border-radius: .1rem .1rem 0 0;
+	background: #ff2244;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}

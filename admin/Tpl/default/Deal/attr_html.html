@@ -1,0 +1,61 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		load_attr_stock();
+		$(".delete_attr").live('click',function(){
+			var len = $(this).parents(".attr_content").find(".attr_item").length;
+			if(len <= 1){
+				return false;
+			}
+			$(this).parents(".attr_item").remove();
+			load_attr_stock();
+		});
+		
+	});
+	function addRow(obj)
+	{
+		var html = $(obj).parents(".attr_row").find(".attr_item:eq(0)").clone();
+		$(html).find("input[type='text']").val('');
+		$(html).find(".attr_value").attr('deal_attr_id','');
+		$(html).insertAfter($(obj).parents(".attr_row").find(".attr_item").last());
+		if($(".deal_attr_stock").eq(0).attr("checked")){
+			$(".deal_attr_stock").attr("checked", true);
+		}else{
+			$(".deal_attr_stock").attr("checked", false);
+		}
+		load_attr_stock();
+	}
+
+</script>
+<foreach name="goods_type_attr" item="attr_item_group">
+	<div class="attr_row clearfix">
+		<span id="title_{$attr_item.id}" class="f_l attr_name" data_name='{$attr_item_group.0.name}'>{$attr_item_group.0.name} :</span>
+		<div class="attr_content">
+		
+		<foreach name="attr_item_group" item="attr_item">
+		<div class="attr_item f_l">
+			<div class="f_l">
+			<if condition="$attr_item['input_type'] eq 0">
+				<input type="text" class="textbox attr_value" style="width:65px;" deal_attr_id="{$attr_item.deal_attr_id}" name="deal_attr[{$attr_item.id}][]" value="{$attr_item.attr_name}" onchange="load_attr_stock();"  />			
+			</if>
+			<if condition="$attr_item['input_type'] eq 1">
+				<select class="selectbox attr_value" deal_attr_id="{$attr_item.deal_attr_id}" name="deal_attr[{$attr_item.id}][]" onchange="load_attr_stock();">
+	
+				<foreach name="attr_item.attr_list" item="attr_row">				   
+					<option value="{$attr_row}" <if condition="$attr_item['attr_name'] eq $attr_row">selected="selected"</if>>{$attr_row}</option>
+				</foreach>
+				</select>			
+			</if>
+			</div>
+			<div class="delete_attr f_l"></div>
+		</div>
+		</foreach>
+		
+		<a href="javascript:void(0);" onclick="addRow(this);" style="text-decoration:none;">添加+</a> 
+		</div>
+		
+	
+	</div>
+	
+</foreach>

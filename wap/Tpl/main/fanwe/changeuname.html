@@ -1,0 +1,28 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script type="text/javascript">
+    var AJAX_URL = '{url x="index" r="ajax"}';
+</script>
+<div class="page page-index" id="changeuname">
+    {include file="style5.2/inc/auto_header.html"}
+    <div class="content">
+        <div class="user-form" style="padding: 0 1.25rem">
+            <form id="ph_getuname" action="{url a="index" r="user"}">
+            <div class="phone-login">
+                <ul class="form-list">
+                    <li class="b-line">
+                        <input type="text" name="user_name" class="form-text" placeholder="请输入昵称" value="{$data.user_info.user_name}">
+                    </li>
+                </ul>
+                <input type="hidden" name="act" value="dochangeuname" />
+                <input type="button" value="确定" class="userBtn userBtn-yellow">
+            </div>
+            </form>
+        </div>
+
+    </div>
+    
+</div>
+
+
+{include file="style5.2/inc/footer.html"}

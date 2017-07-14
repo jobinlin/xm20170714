@@ -1,0 +1,64 @@
+
+	{if $cate_list}
+	<ul class="menu-cate">
+		<?php $index = 0; ?>
+		{foreach from=$cate_list key=key item=cate}
+		<li class="b-line j-cate-select <?php if ($index == 0) echo 'active';?>" cate-id="{$key}">{$cate.name}</li>
+		<?php $index++; ?>
+		{/foreach}
+	</ul>
+	<div class="m-cate-list">
+		{foreach from=$cate_list key=key item=cate}
+		<dl class="dc-cate-list">
+			<dt class="cate-title" scroll-type="false">{$cate.name}</dt>
+			{if $cate.sub_menu}
+			{foreach from=$cate.sub_menu item=sub}
+			<dd class="flex-box b-line">
+				<div class="goods-img"><img src="{if $sub.image}{$sub.image}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}" alt=""></div>
+				<div class="goods-info flex-1" data_id="{$sub.id}">
+					<p class="goods-name">{$sub.name}</p>
+					<div class="price-info flex-box">
+						<p class="price flex-1" price="{$sub.price}">{$sub.format_price}</p>
+						<div class="goods-num-box {if $sub.cart_count eq 0}no-num{else}num{/if} flex-box">
+							<a href="javascript:void(0);" class="min iconfont" data_id="{$sub.id}" onclick="dc_change_res_num({$sub.id},{$sub.cart_count},-1);">&#xe915;</a>
+							<p class="goods-num" data_id="{$sub.id}">{$sub.cart_count}</p>
+							<a href="javascript:void(0);" class="iconfont plus" data_id="{$sub.id}" onclick="dc_change_res_num({$sub.id},{$sub.cart_count},1);">&#xe685;</a>
+						</div>
+					</div>
+				</div>
+			</dd>
+			{/foreach}
+			{/if}
+		</dl>
+		{/foreach}
+	</div>
+	<div class="cart-bar t-line flex-box">
+		<div class="cart-count">
+			<div class="flex-box cart-edit-bar">
+				<p class="flex-1">购物车</p>
+				<p class="cart-del" onclick="dc_res_cart_clear();">清空全部</p>
+			</div>
+			<ul class="edit-list">
+				{foreach from=$cart_data.cart_list item=item}
+				<li class="flex-box b-line" data_id="{$item.menu_id}">
+					<p class="goods-name flex-1">{$item.name}</p>
+					<p class="edit-price" price="{$item.unit_price}">{$item.format_unit_price}</p>
+					<div class="goods-num-box flex-box">
+						<a href="javascript:void(0);" class="min iconfont" data_id="{$item.menu_id}" onclick="dc_change_res_num({$item.menu_id},{$item.num},-1);">&#xe915;</a>
+						<p class="goods-num" data_id="{$item.menu_id}">{$item.num}</p>
+						<a href="javascript:void(0);" class="iconfont plus" data_id="{$item.menu_id}" onclick="dc_change_res_num({$item.menu_id},{$item.num},1);">&#xe685;</a>
+					</div>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+		<div class="cart-ico j-show-edit" id="target">
+			<i class="iconfont">&#xe68b;</i>
+			<div class="num-count {if $cart_data.cart_count eq 0}hide{/if}" value="0" >{$cart_data.cart_count}</div>
+		</div>
+		<p class="cart-price flex-1" style="display: {if $cart_data.cart_count == 0}none{else}block{/if};">{$cart_data.format_total_price}</p>
+		<p class="no-goods-txt flex-1" style="display: {if $cart_data.cart_count > 0}none{else}block{/if};">购物车是空的</p>
+		<a data-no-cache="true" class="cart-btn j-close-edit">确认</a>
+	</div>
+	<div class="cart-mask j-close-edit"></div>
+	{/if}

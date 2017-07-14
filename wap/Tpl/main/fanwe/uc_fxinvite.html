@@ -1,0 +1,55 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_fxinvite">
+
+  {include file="style5.2/inc/auto_header.html"}
+  {include file="style5.2/inc/module/fx_nav.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+      <ul class="fx-friend-hd flex-box b-line">
+        <li class="friend-name flex-1">好友名称</li>
+        <li class="flex-1">带来佣金</li>
+        <li class="flex-1 friend-num">好友人数</li>
+      </ul>
+      <!-- 我的好友 -->
+
+      <div class="m-friend-list j_ajaxlist">
+        {if $data.list}
+        <ul class="friend-list j_ajaxadd">
+          {foreach from=$data.list item=friend}
+          {if $data.is_home}
+          <li>
+            <a href="{url a="index" r="uc_fxinvite" p="user_id=$friend.id"}" class="flex-box friend-item">
+              <p class="friend-name flex-1">{$friend.user_name}</p>
+              <p class="fx-num flex-1">{$friend.money}</p>
+              <p class="friend-num flex-1">{$friend.nums}<i class="iconfont">&#xe607;</i></p>
+            </a>
+          </li>
+          {else}
+          <li class="friend-item flex-box">
+            <p class="friend-name flex-1">{$friend.user_name}</p>
+            <p class="fx-num flex-1">{$friend.money}</p>
+            <p class="friend-num flex-1">{$friend.nums}</p>
+          </li>
+          {/if}
+          {/foreach}
+        </ul>
+        <div class="pages hide">{$pages}</div>
+        {else}
+        <div class="tipimg no_data">暂无数据</div>
+        {/if}
+      </div>
+      <!-- 好友的好友 -->
+      <!-- <div class="m-friend-list">
+        <ul class="friend-list">
+          <li class="friend-item flex-box">
+            <p class="friend-name flex-1">林志斌</p>
+            <p class="fx-num flex-1">&yen;1</p>
+            <p class="friend-num flex-1">10</p>
+          </li>
+        </ul>
+        <div class="pages hide">{$pages}</div>
+        <div class="tipimg no_data">暂无数据</div>
+      </div> -->
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

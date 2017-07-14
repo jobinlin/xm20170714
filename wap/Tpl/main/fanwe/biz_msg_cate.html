@@ -1,0 +1,39 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();
+});
+</script>
+<div class="page page-index page-current" id="biz_msg_cate">
+	{include file="style5.2/inc/biz_header.html"}
+	{if $data.item}
+	<div class="content m-msg-list infinite-scroll infinite-scroll-bottom">
+		<div class="j-ajaxlist">
+		<div class="j-ajaxadd">
+		{foreach from=$data.item item=msg }
+		<div class="msg-item">
+			<div class="msg-date">{$msg.create_time}</div>
+			<div class="msg-detail">
+				<div class="new-msg">{$msg.title}</div>
+				<a href="{if $msg.link}{$msg.link}{else}javascript:void(0){/if}" class="new-con flex-box" data-no-cache="true">
+					<div class="flex-1 nowrap">{$msg.content} </div>
+					<i class="iconfont">&#xe607;</i>
+				</a>
+			</div>
+		</div>
+		{/foreach}
+		</div>
+		<div class="blank"></div>
+		<div class="pages hide">{$pages}</div>
+		</div>
+		<div class="blank"></div>
+	</div>
+	{else}
+	<div class="tipimg no_data">
+		暂无消息记录
+	</div>
+	{/if}
+</div>
+{include file="style5.2/inc/footer.html"}

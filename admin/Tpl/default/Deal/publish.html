@@ -1,0 +1,252 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<style>
+    table.form th {
+        height: 25px;
+        text-align: center;
+        background: #edf3f7;
+        line-height: 25px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #navs{ background:url(__TMPL__Common/images/navbgs.png) 0px 24px repeat-x; height:28px; position:relative;}
+    #navs ul{position:absolute;  }
+    #navs ul li{ float:left; display:inline; padding:0px 5px; width:90px; }
+
+    #navs a.show{ display:block; background:#4E6A81 0px 0px repeat-x; color:#fff;  padding:0px 10px;text-align:center; text-decoration:none; line-height:25px; height:28px; font-weight:bold; }
+    #navs a.show.current{  color:#fff; background:#8EA7BB repeat-x; line-height:28px;  }
+    #stock_table table th {
+        background: white;
+        padding: 10px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #stock_table table td {
+        text-align: center;
+        padding: 10px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #stock_table table {
+         border-spacing: 0px;
+         border-top: solid 1px #ccc;
+         border-left: solid 1px #ccc;
+     }
+</style>
+<script type="text/javascript">
+function upline(id)
+{
+	$.weeboxs.open(ROOT+'?m=Deal&a=upline&id='+id, {contentType:'ajax',showButton:false,title:"上架审核",width:600,height:195});
+}
+function downline(id)
+{
+	$.weeboxs.open(ROOT+'?m=Deal&a=downline&id='+id, {contentType:'ajax',showButton:false,title:"下架审核",width:600,height:195});
+}
+function refused_line(id)
+{
+	$.weeboxs.open(ROOT+'?m=Deal&a=refused_apply&id='+id, {contentType:'ajax',showButton:false,title:"拒绝申请",width:600,height:145});
+}
+</script>
+<php>
+	function get_is_shop_type($type)
+	{
+		if($type==0) return "团购";
+		if($type==2) return "代金券";
+		if($type==1) return "商城";
+	}
+	function get_deal_status_1($id,$deal)
+	{
+		if($deal['admin_check_status']==1){
+			return "通过申请";
+		}else if($deal['admin_check_status']==2){
+			return "拒绝申请";
+		}else{
+			return "<span style='color:red'>待审核</span>";
+		}
+	}
+	function get_deal_edit($id,$deal)
+	{
+		if($deal['admin_check_status']==0){
+		
+			$not_btn = '&nbsp;&nbsp;<input type="button" value="拒绝" onclick="refused_apply('.$id.')" />';
+			$preview_url = url("index","preview#deal",array("id"=>$deal['id'],"type"=>1));
+			$preview = '&nbsp;&nbsp;<a href="'.$preview_url.'" target="_blank">预览</a>';
+			if($deal['is_shop']==0){
+				if($deal['biz_apply_status'] == 1){
+					return "<a href='".u("Deal/biz_apply_edit",array("id"=>$id))."'>发布</a>".$preview.$not_btn;
+				}elseif($deal['biz_apply_status'] == 2){
+					return "<a href='".u("Deal/biz_apply_edit",array("id"=>$id))."'>修改</a>".$preview.$not_btn;
+				}elseif($deal['biz_apply_status'] == 3){
+					return "<a href='javascript:downline(".$id.");'>下架</a>| <a href='javascript:refused_line(".$id.")'>拒绝</a>";
+				}elseif($deal['biz_apply_status'] == 4){
+					return "<a href='javascript:upline(".$id.");'>上架</a>| <a href='javascript:refused_line(".$id.")'>拒绝</a>";
+				}
+				
+			}
+			
+			if($deal['is_shop']==1){
+				if($deal['biz_apply_status'] == 1){
+					return "<a href='".u("Deal/biz_apply_shop_edit",array("id"=>$id))."'>发布</a>".$preview.$not_btn;
+				}elseif($deal['biz_apply_status'] == 2){
+					return "<a href='".u("Deal/biz_apply_shop_edit",array("id"=>$id))."'>修改</a>".$preview.$not_btn;
+				}elseif($deal['biz_apply_status'] == 3){
+					return "<a href='javascript:downline(".$id.");'>下架</a>| <a href='javascript:refused_line(".$id.")'>拒绝</a>";
+				}elseif($deal['biz_apply_status'] == 4){
+					return "<a href='javascript:upline(".$id.");'>上架</a>| <a href='javascript:refused_line(".$id.")'>拒绝</a>";
+				}
+			}
+		}else{
+			if($deal['admin_check_status']==1){
+				return "通过申请";
+			}else if($deal['admin_check_status']==2){
+				return "拒绝申请";
+			}
+		}
+		
+		if($deal['is_shop']==2)
+		return "<a href='".u("Deal/youhui_edit",array("id"=>$id))."'>发布</a>";
+	}
+	function get_p_deal_cate_name($cid)
+	{
+		$name = M("DealCate")->where("id=".$cid)->getField("name");
+		return $name?$name:"无";
+	}
+	function get_p_shop_cate_name($cid)
+	{
+		$name = M("ShopCate")->where("id=".$cid)->getField("name");
+		return $name?$name:"无";
+	}
+	function get_deal_submit_memo($id)
+	{
+		$memo = M("DealSubmit")->where("id=".$id)->getField("deal_submit_memo");
+		return $memo?$memo:"无";
+	}
+	function operation($id,$deal)
+	{
+		$html="";
+		if($deal['biz_apply_status']==1||$deal['biz_apply_status']==2){
+			if($deal['is_shop']==1){
+				$html.="<a href='".u("Deal/biz_apply_shop_edit",array("id"=>$id))."'>查看详情</a>&nbsp;&nbsp;|&nbsp;&nbsp;";
+			}else{
+				$html.="<a href='".u("Deal/biz_apply_edit",array("id"=>$id))."'>查看详情</a>&nbsp;&nbsp;|&nbsp;&nbsp;";
+			}
+		}elseif($deal['biz_apply_status']==3||$deal['biz_apply_status']==4){
+			if($deal['admin_check_status']==0){
+				if($deal['biz_apply_status']==3){
+					$html.="<a href='javascript:downline(".$id.");'>下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='javascript:refused_line(".$id.")'>拒绝</a>";
+				}elseif($deal['biz_apply_status']==4){
+					$html.="<a href='javascript:upline(".$id.");'>上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='javascript:refused_line(".$id.")'>拒绝</a>";	
+				}
+			}
+		}
+		
+		$html.="<a href='javascript:biz_submit_del(".$id.")'>彻底删除</a>";
+		return $html;
+	}
+	function get_apply_type($biz_apply_status)
+	{
+		if($biz_apply_status==1){
+			$str="发布";
+		}elseif($biz_apply_status==2){
+			$str="修改";
+		}elseif($biz_apply_status==3){
+			$str="下架";
+		}elseif($biz_apply_status==4){
+			$str="上架";
+		}else{
+			$str="？？？？";
+		}
+		return $str;
+	}
+	function get_cate($is_shop,$deal)
+	{
+		if($is_shop==0){
+			if($deal['cate_id']){
+				$col=$GLOBALS['db']->getCol("select name from ".DB_PREFIX."deal_cate where id in(".$deal['cate_id'].")");
+				if(count($col)>1){
+					return  $col[0]."...";
+				}else{
+					return  $col[0];
+				}
+			}else{
+				$col=$GLOBALS['db']->getCol(" SELECT dct.*,dc. NAME AS first_cate FROM fanwe_deal_cate_type AS dct ".
+			   " LEFT JOIN ".DB_PREFIX."deal_cate_type_link AS dctl ON dct.id = dctl.deal_cate_type_id ".
+			   " LEFT JOIN ".DB_PREFIX."deal_cate AS dc ON dctl.cate_id = dc.id ".
+			   " WHERE dct.id in (".$deal['cache_deal_cate_type_id'].")");
+			   if(count($col)>1){
+					return  $col[0]."...";
+				}else{
+					return  $col[0];
+				}
+
+			}
+		}else{
+			$cate_id=explode(",",$deal['shop_cate_id']);
+			$cate_name=M("ShopCate")->where("id=".$cate_id[0])->getField("name");
+	        if(count($cate_id)>1){
+	            return $cate_name."...";
+	        }else{
+	            return $cate_name;
+	        }
+		}
+	}
+	
+</php>
+<load href='__TMPL__Common/js/deal_publish.js' />
+<div class="main">
+<div class="main_title">{$page_title}</div>
+<div class="blank5"></div>
+<div id="navs">
+    <div>
+        <ul>
+            <li ><a class="show <if condition="$status==0">current</if>" href="{:u("Deal",array(conf("VAR_ACTION")=>ACTION_NAME,"status"=>0))}">申请发布</a></li>
+            <li><a class="show <if condition="$status==1">current</if>" href="{:u("Deal",array(conf("VAR_ACTION")=>ACTION_NAME,"status"=>1))}">申请上下架</a></li>
+        </ul>
+    </div>
+</div>
+<div class="search_row">
+    <div>
+        <form name="search" action="__APP__" method="get">
+        	  审核状态
+              <select name="admin_check_status">
+                  <option value="0" <if condition="intval($_REQUEST['admin_check_status']) eq 0">selected="selected"</if>>所有</option>
+                  <option value="3" <if condition="intval($_REQUEST['admin_check_status']) eq 3">selected="selected"</if>>待审核</option>
+                  <option value="1" <if condition="intval($_REQUEST['admin_check_status']) eq 1">selected="selected"</if>>已通过</option>
+                  <option value="2" <if condition="intval($_REQUEST['admin_check_status']) eq 2">selected="selected"</if>>已拒绝</option>
+              </select>
+              <input type="text" class="textbox" name="name" value="{:strim($_REQUEST['name'])}" placeholder="商品名" />
+              <input type="hidden" value="Deal" name="{:conf("VAR_MODULE")}" />
+              <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="{:conf("VAR_ACTION")}" />
+              <input type="hidden" value="{$status}" name="status" />
+              <input type="submit" class="button" value="{%SEARCH}" />
+
+        </form>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name:名称
+		,create_time|to_date:提交时间
+		,is_shop|get_cate=$deal:分类
+		,supplier_id|get_supplier_name:商家
+		,biz_apply_status|get_apply_type:申请类型
+		,id|get_deal_status_1=$deal:状态" 
+	actionlist="id|operation=$deal" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+
+
+<include file="Public:footer" />

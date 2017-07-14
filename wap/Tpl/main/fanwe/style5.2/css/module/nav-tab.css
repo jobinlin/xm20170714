@@ -1,0 +1,30 @@
+.m-nav-tab{
+	position: absolute;
+	top: 2.2rem;
+	left: 0;
+	right: 0;
+	height:2rem;
+	background:#fff;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+.m-nav-tab .nav-tab{
+	height:2rem;
+	width:100%;
+	text-align: center;
+}
+.m-nav-tab .nav-tab li{
+	line-height: 2rem;
+}
+.m-nav-tab .nav-tab .active{
+	color:@f_colortheme;
+}
+.m-nav-tab .tab-line{
+	position: absolute;
+	height:2px;
+	background:@themecolor;
+	bottom: 0;
+	border-radius:2px 2px 0 0;
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+}

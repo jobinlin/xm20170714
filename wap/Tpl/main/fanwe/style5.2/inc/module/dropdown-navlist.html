@@ -1,0 +1,24 @@
+<div class="dropdown-navlist flex-box">
+	<a href="{url a="index"}" class="flex-1" data-no-cache="true">
+		<i class="iconfont">&#xe61f;</i>
+		<p>首页</p>
+	</a>
+	<a href="{url a="index" r="search"}" class="flex-1" data-no-cache="true">
+		<i class="iconfont">&#xe621;</i>
+		<p>搜索</p>
+	</a>
+	 
+	<a href="{url a="index" r="uc_msg"}" class="flex-1" data-no-cache="true">
+		<i class="iconfont {if $user_info.msg_count gt 0}redpoint{/if}">&#xe620;</i>
+		<p>消息</p>
+	</a>
+	
+	<a href="{url a="index" r="cart"}" class="flex-1" data-no-cache="true">
+		<i class="iconfont {if $data.cart_total_num}redpoint{/if}">&#xe61e;</i>
+		<p>购物车</p>
+	</a>
+	<a href="{url a="index" r="user_center"}" class="flex-1" data-no-cache="true">
+		<i class="iconfont">&#xe622;</i>
+		<p>我的</p>
+	</a>
+</div>

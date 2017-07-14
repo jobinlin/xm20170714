@@ -1,0 +1,111 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/detail.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/echarts.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+?>
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={function name="app_conf" v="BAIDU_MAP_APPKEY"}&s=1"></script>
+
+<div class="header-map">
+	<a class="transition" href="{url r="hiz" b="index"}">首页</a> / <a class="transition" href="{url r="hiz" b="distribution#authlist"}">审核驿站列表</a> / <span>审核驿站详情</span>
+	<a href="{url r="hiz" b="distribution#authlist"}" class="header-back">返回</a>
+</div>
+<div class="content">
+	<div class="detail-hd">基本信息</div>
+	<div class="detail-bd">
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">驿站名称：</p>
+			<p class="detail-info f_l">{$info.name}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">驿站账户：</p>
+			<p class="detail-info f_l">{$info.username}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">区/县：</p>
+			<p class="detail-info f_l">{$country}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">驿站地址：</p>
+			<p class="detail-info f_l">{$info.address}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">服务范围：</p>
+			<div class="detail-map f_l">
+				<div id="auth-map" style="height: 400px; width: 600px;"></div>
+			</div>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">驿站负责人：</p>
+			<p class="detail-info f_l">{$info.contact}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">联系电话：</p>
+			<p class="detail-info f_l">{$info.tel}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">营业时间：</p>
+			<p class="detail-info f_l">{$info.open_time}</p>
+		</div>
+	</div>
+	<div class="detail-hd">审核信息</div>
+	<div class="detail-bd">
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">审核状态：</p>
+			<p class="detail-info f_l">{$statusStr}</p>
+		</div>
+		<div class="detail-item clearfix">
+			<p class="detail-tit f_l">审核备注：</p>
+			<p class="detail-info f_l">{$info.adm_memo}</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var map = new BMap.Map("auth-map",{enableMapClick:false});
+    var polygon, marker;
+	var xpoint, ypoint;
+    var xpoints = ypoints = [];
+    var mapzoom = 12;
+    var styleOptions = {
+        strokeColor:"blue",    //边线颜色。
+        strokeWeight: 2,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.5,       //边线透明度，取值范围0 - 1。
+        // fillOpacity: 0,
+        enableEditing: false,
+    };
+
+
+    var Bpoints = [];
+
+    var xpoint = {$info.xpoint}, ypoint = {$info.ypoint};
+    {foreach from=$xpoints item=x key=k}
+        xpoints.push({$x});
+        ypoints.push({$ypoints.$k});
+        Bpoints.push(new BMap.Point({$x}, {$ypoints.$k}));
+    {/foreach}
+    polygon = new BMap.Polygon(Bpoints, styleOptions);
+    map.addOverlay(polygon);
+
+    map.centerAndZoom(new BMap.Point(xpoint, ypoint), mapzoom);
+    
+    marker = new BMap.Marker(new BMap.Point(xpoint, ypoint), {enableMassClear:false,enableClicking:false});
+    map.addOverlay(marker);
+    
+	map.enableScrollWheelZoom();
+
+
+</script>
+{include file="inc/footer.html"}

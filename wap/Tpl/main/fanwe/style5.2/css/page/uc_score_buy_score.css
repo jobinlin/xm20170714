@@ -1,0 +1,38 @@
+#uc_score_buy_score .content {
+    background: #fff none repeat scroll 0 0;
+}
+#uc_score_buy_score .select_num{
+    width:30%;
+    float: left;
+    margin: 0 0.2rem 0.5rem;
+}
+#uc_score_buy_score .select_other{
+    width:30%;
+    float: left;
+    margin: 0 0.2rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-sizing: content-box;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+#uc_score_buy_score .charge-bd .selected {
+    border-color: #ff2244!important;
+    color: #ff2244;
+}
+#uc_score_buy_score .input-1{
+    border: 1px solid #ddd;
+    line-height: 2rem;
+    margin: 0 0.7rem 0.5rem 0.4rem;
+}
+#uc_score_buy_score .input-1 .first{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+#uc_score_buy_score .input-1 .usable,#uc_score_buy_score .input-1 .frozen{
+    color:gray;
+}
+#uc_score_buy_score .blank{
+    height: 0px!important;
+}

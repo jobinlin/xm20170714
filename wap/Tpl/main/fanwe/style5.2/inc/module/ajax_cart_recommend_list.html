@@ -1,0 +1,27 @@
+{if $data.ref_list}
+<div class="m-promote">
+    <em class="promote-tit"><i class="promote-icon"></i>为您推荐</em>
+    <!-- <em class="promote-tit"><i class="promote-icon"></i>团购推荐</em> -->
+</div>
+<div class="m-goods-list">
+    <ul class="type-cube clearfix"><!-- 豆腐块列表 -->
+        <!-- 	<ul class="type-list clearfix">常规列表 -->
+        {foreach from=$data.ref_list item=deal}
+        <li>
+            <a data-no-cache="true" href="{url i="index" r="deal" g="data_id=$deal.id"}">
+            <div class="goods-img"><img alt="{$deal.name}" src="{$deal.f_icon}"/></div>
+            <div class="goods-info">
+                <h2 class="goods-name">{$deal.name}</h2>
+                <div class="sale-info">
+                    <p class="price">{function name=format_price_html v=$deal.current_price}<del class="p-price">{function name=round v=$deal.origin_price}</del></p>
+                    {if $deal.buy_count gt 0}
+                    <p class="sale">已售{$deal.buy_count}</p>
+                    {/if}
+                </div>
+            </div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+{/if}

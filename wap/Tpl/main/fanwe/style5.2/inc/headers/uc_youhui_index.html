@@ -1,0 +1,20 @@
+{if $app_index=='app'}
+	<header class="bar bar-nav b-line">
+		{if $page_finsh}
+		<a class="header-btn header-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+		{else}
+		<a class="header-btn header-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a>
+		{/if}
+		<h1 class="header-title">{$data.page_title}</h1>
+		<a href="{url i="index" g="youhuis"}" class="header-txt header-right youhui-link {if $type eq 1}hide{/if}" data-no-cache="true">领券</a>
+		<a href="{url i="index" g="uc_ecv#exchange"}" class="header-txt header-right ecv-link {if $type eq 0}hide{/if}" data-no-cache="true">红包兑换</a>
+	</header>
+{else}
+	<header class="bar bar-nav b-line">
+		<a class="header-btn header-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >&#xe604;</a>
+		<h1 class="header-title">{$data.page_title}</h1>
+		<a href="{url i="index" g="youhuis"}" class="header-txt header-right youhui-link {if $type eq 1}hide{/if}" data-no-cache="true">领券</a>
+		<a href="{url i="index" g="uc_ecv#exchange"}" class="header-txt header-right ecv-link {if $type eq 0}hide{/if}" data-no-cache="true">红包兑换</a>
+	</header>
+	<!-- 弹出层 -->
+{/if}

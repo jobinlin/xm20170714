@@ -1,0 +1,8 @@
+﻿<?php
+$temp_path=str_replace(APP_ROOT_PATH,SITE_DOMAIN.APP_ROOT.'/',$this->_var['TMPL_REAL']);
+?>
+<iframe src="<?php echo $temp_path;?>/js/phone/phone.html" allowtransparency="true" style="background-color=transparent" title="test" frameborder="0" width="320" height="570" scrolling="no"></iframe>
+<script type="text/javascript">
+var biz_root='{$biz_root}';
+var app_root='{$app_root}';
+</script>

@@ -1,0 +1,718 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script type="text/javascript">
+	var attr_cfg_json = {};//{$attr_cfg_json};
+	var attr_stock_json = {$attr_stock_json};
+	var relate_goods_num = parseInt("{$relate_goods_num}");
+	var LOAD_GOODS_LIST_URL = "{:u("Deal/ajaxGoodsList",array("is_shop"=>$is_shop,"id"=>$vo['id']))}";
+	var is_shop = parseInt("{$is_shop}");
+	var carriage_template_ajax_url = "{:u("Deal/carriage_template")}";
+	var DEFAULT_DELIVERY = '{$default_delivery}';
+    var carriage_detail_url='{:u("Deal/get_carriage_detail")}';
+    var user_group = '{$user_group}';   
+    var deal_type = 2;
+    var img_index = 0;
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/js/deal_brand.js' />
+<load href='__TMPL__Common/js/init_relate_reply.js' />
+<load href='__TMPL__Common/js/deal_tc.js' />
+<script type="text/javascript">
+	
+	window.onload = function()
+	{
+		var has_carriage_template = "{$carriage_number}";
+		if(!has_carriage_template){
+			if(confirm("请先去添加一个运费模板")){
+				window.location = ROOT+"?"+VAR_MODULE+"=CarriageTemplate&"+VAR_ACTION+"=add";
+				return false;
+			}
+		}
+        ajax_carriage_tempate();
+		init_dealform();
+		
+		//是否需要显示关联商品
+		//initRelateGood();		
+	}
+	
+	/**
+	 * 设置关联商品
+	*/
+	function initRelateGood(){
+		var is_shop = $("input[name='buy_type']").val();
+		if( parseInt(is_shop)==1 ){	//积分商品
+			$('table .relate_goods').hide();
+			$('#supplier').empty();
+			$('#supplier').append("<option value='0' selected='selected'>未选择</option>");
+			$("#sl input[type='checkbox']").removeAttr("checked");
+			$("#sl").empty();
+			$('#relate_goods_flag').val('0');
+		}else{
+			$('table .relate_goods').show();
+			$('#relate_goods_flag').val('1');
+		}
+	}
+	$(document).ready(function(){
+		$("input[name='admin_check_status']").live("change",function(){
+			if($(this).val()==1){
+				$("input[name='{:conf("VAR_ACTION")}']").val($("input[name='{:conf("VAR_ACTION")}']").attr("val-name"));
+			}else{
+				$("input[name='{:conf("VAR_ACTION")}']").val("do_refused_apply");
+			}
+		});
+	});
+</script>
+<div class="main">
+<div class="main_title">{$vo.name}{%EDIT}  <a href="{:u("Deal/shop_publish")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+
+<div class="blank5"></div>
+
+<table class="form shop_box_one" style="display:none;" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<if condition="$supplier_info">
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input">
+			<if condition="$supplier_info">
+			{$supplier_info.name}
+			<input type="hidden" name="supplier_id" value="{$supplier_info.id}" />
+			<else />
+			
+			<span id="supplier_list">
+				<select name="supplier_id" id="supplier">
+					<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+				</select>
+				</span>
+				<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+				
+			</if>
+			
+			<div class="info_row"><span class="row_left" style="width:auto;">{%SUPPLIER_LOCATION} :</span>
+			<div class="row_right">
+				<div id="supplier_location">
+
+				</div>
+			
+			</div>
+			</div>
+		</td>
+	</tr>
+	</if>
+	<if condition="$supplier_info">
+	<tr id="supplier_location" class="buy_type_0">
+		<td class="item_title">{%SUPPLIER_LOCATION}:</td>
+		<td class="item_input" id="sl">
+			
+		</td>
+	</tr>
+	</if>
+	<tr>
+		<td class="item_title">请选择商品分类</td>
+		<td class="item_input">
+		
+		<ul class="shop_cate_box first_cate">
+		
+			<foreach name="cate_tree" item="cate">
+				<li data_id="{$cate.id}">{$cate.name}</li>
+			</foreach>
+
+		</ul>
+		<ul class="shop_cate_box second_cate">
+		
+
+
+		</ul>
+		<div class="add_cate deal_button">
+		<div class="button">添加分类</div>
+		</div>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">已选择分类</td>
+		<td class="item_input">
+		
+		<div class="selected_shop_cate f_l">
+		<input type="hidden" name="shop_cate_id" value="{$vo.shop_cate_id}"/>
+		
+		<foreach name="shop_cate" item="cate">
+		<div class="select_item" data_id="{$cate.id}">
+		<if condition="$cate['first_cate']">
+		{$cate.first_cate} &gt; 
+		</if>
+		{$cate.name}<span class="selected_cate_delete">删除</span></div>
+		</foreach>
+		
+		</div>
+
+		</td>
+	</tr>
+
+
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<div class="go_next_step deal_button">
+			<div class="button" >下一步</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+
+</table>
+<table class="form shop_box_two" cellpadding=0 cellspacing=0 rel="2">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+
+	<tr>
+		<td class="item_title">商品分类</td>
+		<td class="item_input">
+		
+		<div class="selected_shop_cate_two f_l">
+
+		<foreach name="shop_cate" item="cate">
+		<div class="select_item" data_id="{$cate.id}">		
+		<if condition="$cate['first_cate']">
+		{$cate.first_cate} &gt; 
+		</if>
+		{$cate.name}</div>
+		
+		</foreach>
+		
+		</div>
+		<div class="f_l tip_span go_first_step">切换分类</div>
+		</td>
+	</tr>
+	
+	<if condition="$supplier_info">
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input supplier">	
+		<if condition="$supplier_info">
+			{$supplier_info.name}
+		<else />
+			平台自营
+		</if>
+		</td>
+	</tr>
+	</if>
+	
+	<if condition="$supplier_info">
+	<tr id="supplier_location">
+		<td class="item_title">{%SUPPLIER_LOCATION}:</td>
+		<td class="item_input">
+			<div class="info_row">
+			<div class="row_right">
+				<div id="location">
+
+				</div>
+			
+			</div>
+			</div>
+		</td>	
+	</tr>
+	</if>
+	
+	<tr>
+		<td class="item_title">基本信息</td>
+		<td class="item_input">
+		
+		<div class="info_row"><span class="row_left">商品标题 :</span><div class="row_right"><input type="text" class="textbox require count_num" name="name" style="width:500px;" value="{$vo.name}" maxlength="30" /><span class="text_tip"><span class="text_count">0</span>/<span class="text_limit">30</span></div></div>
+		<div class="info_row"><span class="row_left">商品简称 :</span><div class="row_right"><input type="text" class="textbox require count_num" name="sub_name"  value="{$vo.sub_name}" maxlength="18"/> <span class="text_tip"><span class="text_count">0</span>/<span class="text_limit">18</span></div></div>
+		<div class="info_row"><span class="row_left">{%URL_UNAME} :</span><div class="row_right"><input type="text" class="textbox word-only" name="uname" value="{$vo.uname}" /><span class="text_tip">限英文字母</span></div>	</div>
+		<div class="info_row"><span class="row_left">商品卖点 :</span><div class="row_right"><input type="text" class="textbox count_num" name="brief" style="width:500px;" value="{$vo.brief}" maxlength="60" /><span class="text_tip"><span class="text_count">0</span>/<span class="text_limit">60</span></div></div>
+		<div class="info_row"><span class="row_left">商品图片 :</span>
+			<div class="row_right">
+				<include file="Public:imgupload" />
+			</div>
+		</div>
+		<div class="info_row relate_goods deal_box"><span class="row_left">合并购买 :</span>
+	    <div class=" row_right">
+		    <div id="relate_goods_box">
+		    
+		    
+		    <foreach name="relate_goods" item="relate_good">
+		    	<div class="relate_row"><div class="relate_left"><input type="hidden" id="relate_goods_id_{$relate_good.id}" name="relate_goods_id[]" value="{$relate_good.id}">
+				<span class="dl_img">
+					<a href="{$relate_good.share_url}" title="{$relate_good.name}" target="_blank"><img src="{$relate_good.img}" width="100" heigth="70"></a>
+				</span>
+				</div><div class="relate_right"><a href="{$relate_good.share_url}" title="{$relate_good.name}" target="_blank">{$relate_good.name}</a><a class="relate_close_btn" href="javascript:void(0);"><img src="__TMPL__Common/images/delete_icon.png"></a></div></div>
+			    
+			</foreach>
+		    <if condition="$relate_goods_count lt $relate_goods_num">
+				<div class="add_icon"><img src="__TMPL__Common/images/add_img_icon.png" />
+					<button type="button" class="btn" id="add_relate_goods">添加关联商品</button>
+				</div>
+			</if>	
+			</div>
+		
+		<div class="text_info">最多关联{$relate_goods_num}个商品</div>
+        <input type="hidden" name="relate_goods_flag" id="relate_goods_flag" />
+	    </div>
+		</div>
+		
+		<div class="info_row deal_box"><span class="row_left">商品标签 :</span>
+			<div class="row_right">
+				
+			<php>
+				for($i=1;$i<10;$i++)
+				{
+					if($i!=1&&$i!=3&&$i!=4&&$i!=5&&$i!=6&&$i!=9)
+					{
+					if(($vo['deal_tag']&pow(2,$i))==pow(2,$i))
+					echo "<label><input type='checkbox' name='deal_tag[]' value='".$i."' checked='checked' />".l("DEAL_TAG_".$i)."</label>&nbsp;";
+					else
+					echo "<label><input type='checkbox' name='deal_tag[]' value='".$i."' />".l("DEAL_TAG_".$i)."</label>&nbsp;";
+					}
+				}
+			</php>
+			</div>
+		</div>
+		
+		<div class="info_row"><span class="row_left">{%BRAND_NAME} :</span>
+			<div class="row_right">
+
+			<select name="brand_id">
+				<option value="0">请选择品牌</option>
+				<foreach name="brand_list" item="brand_item">
+					<option value="{$brand_item.id}" <if condition="$vo['brand_id'] eq $brand_item['id']">selected="selected"</if> >{$brand_item.name}</option>
+				</foreach>
+			</select>
+			</div>
+		</div>
+		
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">库存/规格</td>
+		<td class="item_input">
+
+		<div class="info_row"><span class="row_left">上架时间 :</span>
+		<div class="row_right">
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="{$vo.begin_time}" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />	
+			<span class="text_tip">不设置立即上架</span>
+		</div>
+		</div>
+		
+		<div class="info_row"><span class="row_left">下架时间 :</span>
+		<div class="row_right">
+			<input type="text" class="textbox" name="end_time" id="end_time" value="{$vo.end_time}" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+		</div>
+		</div>
+		
+		<div class="info_row score_box"><span class="row_left">所需积分 :</span>
+		<div class="row_right">
+			<input type="text" class="textbox" name="deal_score" value="{$vo.deal_score}" />			
+		</div>
+		</div>
+		
+		<div class="info_row deal_box"><span class="row_left">结算费率 :</span>
+		<div class="row_right">
+			<input type="text" class="textbox require" name="publish_verify_balance" value="{$vo.publish_verify_balance}" />	
+			<span class="text_tip">%</span>			
+		</div>
+		</div>
+		
+		<div class="info_row deal_box"><span class="row_left">价格 :</span>
+		<div class="row_right">
+		
+		<div class="price_item">
+			<span class="price_title">销售价</span>
+			<input type="text" class="textbox require f_l pricebox" name="current_price" style="width:80px;" value="{$vo.current_price}" maxlength="10" />
+		</div>
+		
+		<div class="price_item">
+			<span class="price_title">{%DEAL_ORIGIN_PRICE}</span>
+			<input type="text" class="textbox require f_l pricebox" name="origin_price" style="width:80px;" value="{$vo.origin_price}" maxlength="10" />
+		</div>
+		
+		<div class="price_item">
+			<span class="price_title">{%DEAL_BALANCE_PRICE}</span>
+			<input type="text" class="textbox require f_l pricebox" name="balance_price" style="width:80px;" value="{$vo.balance_price}" maxlength="10" />
+		</div>
+		
+		<div class="text_info">
+
+			毛利率：<span class="price_profit_precentage">0.00%</span>   毛利额：<span class="price_profit">0.00</span> 
+		</div>
+		</div></div>
+	
+		<div class="info_row deal_box">
+		<div class="unit_row">
+				<label><input type='checkbox' name='allow_user_discount' value='1'  <if condition="$vo['allow_user_discount'] eq 1">checked="checked"</if> />参与会员等级折扣优惠</label>			
+		</div>
+		</div>
+		
+		<div class="info_row user_discount"><span class="row_left">会员价 :</span>
+		<div class="row_right">
+		<div class="user_discount_box">
+		
+		</div>
+
+		<div class="text_info">
+			会员价根据会员等级折扣实时变动，请注意控制会员等级折扣，以免会员价低于成本价 
+		</div>
+		</div>
+
+		</div>
+		
+				
+		<div class="info_row deal_box"><span class="row_left">商品属性 :</span>
+		<div class="row_right">
+			<select name="deal_goods_type">
+			<option value="0" <if condition="$vo['deal_goods_type'] eq 0">selected="selected"</if>>请选择</option>
+			<foreach name="goods_type_list" item="goods_type_item">
+				<option value="{$goods_type_item.id}" <if condition="$vo['deal_goods_type'] eq $goods_type_item['id']">selected="selected"</if>>{$goods_type_item.name}</option>
+			</foreach>
+			</select>
+			
+			<div id="deal_attr"></div>
+			
+		</div>
+
+		</div>
+		
+		<div class="info_row attr_box deal_box"><span class="row_left">商品库存 :</span>
+		<div class="row_right">
+
+			<div id="stock_table"></div>
+			
+		</div>
+
+		</div>
+		
+		<div class="info_row"><span class="row_left">总库存 :</span>
+		<div class="row_right">
+			<input type="text" class="textbox" name="max_bought" value="{$vo.max_bought}" />			
+		</div>
+		</div>
+		
+		<div class="info_row"><span class="row_left">{%DEAL_USER_MIN_BOUGHT} :</span>
+		<div class="row_right">
+			<input type="text" class="textbox" name="user_min_bought" value="{$vo.user_min_bought}" />			
+		</div>
+		</div>
+		
+		<div class="info_row"><span class="row_left">{%DEAL_USER_MAX_BOUGHT} :</span>
+		<div class="row_right">
+			<input type="text" class="textbox" name="user_max_bought" value="{$vo.user_max_bought}" />			
+		</div>
+		</div>
+	
+
+
+	</tr>
+	
+	<tr>
+		<td class="item_title">物流配置</td>
+		<td class="item_input">
+		
+		<div class="info_row"><span class="row_left">配送方式 :</span><div class="row_right">
+			<foreach name="delivery_type" item="delivery_item">
+				<label class="delivery-type-{$delivery_item.value}"><input name="delivery_type" type="radio" value="{$delivery_item.value}" <if condition="$delivery_item['value'] eq $vo['delivery_type']">checked="checked"</if> />{$delivery_item.name}</label>&nbsp;
+			</foreach>
+		
+			<div  style="display:none;">
+
+			<select name="is_delivery">
+				<option value="0" <if condition="$vo['is_delivery'] eq 0">selected="selected"</if>>{%IS_DELIVERY_0}</option>
+				<option value="1" <if condition="$vo['is_delivery'] eq 1">selected="selected"</if>>{%IS_DELIVERY_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_IS_DELIVERY_TIP}]</span>
+			</div>
+			
+		</div>
+		</div>
+		
+		<div class="info_row carriage-tpl delivery"><span class="row_left">运费模版 :</span><div class="row_right">
+
+			<div>		
+					<select name="carriage_template_id" >
+						<option value="0">==请选择运费模板==</option>
+						<foreach name="carriage_template" item="carriage_template_item">
+							<option value="{$carriage_template_item.id}" data-valuation-type="{$carriage_template_item.type}" <if condition="$carriage_template_item['id'] eq $vo['carriage_template_id']">selected="selected"</if>>{$carriage_template_item.name}</option>
+						</foreach>
+					</select>
+		            <div class="box-gray J_transportTpl" >
+		                <div id="J_hintDefault"  style="display: none;">
+		                    <div id="carriage_default_carriage">
+		               		         默认运费：1.0千克内1.00元，每增加1.0千克，加1.00元
+		                    </div>
+		                </div>
+		                <div id="deliver-warn" style="display: none;">发货地：<span id="carriage_teplate_address">阿富汗</span></div>
+		            </div>
+		
+			</div>
+			
+		</div>
+		</div>
+		<div class="info_row weight_box"><span class="row_left">配送重量 :</span><div class="row_right">
+
+			<input type="text" class="textbox" name="weight" value="{$vo.weight}" />
+			<span class='text_tip'>千克 </span>
+			
+		</div>
+		</div>
+		
+		
+		<div class="info_row deal_box">
+		<div class="unit_row">
+				<label><input type='checkbox' name='is_pick' value='1' <if condition="$vo['is_pick'] eq 1">checked="checked"</if> />允许自提</label>			
+		</div>
+		</div>
+		
+		
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">电脑端设置</td>
+		<td class="item_input">
+			 <html:editor id="description" name="description" type="KINDEDITOR" content="{$vo.description}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">手机端设置</td>
+		<td class="item_input">
+			<include file="Public:phone_description" />
+			<input type="hidden" id="phone_description" name="phone_description" value='{$vo.phone_description}'>
+		</td>
+	</tr>
+
+
+	<tr class="deal_box_tr">
+		<td class="item_title">分销设置</td>
+		<td class="item_input">
+		
+		<div class="info_row">
+		<div class="unit_row">
+				<label><input type='checkbox' name='is_referral' value='1' <if condition="$vo['is_referral'] eq 1">checked="checked"</if> />参与邀请好友注册购买得返利</label>			
+		</div>
+		</div>
+		
+		<div class="info_row delivery-3" style="display: none;"><span class="row_left">驿站服务费率 :</span><div class="row_right">
+			<input class="textbox" name="dist_service_rate" value="{$vo.dist_service_rate}"/>
+			<span class='text_tip'>% [服务费＝（现价－结算价）*比率]</span>		
+		</div>
+		</div>
+		
+		<div class="info_row"><span class="row_left">推荐会员ID :</span><div class="row_right">
+			<input class="textbox" name="recommend_user_id" value="{$vo.recommend_user_id}"/>
+			<span class='text_tip'>[设置推荐会员ID才生效，返佣金额＝（现价－结算价）*比率]</span>		
+		</div>
+		</div>
+		
+		<div class="info_row"><span class="row_left">推荐会员返佣率 :</span><div class="row_right">
+			<input class="textbox" name="recommend_user_return_ratio" value="{$vo.recommend_user_return_ratio}"/>
+			<span class='text_tip'>%</span>		
+		</div>
+		</div>	
+
+		<div class="info_row">
+		<div class="unit_row">
+				<label><input type='checkbox' name='is_allow_fx' value='1' <if condition="$vo['is_fx'] gt 0">checked="checked"</if> />参与分销</label>			
+		</div>
+		</div>
+	
+		<div class="info_row fx_box"><span class="row_left">分销方式 :</span><div class="row_right">
+			<label><input name="is_fx" type="radio" value="1" <if condition="$vo['is_fx'] eq 1 ">checked="checked"</if> />允许会员领取</label>&nbsp;
+			<label><input name="is_fx" type="radio" value="2" <if condition="$vo['is_fx'] eq 2 ">checked="checked"</if> />系统强制分配</label>&nbsp;
+		</div>
+		</div>	
+		
+		<div class="info_row fx_box"><span class="row_left">佣金分配 :</span><div class="row_right">
+			<label><input name="fx_salary_type" type="radio" value="0" <if condition="$vo['fx_salary_type'] eq 0 ">checked="checked"</if> />定额</label>&nbsp;
+			<label><input name="fx_salary_type" type="radio" value="1" <if condition="$vo['fx_salary_type'] eq 1 ">checked="checked"</if> />比率</label>&nbsp;
+		</div>
+		</div>	
+		
+		<div class="info_row fx_box"><span class="row_left">佣金设置 :</span><div class="row_right">
+	
+			<div><span class="row_right_title">一级邀请佣金</span>
+			<input type="text" class="textbox pricebox" name="fx_salary[]" value=""><span class="fx_unit">元</span></div>
+			<div class="blank5"></div>	
+			
+			<div><span class="row_right_title">二级邀请佣金</span>
+			<input type="text" class="textbox pricebox" name="fx_salary[]" value=""><span class="fx_unit">元</span></div>
+			<div class="blank5"></div>	
+			
+			<div><span class="row_right_title">三级邀请佣金</span>
+			<input type="text" class="textbox pricebox" name="fx_salary[]" value=""><span class="fx_unit">元</span></div>
+			<div class="blank5"></div>	
+			
+			
+		</div>
+		</div>
+		
+		
+		
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td class="item_title">特权/其他设置</td>
+		<td class="item_input">
+		
+		<div class="info_row deal_box">
+		<div class="unit_row">
+				<label><input type='checkbox' name='buyin_app' value='1' <if condition="$vo['buyin_app'] eq 1">checked="checked"</if> />限制仅APP端可购买</label>			
+		</div>
+		</div>
+		<div class="info_row deal_box">
+		<div class="unit_row">
+				<label><input type='checkbox' name='is_refund' value='1' <if condition="$vo['is_refund'] eq 1">checked="checked"</if> />支持退款</label>			
+		</div>
+		</div>
+		
+		<div class="info_row deal_box">
+		<div class="unit_row">
+				<label><input type='checkbox' name='is_recommend' value='1' <if condition="$vo['is_recommend'] eq 1">checked="checked"</if> />推荐</label>			
+		</div>
+		</div>
+		
+		
+		<div class="info_row deal_box"><span class="row_left">购买送积分 :</span><div class="row_right">
+		<input type="text" class="textbox" name="return_score" value="{$vo.return_score}" maxlength="10" />
+		</div></div>
+		
+		<div class="info_row deal_box"><span class="row_left">购买送现金 :</span><div class="row_right">
+		<input type="text" class="textbox pricebox" name="return_money" value="{$vo.return_money}" maxlength="10" />&nbsp;&nbsp;元
+		</div></div>
+
+		<div class="info_row"><span class="row_left">SEO标题 :</span><div class="row_right">
+		<input type="text" class="textbox count_num" name="seo_title" style="width:500px;" value="{$vo.seo_title}" maxlength="30" />
+		<span class="text_tip"><span class="text_count">0</span>/<span class="text_limit">30</span></div></div>
+	
+		<div class="info_row"><span class="row_left">SEO关键词 :</span><div class="row_right">
+		<input type="text" class="textbox count_num" name="seo_keyword" style="width:500px;" value="{$vo.seo_keyword}" maxlength="30" />
+		<span class="text_tip"><span class="text_count">0</span>/<span class="text_limit">30</span></div></div>
+		
+		<div class="info_row"><span class="row_left">SEO描述 :</span><div class="row_right">
+		<input type="text" class="textbox count_num" name="seo_description" style="width:500px;" value="{$vo.seo_description}" maxlength="60" />
+		<span class="text_tip"><span class="text_count">0</span>/<span class="text_limit">60</span></div></div>
+		
+		<div class="info_row"><span class="row_left">{%SORT} :</span><div class="row_right">
+		<input type="text" class="textbox" name="sort" value="<if condition="$vo['sort']">{$vo.sort}<else />100</if>" maxlength="10"/>
+		</div></div>
+	
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">请求类型:</td>
+		<td class="item_input">
+			<php>
+			if($vo['biz_apply_status']==1){
+				$str="发布";
+			}elseif($vo['biz_apply_status']==2){
+				$str="修改";
+			}elseif($vo['biz_apply_status']==3){
+				$str="下架";
+			}elseif($vo['biz_apply_status']==4){
+				$str="上架";
+			}else{
+				$str="？？？？";
+			}
+			echo $str;
+			</php>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">审核结果:</td>
+		<td class="item_input">
+			<if condition="$vo.admin_check_status eq 0">
+			<lable><input type="radio" name="admin_check_status" value="1" checked="checked" />同意申请</lable>
+			<lable><input type="radio" name="admin_check_status" value="2" />拒绝申请</lable>
+			<else/>
+				<if condition="$vo.admin_check_status eq 1">
+				同意申请
+				<else/>
+				拒绝申请
+				</if>
+			</if>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">审核备注:</td>
+		<td class="item_input">
+			<if condition="$vo.admin_check_status eq 0">
+				<input type="text" class="textbox" name="deal_submit_memo" style="width:500px;" value="" />
+			<else/>
+				{$vo.deal_submit_memo}
+			</if>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+				
+				
+			<input type="hidden" name="buy_type" value="{$vo.buy_type}" />	
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="deal_id" value="{$vo.deal_id}" />
+			<input type="hidden" name="edit_type" value="2"/> 
+			<input type="hidden" name="is_effect" value="1"/> 
+			<input type="hidden" name="select_location" value="{$select_location}"/>
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Deal" />
+			<if condition="($vo.biz_apply_status eq 2) AND ($vo.deal_id gt 0) "> 
+			<input type="hidden" name="{:conf("VAR_ACTION")}" val-name="shop_update" value="shop_update" />
+			<elseif condition="$vo.biz_apply_status eq 1"/>
+			<input type="hidden" name="{:conf("VAR_ACTION")}" val-name="shop_insert" value="shop_insert" />
+			<elseif condition="$vo.biz_apply_status eq 3"/>
+			<input type="hidden" name="{:conf("VAR_ACTION")}" val-name="do_downline" value="do_downline" />
+			<elseif condition="$vo.biz_apply_status eq 4"/>
+			<input type="hidden" name="{:conf("VAR_ACTION")}" val-name="do_upline" value="do_upline" />
+			</if>
+			<!--隐藏元素-->
+			<if condition="$vo.admin_check_status eq 0">
+				<input type="submit" class="button" value="审核" />
+				<input type="button" class="button" onclick="location.href='{:u("Deal/shop_publish")}'" value="取消" />
+			<else/>
+				<input type="button" class="button" onclick="location.href='{:u("Deal/shop_publish")}'" value="返回" />
+			</if>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 	 
+</form>
+</div>
+<div style="display:none" id="DefaultHtmlMeal">
+		{$vo.set_meal}
+</div>
+<div style="display:none" id="DefaultHtmlPCMeal">
+		{$vo.pc_setmeal}
+</div>
+<include file="Public:footer" />

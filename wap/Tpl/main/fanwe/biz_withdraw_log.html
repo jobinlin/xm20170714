@@ -1,0 +1,45 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current" id="biz_withdraw_log">
+	{include file="style5.2/inc/biz_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+	<div class="j-ajaxlist">
+	{if $data.item}
+		<ul class="record-list j-ajaxadd">
+			{foreach from=$data.item item=row}
+			<li class="flex-box b-line">
+				<div class="user-info">
+					<p class="bank-name">{$row.bank_name}</p>
+					<p class="bank-name">{$row.bank_user}{$row.bank_info}</p>
+					<p class="time">{$row.create_time}</p>
+				</div>
+				<div class="price-status flex-1">
+					<p class="price"><span>&yen;</span>{$row.money}</p>
+					<p class="status {if $row.status eq 1}success{elseif $row.status eq 2}fail{/if}">{if $row.status eq 1}提现成功{elseif $row.status eq 2}已拒绝{else}审核中{/if}</p>
+				</div>
+			</li>
+			{/foreach}
+			<!-- {foreach from=$data.data item=row}
+			<li>
+			    <span class="fr">&yen;{$row.money}</span>
+				<p class="pay-way">{$row.bank_name}</p>
+				<time>状态：{if $row.is_paid eq 1}提现成功{else}审核中{/if}</time>
+				<p class="payed">{$row.create_time}</p>
+				<div class="clear"></div>
+			</li>
+			{/foreach} -->
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+		{else}
+		<div class="tipimg no_data">暂无记录</div>
+		{/if}
+	</div>
+	<div class="blank"></div>
+</div>
+{include file="style5.2/inc/footer.html"}

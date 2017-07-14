@@ -1,0 +1,107 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var INDEX_URL='{url i="index"}';
+var address='{$address}';
+var ctl_name='{$MODULE_NAME}';
+var key='';
+var cate_id={$data.cate_id};
+</script>
+<div class="page page-current" id="youhuis">
+  <div class="m-events-tab">
+      <ul class="b-line">
+        {foreach from=$data.bcate_list item=cate}
+        <li>
+          <a class="j-choose-cate {if $request.cate_id eq $cate.id}active{/if}" href="javascript:void(0)" data-src="{$cate.url}" cate-id="{$cate.id}">{$cate.name}</a>
+        </li>
+        {/foreach}
+      </ul>
+      <div class="events-tab-line"></div>
+  </div>
+  {include file="style5.2/inc/auto_header.html"}
+  <div class="content infinite-scroll infinite-scroll-bottom">
+      <div class="m-youhui-list j_ajaxlist_{$data.cate_id}">
+        {if $data.deal_result}
+        <ul class="j_ajaxadd_{$data.cate_id} youhui-list">
+          {foreach from=$data.deal_result item=item}
+          {if $item.sort_status eq 0}
+          <li class="flex-box">
+            <div class="youhui-line"></div>
+            <div class="youhui-price">
+              <p class="price"><span>&yen;&nbsp;</span>{$item.youhui_value}</p>
+              <p class="price-tip">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+            </div>
+            <div class="youhui-info flex-1">
+              <p class="youhui-name">
+                {if $item.supplier_id eq 0}自营券{else}店铺券{/if}
+              </p>
+              <p class="youhui-time">
+                有效期至：{if $item.valid_type eq 2 && $item.use_end_time}{$item.use_end_time}{elseif $item.valid_type eq 1 && $item.expire_day}领取之日起{$item.expire_day}天有效{else}永久{/if}
+              </p>
+              <div class="youhui-tip flex-box">
+                <p class="flex-1">
+                  {if $item.supplier_id eq 0}
+                    限【平台自营】可用
+                  {else}
+                    {if $item.youhui_type eq 2}
+                      限<span>[{$item.supplier_name}]</span>店铺商品使用
+                    {elseif $item.youhui_type eq 1}
+                      限<span>[{$item.supplier_name}]</span>实体店铺消费使用
+                    {/if}
+                  {/if}
+                </p>
+                <a href="javascript:void(0);" class="youhui-btn youhui-item" url="{url x="index" r="youhui#download_youhui" p="data_id=$item.id"}" data-id="{$item.id}">
+                    立即领取
+                </a>
+
+              </div>
+            </div>
+          </li>
+          {else}
+            <li class="flex-box disable">
+              <div class="youhui-line"></div>
+              <div class="youhui-price">
+                <p class="price"><span>&yen;</span>{$item.youhui_value}</p>
+                <p class="price-tip">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+              </div>
+              <div class="youhui-info flex-1">
+                <p class="youhui-name">
+                  {if $item.supplier_id eq 0}自营券{else}店铺券{/if}
+                </p>
+                <p class="youhui-time">
+                  有效期至：{if $item.valid_type eq 2 && $item.use_end_time}{$item.use_end_time}{elseif $item.valid_type eq 1 && $item.expire_day}领取之日起{$item.expire_day}天有效{else}永久{/if}
+                </p>
+                <div class="youhui-tip flex-box">
+                  <p class="flex-1">
+                    {if $item.supplier_id eq 0}
+                      限【平台自营】可用
+                    {else}
+                      {if $item.youhui_type eq 2}
+                        限<span>[{$item.supplier_name}]</span>店铺商品使用
+                      {elseif $item.youhui_type eq 1}
+                        限<span>[{$item.supplier_name}]</span>实体店铺消费使用
+                      {/if}
+                    {/if}
+                  </p>
+                  <a class="youhui-btn" >
+                  {if $item.sort_status eq 1}
+                    券已领完
+                  {elseif $item.sort_status eq 2}
+                    活动已结束
+                  {/if}
+                  </a>
+                </div>
+              </div>
+            </li>
+          {/if}
+
+          {/foreach}
+        </ul>
+        <div class="pages hide">{$pages}</div>
+      </div>
+  </div>
+  {else}
+    <div class="tipimg no_data">暂无优惠券</div>
+  {/if}
+</div>
+{include file="style5.2/inc/footer.html"}

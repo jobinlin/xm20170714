@@ -1,0 +1,98 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/distribution.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/distribution.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>驿站列表</span>
+</div>
+<script>
+	var dist_ajax_url = '{url r="hiz" b="distribution"}';
+</script>
+<div class="content">
+	<div class="table-content">
+		<div class="table-nav clearfix">
+			<ul class="nav-list cleafix f_l">
+				<li class="f_l"><a class="nav-item transition active" href="javascript:void(0);" data-href="{url r="hiz" b="distribution"}">驿站列表</a></li>
+				<li class="f_l"><a class="nav-item transition" href="javascript:void(0);" data-href="{url r="hiz" b="distribution#authList"}">驿站审核列表</a></li>
+			</ul>
+			<a href="{url r="hiz" b="distribution#edit"}" class="f_r table-nav-btn transition">新增驿站</a>
+			<div class="table-line transition"></div>
+		</div>
+		<div class="j-ajax-content">
+			<div class="search-bar">
+				<input class="ui-textbox search-input dist_key" type="text" holder="请输入驿站名称" placeholder="请输入驿站名称" value="{$dist_key}"><input type="submit" class="search-btn transition dist_search" value="搜索">
+			</div>
+			{if $list}
+			<div class="hiz-table">
+				<table>
+					<col width="10%">
+					<col width="8%">
+					<col width="8%">
+					<col>
+					<col width="12%">
+					<col width="12%">
+					<col width="15%">
+					<col width="8%">
+					<col width="160px">
+					<thead>
+						<td style="text-align: left;">驿站名称</td>
+						<td>联系人</td>
+						<td>联系电话</td>
+						<td>详细地址</td>
+						<td>账户余额（元）</td>
+						<td>累计收入（元）</td>
+						<td>待结算金额（元）</td>
+						<td>状态</td>
+						<td>操作</td>
+					</thead>
+					<tbody>
+						{foreach from=$list item=item name=odd}
+					<tr class="{if $smarty.foreach.odd.index%2 eq 0}odd{/if} transition">
+							<td class="shop-name">{$item.name}</td>
+							<td>{$item.contact}</td>
+							<td>{$item.tel}</td>
+							<td>{$item.address}</td>
+							<td>{$item.money}</td>
+							<td>{$item.service_total_money}</td>
+							<td>{$item.unfee}</td>
+							<td><a class="dist_disabled" data-id="{$item.id}" data-act="distable">{if $item.disabled eq 0}正常{else}禁用{/if}</a></td>
+							<td>
+								<a class="transition" href="{url r="hiz" b="distribution#edit" p="id=$item.id"}">编辑</a><a class="transition" style="border-left: 1px solid #ddd;" href="{url r="hiz" b="distribution#shiplist" p="dist_id=$item.id"}">配送点列表</a>
+							</td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</div>
+			<div class="pages">
+				{$pages}
+			</div>
+			{else}
+			<div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+			<div class="no-data">暂无驿站</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

@@ -1,0 +1,154 @@
+@CHARSET "UTF-8";
+.page-city{
+	background: #fff;
+}
+.m-search-box{
+	padding: 0 @comspacing;
+}
+.m-search-box .search-input .icon{
+	
+}
+.m-search-box .search-input input{
+	border: none;
+	background: @gray;
+	border-radius: .2rem;
+}
+
+
+.m-hotcity,
+.m-allcity{
+	padding: 0 @comspacing;
+}
+.m-hotcity .tit{
+
+}
+.m-linetit .tit{
+	width: 100%;
+	text-align:center;
+	height:1.5rem;
+	line-height:1.5rem;
+}
+.m-linetit .tit:after{
+	display: block;
+	content: "";
+	clear: both;
+}
+.m-linetit .tit span {
+    position: relative;
+	font-size: @f_size2;
+}
+.m-linetit .tit span .iconfont{
+	color: #ffc001;
+	padding-right: .3rem;
+}
+.m-linetit .tit span i{
+	line-height: 1.5rem;
+}
+.m-linetit .tit span:before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: #e3e5e9;
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    z-index: 10;
+} 
+.m-linetit .tit span:after {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: #e3e5e9;
+    position: absolute;
+    left: -2rem;
+    top: 50%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    z-index: 10;
+}
+
+
+
+
+.m-hotcity .con:after{
+	display: block;
+	content: "";
+	clear: both;
+}
+.m-hotcity .hotcity{
+	float: left;
+	width: 25%;
+	text-align: center;
+	padding-left: @comspacing;
+	padding-bottom: @rowspacing;
+}
+.m-hotcity .hotcity a{
+	display: block;
+	width: 100%;
+	height: 1.6rem;
+	line-height: 1.6rem;
+	text-align: center;
+	border: 1px solid @bordercolor;
+	border-radius: .1rem;
+}
+
+
+.m-hotcity .con{
+	margin-left: -@comspacing;
+}
+
+
+.m-city_table{
+	line-height: 1.5rem;
+	margin-bottom: @rowspacing;
+	position: relative;
+	padding-left: 1rem;
+}
+.m-city_table ul{
+}
+.m-city_table li{
+	display: inline-block;
+
+}
+.m-city_table .letter{
+	position: absolute;
+	left: 0;
+	top: .05rem;
+}
+.m-city_table .letter a{
+	color: @themecolor;
+	height: 1rem;
+	line-height: 1rem;
+	width: 1rem;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid @themecolor;
+	border-radius: 50%;
+}
+.m-city_table .cityname{
+	margin-right:.5rem;
+}
+.m-city_table .cityname a{
+	display: inline-block;
+	padding: 0 .5rem;
+}
+
+#search_result{
+	position: absolute;
+    background: white;
+    width: 95%;
+    border: solid 1px @bordercolor;
+    z-index: 100;
+    padding: 5px 25px;
+}
+#search_result li{
+	height:25px;
+	line-height:25px;
+}
+

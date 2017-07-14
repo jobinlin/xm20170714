@@ -1,0 +1,147 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_fx_withdraw.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_withdraw.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_withdraw.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_invite.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_invite.js";
+
+?>
+
+{include file="inc/header.html"}
+
+<div class="blank20"></div>
+
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+	<div class="side_nav left_box">
+		{include file="inc/uc_nav_list.html"}
+	</div>
+	<div class="right_box">
+		
+		<div class="main_box uc_info_box">
+			<div class="info_nav">
+				<ul>					
+					<li class="cur"><a href="{url r="index" b="uc_fx_invite#index" }">我推荐的人</a></li>
+					<li><a href="{url r="index" b="uc_fx_invite#moneylog" }">分销账户日志</a></li>
+				</ul>
+			</div>
+
+			<!-- 资产标题 -->
+			<div class="info_box">
+				<div class="blank20"></div>
+				<h3>邀请好友</h3>
+				<span> </span>
+				<div class="blank5"></div>
+				<div id="referrals">
+					<div class="blk im refers">
+						
+							<h4>{$LANG.SHARE_LINK}：</h4>
+							<input type="text" onfocus="this.select()" class="ui-textbox" id="share-copy-text" size="40" value="{$share_url}" style="padding: 5px;">
+							<input type="button" class="formbutton" id="share-copy-button" value="{$LANG.COPY}" style="background: #f80;border-color: #ddd;border-style: solid;border-width: 2px;color: #FFFFFF;cursor: pointer;letter-spacing: 0.1em;padding: 4px 1em;">
+					
+					</div>
+				</div>
+				<div class="blank20"></div>
+				<h3>我的分销信息</h3>
+				<div class="blank10"></div>
+				<div class="bg_box growth_content">
+					
+					<div class="info_items">
+						<ul>
+							<li><label>我当前的分销收益是：</label><span class="main_color">{function name="format_price" v=$user_info.fx_money}</span>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div id="withdraw">
+		
+					<div class="info_table">
+					<table>					
+						<tr>
+							<td class="withdraw">
+								我的推荐人
+							</td>
+							<td class="withcontent">
+								{$inviter}
+							</td>
+						</tr>
+
+					</table>
+					</div>
+				
+	
+			</div><!--end form-->
+	
+			
+			<!-- 提现内容 -->
+			<div class="blank20"></div>
+			<div class="info_box">
+				<h3>{if $user_temid}他{else}我{/if}推荐的人</h3>
+				<div class="blank10"></div>
+				<div class="info_table order_table">
+					<table>
+						<tbody>
+							<tr>
+								<th width="120">会员名称</th>
+								<th width="100">我从该会员获取的推广佣金</th>
+
+								{if $user_temid}{else}<th width="70">查看他推荐的人</th>{/if}
+							</tr>
+							
+							{foreach from=$list item=row}
+							<tr class="alt">
+                                <td>
+								{$row.user_name}
+								</td>
+                                <td>
+                                	<h1>{function name="format_price" v=$row.money}</h1>
+                                </td>
+
+								{if $user_temid}{else}
+								<td class="op_box">
+									<a href="{url x="index" r="uc_fx_invite#index" p="user_id=$row.id"}" >查看</a>
+								</td>
+								{/if}
+                            </tr>
+                            {/foreach}
+                           
+                            <tr >
+                            	{if $list}
+                                <td colspan="4"><div class="pages">{$pages} {if $user_temid}<a href="javascript:history.go(-1);" style="float:right;">返回</a>{/if}</div></td>
+                                {else}
+                                <td colspan="4"><span>暂时没有下线会员</span><div class="pages"><a href="javascript:history.go(-1);" style="float:right;">返回</a></div></td>
+                                {/if}
+                            </tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div><!--end 列表-->
+			
+		</div>
+	</div>	
+</div>
+<div class="blank20"></div>
+{include file="inc/footer.html"}

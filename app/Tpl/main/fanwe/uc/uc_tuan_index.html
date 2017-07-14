@@ -1,0 +1,119 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_order.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+?>
+{include file="inc/header.html"}
+{include file="inc/refuse_delivery_form.html"}
+<div class="blank20"></div>
+
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+	<div class="side_nav left_box">
+		{include file="inc/uc_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="main_box setting_user_info">
+			<ul class="order-tab">
+				<li {if $pay_status eq 0}class="active"{/if}><a href="{url x="index" r="uc_tuan"}">全部订单</a></li>
+				<li {if $pay_status eq 1}class="active"{/if}><a href="{url x="index" r="uc_tuan" go="pay_status=1"}">待付款</a></li>
+				<li {if $pay_status eq 3}class="active"{/if}><a href="{url x="index" r="uc_tuan" go="pay_status=3"}">待使用</a></li>
+				<li {if $pay_status eq 4}class="active"{/if}><a href="{url x="index" r="uc_tuan" go="pay_status=4"}">待评价</a></li>
+			</ul>
+			{if $list}
+			<div class="order-list">
+				<ul class="order-list-hd">
+					<li class="goods-info">商品信息</li>
+					<li class="goods-price">单价</li>
+					<li class="goods-num">数量</li>
+					<li class="goods-status">商品状态</li>
+					<li class="goods-edit">操作</li>
+				</ul>
+				{foreach from=$list item=order}
+				<div class="order-shop">
+					<ul class="order-shop-hd">
+						<li class="order-time">{$order.create_time}</li>
+						<li class="order-code">订单号：{$order.order_sn}</li>
+						<li class="shop-name">商户：{$order.supplier_name}</li>
+					</ul>
+					<div class="order-goods-list clearfix">
+						<table class="goods-edit f_r">
+							<td>
+								{if $order.status.status}
+								<p style="text-align:center">{$order.status.status}</p>
+								{/if}
+								{foreach from=$order.status.handle item=order_handle}
+								{if $order_handle.url}
+								<a href="{$order_handle.url}" target="_blank">{$order_handle.info}</a>
+								{/if}
+								{if $order_handle.action}
+								<a href="javascript:void(0);" action="{$order_handle.action}" class="{$order_handle.class}">{$order_handle.info}</a>
+								{/if}
+								{/foreach}
+							</td>
+						</table>
+						{if $order.deal_order_item}
+						<ul class="goods-list">
+						{foreach name="deal_loop" from=$order.deal_order_item item=deal}
+							<li>
+								<div class="goods-info">
+									<div class="goods-img">
+										<a href="{url i="index" a="deal" g="act=$deal.deal_id"}" target="_blank"><img src="{function name="get_spec_image" v=$deal.deal_icon w=100 h=100 g=1}" alt=""></a>
+									</div>
+									<div class="goods-detail">
+										<a class="goods-name" href="{url i="index" a="deal" g="act=$deal.deal_id"}" target="_blank">{$deal.name}</a>
+										{if $deal.attr_str}
+										<p class="goods-type">属性：{$deal.attr_str}</p>
+										{/if}
+									</div>
+								</div>
+								<div class="goods-price">{if $deal.buy_type neq 1}{$deal.unit_price}{else}{function name="abs" v=$deal.return_score}积分{/if}</div>
+								<div class="goods-num">{$deal.number}</div>
+								<table class="goods-status">
+									<td>
+										{if $deal.status.url}
+										<a href="{$deal.status.url}">{$deal.status.status}</a>
+										{else}
+										<p>{$deal.status.status}</p>
+										{/if}
+										{if $deal.status.vaice_status}
+										<p class="font_hover">{$deal.status.vaice_status}</p>
+										{/if}
+									</td>
+								</table>
+							</li>
+						{/foreach}
+						</ul>
+						{/if}
+						<div class="order-count">合计：<b>{$order.total_price_format}</b></div>
+					</div>
+				</div>
+				<br>
+				{/foreach}
+			</div>
+			<div class="pages">{$pages}</div>
+			{else}
+			<div class="empty_tip">没有订单记录</div>
+			{/if}
+		</div>
+	</div>
+</div>
+<div class="blank20"></div>
+{include file="inc/footer.html"}

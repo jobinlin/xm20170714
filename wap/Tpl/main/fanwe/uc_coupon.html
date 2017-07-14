@@ -1,0 +1,162 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="uc_coupon">
+	<script>
+	var eq=parseInt({$status})+1;
+	var url=new Array();
+	url[1] = '{url r="index" a="uc_coupon" go="coupon_status=0&order_id=$order_id"}';
+	url[2] = '{url r="index" a="uc_coupon" go="coupon_status=1&order_id=$order_id"}';
+	url[3] = '{url r="index" a="uc_coupon" go="coupon_status=2&order_id=$order_id"}';
+	
+	var status=parseInt("{$status}")+1;
+	
+	</script>
+	 
+	 <div class="coupon-tab flex-box b-line">
+	 	<div class="flex-1 coupon-tab-item"><a href="#tab1" rel="1" class="tab-link j-tab-link btn-item {if $status eq 0}active{/if}">团购</a></div>
+	 	<div class="flex-1 coupon-tab-item"><a href="#tab2" rel="2" class="tab-link j-tab-link btn-item {if $status eq 1}active{/if}">自提</a></div>
+	 	{if $data.is_open_distribution}
+	 	<div class="flex-1 coupon-tab-item"><a href="#tab3" rel="3" class="tab-link j-tab-link btn-item {if $status eq 2}active{/if}">取货</a></div>
+	 	{/if}
+	 	<span class="tab-line"></span>
+	 </div>
+	{include file="style5.2/inc/auto_header.html"}
+
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="tabs">
+			{if $status eq 0}
+			<div id="tab1" class="tab active j_ajaxlist_1">
+				{if $tuan}
+				<ul class="m-tuan-list j_ajaxadd_1">
+					{foreach from=$tuan item=item_tuan}
+					<li class="tuan-item">
+						<a href="{url r="index" a="deal" go="data_id=$item_tuan.deal_id"}" data-no-cache="true" class="flex-box good-info b-line">
+							<div class="img-box">
+								<img src="{$item_tuan.img}" alt="">
+							</div>
+							<div class="flex-1">
+								<div class="good-name">{$item_tuan.name}</div>
+								<div class="good-date">{if $item_tuan.end_time}有效期：{$item_tuan.coupon_end_time}{else}使用期限：永久{/if}</div>
+							</div>
+						</a>
+						<div class="quan-show">
+							<ul class="quan-list">
+							{foreach from=$item_tuan.coupon item=tuan_coupon}
+								<li class="flex-box quan-item {if $tuan_coupon.status eq 1}j-open-quaninfo{/if} b-line" {if $tuan_coupon.status eq 1}data="{$tuan_coupon.qrcode}" data-id="{$tuan_coupon.password}"{/if}>
+									<div class="flex-1 {if $tuan_coupon.status neq 1}isOver{/if}">
+										券码：<em class="quan-detail">{$tuan_coupon.password}</em>
+										{if $tuan_coupon.status eq 0}({$tuan_coupon.info}){/if}
+									</div>
+									<div>
+										<i class="iconfont erweima">&#xe60e;</i>
+										<i class="iconfont">&#xe607;</i>
+									</div>
+								</li>
+							{/foreach}
+							</ul>
+						</div>
+						{if $item_tuan.count gt 1}
+						<div class="show-more-quan j-show-more-quan t-line">
+							<em>点击展开</em><i class="iconfont"></i>
+						</div>
+						{/if}
+					</li>
+					{/foreach}
+				</ul>
+				{else}
+				<div class="tipimg no_data">暂无团购消费券</div>
+				{/if}
+				<div class="pages hide">{$pages}</div>
+			</div>
+			{/if}
+			{if $status eq 1}
+			<div id="tab2" class="tab active j_ajaxlist_2">
+				{if $pick}
+				<ul class="m-ziti-list j_ajaxadd_2">
+					{foreach from=$pick item=pick_item}
+					<li class="ziti-item">
+						<div class="order-id b-line">订单编号: {$pick_item.order_sn}</div>
+						<a href="{url r="index" a="uc_order#view" go="data_id=$pick_item.order_id"}" class="store-detail flex-box b-line">
+							<div class="store-name flex-1"><i class="iconfont store-iocn">&#xe616;</i>{$pick_item.supplier_name}</div>
+							<div>{if $pick_item.all_number}共{$pick_item.all_number}件商品{/if}<i class="iconfont">&#xe607;</i></div>
+						</a>
+						<div class="quan-show">
+							<ul class="quan-list">
+								{foreach from=$pick_item.coupon item=pick_coupon}
+								<li class="flex-box quan-item {if $pick_coupon.status eq 1}j-open-quaninfo{/if} b-line" {if $pick_coupon.status eq 1}data="{$pick_coupon.qrcode}" data-id="{$pick_coupon.password}"{/if}>
+									<div class="flex-1 {if $pick_coupon.status neq 1}isOver{/if}">
+										券码：<em class="quan-detail">{$pick_coupon.password}</em>
+										{if $pick_coupon.status eq 0}({$pick_coupon.info}){/if}
+									</div>
+									<div>
+										<i class="iconfont erweima">&#xe60e;</i>
+										<i class="iconfont">&#xe607;</i>
+									</div>
+								</li>
+								{/foreach}
+							</ul>
+						</div>
+						{if $pick_item.count gt 1}
+						<div class="show-more-quan j-show-more-quan t-line">
+							<em>点击展开</em><i class="iconfont"></i>
+						</div>
+						{/if}
+					</li>
+					{/foreach}
+				</ul>
+				{else}
+				<div class="tipimg no_data">暂无自提消费券</div>
+				{/if}
+				<div class="pages hide">{$pages}</div>
+			</div>
+			{/if}
+			{if $status eq 2 &&  $data.is_open_distribution}
+			<div id="tab3" class="tab active j_ajaxlist_3">
+				{if $dist}
+				<ul class="m-ziti-list j_ajaxadd_3">
+					{foreach from=$dist item=dist_item}
+					<li class="ziti-item">
+						<div class="order-id b-line">订单编号: {$dist_item.order_sn}</div>
+						<a href="{url r="index" a="uc_order#view" go="data_id=$dist_item.order_id"}" class="store-detail flex-box b-line">
+							<div class="store-name flex-1"><i class="iconfont store-iocn">&#xe616;</i>{$dist_item.dist_name}</div>
+							<div>{if $dist_item.number}共{$dist_item.number}件商品{/if}<i class="iconfont">&#xe607;</i></div>
+						</a>
+						<div class="quan-show">
+							<ul class="quan-list">
+								<li class="flex-box quan-item {if $dist_item.status eq 1}j-open-quaninfo{/if} b-line" {if $dist_item.status eq 1}data="{$dist_item.qrcode}" data-id="{$dist_item.sn}"{/if}>
+									<div class="flex-1 {if $dist_item.status eq 0}isOver{/if}">
+										券码：<em class="quan-detail">{$dist_item.sn}</em>
+										{if $dist_item.status eq 0}({$dist_item.info}){/if}
+									</div>
+									<div>
+										<i class="iconfont erweima">&#xe60e;</i>
+										<i class="iconfont">&#xe607;</i>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					{/foreach}
+				</ul>
+				{else}
+				<div class="tipimg no_data">暂无驿站取货码</div>
+				{/if}
+				<div class="pages hide">{$pages}</div>
+			</div>
+			{/if}
+		</div>
+	</div>
+
+	<div class="pop-up">
+		<div class="close-pop"></div>
+		<div class="img-box">
+			<div class="img-box-con">
+				<div class="pop-quan-id">券码：<em class="j-quan-id"></em></div>
+				<div>请将二维码出示给服务人员，扫码使用</div>
+				<img src="" alt="" class="j-pop-img">
+				<i class="iconfont close-pop-btn j-close-pop-btn">&#xe634;</i>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,165 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+function get_supplier_order_orderStatus($order_status){
+	 	//0:开放状态（可操作不可删除） 1:结单（不可操作可删除）
+	 	if($order_status == 1){
+			$status = '结单';
+		}else{
+			$status = '处理中';
+		}
+		return $status;
+}
+
+function get_supplier_order_pay_status($pay_status){
+		if($pay_status == 0){
+			$status = '未支付';
+		}
+		
+		if($pay_status == 2){
+			$status = '已支付';
+		}
+		
+		
+		return $status;
+	}
+function get_extra_status($extra_status){
+	//0:正常的订单 1.金额超额产生退款的订单（多次支付，重付通知） ,自动退款到用户的订单）
+	if($extra_status == 0){
+		$status = '正常订单';
+	}
+	
+	if($extra_status == 1){
+		$status = '金额超额产生退款的订单';
+	}
+	
+	return $status;
+}
+
+function get_after_sale($after_sale){
+	//0:正常订单 1:退款处理的订单
+	if($after_sale == 0){
+		$status = '正常订单';
+	}
+	
+	if($after_sale == 1){
+		$status = '退款处理的订单';
+	}
+	return $status;
+}
+
+</PHP>
+<script type="text/javascript">
+	function track_express(express_sn,express_id)
+	{	
+		$.ajax({ 
+			url: "<?php echo u("DealOrder/check_delivery");?>&express_sn="+express_sn+"&express_id="+express_id, 
+			data: "ajax=1",
+			dataType: "json",
+			success: function(obj){
+				
+				if(obj.status==1)
+				{
+					newTab.location.href=obj.msg;
+				}
+				if(obj.status==0)
+				{
+					alert(obj.msg);
+				}				
+			}
+		});		
+	}
+
+</script>
+<div class="main">
+<div class="main_title">查看订单{$storePayOrder.order_sn}
+
+</div>
+<div class="blank5"></div>
+
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=4 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">订单号:</td>
+		<td class="item_input">{$storePayOrder.order_sn}</td>
+		<td class="item_title">订单状态:</td>
+		<td class="item_input">
+			{$storePayOrder.order_status|get_supplier_order_orderStatus}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">订单支付状态:</td>
+		<td class="item_input">{$storePayOrder.pay_status|get_supplier_order_pay_status}</td>
+		<td class="item_title">下单时间:</td>
+		<td class="item_input">{$storePayOrder.create_time|to_date}</td>
+	</tr>
+	<tr>
+		<td class="item_title">额外的订单标识:</td>
+		<td class="item_input">{$storePayOrder.extra_status|get_extra_status}</td>
+		<td class="item_title">售后处理标识 :</td>
+		<td class="item_input">{$storePayOrder.after_sale|get_after_sale}</td>
+	</tr>	
+	 
+	
+	<tr>
+		<th colspan=4>付款信息</th>
+	</tr>
+	<tr>
+		<td class="item_title">消费金额:</td>
+		<td class="item_input">{$storePayOrder.total_price|format_price}</td>
+		<td class="item_title">实付金额:</td>
+		<td class="item_input">{$storePayOrder.pay_amount|format_price}</td>
+	</tr>
+	<tr>
+		<td class="item_title">用户折扣:</td>
+		<td class="item_input">{$storePayOrder.discount_price|format_price}</td>	
+		<td class="item_title">不可优惠金额:</td>
+		<td class="item_input">{$storePayOrder.other_money|format_price}</td>	
+	</tr>
+	<tr>
+        <td class="item_title">积分抵现:</td>
+        <td class="item_input">{$storePayOrder.exchange_money|format_price}</td>
+        <td class="item_title">收款方式:</td>
+		<td colspan="3" class="item_input">{$storePayOrder.payment_name}</td>
+	</tr>
+	<tr>
+		<th colspan=4>其它信息</th>
+	</tr>
+	<tr>
+		<td class="item_title">下单会员:</td>
+		<td class="item_input">
+			{$storePayOrder.user_name}
+		</td>
+		<td class="item_title">会员手机号:</td>
+		<td class="item_input">{$storePayOrder.user_mobile}</td>
+		
+	</tr>
+	<tr>
+		<td class="item_title">商户名称:</td>
+		<td class="item_input">{$storePayOrder.supplier_name}</td>
+		<td class="item_title">门店名称:</td>
+		<td class="item_input">{$storePayOrder.supplier_location_name}</td>		
+		
+	</tr>
+	 
+	 
+	
+	
+ 
+	<tr>
+		<td colspan=4 class="bottomTd"></td>
+	</tr>
+</table>
+<div class="blank5"></div>
+
+ 
+
+ 
+
+ 
+
+</div>
+<include file="Public:footer" />

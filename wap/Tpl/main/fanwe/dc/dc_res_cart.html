@@ -1,0 +1,123 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_res_cart">
+<script>
+	var DC_AJAX_URL = '{url a="index" p="dcajax"}';
+	var CART_URL = '{url a="index" p="dcorder"}';
+	var location_id = '{$data.location_info.id}';
+	var table_menu_id = '{$data.item_info.id}';
+	var rs_date = '{$rs_date}';
+	var item_price = '{$data.item_info.price}';
+</script>
+	<div class="dc-mask j-close-time j-close-memo"></div>
+	<div class="time-select">
+		<div class="time-select-hd">
+			<span>选择到店时间</span>
+			<p class="j-close-time">取消</p>
+		</div>
+		<ul class="select-time">
+			{foreach from=$data.item_time item=item}
+			<li class="j-time-choose b-line flex-box j-close-time {$item.reasion} {if $item.reasion == 'timeerror' || $item.reasion == 'fullbuy'}disable{/if}" value="{$item.id}">
+				<p class="flex-1">{$item.rs_time}</p>
+				<div class="iconfont">&#xe667;</div>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+	<div class="memo-box">
+		<div class="memo-text">
+			<textarea placeholder="可填写附加要求，我们会尽量安排" id="memo" name="dc_comment" maxlength="100"></textarea>
+		</div>
+		<div class="memo-btn-box flex-box t-line">
+			<div class="j-close-memo memo-btn flex-1 r-line">取消</div>
+			<div class="j-memo memo-btn flex-1">确认</div>
+		</div>
+	</div>
+	{if $app_index=='app'}
+		<div class="dc-header bar bar-nav">
+			{if $page_finsh}
+			<a class="header-btn hearder-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+			{else}
+			<a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a>
+			{/if}
+			<h1 class="header-title">{$data.page_title}</h1>
+			
+		</div>
+	{else}
+		<div class="dc-header bar bar-nav">
+			<a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >&#xe604;</a>
+			<h1 class="header-title">{$data.page_title}</h1>
+			
+		</div>
+	{/if}
+	<div class="bar bar-tab flex-box">
+		<p class="res-count flex-1"><span class="res-content">预订定金</span>：<span class="res-price" data-value="{$data.item_info.price}">{$data.item_info.format_price}</span></p>
+		<a href="" class="res-pay disable">确认</a>
+	</div>
+    <div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="res-hd">
+			<p class="shop-name">{$data.location_info.name}</p>
+			<p class="res-type">{$data.item_info.name}</p>
+			<p class="res-tip">{$data.item_info.comment}</p>
+		</div>
+		<div class="res-time j-open-time flex-box">
+			<p class="flex-1">到店时间</p>
+			<p>{$rs_date}</p>
+			<p class="j-res-time">{$item_time.0.rs_time}</p>
+			<div class="iconfont">&#xe607;</div>
+			<input type="hidden" id="time-value" name="order_delivery_time" value="{$item_time.0.id}">
+		</div>
+		<div class="res-user">
+			<div class="user-info flex-box b-line">
+				<p>姓名</p>
+				<input type="text" name="consignee" class="flex-1" placeholder="请输入您的姓名">
+			</div>
+			<div class="user-info flex-box b-line">
+				<p>手机</p>
+				<input type="text" name="mobile" class="flex-1" placeholder="请输入您的手机号">
+			</div>
+			<div class="user-info j-open-memo res-memo">
+				<p>备注</p>
+				<div class="j-res-memo flex-1"><span class="default-txt">可填写附加要求，我们会尽量安排</span></div>
+			</div>
+		</div>
+		<div class="res-bar">预定方式</div>
+
+		<div class="res-way flex-box b-line j-only-res {if $data.has_cart}{else}active{/if}" value="1">
+			<p class="flex-1">只订座，不提前点菜</p>
+			<div class="iconfont"></div>
+		</div>
+		<div class="res-way flex-box j-open-menu {if $data.has_cart}active{/if}" value="2">
+			<p class="flex-1">提前点菜，到店直接吃</p>
+			<div class="iconfont"></div>
+		</div>
+		<input type="hidden" value="{if $data.has_cart}2{else}1{/if}" id="res-way">
+		
+		<div class="res-goods-info" {if $data.has_cart}{else}style="display: none;"{/if}>
+			<div class="res-bar">预定商品</div>
+			<ul class="goods-list">
+				{foreach from=$data.cart_menu item=cart}
+				<li class="flex-box">
+					<p class="goods-name flex-1">{$cart.name}</p>
+					<p class="goods-num">x{$cart.num}</p>
+					<p class="goods-price" data-value="{$cart.unit_price}">{$cart.format_unit_price}</p>
+				</li>
+				{/foreach}
+			</ul>
+			<div class="goods-count flex-box t-line">
+				<p class="flex-1">菜金合计：<span class="count-price" data-value="{$data.cart_total_price}">{$data.format_cart_total_price}</span></p>
+				<div class="j-open-menu menu-btn">继续点菜</div>
+			</div>
+		</div>
+  	</div>
+  	<div class="popup popup-menu">
+	  	<div class="popup-header b-line">
+	  		<p class="popup-tit">菜单</p>
+	  		<div class="iconfont j-close-popup">&#xe604;</div>
+	  	</div>
+		<div class="j-shop-item shop-item menu active">
+		</div>
+		<div class="m-fly"></div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

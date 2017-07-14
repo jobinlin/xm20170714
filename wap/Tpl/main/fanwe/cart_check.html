@@ -1,0 +1,351 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var AJAX_URL='{url i="index" r="ajax"}';
+var CART_URL='{url i="index" r="cart"}';
+var order_id = '{$data.order_id}';  //订单号
+</script>
+<div class="page page-index" id="cart_check">
+<div class="m-select-box invoice-type-box">
+	<ul class="select-box">
+		<li class="flex-box b-line j-close-select j-select-type" value="0">
+			<p class="flex-1 invoice-type tc">暂不开票</p>
+		</li>
+		<li class="flex-box b-line j-close-select j-select-type" value="1">
+			<p class="flex-1 invoice-type tc">个人</p>
+		</li>
+		<li class="flex-box b-line j-close-select j-select-type" value="2">
+			<p class="flex-1 invoice-type tc">企业</p>
+		</li>
+	</ul>
+</div>
+{foreach from=$data.invoice_list item=invoice key=shop_id}
+<div class="m-select-box invoice-info-box" shop-id="{$shop_id}" link-shop-id="{$shop_id}">
+	<ul class="select-box">
+		{foreach from=$invoice.invoice_content item=content}
+		<li class="flex-box b-line j-close-select j-select-info" value="{$content}">
+			<p class="flex-1 invoice-info tc">{$content}</p>
+		</li>
+		{/foreach}
+		<!-- <li class="flex-box b-line j-close-select j-select-info" value="1">
+			<p class="flex-1 invoice-info tc">？？</p>
+		</li>
+		<li class="flex-box b-line j-close-select j-select-info" value="2">
+			<p class="flex-1 invoice-info tc">！！</p>
+		</li> -->
+	</ul>
+</div>
+{/foreach}
+<div class="m-mask j-close-select"></div>
+
+<form  action="{url i="index" r="cart#done" g="address_id=$data.consignee_info.id&id=$id"}" id="pay_box">
+	{include file="style5.2/inc/auto_header.html"}
+	<nav class="bar bar-tab ">
+		<div class="m-check-paybox t-line">
+
+			<a href="javascript:void(0);" class="go_pay z-state">{if $buy_type eq 1}兑换{else}去支付{/if}</a>
+		
+			<p class="u-lg-price">还需支付：<span class="u-money">¥<i class="total_price_box">0</i></span></p>
+		</div>
+	</nav>
+
+
+	<div class="content" style="bottom: 2.5rem">
+
+		<!--收件人信息-->
+		{if $data.is_delivery }
+		<div class="m-order-common check_head media-list" id="delivery-address">
+		
+		{if $data.location }
+				<div class="con_left" style="padding-top:.7rem;line-height:.75rem;margin-left:.5rem;">自提</div>
+				<div class="con_right flex-1">
+					<a href="javascript:void(0);" url="{url i="index" r="uc_address" y="check=check&id=$id&supplier_id=$supplier_id&is_pick=$is_pick&buy_type=$buy_type&address_id=$address_id"}" class="item-link item-content load_page" js_url='{$tmpl_path}js/load/order_address.js'>
+						<div class="item-inner">
+							<div class="item-subtitle user-name">{$data.location.name}</div>
+							<div class="item-text user-address">{$data.location.address} {if $data.location.tel}( 电话：{$data.location.tel} ){/if}</div>
+						</div>
+					</a>
+				</div>
+				<input type="hidden" value="{$data.location.id}" name="location_id" />
+		{else}
+				<div class="con_left" style="padding-top:.7rem;line-height:.75rem;margin-left:.5rem;">送至</div>
+				<div class="con_right flex-1">
+					{if $data.consignee_info}
+						<a href="javascript:void(0);" url="{url i="index" r="uc_address" y="check=check&id=$id&supplier_id=$supplier_id&is_pick=$is_pick&buy_type=$buy_type&address_id=$address_id"}" class="item-link item-content load_page" js_url='{$tmpl_path}js/load/order_address.js'>
+							<div class="item-inner">
+								<div class="item-subtitle user-name">收货人:{$data.consignee_info.consignee}<span class="u-phoneNum">{$data.consignee_info.mobile}</span></div>
+								<div class="item-text user-address">{$data.consignee_info.full_address}</div>
+							</div>
+							{if $data.is_pick eq 1 }
+							<p style="color:#f24;margin-left:.5rem;">本次订单支持自提，请点击选择自提门店</p>
+							{/if}
+						</a>
+					{else}
+						{if $data.consignee_count || $data.is_pick}
+						<a href="javascript:void(0);" url="{url i="index" r="uc_address" y="check=check&id=$id&supplier_id=$supplier_id&is_pick=$is_pick&buy_type=$buy_type&address_id=$address_id"}" class="item-link item-content load_page" js_url='{$tmpl_path}js/load/order_address.js'>
+						{else}
+						<a href="javascript:void(0);" class="item-link item-content load_page" js_url='{$tmpl_path}js/load/address_add.js' url="{url r="index" p="uc_address#add"}">
+						{/if}
+							<div class="item-inner">
+								<div class="item-subtitle user-name">请填写收货地址</div>
+							</div>
+							{if $data.is_pick eq 1 }
+							<p style="color:#f24;margin-left:.5rem;">本次订单支持自提，请点击选择自提门店</p>
+							{/if}
+						</a>
+					{/if}
+
+					<input type="hidden" value="{$data.consignee_info.id}" name="address_id" />
+				</div>
+		
+		{/if}
+		</div>
+		{/if}
+		<!--收件人信息-->
+
+		<!-- 页面主体 -->
+		<div class="list-block m-cart">
+			<!--购物车列表开始-->
+		{if $data.cart_list}
+		{foreach from=$data.cart_list item=cart_list}
+			<div class="m-conBox m-check-order m-modify">
+				<!--列表头部开始-->
+				<div class="m-title  item-content b-line">
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title" style="padding-left: 0.5rem">{$cart_list.supplier_name}</div>
+						</div>
+					</div>
+				</div>
+				<!--列表头部结束-->
+
+				<ul class="m-cart-list j-select-body">
+				{foreach from=$cart_list.list item=cart}
+					<li class="item-content b-line">
+						<div class="item-inner">
+							<div class="item-media shopImg">
+								<img src="{$cart.f_icon}">
+								{if $cart.allow_promote}<span class="u-cut"></span>{/if}
+								{if $cart.stock gt -1}<p class="u-surplus">仅剩{$cart.stock}件</p>{/if}
+							</div>
+							<div class="z-opera z-opera-sure">
+								<div class="item-subtitle shopTi">
+									<a href="{$cart.url}">{$cart.name}</a>
+									{if $cart.attr_str}<p class="sizes">规格: {$cart.attr_str}</p>{/if}
+								</div>
+								<div class="shop_price tr">
+									<p class="u-sm-price"><span class="u-money">
+									{if $buy_type eq 1}
+										{$cart.return_score_format}
+									{else}
+										{$cart.unit_price_format}
+									{/if}
+									</span></p>
+									<p class="shop-count">x<i>{$cart.number}</i></p>
+								</div>
+							</div>
+							
+						</div>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+			
+			<!--配送方式-->
+			<div class="m-conBox m-logist">
+			{if !$data.location && $data.is_delivery eq 1 && $data.consignee_info}
+				<a href="javascript:void(0);" class="item-content b-line">
+					<div class="item-media"><i class="icon icon-f7"></i></div>
+					<div class="item-inner u-common-inline ">
+						<div class="item-title">配送运费</div>
+							<div class="item-after j-reward-money"><span class="j-company-name"></span><span class="expore j-company-money">{if $cart_list.delivery_fee gt 0}{function name="format_price" v=$cart_list.delivery_fee}{else}包邮{/if}</span></div>
+					</div>
+				</a>
+			{/if}
+			{if $cart_list.youhui_value  &&  $buy_type eq 0}
+				<a href="javascript:void(0);" class="item-content b-line">
+					<div class="item-media "><i class="icon icon-f7"></i></div>
+					<div class="item-inner u-common-inline j-trans"  data-id="{$cart_list.id}" data-price="{$cart_list.total_price}">
+						<div class="item-title">店铺优惠</div>
+							<div class="item-after j-trans-commpany"><span class="j-company-name"></span><span class="expore j-company-money" style="color: red;">-￥{$cart_list.youhui_value}</span><span class="iconfont">&#xe607;</span></div>
+					</div>
+				</a>
+			{/if}
+			{if $data.is_score != 1}
+			<div class="m-invoice-box" shop-id="{$cart_list.id}">
+				{if $cart_list.invoice_conf && ($cart_list.invoice_conf.invoice_type eq 1)}
+				<div class="invoice-item flex-box b-line j-open-type invoice-type">
+					<p class="invoice-tit flex-1">发票类型</p>
+					<p class="invoice-tip">暂不开票</p>
+					<div class="iconfont">&#xe607;</div>
+					<input name="invoice_type[{$cart_list.id}]" type="hidden" value="0">
+				</div>
+				<div class="invoice-detail hide">
+					<div class="invoice-item flex-box b-line j-open-info invoice-info">
+						<p class="invoice-tit flex-1">发票内容</p>
+						<p class="invoice-tip">{$cart_list.invoice_conf.invoice_content.0}</p>
+						<div class="iconfont">&#xe607;</div>
+						<input name="invoice_content[{$cart_list.id}]" type="hidden" value="{$cart_list.invoice_conf.invoice_content.0}">
+					</div>
+					<div class="invoice-item flex-box b-line">
+						<p class="invoice-tit">发票抬头</p>
+						<input name="invoice_title[{$cart_list.id}]" type="text" class="invoice-input flex-1 invoice-title" placeholder="请填写发票抬头" value="{$data.consignee_info.consignee}">
+					</div>
+					<div class="invoice-item flex-box b-line inv-tax-box">
+						<p class="invoice-tit">纳税人识别码</p>
+						<input name="invoice_taxnu[{$cart_list.id}]" type="text" class="invoice-input flex-1 invoice-taxnu" placeholder="免税单位请填0">
+					</div>
+				</div>
+				{else}
+				<div class="invoice-item flex-box b-line invoice-type">
+					<p class="invoice-tit flex-1">发票类型</p>
+					<p class="invoice-tip">暂不支持开票</p>
+					<div class="iconfont">&#xe607;</div>
+					<input name="invoice_info[{$cart_list.id}]" type="hidden" value="0">
+				</div>
+				{/if}
+			</div>
+			{/if}
+			<div class="remarkBox">
+				<p class="remarkTitle">订单备注<span class="iconfont">&#xe607;</span></p>
+				<div class="remarkArea">
+					<textarea name="content[{$cart_list.id}]" placeholder="填写订单备注(100字以内)" maxlength="100"></textarea>
+				</div>
+			</div>
+			</div>	
+		{/foreach}
+		{/if}
+			<!--购物车列表结束-->
+
+
+
+			<!--红包-->
+			{if $data.has_ecv eq 1 && $data.voucher_count}
+			<div class="m-conBox voucher_box">
+				<a href="javascript:void(0);" class="item-content item-link">
+					<div class="item-media"><i class="icon icon-f7"></i></div>
+					<div class="item-inner u-common-inline j-reward">
+						<div class="item-title">红包</div>
+						<div class="item-after j-reward-money" value="0" money="0">{$data.voucher_count}个可用</div>
+					</div>
+				</a>
+			</div>
+			
+			<div class="item-tip">
+			注意：选择红包并下单后，红包不退还
+			</div>
+			{/if}
+			<!--红包-->
+
+			<!--订单费用详情-->
+
+			<div id="cart_total"></div>
+			<!--订单费用详情-->
+		</div>
+	</div>
+
+
+	<div class="popup-box">
+		<div class="pup-box-bg j-box-bg"></div>	
+		
+		<div class="list-block m-trans-way j-trans-way">
+			<div class="item-content u-common-box t-line-white trans-way-bg">
+				<p class="u-ti tc">优惠券</p>
+			</div>
+			{foreach from=$data.cart_list item=cart_list}
+			<ul class="j-trans-list m-tv-list" data-id="{$cart_list.id}">
+				{foreach from=$cart_list.youhui_list item=item}
+			  	<li class="t-line-white">
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name"><span class="j-company-name">{$item.youhui_value}元（{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}）</span></div>
+							<div class="item-after">
+								<input type="radio" name="youhui_log_id[{$cart_list.id}]" money="{$item.youhui_value}" value="{$item.id}" {if $item.is_checked eq 1}checked="checked"{/if} {if $cart_list.p_youhui_id eq $item.id} disabled="disabled"{/if}>
+								<div class="item-media">
+									<i class="icon icon-form-checkbox {if $cart_list.p_youhui_id eq $item.id}disabled-checked{/if}" ></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+				{/foreach}
+				<li>
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">不使用优惠券</div>
+							<div class="item-after">
+								<input type="radio" name="youhui_log_id[{$cart_list.id}]" value="0">
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+			</ul>
+			{/foreach}
+			<div class="item-content u-common-box">
+				<p class="u-ti tc j-cancel">取消</p>
+			</div>
+		</div>
+			
+		{if $data.has_ecv eq 1 && $data.voucher_list}
+		<div class="list-block m-trans-way j-red-reward voucher_box">
+			<div class="item-content u-common-box t-line-white trans-way-bg">
+				<p class="u-ti tc">红包</p>
+			</div>
+			
+			<ul class="j-reward-list m-tv-list">
+				{foreach from=$data.voucher_list item=voucher key=key}
+					<li class="t-line-white">
+						<label class="label-checkbox item-content trans-way-bg">
+							<div class="item-inner">
+								<div class="item-title pay-way-name">{$voucher.money}元（{if $voucher.start_use_price}满{$voucher.start_use_price}元可用{else}无使用限制{/if}）</div>
+								<div class="item-after">
+									<input type="radio" name="ecvsn" value="{$voucher.sn}" money="{$voucher.money}">
+									<div class="item-media">
+										<i class="icon icon-form-checkbox"></i>
+									</div>
+								</div>
+							</div>
+						</label>
+					</li>
+				{/foreach}
+				<li>
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">不使用红包</div>
+							<div class="item-after">
+								<input type="radio" name="ecvsn" value="0" money="0" checked="checked">
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+			</ul>
+			<div class="item-content u-common-box">
+				<p class="u-ti tc j-cancel">取消</p>
+			</div>
+		</div>
+		{/if}
+		<input type="hidden" name="id" value="{$id}" />
+		<input type="hidden" name="buy_type" value="{$buy_type}" />
+	</div>
+</form>
+{if $data.invoice_notice}
+<div class="popup invoice-popup">
+	<header class="bar bar-nav b-line">
+		<a class="header-btn header-left iconfont close-popup">&#xe604;</a>
+		<h1 class="header-title">发票需知</h1>
+	</header>
+	<div class="content">
+		<div class="invoice-detail">
+			{$data.invoice_notice}
+		</div>
+	</div>
+</div>
+{/if}
+</div>
+{include file="style5.2/inc/footer.html"}

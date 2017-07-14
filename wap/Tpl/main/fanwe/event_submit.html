@@ -1,0 +1,73 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="event_submit">
+	{include file="style5.2/inc/auto_header.html"}
+	{if $data.field}
+	<div class="content m-event-submit">
+	<form action="{url a="index" r="event#do_submit"}" name='event_submit_form' class="event_submit_panel">
+		{foreach from=$data.field item=field}
+			<input type="hidden" value="{$field.id}" name="field_id[]" />		
+			<div class="submit-box flex-box b-line">
+				<em class="submit-lab">{$field.field_show_name}</em>
+				{if $field.field_type}
+				<input type="text" placeholder="" name="result[{$field.id}]" value="{$field.value}" data_id="{$field.id}" class="flex-1 submit-input j-submit-input" readonly="readonly" data-lab="{$field.field_show_name}" data="{$field.value_scope}" data-name="{$field.field_show_name}">
+				<i class="iconfont">&#xe607;</i>
+				{else}
+				<input type="text" name="result[{$field.id}]" placeholder="" class="flex-1 submit-input" value="{$field.value}">
+				{/if}
+			</div>
+		{/foreach}
+		<div class="big-btn event-submit">
+			<input type="hidden" value="{$event_id}" name="event_id" />
+			<button type="submit" class="btn-con">{if $data.submit_status}修改报名{else}报名{/if}</a>
+		</div>
+	</form>
+	</div>
+	{/if}
+	<div class="flippedout ">
+	<!-- 导航下拉开始 -->
+
+		<div class="m-nav-dropdown">
+			<div class="nav-dropdown-con">
+				<div class="flex-box func-list">
+					<div class="flex-1"><a href="javascript:window.location.reload();"><i class="iconfont">&#xe630;</i></a></div>
+				</div>
+				{include file="style5.2/inc/module/dropdown-navlist.html"}
+			</div>
+		</div>
+	<!-- 导航下拉结束 -->
+
+	<!-- 分享弹出 -->
+		<div class="box_share" id="box_share">
+			<div class="box_content">
+				<div class="social_share">
+					<!-- JiaThis Button BEGIN -->
+					<div class="jiathis_style_32x32 flex-box">
+						<a class="jiathis_button_weixin flex-1"><i class="iconfont icon-pyq">&#xe636;</i><p>朋友圈</p></a>
+						<a class="jiathis_button_tsina flex-1"><i class="iconfont icon-sina">&#xe639;</i><p>新浪微博</p></a>
+						<a class="jiathis_button_qzone flex-1"><i class="iconfont icon-qzone">&#xe63a;</i><p>QQ空间</p></a>
+						<a class="jiathis_button_tqq flex-1"><i class="iconfont icon-QQ">&#xe63b;</i><p>QQ</p></a>
+					</div>
+					<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8" defer="defer"></script>
+					<!-- JiaThis Button END -->
+				</div>
+				<a class="box_close t-line" id="boxclose_share">取消</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+	<!-- 分享弹出结束 -->
+
+
+		<div class="cancel-shoucan">
+			<div>取消收藏后将无法在我的收藏找到TA啦··</div>
+			<div class="j-yes yes t-line">取消收藏</div>
+			<div class="j-cancel t-line">容朕想想</div>
+		</div>
+		
+		<div class="close-flippedout j-flippedout-close">
+			<i class="iconfont">&#xe635;</i>
+		</div>
+	</div>
+
+</div>
+{include file="style5.2/inc/footer.html"}

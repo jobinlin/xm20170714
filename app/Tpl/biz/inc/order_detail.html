@@ -1,0 +1,92 @@
+
+
+<div class="info_table">
+
+<table class="form_teble_box" >
+	<tr>
+		<td class="title tl" colspan="5">下单时间:{$order.create_time}</td>
+	</tr>
+	<tr>
+		<td class="title tl" colspan="5">下单会员:{$order.user_name}</td>
+	</tr>
+	{foreach from=$fee_info item=item}
+	<tr>
+		<td class="title tl" colspan="5">{$item.name}:{if $item.symbol eq -1}-{/if}￥{$item.value} </td>
+	</tr>
+	{/foreach}
+	{if $is_delivery}
+	<tr>
+		<td class="title tl" colspan="5">配送地址: {$address}</td>
+	</tr>
+	{/if}
+	{if $order.slname}
+	<tr>
+		<td class="title tl" colspan="5">自提门店: {$order.slname}</td>
+	</tr>
+	{/if}
+	{if $order.memo}
+	<tr>
+		<td class="title tl" colspan="5">买家备注: {$order.memo}</td>
+	</tr>
+	{/if}
+</table>
+<div class="blank"></div>
+<!-- 未发货 或自提 -->
+{if $item1}
+<table class="form_teble_box">
+	<tr>
+		<td>商品名称</td>
+		<td>商品单价</td>
+		<td>结算单价</td>
+		<td>数量</td>
+		<td>总价</td>
+		<td>状态</td>
+	</tr>
+	<!-- 未发货的商品明细 -->
+	{foreach from=$item1 item=oitem}
+	<tr>
+		<td>{$oitem.name}</td>
+		<td>{$oitem.unit_price}</td>
+		<td>{$oitem.balance_unit_price}</td>
+		<td>{$oitem.number}</td>
+		<td>{$oitem.total_price}</td>
+		<td>{$oitem.statusStr}</td>
+	</tr>
+	{/foreach}
+</table>
+{/if}
+
+<!-- 已发货的包裹明细 -->
+<?php $i = 0; ?>
+{foreach from=$package item=item2}
+<table class="form_teble_box">
+	<div class="blank"></div>
+	<tr>
+		{if $item2.info.force_dev}
+		<td class="title tl" colspan="4">包裹<?php echo ++$i; ?>:{$item2.info.name}&nbsp;&nbsp;{$item2.info.notice_sn}&nbsp;&nbsp;备注: {$item2.info.memo}</td>
+		<td class="title"><a href="javascript:void(0);" rel="{$item2.info.notice_sn}|{$item2.info.express_id}|{$order.id}" class="do_verify_delivery">超期收货</a></td>
+		{else}
+		<td class="title tl" colspan="5">包裹<?php echo ++$i; ?>:{$item2.info.name}&nbsp;&nbsp;{$item2.info.notice_sn}&nbsp;&nbsp;备注: {$item2.info.memo}</td>
+		{/if}
+	</tr>
+	<tr>
+		<td>商品名称</td>
+		<td>商品单价</td>
+		<td>结算单价</td>
+		<td>数量</td>
+		<td>总价</td>
+		<td>状态</td>
+	</tr>
+		{foreach from=$item2.list item=i2}
+		<tr>
+			<td>{$i2.name}</td>
+			<td>{$i2.unit_price}</td>
+			<td>{$i2.balance_unit_price}</td>
+			<td>{$i2.number}</td>
+			<td>{$i2.total_price}</td>
+			<td>{$i2.statusStr}</td>
+		</tr>
+		{/foreach}
+</table>
+{/foreach}
+</div>

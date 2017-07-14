@@ -1,0 +1,43 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="dc_search_index">
+<form name="search_form" action="{url r="index" p="dc_search#do_search"}" method="post" id="search_form">
+{if $app_index=='app'}
+	<div class="dc-search-header b-line flex-box">
+		{if $page_finsh}
+		<a class="back-ico iconfont" href="javascript:App.page_finsh();">&#xe635;</a>
+		{else}
+		<a class="back-ico iconfont {if $back_url}go_back{else}back{/if} search_close" {if $back_url}data-no-cache="true"{/if} href="">&#xe635;</a>
+		{/if}
+		<div class="search-box flex-1 flex-box">
+			<div class="iconfont search-ico">&#xe621;</div>
+			<input type="text" name="keyword" id = "keyword" class="flex-1" placeholder="请输入商家、商品名称" >
+		</div>
+		<input type="button" value="搜索" class="search-btn">
+	</div>
+{else}
+	<div class="dc-search-header b-line flex-box">
+		<a class="back-ico iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >&#xe635;</a>
+		<div class="search-box flex-1 flex-box">
+			<div class="iconfont search-ico">&#xe621;</div>
+			<input type="text" name="keyword" id = "keyword" class="flex-1" placeholder="请输入商家、商品名称" search_type="{$type}"/>
+		</div>
+		<input type="button" value="搜索" class="search-btn">
+	</div>
+	<!-- 弹出层 -->
+{/if}
+</form>
+	<div class="content" id="search_content">
+		<div class="history-search search-con">
+			<h2 class="search-tit flex-box" id="history" style="display:none">
+				<p class="flex-1">历史搜索</p>
+				<a href="javascript:void(0)" class="del-data confirm-ok"><i class="iconfont">&#xe601;</i>
+				</a>
+			</h2>
+			<ul class="key-list clearfix">
+	
+			</ul>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

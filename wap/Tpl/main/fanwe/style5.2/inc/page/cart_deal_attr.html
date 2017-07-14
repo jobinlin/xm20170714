@@ -1,0 +1,59 @@
+{if $deal_info}
+<script>
+var deal_attr_stock_json={$deal_info.deal_attr_stock_json};
+var deal_current_price={$deal_info.current_price};
+var deal_attr_json={$deal_info.deal_attr_json};
+var attr_num={$deal_info.attr_num};
+</script>
+<div class="flippedout showflipped z-open">
+	<!-- 规格选择框开始 -->
+		
+	<div class="spec-choose t-line z-open">
+		<div class="close-btn j-spec-choose-close">
+			<img class="close-img" src="{$TMPL}/style5.2/images/static/close-btn.png" alt="" >
+		</div>
+		<div class="good-info b-line">
+			<div class="spec-choose-img">
+				<img alt="{$deal_info.name}" src="{$deal_info.icon}"/>
+			</div>
+			{if $deal_info.buy_type eq 1}
+			<div class="spec-goodprice" data_value="{$deal_info.deal_score}">
+				{$deal_info.deal_score}积分
+			</div>
+			{else}
+			<div class="spec-goodprice" data_value="{$deal_info.current_price}">
+				{function name=format_price v=$deal_info.current_price}
+			</div>
+			{/if}
+			<div class="spec-goodstock">库存99999件</div>
+			<div class="spec-goodspec">选择<em></em></div>
+		</div>
+		{if $deal_info.deal_attr}
+		<div class="spec-info">
+			{foreach from=$deal_info.deal_attr item=attr}
+			<div class="choose-part t-line">
+				<div class="spec-tit">{$attr.name}</div>
+				{if $attr.attr_list}
+				<ul class="choose-list j-flip-color">
+					{foreach from=$attr.attr_list item=attr_unit}
+					<li class="j-choose choose-item choose-item-big {if $attr_unit.is_choose eq 1} active{/if}" data-value="{$attr_unit.name}" data-id="{$attr_unit.id}">{$attr_unit.name}</li>
+					{/foreach}
+				</ul>
+				{/if}
+			</div>
+			{/foreach}
+		</div>
+		{/if}
+		<div class="spec-btn-list flex-box t-line">
+			<a href="#" class="flex-1 joincart j-cancel-flip">取消</a>
+			<a href="#" class="flex-1 nowbuy j-nowbuy">确定</a>
+		</div>
+
+		<input type="hidden" class="spec-data">
+	</div>
+	<div class="close-flippedout j-flippedout-close" rel="1">
+		<i class="iconfont">&#xe635;</i>
+	</div>
+	<!-- 规格选择框结束 -->
+</div>
+{/if}

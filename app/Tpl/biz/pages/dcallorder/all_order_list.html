@@ -1,0 +1,342 @@
+		<div style="width:100%;height:80px; background-color: #B86E6E;">
+			
+			<h2 class="voice_h2">自动刷新倒计时<span class="esc_time">{function name="app_conf" v="REFRESH_TIME"}</span>秒</h2>
+			<ul class="head_ui" style="float: right; margin-right: 20px; margin-top: 20px;">
+				<li><div class="hand_ref"><img src="{$TMPL}/images/v_ref.png" height="35" width="35"></div></li>
+				<li><span>手动刷新</span></li>
+				<li class="moves" style="margin-left: 10px;"><label class="ios_label"><div class="is_voice {if $is_voice eq 1}voice_on{else}voice_off{/if}"></div></label></li>
+				<li><div class="on_off"><span>语音提示{if $is_voice eq 1}开{else}关{/if}</span></div>
+							<div class="audio_play"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="content">
+			<div class="blank20"></div>
+			<div class="standard_tab cf">
+					<ul>
+						<li class="{if $rs eq 2}curr{/if}"><a href="{url r="biz" t="dcallorder#index" p="rs=2"}">外卖</a></li>
+						<li class="{if $rs eq 1}curr{/if}"><a href="{url r="biz" t="dcallorder#index" p="rs=1"}">预定</a></li>
+					</ul>
+				</div>
+			<div class="sum_info">
+				<div class="blank"></div>
+				<form name="search_form" action="{url x="biz" r="dcallorder"}" method="post">
+					<table>
+						<tr>
+							<td width="62%">
+							<div class="f_l" style="line-height: 40px;"> 门店：</div>
+							<select name="l_id" class="ui-select filter_select medium">
+									{if $id_count gt 1}<option value=" " {if !$l_id}selected="selected"{/if}>全部</option>{/if}	
+									{foreach from=$sid_list item=id_item key=key}
+									<option value="{$id_item.id}" {if $l_id eq $id_item.id}selected="selected"{/if}>{$id_item.name}</option>
+									{/foreach}
+							</select>
+							
+							</td>
+							<td width="8%">关键字</td>
+							<td width="20%"><input class="ui-textbox search_box" name="sn" holder="输入订单号或手机号" value="{$sn}" /></td>
+							<td width="10%">
+								<input type="hidden" name="method" value="search"/>
+								<button class="ui-button add_goods_type" rel="white" type="submit">搜索</button>
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="rs" value="{$rs}">
+				</form>
+
+				<div class="blank"></div>
+			</div>
+			{if $list}
+			<div class="info_table">
+				
+						{foreach from=$list item=item key=key name=dc_item}
+						{if $item.is_rs eq 0}
+					<div class="dc_info">	
+							<div class="dc_tittle">
+								<div class="num"><span>{$item.index}号</span></div>
+								<div class="dc_num">
+								<span>	订单号：{$item.order_sn}，交易时间：{$item.create_time}</span>
+																			
+								<span class="order_status">
+								订单状态：{$item.order_info.confirm_info}
+								</span>
+								</div>
+							</div>
+							
+							<div class="dc_tl">
+								<table>
+									
+									<tr><td>门店：<span>{$item.location_name}</span></td>
+											<td>会员id：<span>{$item.user_name}</span></td>
+										
+											<td colspan=2>支付方式：
+										
+											{if $item.payment_id eq 0}
+											<span>在线支付</span>
+											{elseif $item.payment_id eq 1}
+											<td style="font-weight:bold;color:red;">货到付款</td>
+											{/if}
+											</td>
+											
+											{if $item.order_info.delivery_info}
+											<td colspan=2>配送方式：
+									
+												{$item.order_info.delivery_info}
+											</td>
+											{/if}
+										
+									</tr>
+									<tr><td>联系人：<span>{$item.consignee}</span></td>
+										<td>电话：<span>{$item.mobile}</span></td>
+										<td>地址：<span>{$item.api_address}{$item.address}</span></td>
+										<td colspan=2>送达时间：
+										{if $item.order_delivery_time eq 1}
+											<span>立即送达</span>
+										{else}
+											<span>{function name=to_date v=$item.order_delivery_time}</span>
+										{/if}
+										</td>
+									
+									</tr>
+										
+									<tr>
+										
+										<td>发票信息：<span>{if $item.invoice}{$item.invoice}{else}无{/if}</span></td>
+										<td colspan=4>备注：<span>{if $item.dc_comment}{$item.dc_comment}{else}无{/if}</span></td>
+										</td>
+									</tr>
+									
+								</table>								
+	
+							</div>
+							
+						<div class="table dc_tl">
+							
+							
+							<div class="table_l">
+								<table>
+									<tbody>
+										<tr>
+											<th width="55%"><span>菜单</span></th>	
+											<th width="15%">单价</th>	
+											<th width="15%">数量</th>	
+											<th width="15%">金额</th>	
+										</tr>
+										{foreach from=$item.m_cart_list.cart_list item=m_item key=key}
+										<tr>
+											<td>{$m_item.name}</td>
+											<td>{function name=format_price v=$m_item.unit_price l=2}</td>
+											<td>{$m_item.num}</td>
+											<td>{function name=format_price v=$m_item.total_price l=2}</td>
+										</tr>
+										{/foreach}	
+										<tr>
+										<td colspan=3>小计</td>	
+										<td><span>{function name=format_price v=$item.m_cart_list.total_data.total_price l=2}</span></td>	
+										</tr>
+										 
+									</tbody>
+								</table>
+							</div>
+							
+							
+							<div class="table_r">
+								<table>
+									<tbody>
+										<tr>
+											<th width="70%"><span>其他费用</span></th>	
+											<th width="30%">金额</th>	
+										</tr>
+										<tr>
+											<td>打包费</td>
+											<td>{function name=format_price v=$item.package_price l=2}</td>
+										</tr>
+										<tr>
+											<td>配送费</td>
+											<td>{function name=format_price v=$item.delivery_price l=2}</td>
+										</tr>
+										{if $item.order_promote}
+										{foreach from=$item.order_promote item=promote}
+										<tr>
+											<td>{$promote.name}</td>
+											<td>-{function name=format_price v=$promote.discount_amount l=2}</td>
+										</tr>
+										{/foreach}
+										{/if}
+										{if $item.ecv_money neq 0}
+										<tr>
+											<td>代金券</td>
+											<td>-{function name=format_price v=$item.ecv_money l=2}</td>
+										</tr>
+										{/if}
+										<tr>
+											<td>应收</td>
+											<td class="total_box"><span class="f_red">{function name=format_price v=$item.pay_price l=2}</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="blank10"></div>
+
+								<div class="contact_r">
+										{if $item.is_cancel eq 0}
+											{if $item.confirm_status eq 2}
+											消费结束
+											{else}
+											<a href="javascript:void(0)" onclick="close_order(this);" data-id="{$item.id}" action="{url r="biz" t="dcorder#close_tip" p="id=$item.id"}" style="padding-right:10px;">关闭交易</a>
+											{/if}
+											
+											{if $item.confirm_status eq 0}
+											<input type="button" value="接单"   onclick="dc_accept(this);" data-id="{$item.id}"  class="jd_btn" >
+											{elseif $item.confirm_status eq 1}
+													{if $item.now gt $item.over_time}
+													<input type="button" value="已完成"   onclick="dc_over(this);" data-id="{$item.id}"  class="jd_btn" >
+													{else}
+													<span style="padding-right:10px;">已接单</span>
+													{/if}
+											{/if}	
+											
+										{else}
+											<span>订单已关闭</span>
+											{if $item.refuse_memo}
+											 {$item.refuse_memo}
+											{/if}
+										{/if}
+								<input type="button" value="小票打印"   onclick="print_order(this);" data-id="{$item.id}"  class="jd_ctn" >
+								</div>
+						</div>	
+							
+							
+					</div>
+						{else}
+						
+					<div class="dc_info">	
+							<div class="dc_tittle">
+								<div class="num"><span>{$item.index}号</span></div>
+								<div class="dc_num">
+							<span>	订单号：{$item.order_sn}，交易时间：{$item.create_time}</span>
+								<span class="order_status">
+								订单状态：{$item.order_info.confirm_info}
+								</span>
+								</div>
+							</div>
+							
+							<div class="dc_tl">
+								<table>
+									
+									<tr>
+											<td>门店：<span>{$item.location_name}</span></td>
+											<td colspan=4>会员id：<span>{$item.user_name}</span></td>
+										
+									</tr>
+									
+									<tr><td>联系人：<span>{$item.consignee}</span></td>
+										<td>电话：<span>{$item.mobile}</span></td>
+										<td>预定信息：{foreach from=$item.m_cart_list.rs_list.cart_list item=m_item key=key}
+										<span>	{$m_item.name}&nbsp;&nbsp;{$m_item.table_time_format}</span>
+										{/foreach}
+										</td>
+									</tr>
+											
+									<tr>
+										<td>
+											定金：
+										{if $item.m_cart_list.menu_list.total_data.total_price gt 0}
+											<span class="main_color">{function name=format_price v=$item.m_cart_list.menu_list.total_data.total_price l=2}</span>
+										{else}
+											<span class="main_color">{function name=format_price v=$item.m_cart_list.rs_list.total_data.total_price l=2}</span>
+										{/if}
+										</td>
+										<td>发票信息：<span>{if $item.invoice}{$item.invoice}{else}无{/if}</span></td>
+										<td colspan=4>备注：<span>{if $item.dc_comment}{$item.dc_comment}{else}无{/if}</span></td>
+										
+									</tr>
+									
+								</table>				
+	
+							</div>
+						{if $item.m_cart_list.menu_list.cart_list}	
+						<div class="table dc_tl">	
+							<div class="table_l dc_rs">
+								<table>
+									<tbody>
+										<tr>
+											<th width="55%"><span>菜单</span></th>	
+											<th width="15%">单价</th>	
+											<th width="15%">数量</th>	
+											<th width="15%">金额</th>	
+										</tr>
+										{foreach from=$item.m_cart_list.menu_list.cart_list item=m_item key=key}
+										<tr>
+											<td>{$m_item.name}</td>
+											<td>{function name=format_price v=$m_item.unit_price l=2}</td>
+											<td>{$m_item.num}</td>
+											<td>{function name=format_price v=$m_item.total_price l=2}</td>
+										</tr>
+										{/foreach}	
+										<tr>
+										<td colspan=3>小计</td>	
+										<td><span>{function name=format_price v=$item.m_cart_list.menu_list.total_data.total_price l=2}</span></td>	
+										</tr>
+										 
+									</tbody>
+								</table>
+							</div>
+						</div>	
+						{/if}	
+						
+						
+						
+							<div class="dc_tl contact_r">
+										{if $item.is_cancel eq 0 && $item.refund_status eq 0}
+											
+											{if $item.confirm_status eq 2}
+											消费结束
+											{else}
+											
+											<a href="javascript:void(0)" onclick="close_order(this);" data-id="{$item.id}" action="{url r="biz" t="dcresorder#close_tip" p="id=$item.id"}" style="padding-right:10px;">关闭交易</a>
+											
+											{/if}
+											
+											{if $item.confirm_status eq 0}
+											<input type="button" value="接单"   onclick="dc_accept2(this);" data-id="{$item.id}"  class="jd_btn" ><br />
+											{elseif $item.confirm_status eq 1}
+													<span style="padding-right:10px;">已接单</span><br />
+											{/if}	
+											
+										{elseif $item.refund_status eq 1}
+										<span>退款申请中</span>
+										{elseif $item.refund_status eq 2}
+										<span>已退款</span>
+											{if $item.refuse_memo}
+											<br/>{$item.refuse_memo}
+											{/if}
+										{elseif $item.refund_status eq 3}
+										<span>退款驳回</span>
+											{if $item.refuse_memo}
+											<br/>{$item.refuse_memo}
+											{/if}
+										{else}
+											<span>订单已关闭</span>
+											{if $item.refuse_memo}
+											<br/>{$item.refuse_memo}
+											{/if}
+										{/if}
+
+								</div>
+							
+					</div>
+						{/if}
+						
+                        {/foreach}
+			{else}
+			<div class="empty_tip">没有外卖订单记录</div>
+			{/if}
+			</div>
+			
+			<div class="blank"></div>
+			<div class="pages">{$pages}</div>			
+			
+		
+
+		</div>

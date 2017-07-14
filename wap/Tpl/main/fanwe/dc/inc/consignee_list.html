@@ -1,0 +1,39 @@
+
+{if $data.user_login_status}
+	{if $data.list || $data.notInDelivery}
+		{if $data.list}
+		<ul class="dc-address-list active-address-list">
+			{foreach from=$data.list item=item key=key}
+			<li class="flex-box {if $key eq 0}active{/if} b-line" data-id="{$item.id}">
+				<div class="iconfont address-select">&#xe667;</div>
+				<div class="j-close-popup j-select-address dc-address-info flex-1">
+					<p class="user-info">{$item.consignee}  {$item.mobile}</p>
+					<p class="user-address">{$item.api_address}{$item.address}</p>
+					<input type="hidden" name="consignee_id" value="{$item.id}">
+					<input type="hidden" class="delivery_price" value="{$item.delivery_price}">
+					<input type="hidden" class="start_price" value="{$item.start_price}">
+				</div>
+				<div class="iconfont j-open-edit" data-id="{$item.id}">&#xe600;</div>
+			</li>
+			{/foreach}
+		</ul>
+		{/if}
+		{if $data.notInDelivery}
+		<div class="popup-tit-bar">以下地址超出配送范围</div>
+		<ul class="dc-address-list disable">
+			{foreach from=$data.notInDelivery item=notIn}
+			<li class="flex-box b-line">
+				<div class="iconfont address-select">&#xe667;</div>
+				<div class="dc-address-info flex-1">
+					<p class="user-info">{$notIn.consignee}  {$notIn.mobile}</p>
+					<p class="user-address">{$notIn.api_address}</p>
+				</div>
+				<div class="iconfont j-open-edit" data-id="{$notIn.id}">&#xe600;</div>
+			</li>
+			{/foreach}
+		</ul>
+		{/if}
+	{else}
+	无地址
+	{/if}
+{/if}

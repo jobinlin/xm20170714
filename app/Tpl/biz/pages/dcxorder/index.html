@@ -1,0 +1,97 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/project.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/location.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/dcorder.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/dcxorder.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dc/dcxorder.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dc/dcxorder.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dc/dc_common_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dc/dc_common_order.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+
+?>
+
+{include file="inc/header.html"}
+<script>
+var ajax_url = '{$ajax_url}';
+
+</script>
+<div class="blank20"></div>
+<div class="page wrap_full">
+	<div class="left_box">
+		{include file="inc/biz_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="content">
+			<div class="order-nav">
+				<a href="{url i="biz" r="dcorder"}">外卖订单记录</a>
+				<a class="active" href="">异常外卖订单记录</a>
+			</div>
+
+			<div class="biz-table">
+				<table>
+					<colgroup>
+
+						<col width="12%">
+						<col width="15%">
+						<col width="15%">
+						<col>
+						<col width="15%">
+						<col width="160px">
+					</colgroup>
+					<thead>
+						<td>编号</td>
+						<td>门店</td>
+						<td>联系人信息</td>
+						<td>地址</td>
+						<td>异常原因</td>
+						<td class="tc">操作</td>
+					</thead>
+					<tbody>
+					{foreach from=$order_list item=order}
+						<tr>
+							<td>{$order.order_sn}</td>
+							<td>{$order.location_name}</td>
+							<td>{$order.consignee}/{$order.mobile}</td>
+							<td>{$order.api_address}{$order.address}</td>
+							<td>{$order.delivery_cancel_reason}</td>
+							<td class="tc">
+								<a class="j-edit" onclick="dc_accept(this);" data-id="{$order.id}" href="javascript:void(0);">处理</a>
+								<a class="j-print" onclick="print_order(this);"  data-id="{$order.id}" href="javascript:void(0);">小票打印</a>
+							</td>
+						</tr>
+						
+					{/foreach}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blank20"></div>
+{include file="inc/footer.html"}

@@ -1,0 +1,130 @@
+﻿<style>
+.img-show-box {
+    width: 700px;
+    float: left;
+}
+
+.img-show-box .add_img{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+	border: dashed 1px #ccc !important;
+	cursor: pointer;
+}
+
+.img-show-box .add_img img{
+    width: 100%;
+}
+
+.img-show-box .add_img .file-btn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+	cursor: pointer;
+} 
+
+.img-show-box .img-item{
+	width: 50px;
+    height: 50px;
+    float: left;
+	border: solid 1px #ccc;
+    margin-right: 10px;
+	cursor: pointer;
+}
+
+.img-show-box .img-item .item_span{
+	width: 100%;
+    height: 100%;
+    display: block;
+}
+.img-show-box .img-item:hover .close-btn{
+    display: block;
+}
+.img-show-box .img-item .close-btn{
+	top: -59px;
+    right: -8px;
+    float: right;
+	display: none;
+	position: relative;
+}  
+.big_demo_img{
+	width:400px;
+	height:400px;
+	position:fixed;
+	top:25%;
+	left:40%;
+	border:solid 1px #ccc;
+	display:none;
+	z-index:100;
+}  
+
+.big_demo_img .close_demo_img{
+	top: -13px;
+    right: -10px;
+    float: right;
+    position: relative;
+	cursor: pointer;
+} 
+.img_bg_box{
+	position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+	display:none;
+}
+</style>
+<script>
+var delete_icon = "__TMPL__Common/images/delete_icon.png";
+
+</script>
+
+<div class="img-show-box">
+<foreach name="img_list" item="img">
+<div ondrop="drop(event,this)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event, this)" class="img-item img-index-{$key}" data-index="{$key}">
+    <span class="item_span" style="background-image:url('{$img}');background-size: cover;background-position: 50% 20%;background-repeat: no-repeat;"></span>
+    <!-- <span class="item_span">
+        <img src="{$img}" style="width: 100%; height: 100%">
+    </span> -->
+    <a class="close-btn" href="javascript:void(0);" onclick="del_img_box(this)">
+        <img src="__TMPL__Common/images/delete_icon.png">
+    </a>
+    <input type="hidden" name="img[]" value="{$img}">
+</div>
+</foreach>
+
+
+	<div class="add_img img-item"  style="display:none;" ><img src="__TMPL__Common/images/add_img_icon.png" />
+	<input class="file-btn" id="file-btn" type="file" capture="camera">
+	</div>
+
+
+
+<div class="blank5"></div>
+<if condition="$img_info">  
+	<div class="text_info">
+	   {$img_info}
+	</div>
+</if>
+
+
+
+<div class="big_demo_img">
+<div class="demo_img_attr"><img src="" style=""></div>
+<div class="close_demo_img"><img src="__TMPL__Common/images/delete_icon_big.png" /></div>
+
+</div>
+<div class="img_bg_box"></div>
+</div>

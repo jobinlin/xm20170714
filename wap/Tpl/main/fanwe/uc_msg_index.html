@@ -1,0 +1,78 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="uc_msg_index">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content uc_msg_change">
+		<div class="m-msg-con">
+			<a href="{if $msg.delivery.url}{$msg.delivery.url}{else}javascript:void(0);{/if}" class="msg-type b-line flex-box  vshow" data-no-cache="true">
+				<div class="msg-num">
+					<i class="type-icon iconfont icon-1">&#xe66d;</i>
+					{if $msg.delivery.unread gt 0}<em>{if $msg.delivery.unread gt 9}9+{else}{$msg.delivery.unread}{/if}</em>{/if}
+				</div>
+				<div class="flex-1 msg-type-con">
+					<div class="lab-date">
+						<em>物流消息</em>
+						<em class="date">{$msg.delivery.create_time}</em>
+					</div>
+					<div class="msg-con ">{if $msg.delivery}{if $msg.delivery.title}{$msg.delivery.title}! {/if}{$msg.delivery.content}{else}暂无消息{/if}</div>
+				</div>
+			</a>
+			<a href="{if $msg.notify.url}{$msg.notify.url}{else}javascript:void(0);{/if}" class="msg-type flex-box b-line  vshow" data-no-cache="true">
+				<div class="msg-num">
+					<i class="type-icon iconfont icon-2">&#xe68a;</i>
+					{if $msg.notify.unread gt 0}<em>{if $msg.notify.unread gt 9}9+{else}{$msg.notify.unread}{/if}</em>{/if}
+				</div>
+				<div class="flex-1 msg-type-con">
+					<div class="lab-date">
+						<em>通知消息</em>
+						<em class="date">{$msg.notify.create_time}</em>
+					</div>
+					<div class="msg-con ">{if $msg.notify}{if $msg.notify.title}{$msg.notify.title}! {/if}{$msg.notify.content}{else}暂无消息{/if}</div>
+				</div>
+			</a>
+			<a href="{if $msg.account.url}{$msg.account.url}{else}javascript:void(0);{/if}" class="msg-type flex-box b-line vshow" data-no-cache="true">
+				<div class="msg-num">
+					<i class="type-icon iconfont icon-3">&#xe66e;</i>
+					{if $msg.account.unread gt 0}<em>{if $msg.account.unread gt 9}9+{else}{$msg.account.unread}{/if}</em>{/if}
+				</div>
+				<div class="flex-1 msg-type-con">
+					<div class="lab-date">
+						<em>资产消息</em>
+						<em class="date">{$msg.account.create_time}</em>
+					</div>
+					<div class="msg-con ">{if $msg.account}{if $msg.account.title}{$msg.account.title}! {/if}{$msg.account.content}{else}暂无消息{/if}</div>
+				</div>
+			</a>
+			<a href="{if $msg.confirm.url}{$msg.confirm.url}{else}javascript:void(0);{/if}" class="msg-type flex-box b-line vshow" data-no-cache="true">
+				<div class="msg-num">
+					<i class="type-icon iconfont icon-4">&#xe677;</i>
+					{if $msg.confirm.unread gt 0}<em>{if $msg.confirm.unread gt 9}9+{else}{$msg.confirm.unread}{/if}</em>{/if}
+				</div>
+				<div class="flex-1 msg-type-con">
+					<div class="lab-date">
+						<em>验证消息</em>
+						<em class="date">{$msg.confirm.create_time}</em>
+					</div>
+					<div class="msg-con ">{if $msg.confirm}{if $msg.confirm.title}{$msg.confirm.title}! {/if}{$msg.confirm.content}{else}暂无消息{/if}</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+/*$(document).ready(function(){
+	setTimeout(function(){
+		$(".msg-type").eq(0).addClass("vshow");
+	},200);
+	setTimeout(function(){
+		$(".msg-type").eq(1).addClass("vshow");
+	},400);
+	setTimeout(function(){
+		$(".msg-type").eq(2).addClass("vshow");
+	},600);
+	setTimeout(function(){
+		$(".msg-type").eq(3).addClass("vshow");
+	},800);
+});*/
+</script>
+{include file="style5.2/inc/footer.html"}

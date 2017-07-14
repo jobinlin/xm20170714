@@ -1,0 +1,32 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+  var ajax_url="{url i="index" go="uc_fx#make_order"}";
+</script>
+<div class="page page-current" id="uc_fx_vip_buy">
+
+  {include file="style5.2/inc/auto_header.html"}
+  <div class="content">
+  <div class="fx_vip_buycon">
+  <div class="pay_fee">{if $data.fx_buy.pay_fee}开通分销费用：<span>{$data.fx_buy.pay_fee}元{else}免费开通{/if}</span></div>
+  </div>
+  {if $data.fx_buy.phone_description}
+  <div class="fx_vip_buycon">
+    {$data.fx_buy.phone_description}
+  </div>
+  {/if}
+  <div class="fx_vip_buyconpd">
+    <p class="loginWarm">点击开通,即表示您已阅读并同意<a href="javascript:void(0);" class="open-protocol">《分销资质购买协议》</a></p>
+    <div class="fx_buy"><input type="button" value="开通" class="userBtn userBtn-yellow"></div>
+  </div>
+	</div><!--content end  -->
+
+  <div class="popup popup-protocol">
+    <div class="popup-hd">
+      <h1 class="title b-line">购买协议</h1>
+      <a href="javascript:void(0);" class="close-popup"><i class="iconfont">&#xe634;</i></a>
+    </div>
+    <div class="protocol">{$data.fx_buy.pay_agreement}</div>
+  </div>
+</div>
+{include file="style5.2/inc/footer.html"}

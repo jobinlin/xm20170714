@@ -1,0 +1,44 @@
+.m-mask{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:rgba(0, 0, 0, 0);
+	z-index:20;
+	pointer-events:none;
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+}
+.m-mask.active{
+	background:rgba(0, 0, 0, .5);
+	pointer-events:auto;
+}
+.m-select-box{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:#fff;
+	pointer-events:none;
+	z-index:21;
+	-webkit-transform: translateY(150%);
+	        transform: translateY(150%);
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+}
+.m-select-box.active{
+	pointer-events:auto;
+	-webkit-transform: translateY(0);
+	        transform: translateY(0);
+}
+.m-select-box .select-box{
+	max-height:10rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.m-select-box .select-box li{
+	height:2rem;
+	margin-left: .5rem;
+	padding-right: .5rem;
+}

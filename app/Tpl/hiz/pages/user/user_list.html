@@ -1,0 +1,86 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>会员列表</span>
+</div>
+<div class="content">
+    <div class="table-content">
+        <div class="search-bar">
+            <form name="search_form" action="{url x="hiz" z="user#user_list"}" method="post">
+                <input class="ui-textbox search-input search_box" name="name" type="text" holder="请输入会员名称/手机号码" value="{$name}"><button class="search-btn transition add_goods_type" type="submit">搜索</button>
+            </form>
+          </div>
+        {if $list}
+        <div class="hiz-table">
+            <table>
+                <col width="10%">
+                <col width="10%">
+                <col width="12%">
+                <col width="8%">
+                <col width="8%">
+                <col width="8%">
+                <col width="8%">
+                <col>
+                <col width="5%">
+                <col width="160px">
+                <thead>
+                    <td style="text-align: left;">会员名</td>
+                    <td>手机号</td>
+                    <td>可用余额（元）</td>
+                    <td>可用积分</td>
+                    <td>累计积分</td>
+                    <td>经验值</td>
+                    <td style="text-align: left;">推荐人</td>
+                    <td>最后登录时间</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </thead>
+                <tbody>
+                    {foreach from=$list item=item name=odd}
+                <tr class="{if $smarty.foreach.odd.index%2 eq 0}odd{/if} transition">
+                        <td class="shop-name">{$item.user_name}</td>
+                        <td>{$item.mobile}</td>
+                        <td>{$item.money}</td>
+                        <td>{$item.score}</td>
+                        <td>{$item.total_score}</td>
+                        <td>{$item.point}</td>
+                        <td class="shop-name" title="{$item.p_user_name}">{$item.p_user_name}</td>
+                        <td>{$item.login_time}</td>
+                        <td>{$item.is_effect}</td>
+                        <td>
+                            <a class="transition" href="{url b="hiz" r="user#user_detail" x="user_id=$item.id"}">查看详情</a><a class="transition" style="border-left: 1px solid #ddd;" href="{url b="hiz" r="user#user_log" x="user_id=$item.id"}">账户明细</a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+        <div class="pages">
+            {$pages}
+        </div>
+        {else}
+        <div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+        <div class="no-data">暂无会员</div>
+        {/if}
+    </div>
+</div>
+{include file="inc/footer.html"}

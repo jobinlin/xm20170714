@@ -1,0 +1,27 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/list1.css";	
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/list1.css";	
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/list1.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/list1.js";
+?>
+				<div class="footer-menu-box">
+					<div class="f_menu split-line-top">
+							<ul class="menu_box">
+								<li class="menu_item"><a href="{url a="index" r="uc_fx#index"}"><p><i class="iconfont">&#xe64e;</i></p><p class="item_txt">我的</p></a></li>
+								<li class="menu_item"><a href="{url r="index" b="uc_fx#deal_fx"}"><p><i class="iconfont">&#xe64d;</i></p><p class="item_txt">市场</p></a></li>
+								<li class="menu_item"><a href="{url r="index" r="uc_fxwithdraw#index"}"><p><i class="iconfont">&#xe64c;</i></p><p class="item_txt">提现</p></a></li>
+								<li class="menu_item"><a href="{url r="index" b="uc_fxinvite#index"}"><p><i class="iconfont">&#xe64b;</i></p><p class="item_txt">推荐</p></a></li>
+							</ul>
+					</div>
+				</div>		
+				{include file="inc/sms_verify_code.html"}
+
+				<ul>
+					{foreach from=list_data item=row}
+					<li></li>
+				</ul>
+
+				var html  = $(obj).find("ul").html();
+				$(docuemnt).append(html);
+	</body>
+<html>

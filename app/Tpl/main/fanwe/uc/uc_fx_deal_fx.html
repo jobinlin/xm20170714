@@ -1,0 +1,143 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_fx_deal_fx.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_fx.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_deal_fx.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_fx_deal_fx.js";
+
+
+?>
+{include file="inc/header.html"}
+
+<script>
+    var ajax_url = '{url r="index" p="uc_fx"}';
+</script>
+
+<div class="blank20"></div>
+
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+	<div class="side_nav left_box">
+		{include file="inc/uc_nav_list.html"}
+	</div>
+	<div class="right_box">
+		
+		<div class="main_box uc_info_box">
+			<div class="info_nav" >
+				<ul>
+					<li {if $ACTION_NAME eq 'my_fx'}class="cur"{/if}><a href="{url r="index" b="uc_fx#my_fx" }">我的分销</a></li>
+					<li {if $ACTION_NAME eq 'deal_fx'}class="cur"{/if}><a href="{url r="index" b="uc_fx#deal_fx" }">单品分销</a></li>
+                                         <li ><a class="my_mall" href="{$qrcode_url}"><i class="iconfont">&#xe616;</i>我的小店 &nbsp;<i class="iconfont">&#xe610;</i><div class="img_box"><img src="{function name="gen_scan_qrcode" v=$qrcode_url s="4"}" /></div></a></li>
+				</ul>
+			</div>
+			<!-- 推官 -->
+			
+			<!-- 分销内容 -->
+			<div class="blank20"></div>
+			<div class="info_box">
+				<h3>选择分销商品</h3>
+				<div class="blank10"></div>
+				<div class="fx_search_box">
+					<div class="self_search">
+						<form action="{url r="index" b="uc_fx#deal_fx" }" method="post" name="fx_deal_search_form">
+							<input class="ui-textbox fx_deal_search_txt f_l" type="text" name="fx_deal_search" holder="请输入您要搜索的商品名称" value="{$s_deal_name}"/>
+							<a class="fx_search_btn f_l" href="javascript:void(0)"><i class="iconfont">&#xe63a;</i></a>
+						</form>
+					</div>
+				</div>
+				<div class="info_table_2">
+					<table>
+						<tbody>
+							<tr class="top_title_box">
+								<th class="t-left" width="300">商品信息</th>
+								<th class="t-left" width="70">单价</th>
+								<th class="t-center" width="90">佣金比率/定额</th>
+								<th class="t-center"  width="70">佣金</th>
+								<th class="t-center"  width="70">销量</th>
+								<th class="t-center"  width="90">操作</th>
+							</tr>
+							{if $list}
+			
+							{foreach from=$list item=row}
+							<tr class="alt" data-id="{$row.id}" data-name="{$row.sub_name}" data-url="{$row.share_url}">
+                                <td class="t-left" >
+                                	<div class="item_group">
+                                		<a class="img_link" href="{$row.url}" target="_blank"><img src="{function name="get_spec_image" v=$row.icon w=80 h=80 g=1}"/></a>
+                                		<ul class="attr">
+                                			<li class="title"><a href="{$row.url}" target="_blank">{function name="msubstr" v=$row.name s="0" e="48"}</a></li>
+                                			<li class="seller"><a href="{$row.stores_url}" target="_blank" class="color-grey">{$row.supplier_name}</a></li>
+                                		</ul>
+                                	</div>
+                                </td>
+                                <td class="t-left" >&yen;{$row.current_price}</td>
+                                <td class="t-center"  >{if $row.fx_salary_type}{$row.fx_salary}%{else}&yen;{$row.fx_salary}{/if}</td>
+                                <td class="t-center"  >&yen;{$row.fx_salary_money}</td>
+                                <td class="t-center"  >{$row.buy_count}</td>
+                                <td class="t-center"  >
+                                	<p><a class="" href="javascript:void(0);" onclick="add_user_deal_fx({$row.id})"><button class="ui-button" rel="white" type="button">立即分销</button></a></p>
+                                	<div class="blank"></div>
+                                	<p class="t-center">
+                                	<!-- JiaThis Button BEGIN -->
+											<div class="share_to" >
+											<!-- JiaThis Button BEGIN -->
+											<div class="jiathis_style">
+												<a class="jiathis_button_tsina"></a>
+												<a class="jiathis_button_weixin"></a>
+												<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+											</div>
+											<!-- JiaThis Button END -->
+                                	</p>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/if}
+                            <tr >
+	
+                                <td colspan="6">&nbsp;</td>
+                            </tr>
+                            <tr >
+                            	{if $list}
+                                <td colspan="6"><div class="pages">{$pages}</div></td>
+                                {else}
+                                <td colspan="6"><span>暂时没有分销商品</span></td>
+                                {/if}
+
+                            </tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+	
+		</div>
+	</div>	
+</div>
+<div class="blank20"></div>
+<script type="text/javascript">
+	 var jiathis_config = {
+	};
+	var tmpl_path="<?php echo SITE_DOMAIN.APP_ROOT.'/app/Tpl/main/fanwe/js/jia/'; ?>";
+</script>
+<script type="text/javascript" src="<?php echo SITE_DOMAIN.APP_ROOT.'/app/Tpl/main/fanwe/' ?>js/jia/jia.js" charset="utf-8"></script>
+{include file="inc/footer.html"}

@@ -1,0 +1,201 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function get_refuse_status($status)
+	{
+		if($status)
+		return "<span style='color:#f30;'>有</span>";
+		else
+		return "无";
+	}
+	
+	function get_handle($id,$order_info)
+	{
+		 
+		$str = "<a href='".u("DistributionOrder/view_order_history",array("id"=>$id))."'>查看</a>";
+		if($order_info['order_status']==1)
+		{
+			$str.="&nbsp;&nbsp;<a href='javascript:foreverdel(".$id.");'>删除</a>";
+		}
+		return $str;
+	}
+
+	
+	function get_order_item($order_sn,$order_info)
+	{
+		$deal_order_item = unserialize($order_info['deal_order_item']);
+		$str = "<span style='font-size:14px; font-family:verdana; font-weight:bold;'>".$order_sn."</span>";
+		foreach($deal_order_item as $v)
+		{
+			$str.="<br />&nbsp;".l('DEAL_ID').":".$v['deal_id']."&nbsp;<span title='".$v['name']."'";
+			if(intval($_REQUEST['deal_id'])==$v['deal_id'])
+			{
+				$str.=" style='color:red;' ";
+			}
+			$str.=">".msubstr($v['name'],0,5)."</span>&nbsp;".l("NUMBER")." [".$v['number']."]";
+		}
+		
+		return $str;
+		
+	}
+	function get_refund_status($s)
+	{
+		if($s==1){
+			return "<span style='color:red;'>申请退款</span>";
+		}else{
+			return '-';
+		}
+			
+		 
+	}
+
+	
+</php>
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript">
+	function batch_delivery()
+	{
+		express_id = $("select[name='express_id']").val();
+		if(express_id==0)
+		{
+			alert(LANG['SELECT_EXPRESS_WARNING']);
+			return;
+		}
+		idBox = $(".key:checked");
+		if(idBox.length == 0)
+		{
+			alert(LANG['SELECT_EMPTY_WARNING']);
+			return;
+		}
+		idArray = new Array();
+		$.each( idBox, function(i, n){
+			idArray.push($(n).val());
+		});
+		ids = idArray.join(",");
+		
+		$.weeboxs.open(ROOT+'?m=DistributionOrder&a=load_batch_delivery&ids='+ids+"&express_id="+express_id, {contentType:'ajax',showButton:false,title:LANG['BATCH_DELIVERY'],width:600,height:120});
+	}
+	
+	function batch_print()
+	{
+		express_id = $("select[name='express_id']").val();
+		if(express_id==0)
+		{
+			alert(LANG['SELECT_EXPRESS_WARNING']);
+			return;
+		}
+		idBox = $(".key:checked");
+		if(idBox.length == 0)
+		{
+			alert(LANG['SELECT_EMPTY_WARNING']);
+			return;
+		}
+		idArray = new Array();
+		$.each( idBox, function(i, n){
+			idArray.push($(n).val());
+		});
+		ids = idArray.join(",");
+		window.open(ROOT+'?m=Express&a=eprint&order_id='+ids+"&express_id="+express_id);
+	}
+	
+	function export_csv()
+	{
+		var inputs = $(".search_row").find("input");
+		var selects = $(".search_row").find("select");
+		var param = '';
+		for(i=0;i<inputs.length;i++)
+		{
+			if(inputs[i].name!='m'&&inputs[i].name!='a')
+			param += "&"+inputs[i].name+"="+$(inputs[i]).val();
+		}
+		for(i=0;i<selects.length;i++)
+		{
+			param += "&"+selects[i].name+"="+$(selects[i]).val();
+		}
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_csv&is_history=1";
+		location.href = url+param;
+	}
+	
+</script>
+<div class="main">
+<div class="main_title">{%DEAL_ORDER}</div>
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+
+<div class="search_row">
+
+		{%ORDER_SN}：<input type="text" class="textbox" name="order_sn" value="{:strim($_REQUEST['order_sn'])}" style="width:100px;" />
+		会员手机：<input type="text" class="textbox" name="mobile" value="{:strim($_REQUEST['deal_id'])}" style="width:100px;" />
+		会员名称：<input type="text" class="textbox" name="user_name" value="{:strim($_REQUEST['user_name'])}" style="width:100px;" />
+		支付状态: 
+		<select name="pay_status">
+				<option value="" <if condition="$_REQUEST['pay_status'] heq ''">selected="selected"</if>>所有</option>
+				<option value="0" <if condition="$_REQUEST['pay_status'] heq '0'">selected="selected"</if>>未支付</option>
+				<option value="2" <if condition="$_REQUEST['pay_status'] heq '2'">selected="selected"</if>>已支付</option>			
+		</select>
+		发货状态: 
+		<select name="delivery_status">
+				<option value="" <if condition="$_REQUEST['delivery_status'] heq ''">selected="selected"</if>>所有</option>
+				<option value="0" <if condition="$_REQUEST['delivery_status'] heq '0'">selected="selected"</if>>未发货</option>
+				<option value="2" <if condition="$_REQUEST['delivery_status'] heq '2'">selected="selected"</if>>已发货</option>
+				<option value="1" <if condition="$_REQUEST['delivery_status'] heq '1'">selected="selected"</if>>部份发货</option>
+				<option value="5" <if condition="$_REQUEST['delivery_status'] heq '5'">selected="selected"</if>>无需发货</option>
+		</select>
+		 
+	 
+		退款申请: 
+		<select name="refund_status">
+				<option value="" <if condition="$_REQUEST['refund_status'] heq ''">selected="selected"</if>>{%RS_ALL}</option>
+				<option value="-1" <if condition="$_REQUEST['refund_status'] heq '-1'">selected="selected"</if>>无</option>
+				<option value="1" <if condition="$_REQUEST['refund_status'] heq '1'">selected="selected"</if>>申请退款</option>
+		</select>
+		 
+		 
+		 
+		订单状态: 
+		<select name="order_status">
+				<option value="" <if condition="$_REQUEST['order_status'] heq ''">selected="selected"</if>>全部</option>
+				<option value="0" <if condition="$_REQUEST['order_status'] heq '0'">selected="selected"</if>>待处理</option>
+				<option value="1" <if condition="$_REQUEST['order_status'] heq '1'">selected="selected"</if>>已处理</option>
+		</select>
+		
+		<input type="hidden" value="{$type}" name="type" />
+		<input type="hidden" value="{$is_supplier}" name="is_supplier" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="hidden" value="DistributionOrder" name="m" />
+		<input type="hidden" value="deal_trash" name="a" />
+		
+
+</div>
+<div class="blank5"></div>
+<div class="button_row">
+	 
+	<input type="button" class="button" value="删除订单" onclick="del();" />
+	<input type="button" class="button" value="导出excel" onclick="export_csv();" />
+	
+</div>
+
+
+</form>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal_order" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,order_sn|get_order_item=$deal_order:{%ORDER_SN},user_name:{%USER_NAME},mobile:手机号,region_lv2|get_city=$deal_order:收货所在城市,total_price|format_price:订单金额,pay_amount|format_price:实付金额
+		 ,create_time|to_date:{%ORDER_CREATE_TIME}	 
+		 ,delivery_status|get_delivery_status=$deal_order:发货状态
+		 ,refund_status|get_refund_status:退款申请
+		 ,order_status|get_order_status=$deal_order:订单状态"
+	actionlist="id|get_handle=$deal_order" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

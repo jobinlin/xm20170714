@@ -1,0 +1,264 @@
+
+
+
+
+{include file="inc/page/index.html"}
+ <img src="{$adv.img}" alt="" border="0" style="width:100%;">
+
+
+
+ 
+<div class="wrap">		
+		{if $data.advs}
+        <div class="top">
+            <div class="flash" id="containerFlashAnimation" >
+                <section>
+                    <div id="banner_box" class="box_swipe" style="visibility: visible;">
+                        <ul style="list-style: none; transition: 500ms; -webkit-transition: 500ms;">
+                            {foreach from="$data.advs" item="adv"}
+                            <li style="vertical-align: top; width: 640px; display: table-cell;">
+                                <a href="{$adv.url}"><img src="{$adv.img}" alt="" border="0" style="width:100%;"></a>
+                            </li>
+							{/foreach}
+                        </ul>
+                        <ol>
+                            {foreach from="$data.advs" item="adv" key="key"}
+                            <li {if $key==0}class="on"{/if}>
+                            </li>
+                            {/foreach}
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </div>
+		{/if}
+		
+			
+		{if $data.indexs}
+			<div class="sort_nav" id="sort_nav">
+			  <div class="sort_list">
+			  <ul>
+			  		{foreach name="index_nav" from=$data.indexs item=item key=key}
+			  		{if $smarty.foreach.index_nav.index%8 eq 0}
+			  		<li {$smarty.foreach.index_nav.index}>
+			  		{/if}
+				  			<div class="sort_li">	
+								<a href="{$item.url}">
+			  	    			<span class="yuan" style="background-color:{$item.color}" ><i class="diyfont">{$item.icon_name}</i></span>
+								<span class="txt">{$item.name}</span>
+								</a>
+					  		</div>
+			  		
+			  		{if $smarty.foreach.index_nav.index>9 && $smarty.foreach.index_nav.index%9 eq 0}
+			  		</li >
+			  		{/if}
+			  		{/foreach}
+			  
+			  </ul>
+			  </div>
+			  
+			  {if $data_nav_row_str}
+			  <div class="hd">
+		        <ul>
+					{$data_nav_row_str}
+		        </ul>
+			 </div>
+			  {/if}
+			  
+			  </div>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						TouchSlide({
+						slideCell:"#sort_nav",
+						effect:"leftLoop",
+						mainCell:"#sort_nav ul",
+						autoPlay:false,
+						pnLoop:false,
+						});
+					});
+				</script>
+		{/if}
+<!-- 名店推荐 图片大小180 * 130 -->	
+<div class="blank8"></div>
+{if $data.supplier_list}
+<div class="mdtj">
+<div class="mdtit">
+	<div class="titname"><img alt="" src="{$TMPL}/images/text/hotshop.png"/></div>
+	<div class="more"><a href="{url a="index" r="stores"}">查看所有商家<i class="iconfont">&#xe607;</i></a></div>
+</div>
+
+<!--  
+<div id="tochscroll" class="tochscroll">
+	<ul class="shops" id="shops">
+		{foreach from="$data.supplier_list" item="sl"}
+		<li class="shop">
+			<a href="{$sl.url}">
+				<div class="imgbox"><img alt="{$sl.name}" src="{$sl.preview_v1}"/></div>
+			</a>
+		</li>
+		{/foreach}
+	</ul>
+</div>
+ -->
+
+<div class="swiper-container">
+        <div class="swiper-wrapper">
+        	{foreach from="$data.supplier_list" item="sl"}
+            <div class="swiper-slide">
+            	<div class="swiper-slide-outer">
+	            	<a href="{$sl.url}">
+	            		<img alt="{$sl.name}" src="{$sl.preview_v1}"/>
+	            		<div class="supplier_name"><nobr>{$sl.name}</nobr></div>
+	            	</a>
+            	</div>
+            </div>
+            {/foreach}
+        </div>
+        <!-- Add Pagination
+        <div class="swiper-pagination"></div>
+         -->
+</div>
+
+
+</div>
+{/if}
+
+
+		{if $data.zt_html}
+		<div class="blank8"></div>
+		{$data.zt_html}
+		{/if}	
+
+<!-- 轮播部分 -->
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+
+
+});
+
+</script>
+<div class="blank8"></div>
+{if $data.advs2}
+<div id="slideBox2" class="main_adv_box">
+	<div class="main_adv_img" id="bd2">
+		<ul >
+			{foreach from="$data.advs2" item="advs2"}
+			<li >
+				<span>
+				<a href="{$advs2.url}">
+				<img alt="" src="{$advs2.img}"/>
+				</a>
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="hd">
+        <ul>
+        	{foreach from="$data.advs2" item="advs2"}
+        	<li class=""></li>
+        	{/foreach}
+        	 
+        </ul>
+	</div>
+	</div>
+</div>
+{/if}
+
+<div class="blank8"></div>
+
+{if $data.cate_list}
+<!-- 分类专题位 -->
+<div class="subject">
+	<ul>
+		{foreach from="$data.cate_list" item="cate"}
+		<li>
+			<a href="{$cate.url}">
+			<div class="word">
+				<h1>{$cate.name}</h1>
+				<h2>{$cate.description}</h2>
+				<span class="{$cate.show_hot_new_low}">{$cate.show_hot_new}</span>
+			</div>
+			<div class="img">
+				<img alt="{$cate.name}" src="{$cate.icon_img}"/>
+			</div>
+			</a>
+		</li>
+		{/foreach}
+	</ul>
+</div>
+{/if}
+
+<div class="blank8"></div>
+
+<div class="content">
+{if $data.deal_list}
+	<div class="list-view">
+	<div class="list-title">
+		<div class="list-tit">
+		 	<i class="diyfont"></i>猜你喜欢					 
+		</div>
+		<a class="changelist z-nav-down close" href="javascript:void(0);">
+		<!-- 
+		<i class="iconfont"></i>
+		 -->
+		</a>
+		
+	</div>
+		  <ul class="tuan-ul tuan-ul-list">
+		 	{foreach from=$data.deal_list item=supplier_deal_item name=supplier_deal_item key=key}
+		 	<li class="tuan_li split-line" >
+		 	    <a class="blw" href="{$supplier_deal_item.url}">
+		 	     	<div class="list_item" style="width:100%;" >
+		 	     		 <div class="pic">
+		 	     		 	<img class="deal_list_img" src="{$supplier_deal_item.icon_v1}"lazy="true" />
+							{if $supplier_deal_item.auto_order eq 1}
+							<i class="tuan_ico order">免预约</i>		
+							{/if}				
+		 	     		 </div>
+						 <div class="info">
+						 	<!-- <h2>{if $deal_item.sub_name}{$deal_item.sub_name}{else}{$deal_item.name}{/if}</h2> -->
+							<div class="info-tit">
+								<div class="info-tit-right">
+									<nobr>
+									{if $supplier_deal_item.distance}
+									{$supplier_deal_item.distance}
+									{/if}
+									</nobr>
+								</div>
+								<div class="info-tit-left">
+									<nobr>
+									{if $supplier_deal_item.sub_name}{$supplier_deal_item.sub_name}{else}{$supplier_deal_item.name}{/if}
+									</nobr>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="info-detail">	
+							{$supplier_deal_item.brief}		                   
+							</div>
+							<div class="tuan-price">
+		                         <p class="price">
+	                         	 <em>&yen;{$supplier_deal_item.current_price}</em>
+								 <del>{$supplier_deal_item.origin_price}元</del>
+								 {if $supplier_deal_item.promotes_desc}
+								 	<span class="prmomote_info">{$supplier_deal_item.promotes_desc}</span>
+								 {/if}
+								 </p>
+		                         <p class="bought"><i></i>已售{$supplier_deal_item.buy_count}</p>
+		                     </div>
+						 </div>
+		 	     	</div>
+		 	     </a>
+		 	</li>
+
+			{/foreach}
+			
+		 </ul>
+
+	</div>
+{/if}
+
+</div>
+	</div>
+</div>	

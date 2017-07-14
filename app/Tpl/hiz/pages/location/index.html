@@ -1,0 +1,74 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/location.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/location.js";
+
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+	<a class="transition" href="{url r="hiz" b="index"}">首页</a>{if $supplier_id} / <a class="transition" href="{url r="hiz" b="supplier"}">商家列表</a>{/if} / <span>{$page_title}</span>
+	<a href="#" onclick="JavaScript:history.back(-1);" class="header-back">返回</a>
+</div>
+<div class="content">
+	<div class="table-content">
+		{if $list}
+		<div class="hiz-table">
+			<table>
+				<col>
+				<col width="20%">
+				<col width="15%">
+				<col width="15%">
+				<col width="15%">
+				<col width="100px">
+				<thead>
+					<td style="text-align: left;">门店名称</td>
+					<td>分类</td>
+					<td>到店支付</td>
+					<td>认证商户</td>
+					<td>状态</td>
+					<td>操作</td>
+				</thead>
+				<tbody>
+					{foreach from=$list item=item name=odd}
+				    <tr class="{if $smarty.foreach.odd.index%2 eq 0}odd{/if} transition">
+						<td class="shop-name">{$item.name}</td>
+						<td>{if $item.cate_name}{$item.cate_name}{else}--{/if}</td>
+						<td>{if $item.open_store_payment eq 0}否{else}是{/if}</td>
+						<td>{if $item.is_verify eq 0}否{else}是{/if}</td>
+						<td><a href="javascript:void(0);" class="j-status" data-id="{$item.id}" data-href="{url i="hiz" a="location#is_effect" g="data_id=$item.id"}">{if $item.is_effect eq 0}禁用{else}正常{/if}</a></td>
+						<td>
+							<a class="transition" href="{$item.edit_url}">编辑</a>
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		<div class="pages">
+			{$pages}
+		</div>
+		{else}
+		<div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+		<div class="no-data">暂无门店</div>
+		{/if}
+	</div>
+</div>
+{include file="inc/footer.html"}

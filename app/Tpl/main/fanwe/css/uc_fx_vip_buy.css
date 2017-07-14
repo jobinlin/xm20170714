@@ -1,0 +1,99 @@
+.vip-line{
+	line-height: 40px;
+	background:@main_color;
+	position: absolute;
+	left: 0;
+	top: 20px;
+	width:140px;
+	color:#fff;
+	padding-left: 10px;
+	font-size:18px;
+	font-family:Microsoft Yahei;
+}
+.right_box .main_box{
+	padding-top: 60px;
+}
+.vip-buy-info{
+	padding:20px 0;
+}
+.vip-price{
+	line-height: 40px;
+	background:@main_color;
+	padding-left: 10px;
+	color:#fff;
+	font-size:14px;
+}
+.vip-tip{
+	line-height: 40px;
+	color:#999;
+	font-size:16px;
+}
+.vip-tip .vip-txt{
+	color:#09f;
+}
+.vip-btn{
+	display: block;
+	width: 300px;
+	line-height: 40px;
+	text-align: center;
+	color:#fff;
+	font-size:18px;
+	border-radius:3px;
+	margin:20px 0;
+	background:@main_color;
+}
+.vip-btn:hover{
+	color:#fff;
+}
+.vip-agreement{
+	display:none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index:10000;
+}
+.vip-agreement .mask{
+	width:100%;
+	height:100%;
+	background:#000;
+	filter:alpha(opacity=50);
+	      -moz-opacity:0.5;
+	      -khtml-opacity: 0.5;
+	      opacity: 0.5;
+}
+.vip-agreement .agreement-info{
+	width:800px;
+	position: absolute;
+	top: 50%;
+	margin-top: -300px;
+	left: 50%;
+	margin-left: -400px;
+	height:600px;
+	background:#fff;
+	border-radius:5px;
+}
+.vip-agreement .vip-agreement-close{
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	line-height: 40px;
+	padding: 0 20px;
+	font-size: 16px;
+}
+.vip-agreement .agreement-hd{
+	line-height: 40px;
+	font-size:20px;
+	color:#333;
+	text-align: center;
+	border-bottom:1px solid #ddd;
+}
+.vip-agreement .agreement-bd{
+	padding:20px;
+	font-size:14px;
+}
+.vip-agreement .agreement-bd .agreement-detail{
+	height:520px;
+	overflow-y: auto;
+}

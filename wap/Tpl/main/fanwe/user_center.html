@@ -1,0 +1,201 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="user_center">
+<style type="text/css">
+	.icon {
+		width: 1.4rem; height: 1.4rem;
+		vertical-align: -0.15rem;
+		fill: currentColor;
+		overflow: hidden;
+	}
+</style>
+	{include file="style5.2/inc/module/nav.html"}
+	<div class="content">
+		<div class="person-head">
+			<div class="bg-img">
+				<img src="{$TMPL}/style5.2/images/static/person_bg.jpg">
+			</div>
+			<div class="contentBox">
+				<a class="setting icon-posi" href="{url a="index" r="setting"}" data-no-cache="true"><i class="iconfont">&#xe8ba;</i></a>
+				<a class="message icon-posi fun-check-login" href="javascript:void(0);" data-url="{url a="index" r="uc_msg"}" data-no-cache="true"><i class="iconfont">&#xe8bc;</i>{if $data.not_read_msg}<em class="tishi"></em>{/if}</a>
+					<a  class="manage fun-check-login" href="javascript:void(0);" data-url="{url a="index" r="uc_account"}" data-no-cache="true">账户管理<i class="iconfont">&#xe607;</i></a>
+					{if $data.user_login_status}
+					<div class="headImg">
+						<img alt="" src="{$data.user_avatar}">
+					</div>
+					<p class="userName">{$data.user_name}</p>
+					<ul class="vipBox flex-box">
+						{if $app_index=='app'}
+						<li class="flex-1"><a class="vipName" href="{url a="index" r="uc_account"}" data-no-cache="true"><i class="icon-vip"></i>{$data.user_group}</a></li>
+						<li class="flex-1"></li>
+						{else}
+						<li><a class="vipName" href="{url a="index" r="uc_account"}" data-no-cache="true"><i class="icon-vip"></i>{$data.user_group}</a></li>
+						<!-- <li class="flex-1"><a href="{url a="index" r="uc_home"}" class="share_other"  data-no-cache="true"><i class="iconfont">&#xe8d5;</i>朋友圈</a></li>  -->
+						{/if}
+					</ul>
+					{else}
+					<div class="headImg">
+						<img alt="请登录"  src="{$TMPL}/style5.2/images/static/noavatar_big.gif">
+					</div>
+					<a class="fun-check-login" href="javascript:void(0);" data-url="{url a="index" r="user#login"}"  data-no-cache="true"><p class="userName">点击登录或注册</p></a>
+					{/if}
+			</div>
+		</div>
+		<div class="user-balance flex-box">
+			<a href="{url a="index" r="uc_money"}" data-no-cache="true" class="balance-item flex-1 r-line">
+				<p class="balance-num">{if $data.user_money gt 0}{$data.user_money}{else}0{/if}</p>
+				<p class="balance-tit">余额</p>
+			</a>
+			<a href="{url a="index" r="uc_youhui"}" data-no-cache="true" class="balance-item flex-1 r-line">
+				<p class="balance-num">{if $data.youhui_count gt 0}{$data.youhui_count}{else}0{/if}</p>
+				<p class="balance-tit">优惠</p>
+			</a>
+			<a href="{url a="index" r="uc_coupon"}" data-no-cache="true" class="balance-item flex-1 r-line">
+				<p class="balance-num">{if $data.coupon_count gt 0}{$data.coupon_count}{else}0{/if}</p>
+				<p class="balance-tit">消费券</p>
+			</a>
+			<a href="{url a="index" r="uc_score"}" data-no-cache="true" class="balance-item flex-1">
+				<p class="balance-num">{if $data.user_score gt 0}{$data.user_score}{else}0{/if}</p>
+				<p class="balance-tit">积分</p>
+			</a>
+		</div>
+		{if $data.user_mobile_empty}
+		<div class="u-prompt t-line">
+			<a href="{url x="index" r="uc_account#phone"}"><i class="iconfont">&#xe66f;</i>点击<span>绑定手机号</span>，确保账户安全~</a>
+			<span class="pro_close_btn"><i class="iconfont">&#xe635;</i></span>
+		</div>
+		{/if}
+
+		<!--我的订单-->
+		<div class="my-order">
+			<div class="hd-bar b-line">我的订单</div>
+			<div class="order-box clearfix">
+				<a href="{url i="index" r="uc_order"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico">
+						<img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-1.png" alt="">
+						{if $data.countOrder}<div class="order-num">{$data.countOrder}</div>{/if}
+					</div>
+					<div class="order-tit">商城单</div>
+				</a>
+				<a href="{url i="index" r="uc_order" g="tuan=1"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico">
+						<img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-2.png" alt="">
+						{if $data.countTuan}<div class="order-num">{$data.countTuan}</div>{/if}
+					</div>
+					<div class="order-tit">团购单</div>
+				</a>
+				<a href="{url i="index" r="uc_store_pay_order"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-3.png" alt=""></div>
+					<div class="order-tit">到店买单</div>
+				</a>
+				<a href="{url i="index" r="uc_order#refund_list"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-4.png" alt=""></div>
+					<div class="order-tit">退款/售后</div>
+				</a>
+				<a href="{url i="index" r="dc_dcorder"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico">
+						<img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-5.png" alt="">
+						{if $data.countDc}<div class="order-num">{$data.countDc}</div>{/if}
+					</div>
+					<div class="order-tit">外卖单</div>
+				</a>
+				<a href="{url i="index" r="dc_rsorder"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico">
+						<img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-6.png" alt="">
+						{if $data.countRs}<div class="order-num">{$data.countRs}</div>{/if}
+					</div>
+					<div class="order-tit">预订单</div>
+				</a>
+				<a href="{url a="index" r="uc_event"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-7.png" alt=""></div>
+					<div class="order-tit">活动报名</div>
+				</a>
+				<a href="{url a="index" r="uc_review"}" class="order-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-8.png" alt=""></div>
+					<div class="order-tit">我的评价</div>
+				</a>
+			</div>
+		</div>
+		<!--个人中心管理部分-->
+		<?php if(defined('FX_LEVEL')): ?>
+		<!--分销管理-->
+		{if $data.is_user_fx}
+		<div class="my-fx">
+			<div class="hd-bar b-line">分销管理</div>
+			<div class="fx-box clearfix">
+				<a href="{url a="index" r="uc_fx"}" class="fx-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-9.png" alt=""></div>
+					<p class="fx-tit">小店</p>
+				</a>
+				<a href="{url a="index" r="uc_fx#deal_fx"}" class="fx-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-10.png" alt=""></div>
+					<p class="fx-tit">市场</p>
+				</a>
+				<a href="{url a="index" r="uc_fxwithdraw"}" class="fx-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-11.png" alt=""></div>
+					<p class="fx-tit">提现</p>
+				</a>
+				<a href="{url a="index" r="uc_fxinvite"}" class="fx-item" data-no-cache="true">
+					<div class="uc-ico"><img src="{$TMPL}/style5.2/images/static/user_center/uc-ico-12.png" alt=""></div>
+					<p class="fx-tit">推荐</p>
+				</a>
+			</div>
+		</div>
+		{else}
+		<ul class="center-list">
+			<li>
+				<a href="{url a="index" r="uc_fx#vip_buy"}" class="flex-box">
+					<p class="list-tit flex-1">分销管理</p>
+					<p class="list-tip">开通分销资格</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+		</ul>
+		{/if}
+		<?php endif; ?>
+		<ul class="center-list">
+			<li class="b-line">
+				<a href="{url a="index" r="uc_share"}" class="flex-box">
+					<p class="list-tit flex-1">分享有礼</p>
+					<p class="list-tip">{$data.share_info}</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+			<li class="b-line">
+				<a href="{url a="index" r="scores_index"}" class="flex-box">
+					<p class="list-tit flex-1">积分商城</p>
+					<p class="list-tip">签到领积分</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+			<li class="b-line">
+				<a href="{url a="index" r="uc_collect"}" class="flex-box">
+					<p class="list-tit flex-1">我的收藏</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+			<li>
+				<a href="{url a="index" r="uc_lottery"}" class="flex-box">
+					<p class="list-tit flex-1">我的抽奖</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+		</ul>
+		<ul class="center-list">
+			<li class="b-line">
+				<a href="{url a="index" r="uc_address"}" class="flex-box">
+					<p class="list-tit flex-1">收货地址</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+			<li class="b-line">
+				<a href="{url a="index" r="help"}" class="flex-box">
+					<p class="list-tit flex-1">客服中心</p>
+					<div class="iconfont">&#xe607;</div>
+				</a>
+			</li>
+		</ul>
+
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,204 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var ajax_url="{url i="biz" a="dc_order"}";
+var order_id=parseInt('{$data.order_id}');
+var is_open_dada_delivery=parseInt('{$data.is_open_dada_delivery}');
+var dada_account='{$data.dada_account}'?'{$data.dada_account}':'';
+var delivery_money_enough=parseInt('{$data.delivery_money_enough}');
+</script>
+<div class="page page-index deal-page page-current" id="dc_view">
+{if $dc_order.biz_order_state.state || $dc_order.delivery_part eq 2}
+	<div class="dc-view-bar t-line">
+		{if $dc_order.delivery_part eq 2}
+			<a href="javascript:void(0);" class="dc-view-btn j-submit j-supplier-delivery" data_url="{url i="biz" a="dc_order#change_delivery" g="id=$dc_order.id"}" style="width:4.2rem;background-color:#f80;color:#fff;border:1px solid #f80;">商家自己配送</a>
+		{/if}
+		{foreach from=$dc_order.biz_order_state.act item=act}
+			{if $dc_order.biz_order_state.state eq 2}
+				{if $act.name eq '接单'}
+				<a href="javascript:void(0);" class="dc-view-btn {$act.class} j-accept" data_url="{$act.url}">{$act.name}</a>
+				{else}
+				<a href="javascript:void(0);" class="dc-view-btn j-submit {$act.class}" data_url="{$act.url}">{$act.name}</a>
+				{/if}		
+			{/if}
+			{if $dc_order.biz_order_state.state eq 3}
+			<!-- <a href="javascript:void(0);" class="dc-view-btn j-close" data_url="{$data.dc_order.0.biz_order_state.act.0.url}">交易关闭</a> -->
+				{if $act.name eq '接单'}
+				<a href="javascript:void(0);" class="dc-view-btn {$act.class} j-accept" data_url="{$act.url}">{$act.name}</a>
+				{else}
+				<a href="javascript:void(0);" class="dc-view-btn j-submit {$act.class}" data_url="{$act.url}">{$act.name}</a>
+				{/if}				
+			{/if}
+		{/foreach}
+	</div>
+{/if}
+	{include file="style5.2/inc/headers/dc_header.html"}
+	<div class="content">
+		<div class="order-view-hd flex-box order-view-item">
+			<p class="order-view-tit flex-1">订单状态</p>
+			<p class="order-status">{$dc_order.biz_order_state.state_format}</p>
+		</div>
+		{if $dc_order.delivery_part eq 2}
+		<div class="order-view-hd flex-box order-view-item">
+			<p class="shop-name flex-1" style="color:#f80;">{if $dc_order.send_info}{$dc_order.send_info}{else}委托达达配送{/if}</p>
+		</div>
+		{/if}
+		<div class="order-view-item">
+			<a href="" class="order-shop flex-box b-line">
+				<div class="shop-img"><img src="{$data.supplier_location.preview}" alt="{$data.supplier_location.name}"></div>
+				<p class="shop-name flex-1">{$data.supplier_location.name}</p>
+			</a>
+			<ul class="goods-list b-line">
+				{foreach from=$dc_order.order_menu.cart_list item=item}
+				<li class="goods-info flex-box">
+					<p class="goods-name flex-1">{$item.name}</p>
+					<p class="goods-num">x{$item.num}</p>
+					<p class="goods-price">{function name=format_price v=$item.total_price g=2}</p>
+				</li>
+				{/foreach}
+			</ul>
+			{if $dc_order.package_price gt 0 || $dc_order.delivery_price gt 0}
+			<ul class="order-fee-list">
+				{if $dc_order.package_price gt 0}
+				<li class="order-fee flex-box">
+					<p class="flex-1">打包费</p>
+					<p class="fee-price">{function name=format_price v=$dc_order.package_price g=2}</p>
+				</li>
+				{/if}
+				{if $dc_order.delivery_price gt 0}
+				<li class="order-fee flex-box">
+					<p class="flex-1">配送费</p>
+					<p class="fee-price">{function name=format_price v=$dc_order.delivery_price g=2}</p>
+				</li>
+				{/if}
+			</ul>
+			{/if}
+			{if $dc_order.promote_str}
+			<ul class="order-youhui-list t-line">
+				{if $dc_order.promote_str.0.class_name eq 'PayOnlineDiscount'}
+				<!-- 在线支付 -->
+				<li class="order-youhui flex-box">
+					<div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt=""></div>
+					<p class="youhui-info flex-1">{$dc_order.promote_str.0.promote_description}</p>
+					<p class="youhui-price">-&yen;{$dc_order.promote_str.0.discount_amount}</p>
+				</li>
+				{/if}
+				{if $dc_order.promote_str.0.class_name eq 'FirstOrderDiscount'}
+				<!-- 满立减 -->
+				<li class="order-youhui flex-box">
+					<div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico3.png" alt=""></div>
+					<p class="youhui-info flex-1">{$dc_order.promote_str.0.promote_description}</p>
+					<p class="youhui-price">-&yen;{$dc_order.promote_str.0.discount_amount}</p>
+				</li>
+				{/if}
+			</ul>
+			{/if}
+			<div class="order-view-count flex-box t-line">
+				<p class="youhui flex-1">订单：{function name=format_price v=$dc_order.total_price g=2}{if $dc_order.promote_amount gt 0}，优惠：{function name=format_price v=$dc_order.promote_amount g=2}{/if}</p>
+				<p class="tr">实付<span>{function name=format_price v=$dc_order.pay_price g=2}</span></p>
+			</div>
+		</div>
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">配送信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p>配送时间：</p>
+					<p class="view-info flex-1">{$dc_order.order_delivery_time_format}</p>
+				</div>
+				<div class="order-view-info">
+					<p>配送地址：</p>
+					<div class="view-info flex-1">
+						<p class="user-info">{$dc_order.consignee} <a style="color:blue;text-decoration:underline;" href="tel:{$dc_order.mobile}">{$dc_order.mobile}</a></p>
+						<p class="address">{$dc_order.api_address}{$dc_order.address}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">订单信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p>订单号：</p>
+					<p class="view-info flex-1">{$dc_order.order_sn}</p>
+				</div>
+				<div class="order-view-info">
+					<p>支付方式：</p>
+					<p class="view-info">在线支付</p>
+				</div>
+				<div class="order-view-info">
+					<p>下单时间：</p>
+					<p class="view-info">{$dc_order.create_time_format}</p>
+				</div>
+			</div>
+		</div>
+		{if $data.order.dc_comment}
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">备注信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p class="view-info flex-1">{$dc_order.dc_comment}</p>
+				</div>
+			</div>
+		</div>
+		{/if}
+		
+	</div>
+	
+	<div class="popup-box">
+		<div class="pup-box-bg j-box-bg"></div>		
+		<div class="list-block m-trans-way j-red-reward voucher_box">
+			<div class="item-content u-common-box t-line-white trans-way-bg">
+				<p class="u-ti tc">配送方式选择</p>
+			</div>
+			
+			<ul class="j-reward-list m-tv-list">
+				<li class="t-line-white">
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">商家自己配送</div>
+							<div class="item-after">
+								<input type="radio" name="delivery_part" value="1">
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+				{if $data.is_open_dada eq 1}
+				<li>
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">
+							委托达达配送
+							{if $data.is_open_dada_delivery}
+								{if $data.dada_account}
+									{if $data.delivery_money_enough eq 0}
+									（余额不足，请在pc后台充值）
+									{/if}
+								{else}
+									（帐号未注册，请在pc后台开启）
+								{/if}
+							{else}
+								（未开启，请在pc后台开启）
+							{/if}
+							</div>
+							<div class="item-after">
+								<input type="radio" name="delivery_part" value="2" {if !$data.delivery_money_enough || !$data.dada_account || !$data.is_open_dada_delivery}checked="checked" disabled="disabled"{/if}>
+								<div class="item-media">
+									<i class="icon icon-form-checkbox" {if !$data.delivery_money_enough || !$data.dada_account || !$data.is_open_dada_delivery}style="border: gray!important;background-color: gray;"{/if}></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+				{/if}
+			</ul>
+			<div class="item-content u-common-box">
+				<p class="u-ti tc j-cancel">取消</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,34 @@
+﻿{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="cate">
+ 	{include file="style5.2/inc/module/search_header.html"}
+  	<div class="content">
+   		<!-- 页面主体 -->
+      <div class="cate-list r-line">
+      	{foreach from=$data.bcate_list item=cate name="goods-type"}
+        <li class="{if $cate.id eq '0' }active{/if} b-line">{$cate.name}</li>
+        {/foreach}
+      </div>
+      <div class="cate-info flex-1">
+        {if $data.bcate_list}
+      	{foreach from=$data.bcate_list item=cate }
+        <ul class="clearfix">
+          {foreach from=$cate.bcate_type item=cate_item }
+          <li>
+            <div class="cate-detail">
+              <a href="{url r="index" p="goods" g="cate_id=$cate_item.id" }">
+              <div class="cate-img"><img alt="" src="{if $cate_item.cate_img neq ''}{$cate_item.cate_img}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}"/></div>
+              <p class="cate-tit">{$cate_item.name}</p>
+              </a>
+            </div>
+          </li>
+    		  {/foreach}
+        </ul>
+        {/foreach}
+        {else}
+        <div class="tipimg no_data">暂无数据</div>
+        {/if}
+      </div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

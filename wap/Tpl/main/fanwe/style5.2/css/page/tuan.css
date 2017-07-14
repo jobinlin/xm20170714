@@ -1,0 +1,139 @@
+/* 定位 */
+.address-info{
+	height:1.8rem;
+	padding:0 .5rem;
+	background:#fffbeb;
+	color:@f_color2;
+}
+.address-info .address{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	margin-right: .5rem;
+}
+.address-info .address .iconfont{
+	color:@f_colortheme;
+	font-size:.7rem;
+}
+.address-info .refresh{
+	display: block;
+	font-size: .85rem;
+	-webkit-transform: rotate(0);
+	        transform: rotate(0);
+}
+.address-info .rotate{
+	-webkit-animation: rotate 1s linear infinite;
+	        animation: rotate 1s linear infinite;
+}
+@keyframes rotate{
+	0%{
+		-webkit-transform: rotate(0);
+		        transform: rotate(0);
+	}
+	100%{
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes rotate{
+	0%{
+		-webkit-transform: rotate(0);
+		        transform: rotate(0);
+	}
+	100%{
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+	}
+}
+/* 团购列表 */
+#tuan .tuan-item .shop-info{
+	padding-right: .5rem;
+}
+#tuan .tuan-item .shop-name{
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items:center;
+	align-items:center;
+	line-height: 1.2rem;
+	padding-top:.5rem;
+}
+#tuan .tuan-item .shop-name strong{
+	display: block;
+	font-size:@f_size2;
+	max-width:calc(100% - 3rem - 10px);
+	max-width:-webkit-calc(100% - 3rem - 10px);
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+#tuan .tuan-item .shop-name .shop-tip{
+	margin-left: 5px;
+	width:1.5rem;
+}
+#tuan .tuan-item .shop-name .shop-tip img{
+	width:100%;
+}
+#tuan .tuan-item .shop-name .renzheng{
+	background:#72a7ff;
+}
+#tuan .tuan-item .shop-name .maidan{
+	background:#ffae00;
+}
+#tuan .tuan-item .shop-name .waimai{
+	background:@themecolor;
+}
+#tuan .tuan-item .star-address{
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items:center;
+	align-items:center;
+	font-size:@f_size4;
+	color:@f_color3;
+	padding-bottom:.2rem;
+}
+#tuan .tuan-item .shop-star{
+	-webkit-flex:1;
+	-webkit-box-flex:1;
+	flex:1;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items:center;
+	align-items:center;
+}
+#tuan .tuan-item .shop-star .point{
+	color:#ffa800;
+	margin-left: .25rem;
+}
+#tuan .tuan-item .shop-star .m-start{
+	width: 79px;
+	height: 13px;
+}
+.no-point{
+	-webkit-flex:1;
+	-webkit-box-flex:1;
+	flex:1;
+}
+/* 团购列表 */
+#tuan .tuan-list{
+	padding-right: .5rem;
+	max-height:8.8rem;
+}
+#tuan .tuan-list li::after{
+	  content: '';
+	  width: 100%;
+	  border:1px dotted @bordercolor;
+	  position: absolute;
+	  left: 0;
+	  bottom: 0;
+	  -webkit-transform: scaleY(0.5);
+	          transform: scaleY(0.5);
+	  -webkit-transform-origin:0 100%;
+	  transform-origin: 0 100%;
+	  z-index:5;
+}

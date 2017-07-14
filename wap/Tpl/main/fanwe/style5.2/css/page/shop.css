@@ -1,0 +1,52 @@
+.m-guess{
+	margin-top: .5rem;
+}
+.shop-header{
+	height:2.2rem;
+	text-align: center;
+}
+.shop-header a{
+	display: block;
+	color:@f_icon_color;
+}
+.shop-header .hd-ico{
+	width:1.1rem;
+	font-size:1.1rem;
+}
+.shop-nav{
+	height:2rem;
+	background:#fff;
+}
+.shop-nav a{
+	display: block;
+}
+.shop-nav .cate-link{
+	text-align: center;
+	padding:0 @comspacing;
+}
+.shop-nav .cate-link .iconfont{
+	font-size:.8rem;
+	line-height:.6rem;
+}
+.shop-nav .cate-link p{
+	font-size:.5rem;
+	line-height: .5rem;
+}
+.shop-nav .go-search{
+	margin-right:.5rem;
+	height:1.4rem;
+	line-height: 1.4rem;
+	font-size:.6rem;
+	background:@gray;
+	color:@f_color2;
+}
+.shop-nav .go-search .iconfont{
+	display: block;
+	width:1.4rem;
+	text-align: center;
+	font-size:.7rem;
+	color:#cecece;
+}
+.shop-header .flex-1{
+	font-size: @f_sizebig;
+}

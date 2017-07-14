@@ -1,0 +1,68 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_delivery_effect($effect)
+	{
+		return l("IS_EFFECT_".$effect);
+	}
+	function get_delivery_install($install)
+	{
+		return l("IS_INSTALL_".$install);
+	}
+
+</php>
+<script type="text/javascript">
+	function uninstall(id)
+	{
+		if(confirm("{%CONFIRM_DELETE}"))
+		{
+			location.href = ROOT + "?m=DcThirdDelivery&a=uninstall&id="+id;
+		}
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+	<tbody>
+		<tr>
+			<td class="topTd" colspan="7">&nbsp; </td>
+			</tr>
+			<tr class="row">
+				<th>{%DELIVERY_NAME}</th>
+				<th>{%IS_EFFECT}</th>
+				<th>{%IS_INSTALL}</th>
+				<th>{%SORT}</th>
+				<th>{%TAG_LANG_OPERATE}</th>
+				</tr>
+				<foreach name="third_delivery" item="delivery">
+				<tr class="row">
+					<td>{$delivery.name}
+					<if condition="$delivery['reg_url'] neq ''">
+						<a href="{$delivery['reg_url']}" target="_blank">
+							{%GO_TO_REG}
+						</a>
+					</if>
+					</td>
+					<td>{$delivery.is_effect|get_delivery_effect}</td>
+					<td>{$delivery.installed|get_delivery_install}</td>
+					<td>{$delivery.sort}</td>
+					<td>
+						<if condition="$delivery['installed'] eq 0">
+						<a href="{:u("DcThirdDelivery/install",array("class_name"=>$delivery['class_name']))}">{%INSTALL}</a>
+						<else />
+						<a href="{:u("DcThirdDelivery/edit",array("id"=>$delivery['id']))}">{%EDIT}</a>
+						<a href="javascript:uninstall({$delivery.id});" >{%UNINSTALL}</a>
+						</if>
+					</td>
+				</tr>
+				</foreach>
+				<tr><td class="bottomTd" colspan="5"> &nbsp;</td></tr>
+			</tbody>
+		</table>
+
+
+</div>
+<include file="Public:footer" />

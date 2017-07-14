@@ -1,0 +1,108 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/filter_row.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/sort_row.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/youhuis.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/filter_row.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/filter_row.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/sort_row.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/sort_row.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/youhuis.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/youhuis.js";
+
+?>
+<script>
+var AJAX_URL="{url i="index" a="ajax"}";
+</script>
+{include file="inc/header.html"}
+<div class="{function name="load_wrap" t=$wrap_type}">
+<!--筛选行-->	
+	<!-- {include file="inc/filter_row.html"} -->
+	<div class="cate-wrap">
+		<ul class="cate-list clearfix">
+			{if $cate_count gt 11}
+			<li class="more-cate">更多分类<i class="iconfont">&#xe610;</i></li>
+			{/if}
+			{foreach from=$cate_info item=item key=key}
+			<li>
+				<a {if $item.is_checked eq 1}class="active"{/if} href="{$item.url}">{$item.name}</a>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+<!--end筛选行-->	
+<!--end排序行-->
+</div>
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+		{if $youhui_list}
+		<ul class="youhuis-list clearfix">
+			{foreach from=$youhui_list item=item}
+			{if $item.sort_status eq 0}
+			<li data-id="{$item.id}">
+				<div class="youhui-hd clearfix">
+					<p class="f_l price"><span>&yen;</span>{$item.youhui_value}</p>
+					<div class="youhui-info f_l">
+						<p class="youhui-type">{if $item.supplier_id eq 0}自营券{else}店铺券{/if}</p>
+						<p class="youhui-term">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+					</div>
+				</div>
+				<p class="youhui-tip">{if $item.supplier_id eq 0}限&nbsp;平台自营&nbsp;商品{else}限<a href="javascript:void(0);">[{$item.supplier_name}]</a>{if $item.youhui_type eq 2}店铺商品{elseif $item.youhui_type eq 1}实体店铺消费{/if}使用{/if}</p>
+				<p class="youhui-time">有效期至：{if $item.valid_type eq 2 && $item.use_end_time}{$item.use_end_time}{elseif $item.valid_type eq 1 && $item.expire_day}领取之日起{$item.expire_day}天有效{else}永久{/if}</p>
+				<div class="youhuis-btn">
+					<a href="javascript:void(0);" class="j-get-youhui" data-id="{$item.id}">
+					立<br>即<br>领<br>取
+					</a>
+				</div>
+			</li>
+			{else}
+			<li class="disable" data-id="{$item.id}">
+				<div class="youhui-hd clearfix">
+					<p class="f_l price"><span>&yen;</span>{$item.youhui_value}</p>
+					<div class="youhui-info f_l">
+						<p class="youhui-type">{if $item.supplier_id eq 0}自营券{else}店铺券{/if}</p>
+						<p class="youhui-term">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+					</div>
+				</div>
+				<p class="youhui-tip">{if $item.supplier_id eq 0}限&nbsp;平台自营&nbsp;商品{else}限<a href="javascript:void(0);">[{$item.supplier_name}]</a>{if $item.youhui_type eq 2}店铺商品{elseif $item.youhui_type eq 1}实体店铺消费{/if}使用{/if}</p>
+				<p class="youhui-time">有效期至：{if $item.valid_type eq 1 && $item.use_end_time}{$item.use_end_time}{elseif $item.valid_type eq 2 && $item.expire_day}领取之日起{$item.expire_day}天有效{else}永久{/if}</p>
+				<div class="youhuis-btn">
+					<a href="javascript:void(0);" {if $item.sort_status eq 2}style="padding: 27px 0;"{/if}>
+					{if $item.sort_status eq 1}
+					券<br>已<br>领<br>完
+					{elseif $item.sort_status eq 2}
+					活<br>动<br>已<br>结<br>束
+					{/if}
+					</a>
+				</div>
+			</li>
+			{/if}
+			{/foreach}
+		</ul>
+		<div class="pages">{$pages}</div>
+		{else}
+		<div class="m-no-data">
+			<div class="no-data-ico"><img src="{$TMPL}/images/no-data.png" alt=""></div>
+			<div class="no-data-tip">
+				没有符合条件的优惠券，请换个条件试试吧~
+			</div>
+		</div>
+		<div class="blank"></div>
+		{/if}
+
+</div><!--end wrap-->
+
+{include file="inc/footer.html"}

@@ -1,0 +1,55 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="store_pay">
+	<header class="bar bar-nav m-stroe-pay-head">
+		<h1 class="title">{$data.location_name}</h1>
+		<a class="iconfont head-btn go-back back">&#xe604;</a>
+		<a href="{$data.stores_explain_url}" class="head-btn more">买单说明</a>
+	</header>
+	<script>
+		var location_id = {$data.location_id};
+		var custom_ajax_url = '{url a="index" r="store_pay"}';
+	</script>
+	<div class="content m-store-pay">
+		<form id="submit_dp" name="submit_dp" action="{url r="index" p="store_pay#make_order"}" method="post">
+			<input type="hidden" name="location_id" value="{$data.location_id}">
+			<div class="input-money">
+				<div class="input-box">
+					<input type="text" name="money" placeholder="询问服务员后输入" class="money-input primitive-money">
+					<em class="lab">消费总额</em>
+				</div>
+				<div class="input-box">
+					<input type="text" name="other_money" placeholder="询问服务员后输入" class="money-input primitive-money">
+					<em class="lab">不可优惠金额</em>
+				</div>
+			</div>
+			{if $promote}
+			<div class="youhui-info flex-box">
+				<em class="icon">优惠买单</em>
+				<div class="flex-1 youhui-detail">{$promote_infos}</div>
+				<div class="youhui-money discount_money">
+					-&nbsp;¥<i class="integer">0</i>.<i class="point">00</i>
+				</div>
+			</div>
+			<div style="display: none">
+				{foreach from=$promote_data item=pro}
+				<ul class="discount">
+				<li class="limit">{$pro.config.discount_limit}</li>
+				<li class="amount">{$pro.config.discount_amount}</li>
+				</ul>
+				{/foreach}
+			</div>
+			{/if}
+			<div class="youhui-info flex-box">
+				<em class="lab flex-1">实付金额</em>
+				<div class="youhui-money actual_pay">
+					&nbsp;¥<i class="integer">0</i>.<i class="point">00</i>
+				</div>
+			</div>
+			<div class="big-btn submit">
+				<a href="javascript:void(0)" class="btn-con">确认支付</a>
+			</div>
+		</form>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

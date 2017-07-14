@@ -1,0 +1,56 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+    var use_log = '{url r="dist" p="undeliver"}';
+
+</script>
+<div class="page page-index page-current" id="dist_undeliver_verify_log_list">
+    <header class="bar bar-nav b-line">
+        <a class="button button-link button-nav pull-left {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >
+        <i class="iconfont">&#xe604;</i>
+        </a>
+        <h1 class="title">{$data.page_title}</h1>
+        <a href="javascript:void(0);" class="pull-right use-search-ico j-use-search"><i class="iconfont">&#xe61a;</i></a>
+
+        <form action="{url r="dist" p="undeliver#search_log"}" method="post">
+        <div class="use-search-bar flex-box">
+            <div class="j-close-use-search"><i class="iconfont">&#xe635;</i></div>
+            <div class="search-bar flex-1">
+                <input type="tel" placeholder="请输入提货码搜索" id="coupon_pwd" name="coupon_pwd">
+            </div>
+            <div class="search"><i class="iconfont">&#xe61a;</i></div>
+        </div>
+        </form>
+
+    </header>
+    <div class="content infinite-scroll infinite-scroll-bottom">
+        <div class="m-use-log-list j-ajaxlist ">
+            {if $data.data}
+            <ul class="use-log-list j-ajaxadd">
+                {foreach from=$data.data item=loglist}
+                <li>
+                    <a data-no-cache="true" href="{$loglist.url}">
+                        <div class="log-hd b-line">
+                            <div class="flex-box log-info">
+                                <p class="type-name flex-1">{$loglist.order_sn}</p>
+                                <p class="log-pwd">{$loglist.sn}</p>
+                                <i class="iconfont">&#xe607;</i>
+                            </div>
+                            <p class="log-name">{$loglist.address}</p>
+                        </div>
+                        <div class="log-bd flex-box">
+                            <p class="user-name flex-1">{$loglist.user_name}</p>
+                            <p class="time">{$loglist.confirm_time}</p>
+                        </div>
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+            <div class="pages hide">{$pages}</div>
+            {else}
+            <div class="tipimg no_data">暂无验证记录</div>
+            {/if}
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

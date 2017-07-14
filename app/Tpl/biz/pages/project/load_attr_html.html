@@ -1,0 +1,54 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		//load_attr_stock();
+		load_attr_stock_1();
+	});
+	function addRow(obj)
+	{
+		var html = $(obj.parentNode).find(".attr_content .attr_item:first").html();
+		//html = html.replace("addRow", "delRow");
+		//html = html.replace("+", "-");
+		//$("<div>"+html+"</div>").insertAfter($(obj.parentNode));
+		$(obj.parentNode).find(".attr_content").append("<div class='attr_item f_l' >"+html+"</div>");
+		load_attr_stock_1();
+	}
+	function delRow(obj)
+	{
+		if($(obj.parentNode.parentNode).find(".attr_item").length>1){
+			$(obj.parentNode).remove();
+			load_attr_stock_1();
+		}
+	}
+</script>
+{foreach from=$goods_type_attr item=attr_item_group }
+<div class="attr_row">
+		<div class="f_l">
+			<span class="attr_name" id="title_{$attr_item.id}" data_name='{$attr_item_group.0.name}'>{$attr_item_group.0.name}</span>：
+		</div>
+		<div class="attr_content f_l">
+			{foreach from=$attr_item_group item=attr_item }
+			<div class="attr_item f_l" >
+				<div class="f_l">
+					{if $attr_item.input_type eq 0}
+						<input type="text" class="textbox attr_value" style="width:50px;height:22.3px;padding: 0;" deal_attr_id="{$attr_item.deal_attr_id}" name="deal_attr[{$attr_item.id}][]" value="{$attr_item.attr_name}" onkeyup="load_attr_stock_1();"  />			
+					{/if}
+					{if $attr_item.input_type eq 1}
+						<select deal_attr_id="{$attr_item.deal_attr_id}" name="deal_attr[{$attr_item.id}][]" class="attr_value" style="height:26.16px;padding: 0;" onchange="load_attr_stock_1();">
+						{foreach from=$attr_item.attr_list item=attr_row}
+							<option value="{$attr_row}" {if $attr_item.attr_name eq $attr_row}selected="selected"{/if}>{$attr_row}</option>
+						{/foreach}
+						</select>			
+					{/if}
+				</div>
+				<div class="delete_attr f_l" onclick="delRow(this);" style="margin-right: 20px;"></div>
+			</div>
+			{/foreach}
+		</div>
+		
+		
+		<a href="javascript:void(0);" onclick="addRow(this);" style="text-decoration:none;">新增</a>
+		<input type="hidden" class="deal_attr_stock_hd" name="deal_attr_stock_hd[{$attr_item.id}][]" />
+		<div class="blank5"></div>
+	</div>
+
+{/foreach}

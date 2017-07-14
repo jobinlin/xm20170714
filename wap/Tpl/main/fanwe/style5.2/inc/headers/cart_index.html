@@ -1,0 +1,17 @@
+{if $app_index eq 'app'}
+<header class="bar bar-nav b-line">
+    {if $page_finsh}
+    <a class="header-btn header-left iconfont" href="javascript:App.page_finsh();" >&#xe604;</a>
+    {else}
+    <a class="header-btn header-left iconfont back">&#xe604;</a>
+    {/if}
+    <h1 class="header-title">购物车</h1>
+    {if $data.cart_list}<span class="header-right active header-txt j-edit-all">编辑全部</span>{/if}
+</header>
+{else}
+<header class="bar bar-nav b-line">
+    <a class="header-btn header-left iconfont back">&#xe604;</a>
+    <h1 class="header-title">购物车</h1>
+    {if $data.cart_list}<span class="header-right active header-txt j-edit-all">编辑全部</span>{/if}
+</header>
+{/if}

@@ -1,0 +1,116 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	var cityUrl = '{:u("Distribution/citys")}';
+</script>
+<div class="main">
+<div class="main_title"> 编辑配送点<a href="{:u("Distribution/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">账户名:</td>
+		<td class="item_input">
+		<input type="text" class="textbox" name="username" value="{$vo.username}" />
+
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">密码:</td>
+		<td class="item_input">
+		<input type="password" class="textbox" name="password" value="" />
+		<if condition="$account_info['id']">
+		<span class="tip_span">[密码为空则不做修改]</span>
+		</if>
+		</td>
+	</tr>
+	<tr id="city_list" >
+		<td class="item_title">{%DEAL_CITY}:</td>
+		<td class="item_input">
+		<!-- <select name="city_id" onchange="mapCenter(this.value)">	
+			<option value="0">=={%EMPTY_SELECT}==</option>	
+			<foreach name="city_list" item="province_item">				
+				<option value="{$province_item.id}" rel="{$province_item.name}" disabled="disabled">{$province_item.name}</option>
+				<foreach name="province_item.city_list" item="city_item">
+					<option value="{$city_item.id}" rel="{$city_item.name}"  <if condition="$vo['city_id'] eq $city_item['id']">selected="selected"</if>>&nbsp;&nbsp;{$city_item.name}</option>
+				</foreach>
+			</foreach>
+		</select> -->
+		<select name="prov_id" class="prov_id">	
+			<option value="0">请选择省份</option>
+			<foreach name="prov_list" item="prov">
+				<option value="{$prov.id}" <if condition="$vo['prov_id'] eq $prov['id']">selected="selected"</if>>{$prov.name}</option>
+			</foreach>
+		</select>
+		<select name="city_id" class="city_id">	
+			<option value="0">请选择城市</option>
+			<foreach name="city_list" item="city">
+				<option value="{$city.id}" <if condition="$vo['city_id'] eq $city['id']">selected="selected"</if>>{$city.name}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_ADDRESS}:</td>
+		<td class="item_input"><input class="textbox local_key" name="address" style="width:400px" value="{$vo.address}" placeholder="例:工业路666号" /><input type="button" value="定位" class="local_search"><input type="hidden" class="orig_key" value="{$vo.address}"><input type="hidden" name="addr_check" value="1"></td>
+	</tr>
+	<tr id="lbs_info">
+		<td class="item_title">地图定位:</td>
+		<td class="item_input">
+			<include file="Public:baidu_polygon-2" />	
+		</td>
+	</tr>
+	<if condition="$vo['bank_user']">
+	<tr>
+		<td class="item_title">银行户名:</td>
+		<td class="item_input"><p>{$vo.bank_user}</p><!-- <input type="text" class="textbox" name="bank_user" value="{$vo.bank_user}" /> --></td>
+	</tr>
+	<tr>
+		<td class="item_title">开户行名称:</td>
+		<td class="item_input"><p>{$vo.bank_name}</p></td>
+	</tr>
+	<tr>
+		<td class="item_title">银行卡号:</td>
+		<td class="item_input"><p>{$vo.bank_card}</p></td>
+	</tr>
+	</if>
+	<tr>
+		<td class="item_title">手机号码:</td>
+		<td class="item_input"><input type="text" class="textbox" name="tel" value="{$vo.tel}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_CONTACT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="contact" value="{$vo.contact}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_OPENTIME}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="open_time" value="{$vo.open_time}"  /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+		<!--隐藏元素-->
+		<input type="hidden" name="{:conf("VAR_MODULE")}" value="Distribution" />
+		<input type="hidden" name="{:conf("VAR_ACTION")}" value="save" />
+		<input type="hidden" name="id" value="{$vo.id}" />
+		<!--隐藏元素-->
+		<input type="submit" class="button" value="保存" />
+		<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

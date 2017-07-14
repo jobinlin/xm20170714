@@ -1,0 +1,48 @@
+{if $app_index=='app'}
+<nav class="bar bar-tab">
+	<a class="tab-item {if $MODULE_NAME == 'index'}active{/if}" href="javascript:App.app_detail(1,0);">
+	<span class="icon iconfont i-home"></span>
+	<span class="tab-label">首页</span>
+	</a>
+	<a class="tab-item {if $MODULE_NAME == 'dc'}active{/if}" href="{url a="index" r="dc"};">
+	<span class="icon iconfont">&#xe68c;</span>
+	<span class="tab-label">外卖</span>
+	</a>
+	<a data-no-cache="true" class="tab-item {if $MODULE_NAME == 'dctable'}active{/if}" href="{url a="index" r="dctable"};" >
+	<span class="icon iconfont">&#xe661;</span>
+	<span class="tab-label">订座</span>
+	</a>
+
+	{if $is_login}
+	<a class="tab-item {if $MODULE_NAME == 'user_center'}active{/if}" href="javascript:App.app_detail(107,0);" data-no-cache="true">
+		<span class="icon iconfont i-mine"></span>
+		<span class="tab-label">我的</span>
+	</a>
+		{else}
+		<a class="tab-item {if $MODULE_NAME == 'user_center'}active{/if}" href="javascript:App.login_sdk();" data-no-cache="true">
+
+			<span class="icon iconfont i-mine"></span>
+			<span class="tab-label">我的</span>
+		</a>
+		{/if}
+</nav>
+{else}
+  	<nav class="bar bar-tab">
+	    <a class="tab-item {if $MODULE_NAME == 'index'}active{/if}" href="{url a="index" r=""}">
+	      	<span class="icon iconfont i-home"></span>
+	      	<span class="tab-label">首页</span>
+	    </a>
+	    <a class="tab-item {if $MODULE_NAME == 'dc'}active{/if}" href="{url r="index" p="dc"}">
+	      	<span class="icon iconfont">&#xe68c;</span>
+	      	<span class="tab-label">外卖</span>
+	    </a>
+	    <a data-no-cache="true" class="tab-item {if $MODULE_NAME == 'dctable'}active{/if}" href="{url r="index" p="dctable"}" data-no-cache="true">
+	      	<span class="icon iconfont">&#xe661;</span>
+	      	<span class="tab-label">订座</span>
+	    </a>
+	    <a class="tab-item {if $MODULE_NAME == 'user_center'}active{/if}" href="{url a="index" r="user_center"}" data-no-cache="true">
+	      	<span class="icon iconfont i-mine"></span>
+	      	<span class="tab-label">我的</span>
+	    </a>
+  	</nav>
+{/if}

@@ -1,0 +1,44 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+{include file="dc/inc/dc_js_var.html"}
+<script type="text/javascript">
+	var dc_title='{$s_info.dc_title}';
+	var CITY_NAME = '{$city_name}';
+	var geo_url='{url i="index" r="dc_geo"}';
+	var baidu_map_url = 'http://api.map.baidu.com/getscript?v=2.0&ak={$data.baidu_m_key}&services=&t=20170511202040';
+    var script = document.createElement("script");
+    script.src = baidu_map_url;
+   	document.body.appendChild(script);
+</script>
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=FaLrHFa51TeAUqd90O5bCOoC"></script> -->
+<div class="page page-index deal-page page-current" id="dc_position">
+{include file="style5.2/inc/headers/dc_header.html"}
+	<div class="dc-search-header b-line flex-box">
+		<div class="search-box flex-1 flex-box">
+			<div class="iconfont search-ico">&#xe621;</div>
+			<input type="text" name="q_text" id="q_text" class="flex-1" placeholder="请输入地址">
+		</div>
+		<input type="button" value="搜索" class="search-btn do_search">
+	</div>
+	<div id="map_show"></div>
+	<div class="content">
+		<div class="search-result-bar">当前地址</div>
+		<div class="search-address flex-box" id="now_address">
+			<!-- <p class="flex-1 address">马尾肯德基厕所</p> -->
+			<p class="flex-1 address">{if $s_info.dc_title}{$s_info.dc_title}{else}定位失败{/if}</p>
+			<div class="flex-box re-position"><p class="iconfont position-ico">&#xe691;</p><p>重新定位</p></div>
+		</div>
+		{if $dc_search_history}
+		<div class="search-result-bar search-history flex-box">
+			<p class="flex-1">历史记录</p>
+			<p class="dc_clear_history">清空</p>
+		</div>
+		{foreach from=$dc_search_history item=item key=key}
+		<a class="search-address history_address flex-box b-line" rel="{$key}">
+			<p class="flex-1 history_address_d">{$item.dc_title}</p>
+		</a>
+		{/foreach}
+		{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

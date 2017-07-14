@@ -1,0 +1,12 @@
+/* ÐÇÐÇ´ò·Ö */
+
+.m-start{
+  background: url(@url/static/gray-start.png) center left no-repeat;
+  background-size: cover;
+}
+
+.m-start .start-num{
+  height: 100%;
+  background: url(@url/static/yellow-start.png) center left no-repeat;
+  background-size: cover;
+}

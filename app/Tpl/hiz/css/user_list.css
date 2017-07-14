@@ -1,0 +1,7 @@
+.info_table table .ui-textbox{
+    height: 26px;
+    float: right;
+}
+td a{
+    cursor:pointer;
+}

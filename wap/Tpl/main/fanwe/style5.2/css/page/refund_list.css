@@ -1,0 +1,85 @@
+#uc_refund_list .m-cart-list li{
+    background: #f7f8f8;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#uc_refund_list .m-cart-list li:after{
+    background: #ffffff;
+    height: 4px;
+}
+
+#uc_refund_list .m-modify{
+    background: #f7f8f8;
+    margin-bottom: 0;
+}
+#uc_refund_list .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+
+#uc_refund_list .m-cart-list .item-inner{
+    padding-top: 0.6rem!important;
+    padding-bottom: 0.6rem!important;
+    padding-right: 0.5rem;
+}
+
+#uc_refund_list .m-cart-list .shopTi p.sizes {
+    margin-top: 0.7rem;
+}
+
+.blank5{
+    width: 100%;
+    height: 0.5rem;
+    background: #f3f6f5;
+}
+
+#uc_refund_list .refund_cause{
+    width: 100%;
+    height: auto;
+    min-height: 1.8rem;
+    background: #ffffff;
+    padding: 0.5rem;
+    align-items: flex-start;
+    -webkit-align-items:flex-start;
+}
+#uc_refund_list .refund_cause .explain{
+    display: block;
+    font-size: @f_size4;
+    color: @f_color3;
+    height: 100%;
+    min-height: 1.8rem;
+    line-height: 0.9rem;
+    margin-right: 0.5rem;
+}
+#uc_refund_list .refund_cause .causeBox{
+    padding: 0;
+    font-size: @f_size4;
+    color: @f_color1;
+    line-height: 0.9rem;
+    overflow: auto;
+}
+#uc_refund_list .refund_state{
+    font-size: @f_size3;
+    color: @f_color1;
+}
+
+
+/*退款记录*/
+#uc_refund_list .refund_state{
+    font-size: @f_size3;
+    color: @f_color1;
+}
+#uc_refund_list .refund_money{
+    width: 100%;
+    background: #ffffff;
+}
+#uc_refund_list .refund_money p{
+    line-height: 2rem;
+    font-size: @f_size3;
+    color: @f_color1;
+    text-align: right;
+    margin-right: 0.5rem;
+}
+#uc_refund_list .page-load .loaded{
+    font-size: 0.65rem;
+}
+/*退款记录*/

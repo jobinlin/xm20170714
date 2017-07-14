@@ -1,0 +1,81 @@
+{if $score_purchase.score_purchase_switch eq 1 and $score_purchase.exchange_money gt 0}
+<div class="m-conBox m-logist score_purchase">
+	<a href="javascript:void(0);" class="item-content b-line">
+		<div class="item-media"><i class="icon icon-f7"></i></div>
+		<div class="item-inner u-common-inline ">
+			<div class="item-title">
+				<p class="u-lg-price-score">
+					使用
+					<span class="u-score">{$score_purchase.user_use_score}</span>
+					积分抵扣
+					<span class="u-money">¥{$score_purchase.exchange_money}</span>
+				</p>
+				<p class="u-lg-price-score">
+					可用积分
+					<span class="u-score">{$score_purchase.user_score}</span>
+				</p>
+			</div>
+			<div class="item-after">
+				<label class="label-checkbox">
+					<input type="checkbox" name="all_score" {if $all_score eq 1} checked="checked"{/if} value="1">
+					<div id="all_score" class="item-media {if $all_score eq 1} active{/if}" >
+						<i class="icon icon-form-checkbox"></i>
+					</div>
+				</label>
+			</div>
+		</div>
+	</a>
+</div>
+{/if}
+<div class="m-conBox m-oreder-derail">
+	{if $feeinfo}
+	<ul class="shop_total b-line">
+		{foreach from=$feeinfo item=fee}
+		<li class="item-content">
+			<div class="item-media"><i class="icon icon-f7"></i></div>
+			<div class="item-inner u-common-inline">
+				<div class="item-title">{$fee.name}</div>
+				<div class="item-after">{if $fee.symbol eq -1}- {/if}{if $fee.symbol eq 1}<i class="u-symbol">¥</i>{function name="format_price_txt" v=$fee.value}{else}{$fee.value}{/if}</div>
+			</div>
+		</li>
+		{/foreach}
+	</ul>
+	{/if}
+	{if $paid}
+	<ul class="shop_total reduce_total b-line">
+		{foreach from=$paid item=paid_item}
+		<li class="item-content">
+			<div class="item-media"><i class="icon icon-f7"></i></div>
+			<div class="item-inner u-common-inline">
+				<div class="item-title">{$paid_item.name}</div>
+				<div class="item-after">{if $paid_item.symbol eq -1}- {/if}<i class="u-symbol">¥</i>{function name="format_price_txt" v=$paid_item.value}</div>
+			</div>
+		</li>
+		{/foreach}
+	</ul>
+	{/if}
+	{if $promote}
+	<ul class="shop_total b-line">
+		{foreach from=$promote item=promote_item}
+		<li class="item-content">
+			<div class="item-media"><i class="icon icon-f7"></i></div>
+			<div class="item-inner u-common-inline">
+				<div class="item-title">{$promote_item.name}</div>
+				<div class="item-after">{if $promote_item.symbol eq -1}- {/if}{if $promote_item.symbol eq 1}<i class="u-symbol">¥</i>{function name="format_price_txt" v=$promote_item.value}{else}{$promote_item.value}{/if}</div>
+			</div>
+		</li>
+		{/foreach}
+	</ul>
+	{/if}
+	{if $buy_type eq 0}
+	<ul class="shop_total">
+		<li class="item-content">
+			<div class="item-media"><i class="icon icon-f7"></i></div>
+			<div class="item-inner u-common-inline">
+				<div class="item-title">原价 <i class="u-symbol">¥</i>{function name="format_price_txt" v=$total_price} {if $total_promote_price}共优惠 <i class="u-symbol">¥</i>{function name="format_price_txt" v=$total_promote_price}{/if}</div>
+				<div class="item-after"><p class="u-lg-price">合计：<span class="u-money"> <i class="u-symbol">¥</i><i class="u-symbol">{function name="format_price_txt" v=$pay_price}</i></span></p></div>
+			</div>
+		</li>
+	</ul>
+	{/if}
+</div>

@@ -1,0 +1,79 @@
+.dc-order-list .order-list li{
+	margin-bottom: .5rem;
+	background:#fff;
+}
+.dc-order-list .order-list li:last-child{
+	margin-bottom: 0;
+}
+.dc-order-list .order-hd{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	padding:.5rem 0 0;
+}
+.dc-order-list .order-hd .shop-info{
+	width:50%;
+}
+.dc-order-list .order-hd .shop-info-hd{
+	padding-bottom: .5rem;
+	height:2.5rem;
+}
+.dc-order-list .shop-name{
+	font-size:@f_size2;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	width:50%;
+}
+.dc-order-list .order-status{
+	padding-right: .5rem;
+	color:@f_colortheme;
+	margin-left: .5rem;
+}
+.dc-order-list .shop-img{
+	width:2rem;
+	height:2rem;
+	overflow: hidden;
+	margin: 0 .5rem;
+}
+.dc-order-list .shop-img img{
+	display: block;
+	width:100%;
+	height:100%;
+}
+.dc-order-list .order-info{
+	line-height:1rem;
+	padding:.5rem 0;
+	padding-right: .5rem;
+}
+.dc-order-list .rs-info{
+	line-height:1.2rem;
+	margin-right: .5rem;
+}
+.dc-order-list .order-goods{
+	max-width:50%;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+.dc-order-list .price{
+	color:#f24;
+}
+.dc-order-list .order-edit-bar{
+	padding-right: .5rem;
+	height:2rem;
+	margin-left: .5rem;
+}
+.dc-order-list .order-btn{
+	display: block;
+	margin-left: .5rem;
+	border:1px solid #ddd;
+	text-align: center;
+	width:3.4rem;
+	line-height: 1.2rem;
+	margin-top: .4rem;
+	float: right;
+	border-radius:3px;
+	font-size:@f_size4;
+}

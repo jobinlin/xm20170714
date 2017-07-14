@@ -1,0 +1,146 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-current" id="stores">
+<script>
+var geo_url='{url i="index" r="userxypoint#do_position"}';
+var html_id='stores';
+var ctl_name='{$MODULE_NAME}';
+var address='{$address}';
+var key = '{$keyword}';
+var TENCENT_MAP_APPKEY="<?php echo app_conf("TENCENT_MAP_APPKEY"); ?>";
+</script>
+ 	  {include file="style5.2/inc/module/search_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom">
+   		<!-- 页面主体 -->
+        <div class="m-screen-bar b-line flex-box" data-type="{$param.order_type}">
+          <ul class="flex-box flex-1">
+            <li class="screen-item">
+              <a class="screen-all" href="javascript:void(0)" data-id="{$default_cate_id}">
+                <p>{if $request.catename}{$request.catename}{else}全部分类 {/if}</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i>
+              </a>
+            </li>
+            <li class="screen-item">
+              <a class="screen-area" href="javascript:void(0)" data-id="{$default_qid}">
+                <p>{if $request.quanname}{$request.quanname}{else}全城 {/if}</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i>
+              </a>
+            </li>
+            <li class="screen-item j-zj">
+              <a data-type="distance" class="screen-link j-listchoose {if $request.order_type eq 'distance' }active{/if}" date-href="{$data.navs.distance.url}" href="javascript:void(0);">
+                <p>距离</p>
+              </a>
+            </li>
+            <li class="screen-item j-zx">
+              <a data-type="newest" class="screen-link j-listchoose {if $request.order_type eq 'newest' }active{/if}" date-href="{$data.navs.newest.url}" href="javascript:void(0);">
+                <p>最新</p>
+              </a>
+            </li>
+            <li class="screen-item j-pj">
+              <a data-type="avg_point" class="screen-link j-listchoose {if $request.order_type eq 'avg_point' }active{/if}" date-href="{$data.navs.avg_point.url}" href="javascript:void(0);">
+                <p>评分</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="m-screen-list">
+          <div class="all-screen" id="all-goods">
+            <ul class="goods-type r-line">
+              {foreach from=$data.bcate_list item=cate name="goods-type"}
+              <li class="b-line" data-id="{$smarty.foreach.goods-type.index}" >{$cate.name}</li>
+              {/foreach}
+            </ul>
+            <div class="type-detail flex-1">
+            {foreach from=$data.bcate_list item=cate name="goods-type"}
+              <ul data-id="{$smarty.foreach.goods-type.index}">
+              {foreach from=$cate.bcate_type item=blist}
+                {if $blist.count > 0}
+                <li class="j-listchoose flex-box {if $blist.id eq $request.tid and $cate.id eq $request.cate_id}active{/if}" data-cid="{$cate.id}" data-tid="{$blist.id}">
+                  <p class="flex-1">{$blist.name}</p>
+                    <p class="goods-num">{$blist.count}</p>
+                </li>
+                {/if}
+              {/foreach}
+              </ul>
+            {/foreach}
+            </div>
+          </div>
+          <div class="all-screen" id="area-screen">
+            <ul class="goods-type r-line">
+              {foreach from=$data.quan_list item=quan key=key name="quan_num"}
+                <li class="b-line" data-id="{$smarty.foreach.quan_num.index}">{$quan.name}</li>
+              {/foreach}
+            </ul>
+            <div class="type-detail flex-1">
+            {foreach from=$data.quan_list item=quan name="quan_num"}
+              <ul data-id="{$smarty.foreach.quan_num.index}">
+              {foreach from=$quan.quan_sub item=qlist}
+                {if $qlist.count > 0}
+                <li class="j-listchoose flex-box {if $qlist.id eq $request.qid }active{/if}" data-qid="{$qlist.id}"><p class="flex-1">{$qlist.name}</p><p class="goods-num">{$qlist.count}</p></li>
+                {/if}
+              {/foreach}
+              </ul>
+            {/foreach}
+            </div>
+          </div>
+        </div>
+        <div class="address-info flex-box">
+          <p class="flex-1 address"><i class="iconfont">&#xe62f;</i>{$geo.address}</p><i class="iconfont refresh">&#xe630;</i>
+        </div>
+        {if $data.item}
+        <div class="m-stores-list j-ajaxlist">
+          <ul class="j-ajaxadd">
+          {foreach from=$data.item item=store}
+            <li class="stores-item">
+              <a href="{url a="index" r="store#index" p="data_id=$store.id"}" class="store-detail flex-box" data-no-cache="true">
+                <div class="store-img"><img alt="" date-load="1" data-src="{$store.preview}" src="{$TMPL}/style5.2/images/loading/no-image.png"/></div>
+                <div class="store-info flex-1">
+                  <div class="store-tit flex-box">
+                    <h2>{$store.name}</h2>
+                    {if $store.is_verify eq 1}
+                      <div class="store-tip flex-box"><img src="{$TMPL}/style5.2/images/static/renzheng.png" alt="认证"></div>
+                    {/if}
+                    {if $store.open_store_payment eq "1"}
+                      <div class="store-tip flex-box"><img src="{$TMPL}/style5.2/images/static/maidan.png" alt="买单"></div>
+                    {/if}
+                  </div>
+                  {if $store.avg_point eq 0}
+                    <div class="no-point">暂无评分</div>
+                  {else}
+                    <div class="store-star flex-box" data="{$store.format_point}">
+                      {include file="style5.2/inc/unit/start.html"}
+                      {*if $store.total_sales*}
+                        <p class="point">{$store.avg_point}</p>
+                      {*/if*}
+                    </div>
+                  {/if}
+                  <div class="store-other flex-box">
+                    <p class="store-type">{$store.store_type}</p>
+                    <p class="address-quan flex-1">{$store.quan_name}</p>
+                    {if $store.distance}
+                      <!-- 没有定位坐标不显示 -->
+                      &nbsp;&nbsp;<p class="distance">{$store.distance}</p>
+                    {/if}
+                  </div>
+                </div>
+              </a>
+              {if $store.open_store_payment eq "1"}
+                
+                <a href="{$store.promote_url}" class="youhui flex-box t-line">
+                  <div class="flex-box youhui-tip"><i class="iconfont">&#xe8b7;</i>优惠买单</div>
+                  <p class="flex-1">{if $store.promote_info}{$store.promote_info}{/if}</p>
+                  <i class="iconfont">&#xe607;</i>
+                </a>
+                
+              {/if}
+            </li>
+          {/foreach}
+          </ul>
+          <div class="pages hide">{$pages}</div>
+        </div>
+        {else}
+        <div class="tipimg no_data">暂无详情</div>
+        {/if}
+         <div class="blank"></div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+	background-color:#fff !important;
+}
+.login-box{
+	width:400px;
+	padding:50px 100px 100px;
+}
+.login-box .auto-login{
+	line-height: 14px;
+}
+.login-box .login-btn{
+	margin-top: 20px;
+}
+.third-login{
+	margin-top: 50px;
+	padding:5px 0;
+	border-top:1px solid #ddd;
+	line-height: 30px;
+}
+.login-box .third-login .iconfont{
+	font-size:20px;
+	display: inline-block;
+	vertical-align: top;
+	line-height: 30px;
+	margin-right: 10px;
+}
+.login-box .third-login .wx-ico{
+	color:#61c351;
+}
+.login-box .third-login #wx_login:hover{
+	color:#61c351;
+}
+.login-box .regist_btn{
+	color:@main_color;
+	padding-left: 24px;
+	background:url(../images/login/login-register.png) no-repeat left 7px;
+}
+.login-tab{
+	padding-left: 0;
+	height:50px;
+	margin: 0;
+}
+.login-tab a{
+	background:#fff;
+	line-height: 50px;
+	padding:0;
+	width:200px;
+	text-align: center;
+	height:50px;
+	font-size:16px;
+	margin: 0;
+	font-weight:normal;
+}
+.login-tab a.current{
+	font-weight: bold;
+	color:@main_color;
+}
+.login-img{
+	margin: 50px 0;
+	width:599px;
+	height:640px;
+	border-right:1px solid #ddd;
+}
+body{
+	padding-bottom: 60px;
+}

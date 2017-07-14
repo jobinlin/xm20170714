@@ -1,0 +1,11 @@
+#store_tuan .tuan-list{
+	margin-top: .5rem;
+}
+#store_tuan .tuan-list li{
+	background: #fff;
+	padding: 0 .5rem;
+	margin-bottom: .5rem;
+}
+.m-search-header h2{
+	text-align: center;
+}

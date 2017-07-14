@@ -1,0 +1,80 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index page-current" id="uc_share">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		<div class="share-bg-top">
+			<img src="{$TMPL}/style5.2/images/static/share-bg-1.png" alt="" width="100%">
+		</div>
+		<div class="m-share-con">
+			<div class="share-bg-bottom">
+				<img src="{$TMPL}/style5.2/images/static/share-bg-2.png" alt="" width="100%">
+			</div>
+			<div class="share-con">
+				{if $data.money || $data.score}
+				<div class="share-friend">送好友<em>{if $data.money}{$data.money}元{else}{$data.score}积分{/if}</em>新人专享大礼包</div>
+				{/if}
+				<div class="single-will-have">当好友首次下单您将获得</div>
+				<div class="money"><em>{$data.value}</em>{if $data.type eq 0}元{/if}</div>
+				<div class="lab-tit">{$data.type_value}奖励</div>
+			</div>
+			<a href="javascript:void(0);" class="share-btn {if $app_index eq 'app'}j-app-share-btn {elseif $is_weixin}j-weixin-share {else}j-openshare {/if}" {if $app_index eq 'app'} data-url="{$data.share_url}" data-img="{$data.img_url}"  data-title="{$data.share_title}" data-content="{$data.share_content}" {/if}></a>
+		</div>
+	</div>
+	{if $app_index=='app'}
+  
+	  <script type="text/javascript">
+	    init_share();
+	  </script>
+	{elseif $is_weixin}
+	<div class="flippedout ">
+		<div class="close-flippedout j-flippedout-close">
+			<div class="weixin-share-tip"><img src="{$TMPL}/style5.2/images/static/share-tip.png" alt=""></div>
+		</div>
+		<div class="weixin-share-close">知道了</div>
+	</div>
+	{else}
+	<div class="flippedout ">
+	<!-- 分享弹出 -->
+		<div class="box_share" id="box_share">
+			<div class="box_content">
+				<div class="social_share">
+					<!-- JiaThis Button BEGIN -->
+					<div class="jiathis_style_32x32">
+						<div class="flex-box">
+							<a class="jiathis_button_weixin flex-1"><i class="iconfont icon-pyq">&#xe636;</i><p>朋友圈</p></a>
+							<a class="jiathis_button_tsina flex-1"><i class="iconfont icon-sina">&#xe639;</i><p>新浪微博</p></a>
+							<a class="jiathis_button_cqq flex-1"><i class="iconfont icon-QQ">&#xe63b;</i><p>QQ</p></a>
+						</div>
+						<div class="flex-box">
+							<a class="jiathis_button_qzone flex-1"><i class="iconfont icon-qzone">&#xe63a;</i><p>QQ空间</p></a>
+							<a class="jiathis_button_douban flex-1"><i class="iconfont icon-douban">&#xe670;</i><p>豆瓣</p></a>
+							<a class="jiathis_button_copy flex-1"><i class="iconfont icon-copy">&#xe637;</i><p>复制链接</p></a>
+						</div>
+					</div>
+					<script>
+					var jiathis_config = {
+						    siteNum:6,
+						    sm:"weixin,tssina,cqq,qzone,douban,copy",
+						    url:"{$data.share_url}",
+						    title:"{$data.share_title}",
+						    pic:"{$data.img_url}"
+						}
+					</script>
+					<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8" defer="defer"></script>
+					<!-- JiaThis Button END -->
+				</div>
+				<a class="box_close t-line" id="boxclose_share">取消</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="close-flippedout j-flippedout-close">
+			<i class="iconfont">&#xe635;</i>
+		</div>
+	<!-- 分享弹出结束 -->
+	{/if}
+	</div>
+</div>
+
+{include file="style5.2/inc/footer.html"}

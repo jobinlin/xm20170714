@@ -1,0 +1,73 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/user_detail.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/order.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / 商家订单列表
+</div>
+<div class="content">
+    <div class="table-content">     
+	<div class="">
+
+            <div class="head_box_new base_info">
+                <h3>基本信息</h3>
+                <ul>
+                    <li><p class="first">会员名称：</p><p class="second">{$data.base_info.user_name}</p></li>
+                    <li><p class="first">会员邮箱：</p><p class="second">{$data.base_info.email}</p></li>
+                    <li><p class="first">手机号：</p><p class="second">{$data.base_info.mobile}</p></li>
+                    <li><p class="first">所在城市：</p><p class="second">{$data.base_info.address}</p></li>
+                    <li><p class="first">生日：</p><p class="second">{$data.base_info.birth_day}</p></li>
+                    <li><p class="first">会员组：</p><p class="second">{$data.base_info.group_name}</p></li>
+                    <li><p class="first">会员等级：</p><p class="second">{$data.base_info.level_name}</p></li>
+                </ul>
+            </div>
+
+            <div class="head_box_new asset_info">
+                <h3>资产信息</h3>
+                <ul>
+                    <li><p class="first">账户可用余额：</p><p class="second">{$data.asset_info.money}</p></li>
+                    <li><p class="first">可用积分：</p><p class="second">{$data.asset_info.score}</p></li>
+                    <li><p class="first">累计积分：</p><p class="second">{$data.asset_info.total_score}</p></li>
+                    <li><p class="first">经验值：</p><p class="second">{$data.asset_info.point}</p></li>
+                </ul>
+            </div>
+
+            <div class="head_box_no_line other_info">
+                <h3>其他信息</h3>
+                <ul>
+                    <li><p class="first">注册时间：</p><p class="second">{$data.other_info.create_time}</p></li>
+                    <li><p class="first">最后登录时间：</p><p class="second">{$data.other_info.login_time}</p></li>
+                </ul>
+            </div>
+
+            <div class="head_box_no_line">
+                <a class="back-list" href="{url r="hiz" c="user#user_list"}">
+                    <button class="ui-button" rel="orange">返回列表</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="blank20"></div>
+{include file="inc/footer.html"}

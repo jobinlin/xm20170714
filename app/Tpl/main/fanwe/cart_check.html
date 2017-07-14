@@ -1,0 +1,485 @@
+<?php
+//本页不引用header.html， 直接在页面内编写单独header
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/cart_list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/cart_check.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/cart_check_new.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/cart_check.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/cart_check.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_consignee.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_consignee.js";
+?>
+{* 开始头部 *}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="Generator" />
+{* 加载浏览器兼容 *}
+{function name="load_compatible"}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if $page_title}{$page_title} - {/if}{$site_seo.title}</title>
+<meta name="keywords" content="{if $page_keyword}{$page_keyword}{else}{$site_seo.keyword}{/if}" />
+<meta name="description" content="{if $page_description}{$page_description}{else}{$site_seo.description}{/if}" />
+<script type="text/javascript">
+var APP_ROOT = '{$APP_ROOT}';
+var CART_URL = '{url x="index" r="cart"}';
+var CART_CHECK_URL = '{url x="index" r="cart#check"}';
+{if app_conf("APP_MSG_SENDER_OPEN") eq 1}
+var send_span = {function name="app_conf" v="SEND_SPAN"}000;
+var IS_RUN_CRON = 1;
+var DEAL_MSG_URL = '{url x="index" r="cron#deal_msg_list"}';
+{/if}
+var AJAX_LOGIN_URL	= '{url x="index" r="user#ajax_login"}';
+var AJAX_URL	= '{url x="index" r="ajax"}';
+var LOADER_IMG = '{$TMPL}/images/loader_img.gif';
+var order_id = {function name="intval" value=$order_info.id};
+var cart_check_url = '{url a="index" b="cart#check" c="id=$deal_id"}';
+</script>
+<?php
+//前台队列功能开启
+if(app_conf("APP_MSG_SENDER_OPEN")==1)
+{
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/msg_sender.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/msg_sender.js";
+}
+?>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/lang.js"></script>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$pagejs" c="$cpagejs"}"></script>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/region.js"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={function name="app_conf" value="BAIDU_MAP_APPKEY"}&s=1"></script>
+</head>
+<body>
+<img src="{$TMPL}/images/loader_img.gif" style="display:none;" /><!--延时加载的替代图片生成-->
+<div class="top_nav">
+	<div class="{function name="load_wrap" t=$wrap_type}">
+		<span class="f_l">欢迎来到{function name="app_conf" v="SHOP_TITLE"}</span>
+		<span class="f_r">
+			<ul class="head_tip">
+				<li class="cart_tip" id="cart_tip">{insert name="load_cart_count"}</li>
+				<li class="user_tip" id="head_user_tip">{insert name="load_user_tip"}</li>
+			</ul>
+		</span>
+	</div>
+</div><!--顶部横栏-->
+<div class="blank15"></div>
+<div class="{function name="load_wrap" t=$wrap_type} head_main">
+	<div class="logo f_l">
+	<a class="link" href="{$APP_ROOT}/">
+		<?php
+			$this->_var['logo_image'] = app_conf("SHOP_LOGO");
+		?>
+		{function name="load_page_png" v=$logo_image}
+	</a>
+	</div>
+	<div class="cart_step f_r">
+		<ul>
+			<li>1. 提交订单</li>
+			<li class="current">2. 选择支付方式</li>
+			<li>3. 购买成功</li>
+		</ul>
+	</div>
+</div><!--logo与头部搜索-->
+{* 头部结束 *}
+<div class="blank20"></div>
+<div class="{function name="load_wrap" t=$wrap_type}">
+
+<form name="cart_form" id="cart_form" action="{if $order_info}{url x="index" r="cart#order_done"}{else}{url x="index" r="cart#done"}{/if}" method="post">
+{* 购物车商品列表 *}
+{if $is_delivery }
+<!-- 配送地址 -->
+<div class="info-bar">
+	{if !$order_info}
+	<a href='javascript:consignee_operation("{url a="index" b="ajax#load_consignee" c="is_open=1&deal_id=$deal_id"}");' class="add-address">新增地址</a>
+	{/if}
+	<p>配送信息</p>
+</div>
+<div class="logistics-info">
+	<ul class="address-list">
+		{if $consignee_list}
+		{foreach from=$consignee_list item=consignee}
+		<li {if $consignee.consignee_info.id eq $consignee_id}class="selected"{/if} rel_address="{$consignee.consignee_info.id}" rel_region="{$consignee.consignee_info.region_lv4}">
+			<div class="user-name"><span class="name">{$consignee.consignee_info.consignee}</span><div class="select-ico"></div></div>
+			<p class="address-info"><span class="j-user-info">{$consignee.consignee_info.consignee} {$consignee.consignee_info.mobile} </span><span class="j-address">{$consignee.consignee_info.full_address}</span></p>
+			{if $consignee.consignee_info.is_default eq 1}<span class="defualt f_l">[默认地址]</span>{/if}
+			<div class="address-edit f_r">
+				{if $consignee.consignee_info.is_default neq 1}<a href="javascript:void(0);" class="default" dfurl='{url a="index" b="uc_consignee#set_default" c="id=$consignee.consignee_info.id"}'>设为默认</a>{/if}
+				{if !$order_info}
+				<a href='javascript:consignee_operation("{url a="index" b="ajax#load_consignee" c="is_open=1&id=$consignee.consignee_info.id&deal_id=$deal_id"}",1);' >编辑</a><a href="javascript:void(0);" class="del" url='{url a="index" b="uc_consignee#del" c="id=$consignee.consignee_info.id"}'>删除</a>
+				{/if}
+			</div>
+		</li>
+		{/foreach}
+		{else}
+		 <p style="color: #666;text-decoration: none;">暂无收货地址，<a href='javascript:consignee_operation("{url a="index" b="ajax#load_consignee" c="is_open=1&deal_id=$deal_id"}",0);' class="add-address" style="color: #0b5394;">马上添加</a></p>
+		{/if}
+		<input type="hidden" value="{$region_id}" name="region_id">
+		<input type="hidden" value="{$consignee_id}" name="address_id">
+	</ul>
+	{if !$order_info}
+	{if $consignee_list and $consignee_count gt 1}
+	<div class="more-info"><a href="javascript:void(0);" class="more-address">更多地址<i class="iconfont">&#xe647;</i></a><a href="javascript:void(0);" class="close-address">收起地址<i class="iconfont">&#xe648;</i></a></div>
+	{/if}
+	{/if}
+	{if $is_pick eq 1 and $location}
+	<ul class="shop-list">
+		{foreach from=$location item=location_item name=location_item}
+		<li rel="{$location_item.id}">
+			<div class="user-name"><span class="name">{if $smarty.foreach.location_item.index eq 0}<div class="recom-shop-ico"></div>{/if}到店自提</span><div class="select-ico"></div></div>
+			<p class="address-info">{$location_item.name}　{$location_item.address}</p>
+		</li>
+		{/foreach}
+		<input type="hidden" {if $location}value="{$location_item.0.id}"{else}value="0"{/if} name="location_id">
+	</ul>
+	{if !$order_info}
+	<div class="more-info"><a href="javascript:void(0);" class="more-shop">更多门店<i class="iconfont">&#xe647;</i></a><a href="javascript:void(0);" class="close-shop">收起门店<i class="iconfont">&#xe648;</i></a></div>
+	{/if}
+	{else}
+		<input type="hidden" value="0" name="location_id">
+	{/if}
+</div>
+{/if}
+<!-- 订单信息 -->
+<div class="info-bar">
+	<p>订单信息</p>
+</div>
+<ul class="order-hd">
+	<li class="order-info">商品信息</li>
+	<li class="order-price">单价</li>
+	<li class="order-num">数量</li>
+	<li class="order-count">总计</li>
+</ul>
+<div class="order-detail">
+	{foreach from=$cart_list_group key=key item=cart_item_group}
+	<div class="order-detail-hd">{$cart_item_group.supplier}</div>
+	{foreach from=$cart_item_group.goods_list item=cart_item}
+	<ul class="order-item">
+		<li class="order-info">
+			<div class="goods-img"><a href='{url a="index" b="deal" c="act=$cart_item.deal_id"}'><img src="{if $cart_item.icon eq ''}public/images/no-image.png{else}{$cart_item.icon}{/if}" alt="商品图片" /></a></div>
+			<div class="goods-info">
+				<a href='{url a="index" b="deal" c="act=$cart_item.deal_id"}'><p class="goods-name">{$cart_item.name}</p></a>
+				{if $cart_item.attr_str neq ''}<p class="goods-type">规格：{$cart_item.attr_str}</p>{/if}
+			</div>
+		</li>
+		<li class="order-price">{if $cart_item.buy_type eq 0}&yen;{$cart_item.unit_price_format}{else}{function name="abs" a=$cart_item.return_score}积分{/if}</li>
+		<li class="order-num">{$cart_item.number}</li>
+		<li class="order-count">{if $cart_item.buy_type eq 0}&yen;{$cart_item.total_price_format}{else}{function name="abs" a=$cart_item.return_total_score}积分{/if}</li>
+	</ul>
+	{/foreach}
+	<div class="order-tip">
+		{if !$order_info}
+		<input class="ui-textbox remark memo_{$key}" type="text" name="memo[{$key}]" holder="请输入您的备注" value="{$order_info.memo}" {if $order_info}readonly="true"{/if} />
+		{else}
+		<p class="memo_{$key} f_l memo">备注：{$order_info.memo}</p>
+		{/if}
+		{if $order_info}
+			{if $is_delivery}
+			<p class="logistics-way f_r">运送方式：普通配送 快递
+			<span class="price price_{$key}">
+			{if $order_info.delivery_fee gt 0}{$cart_item_group.delivery_fee.total_fee}元{else}包邮{/if}
+			</span>
+			</p>
+			{/if}
+		{else}
+			{if $cart_item_group.delivery_fee neq -1}
+			<p class="logistics-way f_r">运送方式：普通配送 快递
+			<span class="price price_{$key}">
+			{if $cart_item_group.delivery_fee.total_fee neq 0}{$cart_item_group.delivery_fee.total_fee}元{else}包邮{/if}
+			</span>
+			</p>
+			{/if}
+		{/if}
+	</div>
+	
+	<div class="order-tip invoice-{$key}">
+		{if !$order_info}
+			{if $showInvoiceInfo}
+			{if !$cart_item_group.invoice_conf or $cart_item_group.invoice_conf.invoice_type eq 0}
+			<div class="f_l">
+				<p>发票类型: 暂不支持开发票</p>
+			</div>
+			{else}
+			<div class="">
+				<p><span>发票类型：</span>
+				<label><input type="radio" class="invoice-type" name="invoice_type[{$key}]" value="0" checked /><span>不开发票</span></label>
+				<label><input type="radio" class="invoice-type" name="invoice_type[{$key}]" value="1"/><span>普通发票</span></label></p>
+			</div>
+			<div class="iov-type" style="display: none;">
+				<p><span>发票抬头：</span>
+				<label><input type="radio" class="invoice-title" name="invoice_title[{$key}]" value="0" checked />个人</label>
+				<label><input type="radio" class="invoice-title company-title" name="invoice_title[{$key}]" value="1"/>企业</label>
+				</p>
+			</div>
+			<div class="iov-type" style="display: none;">
+				<input class="iov-person ui-textbox" name="invoice_person[{$key}]" type="text" placeholder="请输入开票人" style="width: 250px;" />
+				<input style="display: none; width: 250px;" class="iov-tax ui-textbox" name="invoice_taxnu[{$key}]" type="text" placeholder="请输入纳税人识别号，免税单位填0" />
+			</div>
+			<div class="iov-type" style="display: none;">
+				<p><span>发票内容：</span>
+				{foreach from=$cart_item_group.invoice_conf.invoice_content item=content key=k}
+				<label><input type="radio" name="invoice_content[{$key}]" value="{$content}" {if $k eq 0}checked{/if}/>{$content}</label>
+				{/foreach}
+				</p>
+			</div>
+			<!-- <div class="iov-type" style="padding-left: 67px;">
+				<div class="info-bar invoice-check-box" rel-num="0" style="display: none;"><label class="ui-checkbox" rel="common_cbo"><input type="checkbox" name="invoice_check" value="1" />已同意</label><a class="invoice_notice" style="color: red;">《发票须知》</a>
+					<div class="ivon-content">
+						{$invoice_notice}
+					</div>
+				</div>
+			</div> -->
+			{/if}
+			{/if}
+		{else}
+			{if $order_info.invoice_info}<div>发票类型: {$order_info.invoice_info}</div>{/if}
+		{/if}
+		
+		{if $order_info.youhui_money gt 0}
+			<div class="youhui_box f_r">
+			<span class="f_l">店铺优惠：</span>
+				{function name="round" v=$cart_item_group.youhui_money}元
+			</div>
+		{else}
+			{if $cart_item_group.youhui_info}
+			<div class="youhui_box f_r">
+			<span class="f_l">店铺优惠：</span>
+				<select name='youhui_log_id[{$key}]' data_id="{$key}" class='ui-select voucher_select'>
+						{foreach from=$cart_item_group.youhui_info item=youhui}
+						
+							<option value="{$youhui.id}">{function name="format_price" v=$youhui.youhui_value}
+							{if $youhui.start_use_price eq 0}
+							( 无限制 )
+							{else}
+							( 满{function name="format_price" v=$youhui.start_use_price}可用 )
+							{/if}
+							</option>
+						{/foreach}
+						<option value="0">=不使用优惠劵=</option>
+				</select>
+			
+			</div>
+			{/if}
+		{/if}
+		
+	</div>
+
+	{/foreach}
+</div>
+<!-- <div class="cart_row">
+<div class="cart_table">
+
+		<table>
+			<tr>
+				<th class="w_name">项目</th>
+				<th class="w_unit">单价</th>
+				<th class="w_num">数量</th>
+				<th class="w_total">总价</th>
+			</tr>
+			{foreach from=$cart_list_group key=key item=cart_item_group}
+			{if $cart_item_group.supplier}
+			<tr class="cart_supplier_title">
+				<td colspan=2 class="tl">{$cart_item_group.supplier}</td>
+				<td colspan=2 class="tr"><span id="delivery_fee_{$key}" class="supplier_delivery_fee"></span></td>
+			</tr>
+			{/if}
+			{foreach from=$cart_item_group.goods_list item=cart_item}
+				<tr rel="{$cart_item.id}">
+					<td class="w_name">
+						<div class="cart_img">
+							<a href="{$cart_item.url}" target="_blank" title="{$cart_item.name}"><img src="{function name="get_spec_image" v=$cart_item.icon w=50 h=50 g=1}" alt="{$cart_item.name}"  style="width:50px;height:50px;" /></a>
+						</div>
+						<div class="cart_name">
+							<a href="{$cart_item.url}" target="_blank" title="{$cart_item.name}">{function name="msubstr" v=$cart_item.name b=0 e=70}</a>
+						</div>
+					</td>
+					<td class="w_unit">
+						{if $cart_item.buy_type neq 1}
+						&yen;{function name="round" v=$cart_item.unit_price l=2}
+						{else}
+						{function name="abs" v=$cart_item.return_score}积分
+						{/if}
+					</td>
+					<td class="w_num">
+						{$cart_item.number}
+					</td>
+					<td class="w_total">
+						{if $cart_item.buy_type neq 1}
+						&yen;<span>{function name="round" v=$cart_item.total_price l=2}</span>
+						{else}
+						<span>{function name="abs" v=$cart_item.return_total_score}</span>积分
+						{/if}
+					</td>
+				</tr>
+			{/foreach}
+			{/foreach}
+		</table>
+
+</div>
+</div> -->
+<!--
+	{* end购物车商品列表 *}
+
+
+	{* 配送 *}
+	<div class="blank"></div>
+	{if $is_delivery}
+	<div id="consignee_info_box">
+	<div class="cart_row layout_box">
+		<div class="title">
+			<div class="f_l">{lang v="CONSIGNEE_INFO"}</div>
+			{if $consignee_count gt 1}
+			<div class="f_r modify_consignee"><a href="javascript:void(0);" id="modify_consignee">修改</a></div>
+			{/if}
+		</div>
+		<div class="content">
+			<div id="cart_consignee" rel="{$consignee_id}"></div>
+		</div>
+	</div>
+	<div class="blank"></div>
+	</div>
+	<div class="cart_row layout_box">
+		<div class="title">{$LANG.DELIVERY_INFO}</div>
+		<div class="content">
+			<div id="cart_delivery"></div>
+		</div>
+	</div>
+	{/if}
+	{* 配送 *}
+
+
+	{* 订单留言  *}
+	<div class="blank"></div>
+	<div id="cart_memo">
+	<div class="cart_row layout_box">
+		<div class="title">{lang v="ORDER_MEMO"}</div>
+		<div class="content">
+			<textarea id="memo" name="memo" class="ui-textbox" holder="选填：对本次交易的说明，建议先与客服咨询沟通">{$order_info.memo}</textarea>
+		</div>
+	</div>
+	</div>
+	{* 订单留言 *}
+
+ -->
+{* 支付方式  *}
+{if $show_payment}
+<div class="blank15"></div>
+<div id="cart_payment">
+<div class="cart_row">
+	<div class="title">{lang v="PAYMENT_INFO"}</div>
+	<div class="content">
+		{if $bank_paylist}
+		{foreach from=$bank_paylist item=payment_item}
+			{$payment_item.display_code}
+		{/foreach}
+		<div class="blank"></div>
+		{/if}
+		{if $icon_paylist}
+		{foreach from=$icon_paylist item=payment_item}
+			{$payment_item.display_code}
+		{/foreach}
+		<div class="blank"></div>
+		{/if}
+		{foreach from=$disp_paylist item=payment_item}
+			{$payment_item.display_code}
+			<div class="blank"></div>
+		{/foreach}
+	</div>
+</div>
+</div>
+{/if}
+{* 支付方式 *}
+<div id="cart_buy_total">
+</div>
+{if $invoice_notice}
+<div class="info-bar invoice-check-box" rel-num="0" style="display: none;">
+	<div class="f_r"><input class="ui-checkbox invoice_check" type="checkbox" checked/>已同意<a class="invoice_notice" style="color: red;">《发票须知》</a></div>
+	<div class="ivon-content" style="display: none;">
+		{$invoice_notice}
+	</div>
+</div>
+{/if}
+<div id="cart_submit">
+	<input type="hidden" value="{function name="intval" value=$order_info.id}" name="id" />
+	<input type="hidden" name="hd_is_coupon" value="{$is_coupon}">
+	<input type="hidden" name="deal_id" value="{$deal_id}">
+	<button id="order_done" class="ui-button f_r" rel="blue" type="button">{$LANG.CONFIRM_ORDER_AND_PAY}</button>
+	{if $deal_id or $order_info}{else}
+	<a href="{url a="index" b="cart" }" class="back-cart f_r">返回购物车</a>
+	{/if}
+</div>
+<!-- <div class="blank"></div>
+<div class="cart_row layout_box clearfix">
+
+	{* 用户手机  *}
+	<div id="user_mobile">
+	{if $user_info.mobile}
+	<input type="hidden" name="user_mobile" value="{$user_info.mobile}" />
+	{else}
+	<div class="form_panel">
+	<div class="panel">
+
+			<dl>
+				<dt>手机号</dt>
+				<dd>
+					<input class="ui-textbox" name="user_mobile" value="" holder="请输入手机号" />
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			{if app_conf("SMS_ON") eq 1}
+			<dl class="ph_img_verify" {if $sms_ipcount>1}style="display:block"{/if}>
+				<dt>图片验证码</dt>
+				<dd>
+					<input type="text" name="verify_code" class="ui-textbox img_verify" holder="请输入图片文字" />
+					<img src="{$APP_ROOT}/verify.php" class="verify" rel="{$APP_ROOT}/verify.php" />
+					<a href="javascript:void(0);" class="refresh_verify">看不清楚？换一张！</a>
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+
+			<dl>
+				<dt>验证码</dt>
+				<dd>
+					<input class="ui-textbox ph_verify" name="sms_verify" holder="请输入验证码" />
+					<button class="ui-button f_l light ph_verify_btn" rel="light" form_prefix="{$form_prefix}" lesstime="{$sms_lesstime}" type="button">发送验证码</button>
+
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			{/if}
+
+		</div>
+		</div>
+	{/if}
+	</div>
+	{* 用户手机  *}
+
+	{* 购物统计 *}
+	<div id="cart_total">
+	</div>
+	{* 购物统计 *}
+	<div class="blank"></div>
+
+
+</div>
+ -->
+
+</form>
+
+</div>
+<div class="blank20"></div>
+{include file="inc/footer.html"}

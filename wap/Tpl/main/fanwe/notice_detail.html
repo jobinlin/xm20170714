@@ -1,0 +1,17 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var INDEX_URL='{url i="index" r="main"}';
+var geo_url = '{url a="index" r="userxypoint"}';
+</script>
+<div class="page page-index">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="notice">
+			<h2>{$data.result.name}</h2>
+			<h3>{$data.result.create_time}</h3>
+			<div>{$data.result.content}</div>
+		</div>
+	</div><!--content end  -->
+</div>
+{include file="style5.2/inc/footer.html"}

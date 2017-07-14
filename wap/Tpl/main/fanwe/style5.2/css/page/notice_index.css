@@ -1,0 +1,122 @@
+
+.m-noticeindex{
+  margin:@rowspacing 0;
+}
+.m-noticeindex ul{
+    background-color: #fff;
+    
+}
+.m-noticeindex ul li{
+    padding:@rowspacing;
+    position: relative;    
+    overflow: hidden;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+}
+
+.m-noticeindex ul li:after {
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.m-noticeindex ul li:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    height: 1px;
+    width: 100%;
+    background-color: #e7e7e7;
+    display: block;
+    z-index: 15;
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+}
+.m-noticeindex ul li a.con{
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    /*box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;*/
+}
+.m-noticeindex ul li .name{
+    font-size: @f_size3;
+/*    height: 2rem;*/
+    position: relative;
+    line-height: 1rem;
+    text-overflow: ellipsis;
+    max-height: 2rem;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    
+}
+.m-noticeindex ul li .time{
+    text-align: left;
+   /* height: 2rem;*/
+    line-height: 1rem;
+    color: @f_color3;
+    font-size: @f_size5;
+    /*padding: 0 .3rem;*/
+    background: #fff;
+    white-space: nowrap;
+ /*   -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    margin-left: .25rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;*/
+}
+
+/*详细页*/
+.notice{
+    padding: @comspacing;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+}
+.notice h2{
+    text-align: left;
+    color: @f_color1;
+    font-size: @f_size2;
+    line-height: 1.2rem;
+}
+.notice h3{
+    text-align: left;
+    color: @f_color3;
+    font-size: @f_size5;
+    line-height: 1.2rem;
+}
+.notice div{
+    padding-top: .5rem;
+    padding-bottom: 2rem;
+    text-align: left;
+    color: @f_color2;
+    font-size: @f_size3;
+    line-height: 1rem;
+}

@@ -1,0 +1,91 @@
+<ul class="pay-info">
+	{foreach from=$feeinfo item=feeinfo_item}
+	<li>{$feeinfo_item.name}<span class="price">{if $feeinfo_item.symbol eq 2}{$feeinfo_item.value}积分{else}{if $feeinfo_item.symbol eq -1}-{/if}&yen;{$feeinfo_item.value}{/if}</span></li>
+	{/foreach}
+	<!--<li>99件商品 总计：<span class="price">&yen;99.99</span></li>
+	<li>运费总计：<span class="price">&yen;99.99</span></li>
+	<li>会员折扣：<span class="price">&yen;99.99</span></li>
+	<li>红包优惠：<span class="price">&yen;99.99</span></li>
+	<li>满减优惠：<span class="price">&yen;99.99</span></li>-->
+</ul>
+<div class="pay-count">
+	<ul class="rebate">
+		{if $result.return_total_score gt 0}<li>返积分：{$result.return_total_score}分</li>{/if}
+		{if $result.return_total_money gt 0}<li>返现金：{$result.return_total_money}元</li>{/if}
+	</ul>
+	
+	<p class="count">{if $result.paid_price neq 0}应付金额：<span class="price">&yen;{$result.paid_price}</span>{/if}{if $result.paid_score neq 0}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需要积分：<span class="price">{$result.paid_score}</span>积分{/if}</p>
+	{if $is_delivery}
+		{if $consignee_info}
+			<p class="logistics-tip">送至：
+				<span class="address">{$consignee_info.consignee_info.full_address}</span> 
+				收货人：<span class="user-info">{$consignee_info.consignee_info.consignee} {$consignee_info.consignee_info.mobile}</span>
+			</p>
+		{/if}
+		{if $location}
+		<p class="shop-tip" style="display: block;">门店地址：<span class="address">{$location.address}</span></p>
+		{/if}
+	{/if}
+</div>
+<!--<div id="cart_total_box">
+	<div class="order-check-form ">
+		<p style="text-align: right; line-height: 24px;">
+		{lang v="DEAL_TOTAL_PRICE"}：{function name="format_price" value=$result.total_price} 
+		{if $result.delivery_fee gt 0}
+		+ {lang v="DELIVERY_FEE"}：{function name="format_price" value=$result.delivery_fee}
+		{/if}		
+		{if $result.user_discount gt 0}
+		- {lang v="USER_DISCOUNT"}：{function name="format_price" value=$result.user_discount}
+		{/if}
+		{if $result.payment_fee gt 0}
+		+ {lang v="PAYMENT_FEE"}：{function name="format_price" value=$result.payment_fee} 
+		{/if}
+		{if $result.paid_account_money gt 0}
+		- {lang v="ACCOUNT_PAY_AMOUNT"}：{function name="format_price" value=$result.paid_account_money}
+		{/if}
+		{if $result.paid_ecv_money gt 0}
+		- {lang v="ECV_PAY_AMOUNT"}：{function name="format_price" value=$result.paid_ecv_money}
+		{/if}
+		=
+		<span class="red">{function name="format_price" value=$result.pay_total_price}</span>
+		</p>
+		<p style="text-align: right; line-height: 24px;">
+		
+		{if $result.account_money gt 0}
+		- {lang v="ACCOUNT_PAY"}：{function name="format_price" value=$result.account_money} <br>
+		{/if}
+		
+		{if $result.ecv_money gt 0}
+		- {lang v="ECV_PAY"}：{function name="format_price" value=$result.ecv_money} <br>
+		{/if}
+		
+		= {lang v="PAY_TOTAL_PRICE_ORDER"}：{if $result.payment_info} 使用{$result.payment_info.name}付款{/if}
+		<span class="red">{function name="format_price" value=$result.pay_price}</span>&nbsp;
+		<br>
+		</p>
+		<div class="blank"></div>
+		<p style="text-align: right; line-height: 24px;">
+		{if $result.return_total_money ne 0}
+		{lang v="RETURN_TOTAL_MONEY"}： {function name="format_price" value=$result.return_total_money} <br>
+		{/if}
+		{if $result.return_total_score ne 0}
+			{if $result.buy_type eq 1}
+			消耗积分：  <?php echo format_score(abs($this->_var['result']['return_total_score']));?>
+			{else}
+			{lang v="RETURN_TOTAL_SCORE"}：{function name="format_score" value=$result.return_total_score}  
+			{/if}		
+		{/if}
+		</p>
+		<div class="blank"></div>
+		</div>
+		
+		{if $result.promote_description}
+		<div class="f_r" style="text-align:right;">
+		<div class="promote_title">参与的促销活动</div>
+		{foreach from=$result.promote_description item=promote_item}
+		<div class="promote_item">{$promote_item}</div>
+		{/foreach}
+		</div>
+		<div class="blank"></div>
+		{/if}
+</div>-->

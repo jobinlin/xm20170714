@@ -1,0 +1,30 @@
+#uc_banklist .bank-list{
+	background:#fff;
+	padding-left: .5rem;
+}
+#uc_banklist .bank-list li{
+	height: 3.5rem;
+}
+#uc_banklist .bank-list li .bank-info{
+	width: 50%;
+}
+#uc_banklist .bank-list li .bank-name{
+	line-height: 1.25rem;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	font-size: @f_size2;
+}
+#uc_banklist .bank-list li .user-info{
+	font-size: @f_size4;
+	line-height: 1.1rem;
+	color:@f_color3;
+}
+#uc_banklist .bank-list li .del{
+	font-size: .9rem;
+	padding: 0 .5rem;
+	line-height: 3.5rem;
+}
+#uc_banklist .bank-list li:last-child::after{
+	display:none;
+}

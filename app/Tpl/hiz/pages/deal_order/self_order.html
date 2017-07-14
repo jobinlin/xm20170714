@@ -1,0 +1,116 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/order.css";
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/deal_order/deal_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/deal_order/deal_order.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>自营-驿站订单列表</span>
+</div>
+<div class="content">
+    <div class="table-content">
+            <div class="search-bar self_order">
+			<form name="search_form" action="{url a="hiz" b="deal_order#self_order"}" method="post">
+            <input class="ui-textbox search-input search_box" name="order_sn" type="text" holder="订单号" value="{$request.order_sn}"><input class="ui-textbox search-input search_box" name="user_name_mobile" type="text" holder="会员名/手机号码" value="{$request.user_name_mobile}">
+            <span class="select-tit">发货状态：</span>
+            <select name="delivery_status" id="" class="ui-select search-select">
+            	<option value {if $request.delivery_status eq ''}selected="selected"{/if}>请选择</option>
+            	<option value="0" {if $request.delivery_status eq '0'}selected="selected"{/if}>待发货</option>
+            	<option value="2" {if $request.delivery_status eq '2'}selected="selected"{/if}>已发货</option>
+            </select>
+            <span class="select-tit">退款申请：</span>
+            <select name="refund_status" id="" class="ui-select search-select">
+            	<option value {if $request.refund_status eq ''}selected="selected"{/if}>请选择</option>
+            	<option value="0" {if $request.refund_status eq '0'}selected="selected"{/if}>无</option>
+            	<option value="1" {if $request.refund_status eq '1'}selected="selected"{/if}>有</option>
+            </select>
+            <span class="select-tit">订单状态：</span>
+            <select name="order_status" id="" class="ui-select search-select">
+            	<option value {if $request.order_status eq ''}selected="selected"{/if}>请选择</option>
+            	<option value="1" {if $request.order_status eq 1}selected="selected"{/if}>待付款</option>
+            	<option value="2" {if $request.order_status eq 2}selected="selected"{/if}>待结单</option>
+				<option value="3" {if $request.order_status eq 3}selected="selected"{/if}>已结单</option>
+				<option value="4" {if $request.order_status eq 4}selected="selected"{/if}>交易关闭</option>
+            </select><button class="search-btn transition add_goods_type" type="submit">搜索</button>
+			</form>
+        </div>
+        {if $list}
+        <div class="hiz-table">
+            <table>
+                <col>
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="100px">
+                <thead>
+                    <td style="text-align: left;">详情</td>
+                    <td>驿站</td>
+                    <td>实付金额</td>
+                    <td>发货状态</td>
+                    <td>退款申请</td>
+                    <td>订单状态</td>
+                    <td>操作</td>
+                </thead>
+                <tbody>
+                    {foreach from=$list item=item name=odd}
+                    <tr class="odd">
+                    	<td colspan="7" class="shop-name">订单号：{$item.order_sn}，交易时间：{$item.create_time}</td>
+                    </tr>
+                    <tr class="transition">
+                        <td class="order-info">
+							<p class="shop-name">下单会员：{$item.user_name}</p>
+							<p class="shop-name">手机号：{$item.mobile}</p>
+							<p class="shop-name">配送地址：{$item.address}</p>
+                        </td>
+                        <td>{$item.name}</td>
+                        <td>{$item.pay_amount}</td>
+                        <td>{$item.delivery_info}</td>
+                        <td>{$item.return_info}</td>
+                        <td>{$item.order_info}</td>
+                        <td class="order-deal">
+                            <a class="transition" href="{url b="hiz" r="deal_order#order_view" x="data_id=$item.id"}">查看详情</a>
+                            {if $item.is_close eq 1}<a class="transition" href="javascript:$.showConfirm('确定关闭交易吗？',function(){close_order({$item.id});});;">关闭交易</a>{/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+        <div class="pages">
+            {$pages}
+        </div>
+        {else}
+        <div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+        <div class="no-data">暂无驿站订单</div>
+        {/if}
+    </div>
+</div>
+{include file="inc/footer.html"}

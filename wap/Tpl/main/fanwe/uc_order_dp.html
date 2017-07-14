@@ -1,0 +1,55 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="uc_order_dp">
+	{include file="style5.2/inc/auto_header.html"}
+	
+	<form class="content" action="{url a="index" r="uc_order#order_dp_do"}" name='dp_submit_form'>
+	<nav class="bar bar-tab" style="background: #353535;">
+		<div class="labelBox">
+			<!-- <label class="label_check">
+				<input type="checkbox" name="my-radio">
+				<div class="iconBox"></div>
+			</label>
+			<span>匿名评价</span> -->
+		</div>
+		<input type="submit" class="send_dp" value="发表评价">
+	</nav>
+	<div class="content" style="background: #353535">
+	{if $item_list}
+		<input type="hidden" name="order_id" value="{$data.order_id}" >
+		<ul class="evaluate">
+			{foreach from=$item_list item=item}
+			<li>
+				<input type="hidden" name="item_id[]" value="{$item.id}" >
+				<div class="eva_top flex-box b-line">
+					<div class="shopImg">
+						<img src="{$item.deal_icon}">
+					</div>
+					<div class="textBox flex-1">
+						<textarea placeholder="请输入不超过140个字的评价~" name="content[{$item.id}]" class="dp_centent"  maxlength="140"></textarea>
+					</div>
+				</div>
+				<div class="eva_grade">
+					<span class="eva_ti">评价星级</span>
+					<div class="starBox j-stars">
+						<i class="iconfont">&#xe65b;</i>
+						<i class="iconfont">&#xe65b;</i>
+						<i class="iconfont">&#xe65b;</i>
+						<i class="iconfont">&#xe65b;</i>
+						<i class="iconfont">&#xe65b;</i>
+					</div>
+					<input type="hidden" class="star" name="point[{$item.id}]" value="" >
+				</div>
+				<div class="shadowBox">
+					<span></span>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+	{/if}
+	</div>
+	</form>
+
+
+</div>
+{include file="style5.2/inc/footer.html"}

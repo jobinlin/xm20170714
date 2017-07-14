@@ -1,0 +1,102 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-current" id="dc_order_pay">
+<script>
+	var ORDER_AJAX = "{url r="index" p="dcorder"}";
+    var order_id = '{$data.id}';
+</script>
+{include file="style5.2/inc/headers/dc_header.html"}
+<div class="content">
+    <!-- 页面主体 -->
+    <div class="list-block m-pay b-line">
+        <div class="item-content u-pay-title u-common-box">
+            <div class="item-inner">
+                <div class="item-title label">合计</div>
+                <div class="item-after">
+                    <p class="u-lg-price"><span class="u-money">¥ <i class="total_count">{function name="format_price_txt" v=$data.total_price}</i></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	{*if $data.payment_fee gt 0*}
+    <div class="list-block m-pay b-line fee_count hide">
+        <div class="item-content u-pay-title u-common-box">
+            <div class="item-inner">
+                <div class="item-title label">手续费</div>
+                <div class="item-after">
+                    <p class="u-lg-price"><span class="u-money">¥ <i class="payment_fee">{function name="format_price_txt" v=$data.payment_fee}</i></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+	{*/if*}
+    {if $data.pay_price >= 0}
+    <div class="list-block m-pay b-line">
+        <div class="item-content u-pay-title u-common-box">
+            <div class="item-inner">
+                <div class="item-title label">待付</div>
+                <div class="item-after">
+                    <p class="u-lg-price"><span class="u-money">¥ <i class="ready_pay">{function name="format_price_txt" v=$data.pay_price}</i></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+	{/if}
+    {if $data.pay_price > 0}
+	{if $data.account_pay.money gt $data.pay_price}
+    <div class="list-block m-my-conut">
+        <div class="content-block-title">账户余额</div>
+        <div class="item-content u-common-box">
+            <div class="item-inner">
+                <div class="item-title">我的余额<span class="my-money">¥ {function name="format_price_txt" v=$data.account_pay.money}</span></div>
+                <div class="item-after">
+                    <label class="label-checkbox">
+                        <input type="radio" name="all_account_money" {if $data.all_account_money eq 1} checked="checked"{/if}>
+                        <div id="all_account_money" class="item-media {if $data.all_account_money eq 1} active{/if}" >
+                            <i class="icon icon-form-checkbox"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+	{/if}
+	
+	{if $data.payment_list}
+    <div class="list-block m-payway">
+        <div class="content-block-title">其他支付方式</div>
+        <ul>
+        	{foreach from=$data.payment_list item=payment}
+            <li class="b-line">
+                <div class="item-content u-common-box pay_line">
+                    <div class="item-inner">
+                        <div class="item-title pay-way-name"><div class="pay_logo"><img src="{$payment.logo}" /></div>{$payment.name}</div>
+                        <div class="item-after">
+                            <label class="label-checkbox">
+                                <input type="radio" name="payment" value="{$payment.id}" {if $data.payment eq $payment.id} checked="checked"{/if}>
+                                <div class="item-media payment">
+                                    <i class="icon icon-form-checkbox"></i>
+                                    <span style="display: none;" class="fee_amount">{$payment.fee_amount}</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+	{/if}
+    {/if}
+    <div class="list-block u-pay-btn">
+        <div class="item-content">
+            <div class="item-inner">
+                <a class="button u-sure-pay">确认支付<span class="u-money"><i class="pay_price"></i></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{include file="style5.2/inc/footer.html"}

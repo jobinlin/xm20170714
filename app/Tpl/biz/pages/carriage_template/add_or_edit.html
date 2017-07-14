@@ -1,0 +1,270 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/project.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/carriage_template.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/carriage_template/add_or_edit.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/carriage_template/add_or_edit.js";
+?>
+
+{include file="inc/header.html"}
+<script>
+    var ajax_url = '{$ajax_url}';
+    var delivery_region_url="{$delivery_region_url}";
+    var is_shop = 0;
+</script>
+<div class="blank20"></div>
+<div class="page wrap_full">
+<div class="left_box">
+    {include file="inc/biz_nav_list.html"}
+</div>
+<div class="right_box">
+<div class="content">
+<div class="head_box clearfix">
+    <h2 class="f_l">{$page_title}</h2>
+    <div class="publish_project_btn f_r"><a href="{url r="biz" b="carriage_template#index"}"><button class="ui-button " rel="white" type="button">返回列表</button></a></div>
+</div>
+
+<div class="form_box">
+<div class="standard_tab cf">
+    <ul>
+        <li class="tab_item curr"><a href="javascript:void(0);">基本信息</a></li>
+    </ul>
+</div>
+        <form name="deal_publish_form" data-url="{$form_url}">
+        <div class="publish_box ">
+        <ul class="publish_cons">
+        <!-- 基本信息 -->
+        <li class="con_item curr">
+            <table class="form_teble_box add_border">
+                <colgroup>
+                    <col width="120">
+                    <col width="570">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td class="t_field_name "><i class="iconfont required">&#xe606;</i>模板名称:</td>
+                    <td class="t_field_value"><input class="ui-textbox long_input" name="name" value="{$list.name}"/></td>
+                </tr>
+                <tr>
+                    <td class="t_field_name"><i class="iconfont required">&#xe606;</i>发货地址:</td>
+                    <td class="t_field_value">
+                        <select class="ui-select filter_select medium" name="province" >
+                            <option value="0">==未选择==</option>
+                            {foreach from=$delivery_region_county item=item}
+                               {if $list.province==$item.id}
+                                <option value="{$item.id}" selected="selected">{$item.name}</option>
+                               {else}
+                                <option value="{$item.id}">{$item.name}</option>
+                               {/if}
+                            {/foreach}
+                        </select>&nbsp;
+                        <select class="ui-select filter_select medium" name="city" >
+                            <option value="0">==未选择==</option>
+                            {foreach from=$delivery_region_city item=item}
+                                {if $list.city==$item.id}
+                                <option value="{$item.id}" selected="selected">{$item.name}</option>
+                                {else}
+                                <option value="{$item.id}">{$item.name}</option>
+                                {/if}
+                            {/foreach}
+                        </select>&nbsp;
+                        <select class="ui-select filter_select medium" name="area" >
+                            <option value="0">==未选择==</option>
+                            {foreach from=$delivery_region_area item=item}
+                                {if $list.area==$item.id}
+                                <option value="{$item.id}" selected="selected">{$item.name}</option>
+                                {else}
+                                <option value="{$item.id}">{$item.name}</option>
+                                {/if}
+                            {/foreach}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="t_field_name "><i class="iconfont required">&#xe606;</i>是否包邮:</td>
+                    <td class="t_field_value">
+                        <label class="ui-radiobox" rel="common_rdo"><input type="radio" name="carriage_type" value="1" {if $list.carriage_type!=2}checked="checked"{/if} />自定义</label>
+                        <label class="ui-radiobox" rel="common_rdo"><input type="radio" name="carriage_type" value="2" {if $list.carriage_type==2}checked="checked"{/if}  />平台/卖家承担运费（免运费）</label>
+                    </td>
+                </tr>
+                <tr id="tr_valuation_type">
+                    <td class="t_field_name "><i class="iconfont required">&#xe606;</i>计价方式:</td>
+                    <td class="t_field_value">
+                        <label class="ui-radiobox" rel="common_rdo"><input type="radio" name="valuation_type" value="1" {if $list.valuation_type!=2}checked="checked"{/if}/>按件数</label>
+                        <label class="ui-radiobox" rel="common_rdo"><input type="radio" name="valuation_type" value="2" {if $list.valuation_type==2}checked="checked"{/if} />按重量</label>
+                    </td>
+                </tr>
+                <tr id="tr_add_region_conf">
+                    <td class="t_field_name">添加地区设置</td>
+                    <td class="t_field_value">
+                        <input type="hidden" name="id" value="{$list.id}"/>
+                        <input type="hidden" name="tbl_except_group" value=""/>
+                        <div id="region_conf">
+                            <div class="default">
+                                默认运费：<input type="text" name="express_start"  class="textbox onkeypress" value="{if $default_regions_list.express_start}{$default_regions_list.express_start}{else}1{/if}" autocomplete="off" maxlength="6" onkeypress="return decimal_limit(event,valuation_type-1)" aria-label="默认运费件数"> <span class="lang">件</span>内，
+                                <input type="text"  name="express_postage"  class="textbox" value="{$default_regions_list.express_postage}" autocomplete="off" maxlength="6" onkeypress="return decimal_limit(event)" aria-label="默认运费价格"> 元，
+                                每增加 <input type="text" name="express_plus"   class="textbox onkeypress" value="{if $default_regions_list.express_plus}{$default_regions_list.express_plus}{else}1{/if}" autocomplete="off" maxlength="6" onkeypress="return decimal_limit(event,valuation_type-1)" aria-label="每加件"><span class="lang">件</span>，
+                                增加运费 <input type="text" name="express_postage_plus"  class="textbox" value="{$default_regions_list.express_postage_plus}" autocomplete="off" maxlength="6" onkeypress="return decimal_limit(event)" aria-label="加件运费"> 元
+                                <div class="J_DefaultMessage">
+                                    <span class="msg J_Message"><span class="error1 error">首件应输入1至9999的整数</span></span>
+                                    <span class="msg J_Message"><span class="error2 error">首费应输入0.00至999.99的数字</span></span>
+                                    <span class="msg J_Message"><span class="error3 error">续件应输入1至9999的整数</span></span>
+                                    <span class="msg J_Message"><span class="error4 error">续费应输入0.00至999.99的数字</span></span>
+                                    <span class="msg J_Message"><span class="error5 error">首重应输入0.1至9999.9的数字</span></span>
+                                    <span class="msg J_Message"><span class="error6 error">续重应输入0.1至9999.9的数字</span></span>
+                                </div>
+                            </div>
+                            <div class="tbl-except" {if !$regions_list}style="display: none;"{/if}>
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <colgroup>
+                                        <col class="col-area">
+                                        <col class="col-start">
+                                        <col class="col-postage">
+                                        <col class="col-plus">
+                                        <col class="col-postageplus">
+                                        <col class="col-action">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>运送到</th>
+                                        <th>首<span class="unit">件</span>(<span class="lang">件</span>)</th>
+                                        <th>首费(元)</th>
+                                        <th>续<span class="unit">件</span>(<span class="lang">件</span>)</th>
+                                        <th>续费(元)</th>
+                                        <th>操作</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    {foreach from=$regions_list item=region_item name="region_item" key="index"}
+                                    <tr data-group="n{$index}">
+                                        <td class="cell-area">
+                                            <a href="#" class="acc_popup edit J_EditArea" title="编辑运送区域" onclick="select_delivery_regions(this);">编辑</a>
+                                            <div class="area-group">
+                                                <p>{$region_item.show_city_name}</p>
+                                            </div>
+                                            <input type="hidden" name="region_support_region[]" data-group="n{$index}" value="{$region_item.region_ids}" class="require" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="region_first_weight[]" onkeypress="return decimal_limit(event,valuation_type-1)" class="input-text require onkeypress" autocomplete="off" maxlength="6">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="region_first_fee[]" data-field="postage" onkeypress="return decimal_limit(event)" value="{$region_item.express_postage}" class="input-text require" autocomplete="off" maxlength="6">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="region_continue_weight[]" onkeypress="return decimal_limit(event,valuation_type-1)" class="input-text require onkeypress" autocomplete="off" maxlength="6">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="region_continue_fee[]" data-field="postageplus" value="{$region_item.express_postage_plus}" class="input-text require" onkeypress="return decimal_limit(event)" autocomplete="off" maxlength="6">
+                                        </td>
+                                        <td><a href="#" class="J_DeleteRule" onclick="delete_form(this.parentNode.parentNode);">删除</a></td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                                <div class="J_SpecialMessage">
+                                    <span class="msg J_Message"><span class="error2 error">首件应输入1至9999的整数</span></span>
+                                    <span class="msg J_Message"><span class="error3 error">首费应输入0.00至999.99的数字</span></span>
+                                    <span class="msg J_Message"><span class="error4 error">续件应输入1至9999的整数</span></span>
+                                    <span class="msg J_Message"><span class="error5 error">续费应输入0.00至999.99的数字</span></span>
+                                    <span class="msg J_Message"><span class="error1 error">指定地区城市为空或错误</span></span>
+                                    <span class="msg J_Message"><span class="error6 error">首重应输入0.1至9999.9的数字</span></span>
+                                    <span class="msg J_Message"><span class="error7 error">续重应输入0.1至9999.9的数字</span></span>
+                                </div>
+                            </div>
+                            <div class="tbl-attach">
+
+                                <a href="#" id="add_region_conf" class=" J_AddRule">为指定地区城市设置运费</a>
+                            </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
+        </ul>
+        <div class="blank10"></div>
+        </div>
+        <div class="confirm_form_btn">
+            <div class="f_r">
+                <button class="ui-button" rel="orange" type="button">确认提交</button>
+            </div>
+        </div>
+        </form>
+    <div class="blank10"></div>
+    </div>
+    <div class="blank10"></div>
+</div>
+</div>
+</div>
+<div id="dialog-box" class="weedialog weebox" style="display:none;">
+    <div class="dialog-header" style="-moz-user-select: none;">
+        <div class="dialog-title">选择支持的配送地区</div>
+        <div class="dialog-close"></div>
+    </div>
+    <div id="delivery_form"  class="delivery-form-content">
+
+        <form name="delivery_form">
+            <div >
+                <input type="hidden" value="{$delivery_fee_id}" name="delivery_fee_id" />
+                {foreach from=$delivery_regions item="region_item" key="delivery_fee_key"}
+                <div class='region_level_0 dcity'>
+                    <div class='ecity gcity'>
+                      <span class="group-label">
+                        <label class="ui-checkbox" rel="common_cbo">
+                            <input type="checkbox" name='region_id[]' class="area-input check_big_sub" id="region_id_{$delivery_fee_key}" value="{$delivery_fee_key}"/>
+                            <span>{$region_item.name}</span>
+                        </label>
+                      </span>
+                    </div>
+                    <div class='province-list'>
+                        {foreach from=$region_item.province_arr item="region_item_sub"}
+                        <div class='region_level_{$delivery_fee_key} ecity'>
+                            <span class="gareas">
+                                <label class="ui-checkbox" rel="common_cbo">
+                                    <input type="checkbox" class="province-input check_province_sub" name='region_id[]' id="region_id_{$region_item_sub.id}" value="{$region_item_sub.id}" />
+                                    <span>{$region_item_sub.name}</span>
+                                </label>
+                                <span class="check_num"></span>
+                                <a href='javascript:void(0);' onclick='switch_region(this.parentNode.parentNode);' style="text-decoration:none;"><img class="trigger" src="{$TMPL}/images/jiantou.gif"></a>
+                            </span>
+                            <div class='region_level_{$region_item_sub.id} citys' >
+                                {foreach from=$region_item_sub.city_list item="region_item_city"}
+                                <div class="areas" style="display: inline-block;">
+                                    <label class="ui-checkbox" rel="common_cbo">
+                                        <input type="checkbox" class="citys-input" name='region_id[]' id="region_id_{$region_item_city.id}" value="{$region_item_city.id}" />
+                                        <span style="width: 45px;">{$region_item_city.name}</span>
+                                    </label>
+                                </div>
+                                {/foreach}
+                                <p style="text-align:right;">
+                                    <input class="close_button" value="关闭" type="button" onclick='switch_city_region(this.parentNode.parentNode.parentNode);'>
+                                </p>
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+            <div class="btn_row tr">
+                <button class="ui-button delivery-form-cancel" rel="dialog-cancel" type="button" onclick="close_pop();">取消</button>
+                <button class="ui-button delivery-form-ok" rel="dialog-ok" type="button" onclick="do_submit_opform();">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="blank20"></div>
+{include file="inc/footer.html"}

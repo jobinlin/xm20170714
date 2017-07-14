@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.search_relative{position:relative;z-index:97}
+.key_words_display{position:absolute; top:52px; left:92px; background:white; width:408px; z-index:98; border:1px solid #D8D8D8; display:none;}
+
+.search_key_words_ul{
+	list-style:none;
+}
+.search_key_words_ul li{
+	line-height:20px; 
+}
+
+.search_key_words_ul li a{
+	position: relative;
+    display: block;
+    padding: 6px 15px;
+    font-size: 12px;
+    color: #424242;
+}
+
+.search_key_words_ul li a span{
+	position: absolute;
+    right: 15px;
+    top: 6px;
+    color: #b0b0b0;
+}
+
+.set_search_bg{
+	background:#EEEEEE;
+}

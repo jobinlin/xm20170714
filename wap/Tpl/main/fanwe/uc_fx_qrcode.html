@@ -1,0 +1,139 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_fx_qrcode">
+<script>
+$(document).on("pageInit", "#uc_fx_qrcode", function(e, pageId, $page) {
+	loadScript(jia_url);
+	$(".j-openshare").click(function(){
+		//var id=$(this).attr("data_id");	
+		//var img_url=deal_json[id]['icon'];
+		//var share_url=deal_json[id]['share_url'];
+		//var title=deal_json[id]['name'];
+		jiathis_config = {
+		    siteNum:6,
+		    sm:"weixin,tssina,cqq,qzone,douban,copy",
+		    url:$(this).attr("data-share-url")
+		}
+	});
+	$(".social_share").find(".flex-1").click(function(){
+		$(".flippedout").removeClass("z-open").removeClass("showflipped");
+		$(".box_share").removeClass("z-open");
+	});
+});
+var ajax_url='{url i="index" r="uc_fx#save_qrcode_type"}';
+</script>
+  {if $app_index=='app'}
+  
+  <script type="text/javascript">
+    init_share();
+  </script>
+  {else}
+  <div class="flippedout ">
+  <!-- 分享 -->
+  <div class="box_share" id="box_share">
+    <div class="box_content">
+      <div class="social_share">
+        <!-- JiaThis Button BEGIN -->
+        <div class="jiathis_style_32x32">
+          <div class="flex-box">
+            <a class="jiathis_button_weixin flex-1"><i class="iconfont icon-pyq">&#xe636;</i><p>朋友圈</p></a>
+            <a class="jiathis_button_tsina flex-1"><i class="iconfont icon-sina">&#xe639;</i><p>新浪微博</p></a>
+            <a class="jiathis_button_cqq flex-1"><i class="iconfont icon-QQ">&#xe63b;</i><p>QQ</p></a>
+          </div>
+          <div class="flex-box">
+            <a class="jiathis_button_qzone flex-1"><i class="iconfont icon-qzone">&#xe63a;</i><p>QQ空间</p></a>
+            <a class="jiathis_button_douban flex-1"><i class="iconfont icon-douban">&#xe670;</i><p>豆瓣</p></a>
+            <a class="jiathis_button_copy flex-1"><i class="iconfont icon-copy">&#xe637;</i><p>复制链接</p></a>
+          </div>
+        </div>
+        <script type="text/javascript">
+          var jiathis_config = {
+              siteNum:6,
+                sm:"weixin,tssina,cqq,qzone,douban,copy",
+          };
+        </script>
+
+
+        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8" defer="defer"></script>
+        <!-- JiaThis Button END -->
+
+      </div>
+      <a class="box_close t-line" id="boxclose_share">取消</a>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+
+  </div>
+  
+  <!-- 弹出层 -->
+  {/if}
+  {include file="style5.2/inc/auto_header.html"}
+  <div class="content" >
+      <div class="qrcode-info">
+          <div class="user-img"><img src="{$data.user_data.user_avatar}" alt="{$data.user_data.user_name}"></div>
+          <p class="user-name">{$data.user_data.user_name}</p>
+          <div class="qrcode">
+            <img src="{$data.user_data.share_mall_qrcode}" alt="{$data.user_data.user_name}的邀请">
+          </div>
+          <div class="qrcode-btn-box">
+			<a  href="{if $app_index=='app'}{else}{$data.img_url}{/if}" {if $app_index=='app'}onclick='App.save_image("{$data.img_url}");'{else}{/if} download="图片"  style="padding:0.5rem;">
+            <!--<a  href="{url a="index" b="uc_fx#qrcode_don" c="img=$data.img_url"}" download="图片"  style="padding:0.5rem;">-->
+			<div class="qrcode-btn save-img">
+			保存图片
+			</div>
+			</a>
+            <a href="" class="share {if $app_index=='app'}j-app-share-btn{else}j-openshare{/if}" style="padding:0.5rem;"
+			data-share-url="{$data.user_data.share_mall_url}" {if $app_index=='app'}data-url="{$data.img_url}" data-img="{$data.img_url}" data-title="{$data.user_data.user_name}的邀请"{/if} >
+				<div class="qrcode-btn ">
+				分享
+				</div>
+			</a>
+          </div>
+      </div>
+  </div>
+  <div class="popup-box">
+		<div class="pup-box-bg j-box-bg"></div>		
+		<div class="list-block m-trans-way j-red-reward voucher_box">
+			
+			<ul class="j-reward-list m-tv-list">
+				{foreach from=$data.set_up item=item}
+				<li>
+					<label class="label-checkbox item-content trans-way-bg">
+						<div class="item-inner">
+							<div class="item-title pay-way-name">{$item.name}</div>
+							<div class="item-after">
+								<input type="radio" name="qrcode_type" value="{$item.type}" money="0" {if $data.user_data.qrcode_type eq $item.type}checked="checked"{/if}>
+								<div class="item-media">
+									<i class="icon icon-form-checkbox"></i>
+								</div>
+							</div>
+						</div>
+					</label>
+				</li>
+				{/foreach}
+			</ul>
+			<div class="item-content u-common-box">
+				<p class="u-ti tc j-cancel">取消</p>
+			</div>
+		</div>
+	</div>
+  <div id="qrcode-img" onclick="$(this).hide();"  style="
+    display:none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 10;
+">
+	<img style="    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);" src="{$data.img_url}">
+  </div>
+</div>
+<!-- 分享弹出结束 -->
+{include file="style5.2/inc/footer.html"}

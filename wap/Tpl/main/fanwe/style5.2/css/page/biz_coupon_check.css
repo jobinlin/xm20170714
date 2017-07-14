@@ -1,0 +1,95 @@
+.coupon-check-hd{
+	margin:.5rem;
+	height:6rem;
+	text-align: center;
+	border-radius:4px;
+	background:-webkit-linear-gradient(-45deg, #ff795c, #ff4763);
+	background:linear-gradient(-45deg, #ff795c, #ff4763);
+}
+.coupon-check-hd .check-code{
+	display: inline-block;
+	vertical-align: top;
+	padding:0 .5rem;
+	line-height: 1rem;
+	color:#ffae00;
+	margin-top: 1rem;
+	margin-bottom: .4rem;
+	font-size:.7rem;
+	background:#f64054;
+	border-radius:2px;
+}
+.coupon-check-hd .check-tit{
+	line-height: 1.7rem;
+	font-size:.9rem;
+	font-weight: bold;
+	white-space:nowrap;
+	color:#fff;
+}
+.coupon-check-hd .check-tip{
+	line-height: 1.4rem;
+	font-size:.6rem;
+	color:#e8e3a6;
+}
+.coupon-check-count{
+	margin-bottom: .5rem;
+	padding-left: .5rem;
+	background:#fff;
+}
+.coupon-check-count li{
+	line-height: 2.2rem;
+}
+.coupon-check-count li .num{
+	color:#f24;
+}
+.coupon-check-count .count-box{
+	margin-right: .5rem;
+}
+.coupon-check-count .count-btn{
+	width:1.6rem;
+	height:1.4rem;
+	display: block;
+	line-height: 1.4rem;
+	text-align: center;
+	font-size:1rem;
+	background:#f5f5f5;
+}
+.coupon-check-count .count-box input{
+	display: block;
+	height:1.4rem;
+	width:1.9rem;
+	text-align: center;
+	background:#f5f5f5;
+	margin: 0 2px;
+}
+.coupon-check-count .count-box .count-disable{
+	background:#fbfbfb;
+}
+.coupon-check-count .count-box .count-min{
+	border-radius:3px 0 0 3px;
+}
+.coupon-check-count .count-box .count-plus{
+	border-radius:0 3px 3px 0;
+}
+.check-shop-select{
+	background:#fff;
+	padding:0 .5rem;
+	line-height: 2rem;
+}
+.check-shop-select .shop-name{
+	font-size:@f_size;
+}
+.check-shop-select .iconfont{
+	font-size:.8rem;
+}
+.coupon-check-nav a{
+	display: block;
+	text-align: center;
+	line-height: 2.5rem;
+}
+.coupon-check-nav .check-cancle{
+	background:@gray;
+}
+.coupon-check-nav .check-confirm{
+	background:@themecolor;
+	color:#fff;
+}

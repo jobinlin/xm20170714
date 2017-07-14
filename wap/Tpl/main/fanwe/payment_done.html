@@ -1,0 +1,104 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var AJAX_URL = '{url x="index" r="ajax"}';
+var id={$data.order_id};
+
+</script>
+<div class="page page-index" id="payment_done">
+
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content" style="bottom: 0">
+		<div class="list-block m-order-common media-list" style="margin-bottom: 0">
+			<div class="item-content m-order-state">
+				<div class="item-inner">
+					<div class="item-subtitle u-order-state-font">{if $data.buy_type eq 1}兑换成功{elseif $data.order_type eq 1}{$data.pay_info}{else}付款成功{/if}</div>
+				</div>
+				<div class="u-order-state-img">
+					<img src="{$TMPL}/style5.2/images/static/pay_done.png" alt="恭喜，付款成功">
+				</div>
+			</div>
+			<div class="item-content b-line u-order-ident">
+				<div class="item-title">订单编号：{$data.order_sn}</div>
+			</div>
+			{if $data.consignee_info}
+			<div class="item-content b-line" style="margin-left: 0.5rem">
+				<div class="item-inner" style="margin-left: 0">
+					<div class="item-subtitle user-name">收货人：{$data.consignee_info.consignee}<span class="u-phoneNum">{$data.consignee_info.mobile}</span></div>
+					<div class="item-text user-address">{$data.consignee_info.address}</div>
+				</div>
+			</div>
+			{/if}
+			{if $data.couponlist}
+				{foreach from=$data.couponlist item=coupon key=key}
+				{if $key lt 3 }
+				<div class="item-content order-replay b-line">
+					<div class="item-inner">
+						<div class="item-title j-codeNum">{function name="app_conf" v="COUPON_NAME"}：{$coupon.password}</div>
+						<div class="item-after j-showCode"><i class="iconfont">&#xe60e;</i>查看二维码</div>
+						<input type="hidden" class="hiddenBox" data-src="{$coupon.qrcode}">
+					</div>
+				</div>
+				{/if}
+				{/foreach}
+			{/if}
+			
+
+			{if $data.coupon_count gt 3}
+			<div class="j-moreThan">
+				{foreach from=$data.couponlist item=coupon key=key}
+				{if $key gt 2 }
+				<div class="item-content order-replay b-line">
+					<div class="item-inner">
+						<div class="item-title j-codeNum">{function name="app_conf" v="COUPON_NAME"}：{$coupon.password}</div>
+						<div class="item-after j-showCode"><i class="iconfont">&#xe60e;</i>查看二维码</div>
+						<input type="hidden" class="hiddenBox" data-src="{$coupon.qrcode}">
+					</div>
+				</div>
+				{/if}
+				{/foreach}
+			</div>
+			{/if}
+			<!--  
+			<div class="item-content b-line u-order-ident">
+				<div class="item-title"><input type="checkbox" id="share" style="-webkit-appearance:checkbox;" checked="checked"/>分享到个人中心</div>
+			</div>
+			-->
+			<div class="loadMore">
+				<i class="iconfont up_btn">&#xe608;</i>
+				<i class="iconfont down_btn">&#xe606;</i>
+			</div>
+			
+		</div>
+
+
+
+		<!-- 页面主体 -->
+		<div class="list-block pay-btn-box">
+			<div class="item-content"  {if !($data.consignee_info||$data.couponlist)}style="margin-top:1rem;"{/if}>
+				<div class="item-inner">
+					{if $data.order_type eq 1}
+					<a class="button u-look-order payBtn " href='{$back_url}' data-no-cache="true">查看余额</a>
+					{elseif $data.order_type !=7}
+					<a class="button u-look-order payBtn " href='{$back_url}' data-no-cache="true">查看订单</a>
+					{/if}
+                    {if $detail_url}
+                    <a class="button u-look-order payBtn " href='{$detail_url}' data-no-cache="true">查看明细</a>
+                    {/if}
+					<a href='{$back_go_url}' data-no-cache="true" class="button u-look-shop payBtn index">再逛逛</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="codeShowBox">
+		<div class="blackBox blackBox-i"></div>
+		<div class="codeImgBox">
+			<h4 class="codeName"></h4>
+			<img class="codeImg" src="">
+		</div>
+	</div>
+	{include file="style5.2/inc/module/share.html"}
+</div>
+
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,55 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+    <div class="main_title">{$title_name}</div>
+    <div class="blank5"></div>
+
+    <div class="blank5"></div>
+
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">积分购买：</td>
+                <td class="item_input">
+                    <label><input name="SCORE_RECHARGE_SWITCH" type="radio" value="1" <if condition="$vo['SCORE_RECHARGE_SWITCH'] eq 1 ">checked="checked"</if> />开启</label>&nbsp;
+                    <label><input name="SCORE_RECHARGE_SWITCH" type="radio" value="0" <if condition="$vo['SCORE_RECHARGE_SWITCH'] eq 0 ">checked="checked"</if> />关闭</label>&nbsp;
+                    <br><span class='tip_span'>开启后,会员移动端可购买积分</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">购买比例：</td>
+                <td class="item_input" >
+                    1元=<input style="height: 20px;" type="text" name="SCORE_RECHARGE_USABLE_SCORE" value="{$vo.SCORE_RECHARGE_USABLE_SCORE}" pattern="([0-9]*)" onkeyup="value=value.replace(/^(\-)*(\d+)$/,'$1$2') "/>&nbsp;
+                    <span class='tip_span'>可用积分+</span>
+                    <input style="height: 20px;" type="text" name="SCORE_RECHARGE_FROZEN_SCORE" value="{$vo.SCORE_RECHARGE_FROZEN_SCORE}" pattern="([0-9]*)" onkeyup="value=value.replace(/^(\-)*(\d+)$/,'$1$2') "/>
+                    <span class='tip_span'>冻结积分</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">设置购买金额<br/>（以,分割开）：</td>
+                <td class="item_input" >
+                    <input style="height: 20px; width: 300px;" type="text" name="SCORE_RECHARGE_SCORE_NUMBER_SET" value="{$vo.SCORE_RECHARGE_SCORE_NUMBER_SET}" >
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="ScoreMarketing" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="score_recharge_save" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="{%EDIT}" />
+                    <input type="reset" class="button" value="{%RESET}" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="Public:footer" />

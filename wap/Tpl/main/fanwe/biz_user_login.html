@@ -1,0 +1,31 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_user_login">
+	<header class="bar bar-nav b-line">
+		<!--<a class="button button-link button-nav pull-left   {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="" >
+			<i class="iconfont">&#xe635;</i>
+		</a>-->
+		<h1 class="title">{$data.page_title}</h1>
+	</header>
+    <div class="content">
+		<form action="{url x="biz" r="user#dologin"}" name="user_login_form" method="post">
+		<div class="login-logo">
+			<img src="{$TMPL}/style5.2/images/static/user-logo.jpg" alt="">
+		</div>
+		<ul class="login-input-list">
+			<li class="flex-box b-line">
+				<i class="iconfont">&#xe683;</i>
+				<input type="text" class="flex-1" id="account_name" name="account_name" placeholder="会员用户名/手机号/邮箱">
+				<div class="iconfont input-clear j-name-clear">&#xe6b3;</div>
+			</li>
+			<li class="flex-box b-line">
+				<i class="iconfont">&#xe662;</i>
+				<input type="password" class="flex-1" id="account_password" name="account_password" placeholder="密码">
+				<div class="iconfont input-clear j-password-clear">&#xe6b3;</div>
+			</li>
+		</ul>
+		<a href='javascript:void(0);' id="login-btn" class="login-btn">登录</a>
+		</form>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

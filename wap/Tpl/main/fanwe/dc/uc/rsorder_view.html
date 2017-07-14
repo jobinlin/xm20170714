@@ -1,0 +1,159 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="rsorder_view">
+	<div class="dc-view-bar t-line">
+	{if $data.order_info.order_state.state eq 1}
+	<a href="javascript:void(0);" jump_url="{$data.order_info.order_state.act.0.url}" data_url="{url r="index" p="dcorder#to_pay" g="id=$data.order_info.id"}" class="dc-view-btn j-confirm to-pay">去支付</a>
+	<a href="javascript:void(0);" class="dc-view-btn j-cancle" data_url="{$data.order_info.order_state.act.1.url}">取消订单</a>
+	{/if}
+	{if $data.order_info.order_state.state eq 2}
+	<a href="javascript:void(0);" class="dc-view-btn j-cancle" data_url="{$data.order_info.order_state.act.0.url}">取消订单</a>
+	{/if}
+	{if $data.order_info.order_state.state eq 3}
+	<a href="javascript:void(0);" class="dc-view-btn j-cancle" data_url="{$data.order_info.order_state.act.0.url}">取消订单</a>
+	{/if}
+	{if $data.order_info.order_state.state eq 4}
+	<a href="javascript:void(0);" class="dc-view-btn j-open-comment" data_url="{$data.order_info.order_state.act.0.url}">评价</a>
+	{/if}
+	</div>
+	{include file="style5.2/inc/headers/dc_header.html"}
+	<div class="content">
+		<a href="{url r="index" p="dctable#detail" g="lid=$data.order_info.location_id"}" class="rs-hd flex-box" data-no-cache="true">
+			<div class="shop-img"><img src="{$data.order_info.preview}" alt="" class="img-comment"></div>
+			<div class="shop-info flex-1">
+				<div class="shop-name flex-box">
+					<p class="name flex-1 name-comment">{$data.order_info.location_name}</p>
+					<div class="iconfont">&#xe607;</div>
+				</div>
+				<div class="shop-address">{$data.order_info.address}</div>
+				<input name="location_id" type="hidden" value="{$data.order_info.location_id}"/>
+				<input name="order_id" type="hidden" value="{$data.order_info.id}"/>
+			</div>
+		</a>
+		<div class="order-view-hd flex-box b-line">
+			<p class="order-view-tit flex-1">订单状态</p>
+			{if $data.order_info.order_state.state eq 3}
+			<p class="order-status">待验证</p>
+			{else}
+			<p class="order-status">{$data.order_info.order_state.state_format}</p>
+			{/if}
+		</div>
+		{if $data.order_info.dc_coupon}
+		<div class="oder-view-item">
+			<div class="order-view-hd flex-box order-view-item">
+				<p class="order-view-tit flex-1">劵码：{$data.order_info.dc_coupon.sn}({$data.order_info.coupon_state.state})</p>
+			</div>
+		</div>
+		{/if}
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">预约信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p>预定类型：</p>
+					<p class="view-info flex-1">{$data.order_info.order_menu_list.rs_list.cart_list.0.name}</p>
+				</div>
+				<div class="order-view-info">
+					<p>预约时间：</p>
+					<p class="view-info">{$data.order_info.order_menu_list.rs_list.cart_list.0.table_time_format}</p>
+				</div>
+				<div class="order-view-info">
+					<p>预约人：</p>
+					<p class="view-info">{$data.order_info.consignee}</p>
+				</div>
+				<div class="order-view-info">
+					<p>联系电话：</p>
+					<p class="view-info">{$data.order_info.mobile}</p>
+				</div>
+				<div class="order-view-info">
+					<p>备注：</p>
+					<p class="view-info" style="width:80%">{$data.order_info.dc_comment}</p>
+				</div>
+			</div>
+		</div>
+		<div class="order-view-item">
+			{if $data.order_info.order_menu_list.menu_list.cart_list}
+			<div class="order-view-hd flex-box b-line">
+				<p class="order-view-tit flex-1">商品信息</p>
+			</div>
+			<ul class="goods-list b-line">
+				{foreach from=$data.order_info.order_menu_list.menu_list.cart_list item=item_second}
+				<li class="goods-info flex-box">
+					<p class="goods-name flex-1">{$item_second.name}</p>
+					<p class="goods-num">x{$item_second.num}</p>
+					<p class="goods-price">{function name=format_price v=$item_second.total_price g=2}</p>
+				</li>
+				{/foreach}
+			</ul>
+			{/if}
+			<ul class="order-fee-list">
+				<li class="order-fee flex-box">
+					<p class="flex-1">总价</p>
+					<p class="fee-price">{function name=format_price v=$data.order_info.total_price g=2}</p>
+				</li>
+				{if $data.order_info.order_state.state eq 1}
+				<li class="order-fee flex-box">
+					<p class="flex-1">需支付</p>
+					<p class="fee-price price">{function name=format_price v=$data.order_info.pay_price g=2}</p>
+				</li>
+				{/if}
+			</ul>
+		</div>
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">订单信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p>订单号：</p>
+					<p class="view-info flex-1">{$data.order_info.order_sn}</p>
+				</div>
+				<div class="order-view-info">
+					<p>支付方式：</p>
+					<p class="view-info">{$data.order_info.payment_id}</p>
+				</div>
+				<div class="order-view-info">
+					<p>下单时间：</p>
+					<p class="view-info">{$data.order_info.create_time_format}</p>
+				</div>
+			</div>
+		</div>
+		{if $data.order.dc_comment}
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">备注信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p class="view-info flex-1">{$data.order_info.dc_comment}</p>
+				</div>
+			</div>
+		</div>
+		{/if}
+	</div>
+	<div class="popup popup-comment">
+		<div class="popup-header b-line">
+			<p class="popup-tit">评价</p>
+			<div class="iconfont j-close-popup">&#xe604;</div>
+		</div>
+		<div class="shop-info flex-box">
+			<div class="shop-img"><img src="" alt="" class="img-comment-1"></div>
+			<p class="shop-name flex-1 name-comment-1">{$data.order_info.location_name}</p>
+		</div>
+		<div class="comment-point flex-box">
+			<p class="comment-tit">总评</p>
+			<ul class="comment-stars flex-box">
+				<li value="1" class="iconfont j-point">&#xe65b;</li>
+				<li value="2" class="iconfont j-point">&#xe65b;</li>
+				<li value="3" class="iconfont j-point">&#xe65b;</li>
+				<li value="4" class="iconfont j-point">&#xe65b;</li>
+				<li value="5" class="iconfont j-point">&#xe65b;</li>
+			</ul>
+			<input type="hidden" id="star-value">
+		</div>
+		<div class="comment-text">
+			<textarea name="" id="" placeholder="请输入不超过140字的评价" maxlength="140" style="border: 1px solid #e6e6e6;border-radius: 0.3rem;padding: 0 0.25rem;"></textarea>
+		</div>
+		<input name="location_id_1" type="hidden" value="{$data.order_info.location_id"}"/>
+		<input name="order_id_1" type="hidden" value="{$data.order_info.id"}"/>
+		<div class="comment-sub t-line">
+			<a href="javascript:void(0);" class="comment-btn j-comment-sub" action="{url i="index" r="dcreview#save"}">发表评价</a>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

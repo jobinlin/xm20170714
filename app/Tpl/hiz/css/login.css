@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2015-10-10, 9:56:17
+    Author     : Administrator
+*/
+
+.login_bdw{position: absolute;top: 20%;left: 50%;margin-left:-495px; width: 990px;background: #fff;}
+.biz_footer .footer_box{margin: 0}
+.erwei-box {
+	margin-top: 35px;
+	width: 160px;
+}
+.erwei-box p{
+	text-align: center;
+	color: #f80;
+	line-height: 30px;
+}
+.box_main {
+    border: 0;
+}
+.submit-btn{
+	width:270px;
+}
+.content{
+	left: 0;
+}

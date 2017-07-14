@@ -1,0 +1,71 @@
+<div id="lid_search_result">
+{if $data.location || $data.menu || $data.dctable_info}
+	{if $data.lid_count gt 0}
+	<div class="search-result-bar">搜索到以下{$data.lid_count}个商家</div>
+	<div class="search-result-list">
+			<ul class="result-list">
+			{foreach from=$data.location item=location}
+				<li class="b-line">
+					<a href="{$location.url}" class="result-item flex-box">
+						<div class="shop-img"><img src="{$location.preview}" alt=""></div>
+						<div class="shop-info flex-1">
+							<p class="shop-name">{$location.name}</p>
+							<div class="start-box flex-box">
+								<div class="m-start">
+									<div class="start-num" style="width: {$location.format_point}%"></div>
+								</div>
+								<p class="star-point">{$location.avg_point}分</p>
+							</div>
+						</div>
+					</a>
+				</li>
+			{/foreach}
+		</div>
+	{/if}
+	
+	{if $data.menu_count gt 0}
+	<div class="search-result-bar">搜索到以下{$data.menu_count}个商品</div>
+	<div class="search-result-list">
+			<ul class="result-list">
+			{foreach from=$data.menu item=menu}
+				<li class="b-line">
+					<a href="{$menu.url}" class="result-item flex-box">
+						<div class="shop-img"><img src="{$menu.image}" alt=""></div>
+						<div class="shop-info flex-1">
+							<p class="shop-name">{$menu.name}</p>
+							<p class="shop-address">{$menu.lid_name}</p>
+						</div>
+						<p class="goods-price">{function name=format_price v=$menu.price}</p>
+					</a>
+				</li>
+			{/foreach}
+			</ul>
+		</div>
+	{/if}
+	
+	{if $data.dctable_info_count gt 0}
+	<div class="search-result-bar">搜索到以下{$data.dctable_info_count}个预订</div>
+	<div class="search-result-list">
+			<ul class="result-list">
+			{foreach from=$data.dctable_info item=dctable}
+				{if $dctable.ecount gt 0}
+				<li class="b-line">
+					<a href="{$dctable.url}" class="result-item flex-box">
+						<div class="shop-img"><img src="{$dctable.preview}" alt=""></div>
+						<div class="shop-info flex-1">
+							<p class="shop-name">{$dctable.s_name}</p>
+							<p class="shop-address">{$dctable.l_name}</p>
+						</div>
+						<p class="goods-price">{function name=format_price v=$dctable.price}</p>
+					</a>
+				</li>
+				{/if}
+			{/foreach}
+			</ul>
+		</div>
+	{/if}
+{else}
+<!-- <div class="search-result-bar">暂无数据</div> -->
+<div class="tipimg no_data">暂无数据</div>
+{/if}
+</div>

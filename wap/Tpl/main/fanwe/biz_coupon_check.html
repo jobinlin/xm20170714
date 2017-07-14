@@ -1,0 +1,209 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+ var coupon_pwd = "{$data.coupon_data.coupon_pwd}";
+ var url = '{url r="biz" a="shop_verify#coupon_use"}';
+</script>
+<div class="page page-current" id="biz_coupon_check">
+    {include file="style5.2/inc/biz_header.html"}
+    <nav class="bar bar-tab">
+    	<div class="coupon-check-nav flex-box">
+    		<a href="" class="flex-1 check-cancel {if $back_url}go_back{else}back{/if}">取消</a>
+    		<a href="javascript:void(0);" class="flex-1 check-confirm">确定</a>
+    	</div>
+	</nav>
+    <div class="content">
+    	{if $data.coupon_type eq 2 or $data.coupon_type eq 3 or $data.coupon_type eq 4}
+	    	<div class="coupon-check-hd">
+	    		<p class="check-code">券码：{$data.coupon_data.coupon_pwd}</p>
+	    		<p class="check-tit">券码有效，请确认是否需要消费？</p>
+	    		<p class="check-tip">点击确认后券码即被消费</p>
+	    	</div>
+    	{else}
+	    	{if $data.coupon_data.number gt 1}
+	    	<div class="coupon-check-hd">
+	    		<p class="check-code"></p>
+	    		<p class="check-tit">券码有效，请确认是否需要消费？</p>
+	    		<p class="check-tip">点击确认后券码即被消费</p>
+	    	</div>
+	    	<ul class="coupon-check-count">
+	    		<li class="b-line">可验证券码数量：<span class="num">{$data.coupon_data.number}</span></li>
+	    		<li class="flex-box">
+	    			<p class="flex-1">本次验证数量</p>
+	    			<div class="count-box flex-box">
+	    				<a href="" class="count-btn j-min count-min count-disable">－</a>
+	    				<input type="tel" class="coupon_use_count" value="1">
+	    				<a href="" class="count-btn j-plus count-plus">＋</a>
+	    			</div>
+	    		</li>
+	    	</ul>
+	    	{else}
+	    	<div class="coupon-check-hd">
+	    		<p class="check-code">券码：{$data.coupon_data.coupon_pwd}</p>
+	    		<p class="check-tit">券码有效，请确认是否需要消费？</p>
+	    		<p class="check-tip">点击确认后券码即被消费</p>
+	    	</div>
+	    	{/if}
+    	{/if}
+    	<div class="flex-box b-line {if $data.coupon_type neq 5}j-shop-select{/if} check-shop-select">
+    		<p class="flex-1">验证门店</p>
+    		{if $data.location_list}
+    		<p class="delivery-tip shop-name">{$data.location_list.0.name}</p>
+    		{elseif $data.coupon_type eq 5}
+    		<p class="delivery-tip shop-name">{$data.coupon_data.location_name}</p>
+    		{else}
+    		<p class="delivery-tip shop-name">无门店</p>
+    		{/if}
+    		<input type="tel" class="shop-id" value="{$data.location_list.0.id}" style="display:none;">
+    		{if $data.coupon_type neq 5}<i class="iconfont">&#xe607;</i>{/if}
+    	</div>
+    	<!-- 团购 -->
+    	{if $data.coupon_type eq 1}
+    	<div class="v-record-hd">购买详情</div>
+    	<div class="v-record-bd">
+	    	<div class="v-record-detail">
+				<p class="detail-name">{$data.coupon_data.sub_name}</p>
+				<div class="goods-info flex-box">
+					<p class="price flex-1">
+						&yen;{$data.coupon_data.unit_price}
+					</p>
+				</div>
+				<p class="time">
+					有效期：{if $data.coupon_data.end_time eq '永久'}永久有效{elseif $data.coupon_data.begin_time eq 0}至{$data.coupon_data.end_time}{else}{$data.coupon_data.begin_time} 至 {$data.coupon_data.end_time}{/if}
+				</p>
+			</div>
+    	</div>
+    	{/if}
+    	<!-- 优惠 -->
+    	{if $data.coupon_type eq 2}
+    	<div class="v-record-hd">购买详情</div>
+    	<div class="v-record-bd">
+    		<div class="v-record-detail">
+    			<p class="detail-name">{$data.coupon_data.name}</p>
+    			<p class="price b-line">
+    				&yen;{$data.coupon_data.youhui_value}
+    			</p>
+    			<p class="time">
+    				有效期：{if $data.coupon_data.end_time eq 0}永久有效{elseif $data.coupon_data.begin_time eq 0}至{$data.coupon_data.end_time}{else}{$data.coupon_data.begin_time} 至 {$data.coupon_data.end_time}{/if}
+    			</p>
+    		</div>
+    	</div>
+    	{/if}
+    	<!-- 活动 -->
+    	{if $data.coupon_type eq 3}
+    	<div class="v-record-hd">活动信息</div>
+		<div class="v-record-bd">
+			<div class="v-record-detail">
+				<p class="detail-name">{$data.coupon_data.name}</p>
+				<p class="time">
+					有效期：{if $data.coupon_data.event_end_time eq '永久'}永久有效{elseif $data.coupon_data.event_begin_time eq 0}至{$data.coupon_data.event_end_time}{else}{$data.coupon_data.event_begin_time} 至 {$data.coupon_data.event_end_time}{/if}
+				</p>
+				<p class="address">活动地点：{$data.coupon_data.address}</p>
+			</div>
+		</div>
+			{if $data.coupon_data.field_info}
+	        <div class="v-record-hd">报名信息</div>
+	        <div class="v-record-bd">
+	            <div class="v-record-detail">
+	                <p class="address">{$data.coupon_data.field_info}</p>
+	            </div>
+	        </div>
+	        {/if}
+        {/if}
+        <!-- 自提 -->
+        {if $data.coupon_type eq 4}
+        <div class="v-record-hd">购买详情</div>
+    	<div class="v-record-bd">
+    		<ul class="v-goods-list">
+    			<li class="b-line">
+    				<p class="detail-name">{$data.coupon_data.sub_name}</p>
+    					{if $data.coupon_data.attr_str}
+		   					<p class="spec">
+		   						<span>规格：{$data.coupon_data.attr_str}</span>
+		   					</p>
+    					{/if}
+    				<div class="goods-info flex-box">
+    					<p class="price flex-1">
+    						&yen;{$data.coupon_data.unit_price}
+    					</p>
+    					<p class="num">x{$data.coupon_data.number}</p>
+    				</div>
+    			</li>
+    		</ul>
+    	</div>
+    	{/if}
+    	<!-- 预定 -->
+        {if $data.coupon_type eq 5}
+        <div class="v-record-hd">预定详情</div>
+    	<div class="v-record-bd">
+    		<ul class="v-goods-list">
+    			<li class="b-line">
+    				<p class="detail-name">预定项目：{$data.coupon_data.table_name}</p>
+					<p class="detail-name">预约时间：{$data.coupon_data.table_time_format}</p>
+					<p class="detail-name">预约人：{$data.coupon_data.consignee}</p>
+					<p class="detail-name">联系电话：{$data.coupon_data.mobile}</p>
+					{if $data.coupon_data.dc_comment}<p class="detail-name">备注：{$data.coupon_data.dc_comment}</p>{/if}
+    			</li>
+    		</ul>
+    	</div>
+    	{if $data.coupon_data.menu_list.cart_list}
+    	<div class="v-record-hd">预定菜单</div>
+    	   <div class="v-record-bd">
+	    		<ul class="v-goods-list">
+	    			<li class="b-line">
+	    				{foreach from=$data.coupon_data.menu_list.cart_list item=menu_item}
+	    				<div class="flex-box">
+	    					{$menu_item.name}
+	    					<p class="num">x{$menu_item.num}</p>
+	    					<p class="price flex-1 tr" style="color:red;">
+	                            {function name=format_price v=$menu_item.total_price g=2}
+	    					</p>
+	    				</div>
+	    				{/foreach}
+	    			</li>
+	                <li class="b-line">
+	                    <div class="flex-box">
+	                        <p class="flex-1" style="text-align: right;">合计：</p>
+	                        <p class="price" style="color:red;">{function name=format_price v=$data.coupon_data.total_price g=2}</p>
+	                    </div>
+	                </li>
+	    		</ul>
+    	</div>
+    	{else}
+    	<div class="v-record-bd">
+	    	<ul class="v-goods-list">
+		        <li class="t-line">
+		            <div class="flex-box">
+		                <p class="flex-1">合计：</p>
+		                <p class="price" style="color:red;">{function name=format_price v=$data.coupon_data.total_price g=2}</p>
+		            </div>
+		        </li>
+	        </ul>
+        </div>
+    	{/if}
+    	{/if}
+    	
+  	</div>
+  	<div class="delivery-mask"></div>
+  	<!-- 门店选择 -->
+  	<div class="shop-select">
+  		<ul class="shop-list">
+  			{foreach from=$data.location_list item=item}
+  			{if $item.is_check eq 1}
+  			<li class="flex-box b-line active">
+  			{else}
+  			<li class="flex-box b-line">
+  			{/if}
+  				<p class="shop-name flex-1">{$item.name}</p>
+  				<input type="tel" class="shop-id" value="{$item.id}" style="display:none;">
+  				<i class="iconfont">&#xe667;</i>
+  			</li>
+  			{/foreach}
+  		</ul>
+  		<div class="delivery-btn-wrap flex-box t-line">
+  			<div class="delivery-btn shop-cancle delivery-cancle flex-1">取消</div>
+  			<div class="delivery-btn shop-confirm delivery-confirm flex-1">确定</div>
+  		</div>
+  	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

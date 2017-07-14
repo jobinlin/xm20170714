@@ -1,0 +1,96 @@
+{if $list}
+    {foreach from=$list item=row}
+    <div class="comments_details">
+        <table class="table_box ">
+            <thead>
+                <tr>
+                    <th width="10%">模板名称:{$row.name}</th>
+                    <th width="50%" style="text-align: center;">计价方式:{if $row.carriage_type==2}包邮{elseif $row.valuation_type==1}按件数{elseif $row.valuation_type==2}按重量{/if}</th>
+                    <th colspan="4" style="text-align: right;padding-right:15px; ">
+                        <a class="blue " href="{url r="biz" b="carriage_template#edit" x="data_id=$row.id"}"  data-id="{$row.id}">修改</a>&nbsp;|&nbsp;
+                        <a class="blue deleteButton " data-id="{$row.id}" data-url="{url r="biz" b="carriage_template#delete"  }">删除</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td width="10%">
+                    运送方式
+                </td>
+                <td width="50%">
+                    运送到
+                </td>
+                <td width="10%">
+                    {if $row.valuation_type==2}首重(kg){else}首件(件) {/if}
+                </td>
+                <td width="10%">
+                    运费(元)
+                </td>
+                <td width="10%">
+                    {if $row.valuation_type==2}续重(kg){else}续件(件){/if}
+                </td>
+                <td width="10%">
+                    续费(元)
+                </td>
+            </tr>
+            {if $row.carriage_type==2}
+                <tr>
+                    <td>
+                        快递
+                    </td>
+                    <td>
+                       全国
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        0.00
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        0.0
+                    </td>
+                </tr>
+            {else}
+               {foreach from=$row.carriage_detail_data item=item}
+                 <tr>
+                     <td>
+                         {if $row.tpl_type==1}快递{else}其他{/if}
+                     </td>
+                     <td>
+                         {if !$item.region_ids}全国{else}{$item.show_city_name}{/if}
+                     </td>
+                     <td>
+                         {$item.express_start}
+                     </td>
+                     <td>
+                         {$item.express_postage}
+                     </td>
+                     <td>
+                         {$item.express_plus}
+                     </td>
+                     <td>
+                         {$item.express_postage_plus}
+                     </td>
+                 </tr>
+                {/foreach}
+            {/if}
+            </tbody>
+        </table>
+    </div>
+    {/foreach}
+    <div class="blank"></div>
+    <div class="pages">
+        {$pages}
+    </div>
+{else}
+<div class="comments_details">
+    <table class="table_box ">
+   <tr style="text-align: center;"><td>无数据</td></tr>
+    </table>
+</div>
+{/if}

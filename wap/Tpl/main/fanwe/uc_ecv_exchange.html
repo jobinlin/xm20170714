@@ -1,0 +1,54 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var ajax_url  = '{url r="index" p="uc_ecv#do_exchange"}';
+</script>
+<div class="page page-index page-current" id="uc_ecv_exchange">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<form name="exchange_form" action="{url r="index" p="uc_ecv#do_snexchange"}" method="post">
+			<div class="m-ecv-exchange-input flex-box">
+				<input type="text" class="exchange-input flex-1 j-exchange-input" placeholder="请输入兑换码" name="sn">
+				<div class="exchange-btn-area">
+					<i class="exchange-btn j-exchange-btn disable">兑换</i>
+				</div>
+			</div>
+		</form>
+		<div class="user-scores t-line"><em>可用积分：{$data.score}</em></div>
+	    <div class="m-youhui-list j-ajaxlist">
+	   	  {if $data.list}
+	      <ul class="j-ajaxadd youhui-list">
+	      	{foreach from=$data.list item=item}
+	        <li class="flex-box {if $item.order_status neq 4}disable{/if}">
+	          <div class="youhui-line"></div>
+	          <div class="youhui-price">
+	            <p class="price"><span>&yen;</span>{$item.money}</p>
+	            <p class="price-tip">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+	          </div>
+	          <div class="youhui-info flex-1">
+	            <p class="youhui-name">{$item.name}</p>
+	            <p class="youhui-time">有效期至：{if $item.valid_type eq 0}{$item.end_time}{elseif $item.valid_type eq 1}{$item.expire_day}{/if}</p>
+	            <div class="youhui-tip flex-box">
+	              	<a href="javascript:void(0);" class="{if $item.order_status eq 4}j-receive{/if} youhui-btn" data-id="{$item.id}">
+	              	{if $item.order_status eq 0}
+	              	已过期
+	              	{elseif $item.order_status eq 1}
+	              	已领完
+	              	{elseif $item.order_status eq 2}
+	              	积分不足
+	              	{elseif $item.order_status eq 3}
+	              	已领取
+	              	{else}
+	              	{if $item.exchange_score}{$item.exchange_score}积分领取{else}马上领取{/if}
+	              	{/if}
+              		</a>
+	            </div>
+	          </div>
+	        </li>
+	        {/foreach}
+	      </ul>
+	      {/if}
+	    </div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

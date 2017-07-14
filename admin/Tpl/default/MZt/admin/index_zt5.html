@@ -1,0 +1,106 @@
+<!--index_zt5_p1-->
+<!--index_zt5_p2-->
+<!--index_zt5_p3-->
+<!--index_zt5_p4-->
+
+<body style="margin:0px;">
+<style type="text/css">
+/*专题位*/
+.m-high-quality-tuan{
+	width: 100%;
+	margin: .5rem 0;
+}
+
+.m-high-quality-tuan .tit-hasimg{
+	width: 100%;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	background: #fff;
+	padding: 0 .5rem;
+}
+
+.m-high-quality-tuan .tit-hasimg:after{
+	content: " ";
+	display: block;
+	height: 0;
+	visibility: hidden;
+	clear: both;
+}
+
+.m-high-quality-tuan .tit-hasimg img{
+	height: 100%;
+}
+
+.m-high-quality-tuan .tit-hasimg .right{
+	display: block;
+	float: right;
+	color: #ff2244;
+	background: url({$TMPL}images/icon-right.png) right center no-repeat;
+	background-size: 7%;
+	padding-right: .8rem;
+}
+
+.m-high-quality-tuan .high-quality-tuan-list{
+	width: 100%;
+}
+
+.m-high-quality-tuan .high-quality-tuan-item{
+	position: relative;
+	width: 50%;
+	float: left;
+}
+
+.m-high-quality-tuan .high-quality-tuan-item:before{
+	content: ""; 
+	display: block; 
+	padding-top: 40%;
+}
+
+.m-high-quality-tuan .high-quality-tuan-item img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%
+}
+
+.blank{height: 0;visibility: hidden;clear: both;overflow: hidden;}
+</style>
+	<div class="m-high-quality-tuan">
+		<div class="high-quality-tuan-list b-line">
+			<div class="high-quality-tuan-item r-line">
+				<a  href="javascript:void(0);" class="zt_moban"><img class="{$zt_moban}_p1" alt="" src="<php>echo $zt_img_data[$zt_moban.'_p1']['img']</php>" />
+				<input type="hidden" name="type" value="<php>echo $zt_img_data[$zt_moban.'_p1']['type']</php>" />
+				<input type="hidden" name="ctl_name" value="<php>echo $zt_img_data[$zt_moban.'_p1']['ctl_name']</php>" />
+				<input type="hidden" name="ctl_value" value="<php>echo $zt_img_data[$zt_moban.'_p1']['ctl_value']</php>" />
+				</a>
+			</div>
+			<div class="high-quality-tuan-item">
+				<a href="javascript:void(0);" class="zt_moban"><img class="{$zt_moban}_p2" alt="" src="<php>echo $zt_img_data[$zt_moban.'_p2']['img']</php>" />
+				<input type="hidden" name="type" value="<php>echo $zt_img_data[$zt_moban.'_p2']['type']</php>" />
+				<input type="hidden" name="ctl_name" value="<php>echo $zt_img_data[$zt_moban.'_p2']['ctl_name']</php>" />
+				<input type="hidden" name="ctl_value" value="<php>echo $zt_img_data[$zt_moban.'_p2']['ctl_value']</php>" />
+				</a>
+			</div>
+			<div class="blank"></div>
+		</div>
+		<div class="high-quality-tuan-list b-line">
+			<div class="high-quality-tuan-item r-line">
+				<a href="javascript:void(0);" class="zt_moban"><img class="{$zt_moban}_p3" alt="" src="<php>echo $zt_img_data[$zt_moban.'_p3']['img']</php>" />
+				<input type="hidden" name="type" value="<php>echo $zt_img_data[$zt_moban.'_p3']['type']</php>" />
+				<input type="hidden" name="ctl_name" value="<php>echo $zt_img_data[$zt_moban.'_p3']['ctl_name']</php>" />
+				<input type="hidden" name="ctl_value" value="<php>echo $zt_img_data[$zt_moban.'_p3']['ctl_value']</php>" />
+				</a>
+			</div>
+			<div class="high-quality-tuan-item">
+				<a href="javascript:void(0);" class="zt_moban"><img class="{$zt_moban}_p4" alt="" src="<php>echo $zt_img_data[$zt_moban.'_p4']['img']</php>" />
+				<input type="hidden" name="type" value="<php>echo $zt_img_data[$zt_moban.'_p4']['type']</php>" />
+				<input type="hidden" name="ctl_name" value="<php>echo $zt_img_data[$zt_moban.'_p4']['ctl_name']</php>" />
+				<input type="hidden" name="ctl_value" value="<php>echo $zt_img_data[$zt_moban.'_p4']['ctl_value']</php>" />
+				</a>
+			</div>
+			<div class="blank"></div>
+		</div>
+	</div><!-- m-topic3 -->
+
+</body>

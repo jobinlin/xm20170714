@@ -1,0 +1,231 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/auto_search.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/search.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/search.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/search.js";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/auto_search.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/auto_search.js";
+
+
+
+
+?>
+{include file="inc/search_header.html"}
+
+
+<div class="ss-header search_relative">
+    <div class="ss-logo">
+        <a class="link" href="{$APP_ROOT}/">
+            <img alt="" src="{$TMPL}/images/search/logo_ss_130402.png">
+        </a>
+    </div>
+    <div class="ss-con">
+        <div class="ss-box">
+            <div class="top_search">
+				<form action="{url x="index" r="SearchKeyWords#index"}" name="search_form" method=get>
+				<input type="hidden" name="ctl"  value="SearchKeyWords" />
+				<input type="hidden" name="act"  value="stationSearchResult" />
+				<select name="search_type" class="ui-select search_type f_l">
+					<option value="1" {if $search_type eq 1}selected="selected"{/if}>搜团购</option>
+					<!-- <option value="2" {if $search_type eq 2}selected="selected"{/if}>搜优惠</option> -->
+					<option value="3" {if $search_type eq 3}selected="selected"{/if}>搜活动</option>
+					<option value="4" {if $search_type eq 4}selected="selected"{/if}>搜商家</option>				
+					<option value="5" {if $search_type eq 5}selected="selected"{/if}>搜商品</option>
+					<!-- <option value="6" {if $search_type eq 6}selected="selected"{/if}>搜分享</option> -->
+				</select>
+				<input type="text" name="search_keyword" autocomplete="off" class="ui-textbox search_keyword f_l key_words_search_display" holder="请输入您要搜索的关键词" value="{$keyWords}" />
+				<input type="hidden" name="key_words_url"  value="{url x="index" r="SearchKeyWords#keyWordsSearchResult"}" />
+				<button class="ui-button f_l" rel="search_btn" type="submit">搜索</button>
+				</form>
+			</div>
+			
+			<div class="key_words_display">
+				<ul class="search_key_words_ul"> 
+				</ul>
+			</div>
+            
+            
+            
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="ss-content"><!--右侧end-->
+    <div class="right-con"><!--中间结果开始-->
+
+		<div class="result-list">
+            <div class="car-screen fn-clear">
+                <span class="car-term" onclick="clickopendiv()"><a href="javascript:void(0)"><i class="icon-term"></i><span class="fn-right">筛选条件</span></a></span>
+                <span style="display: block;" id="searchcount">找到约 {$count} 条结果&nbsp;&nbsp;&nbsp;&nbsp;<span>用时{$time_spent}秒</span></span>
+                <ul id="screenul" style="display: none;">
+                    <li id="handsortli" onclick="clickliSelect(1)"><a href="javascript:void(0)"><span class="fn-left" id="sortsp">按默认排序</span><i class="icon-arrow" id="sorti"></i></a>
+                        <div class="pop pop01" id="sortli" style="display: none;">
+                        <div class="pop-content">
+                        <dl class="ullist">
+                        {if $orderby eq ''}
+                        	<dd class="selected"><span>按默认排序</span></dd> 
+                        	<dd><a href="{$orderby_url}">按销量排序</a></dd></dl>
+                        {else}
+                        	
+                            <dd><a href="{$orderby_url}">按默认排序</a></dd>
+                            <dd class="selected"><span>按销量排序</span></dd> 
+						{/if}
+                        </div>
+                    </div></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="result-list">
+				{if $list}
+                {foreach from=$list item=deal}
+                    <dl class="list-dl">
+                        <dt><a href="{$deal.url}" target="_blank">{$deal.name}</a> 
+                        <dd>
+                            <div class="s-related-box">
+                                <div class="s-first-box2">
+                                	{if $deal.img}
+                                    <div class="img-box"><a href="{$deal.url}" target="_blank">
+                                    	<img lazy="true" src="{function name="get_spec_image" v=$deal.img w=120 h=90 g=1}" /></a>
+                                    </div>
+                                    {/if}
+                                        <div class="cont-box">
+                                        	{if $deal.comment_count != ''}
+                                            <div class="div1 font999"><span></span><span class="ml-20">{$deal.comment_count}个评论</span><span class="ml-20">{$deal.create_time}</span> </div>
+                                            {/if}
+                                            
+                                             
+                                            {if $deal.brief}
+                                            	<p class="p-h60">{$deal.brief}</P>
+                                            {/if} 
+                                            
+                                            {if $search_type == 3}
+                                            	<div class="div2"><span class="s-c-grey ">活动时间：{$deal.event_begin_time} - {$deal.event_end_time}</span>  </div>
+                                            	<div class="div2"><span class="s-c-grey ">报名时间：{$deal.submit_begin_time} - {$deal.submit_end_time}</span> </div>
+                                            {/if}
+                                            
+                                            {if $search_type == 4}
+                                            	<div class="div2">
+                                            		<span class="s-c-grey ">
+                                            		{if $deal.open_time}营业时间：{$deal.open_time} {/if}&nbsp;&nbsp;&nbsp;&nbsp;
+                                            		{if $deal.tel}电话：{$deal.tel} {/if}&nbsp;&nbsp;&nbsp;&nbsp;
+                                            		{if $deal.contact}联系人：{$deal.contact}{/if} 
+                                            		</span>
+                                            	</div>
+                                            	<div class="div2"><span class="s-c-grey ">地址：{$deal.address}
+                                            		</span>  
+                                            	</div>
+                                            {/if}
+                                            
+                                           
+                                            <div class="div2">
+                                            	<span class="s-c-grey fn-right">{if $deal.avg_point}{$deal.avg_point} 平均分&nbsp;&nbsp;&nbsp;&nbsp; {/if}{$deal.create_time} </span>
+                                            	<span class="s-c-green">{$deal.url}</span>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                            	{if $deal.good_rate}
+                                            	<span class="s-c-green">{$deal.good_rate}好评</span> 
+                                            	{/if}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                {/foreach}
+                {else}
+                    <div class="noresult">
+                        <h4>抱歉，没有找到和“<em>{$keyWords}</em>”相关的结果。</h4>
+                        <dl>
+                        <dt>建议您：</dt>
+                        <dd>1. 看看输入的文字有无错误；</dd>
+                        <dd>2. 保留主要关键字，减少不必要的文字；</dd>
+                        </dl>
+                    </div>
+                {/if}
+
+            </div>
+        </div><!--中间结果end-->
+        
+        
+        
+        
+        
+        
+        <!--右侧模块开始--><!--右侧模块开始-->
+        <div class="rside">
+            <!--<div class="mall-aside-box">
+                <a href="{$APP_ROOT}/" target=_blank data="oneid:1,twoid:70,threeid:148">
+                <div class=title><IMG src="{$TMPL}/images/search/logo_ss_130402.png" width=185 height=20></div>
+                <div class=pic><IMG src="{$TMPL}/images/search/logo_ss_130402.png" width=175 height=120></div>
+                <div title="TEMIX迷你指甲油 5瓶套装包邮 TEMIX迷你指甲油 5瓶套装包邮 法国..." class=company>TEMIX迷你指甲油 5瓶套装包邮 TEMIX迷你指甲油 5瓶套装包邮 法国...</div>
+                <div title="TEMIX迷你指甲油 5瓶套装包邮 TEMIX迷你指甲油 5瓶套装包邮 法国..." class=company-gray>TEMIX迷你指甲油 5瓶套装包邮 TEMIX迷你指甲油 5瓶套装包邮 法国...</div>
+                <div class="company-org">￥32.80起</div>
+                </a>
+            </div>-->
+        </div><!--右侧模块end--><!--右侧模块end-->
+        
+        
+        
+        
+        <div class=clear></div><!--分页开始-->
+        <div class="pages" style="float:left;">{$pages}</div><!--分页end-->
+        <div id=ad_650_02 class=advbox540></div>
+    </div><!--右侧end-->
+    <div class=clear></div>
+</div>
+
+
+
+
+
+
+
+<div class="footer_box">
+    <div class="clear"></div>
+    <div class="footer_bottom_box">
+        <div class="{function name="load_wrap" t=$wrap_type} clearfix">
+        
+        <div class="foot_info">
+            {if app_conf("SHOP_TEL") neq ''}
+                {$LANG.TEL}：{function name="app_conf" value="SHOP_TEL"} {function name="app_conf" value="ONliNE_TIME"}  
+                &nbsp;&nbsp;
+                {/if}				
+                {function name="app_conf" value="ICP_liCENSE"}&nbsp;&nbsp;
+                {function name="app_conf" value="COUNT_CODE"}
+                {function name="app_conf" value="SHOP_FOOTER"} 			
+                {if app_conf("ONliNE_QQ") neq ''}
+                <div class="qq_div">
+                    <div class="qq_div_in">
+                        {foreach from=$online_qq item=qq}
+                        {if $qq neq ''}
+                        <a class="qq_bg" href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes" target=_blank></a>
+                        {/if}
+                        {/foreach}					
+                    </div>					
+                </div>		
+                <div class="blank"></div>
+                {/if}
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="clear"></div>
+<a id="go_top" href="javascript:void(0);"></a>
+</body>
+</html>

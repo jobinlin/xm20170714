@@ -1,0 +1,42 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+var ajax_url='{url r="index" a="uc_money#del_bank"}';
+var r_url="{url a="index" p="uc_account#phone"}";
+function ac_phone(){
+	var phone=$("#phonenumer").val();
+	if(phone == ''){
+		setTimeout(function(){
+			location.href = r_url;
+		},1500);
+	}
+}
+</script>
+<div class="page page-current" id="uc_banklist">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+ 		<!-- 页面主体 -->
+ 		<div class="j-ajaxlist">
+		    {if $bank_list}
+		 		<ul class="bank-list j-ajaxadd">
+		 	{foreach from=$bank_list item=bank_list key=key}
+		      <li class="flex-box b-line" data-id="{$bank_list.id}">
+		        <div class="bank-info flex-1">
+		          <p class="bank-name">{$bank_list.bank_name_r}</p>
+		          <p class="user-info">{$bank_list.bank_user_r}</p>
+		        </div>
+		        <i class="iconfont del">&#xe601;</i>
+		      </li>
+		     {/foreach}
+		    </ul>
+		    {else}
+		    <div class="tipimg no_data">很抱歉，您暂无绑定银行卡！</div>
+		    {/if}
+		    <div class="pages hide">{$pages}</div>
+    	</div>
+ </div>
+</div>
+{include file="style5.2/inc/footer.html"}

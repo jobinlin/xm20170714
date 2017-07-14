@@ -1,0 +1,43 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).on("pageInit", "#uc_fx_income", function(e, pageId, $page) {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current page-text_index" id="uc_fx_income">
+ 	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+   		<!-- 页面主体 -->
+   		<a href="{url r="index" r="uc_fxwithdraw#index"}" class="flex-box fx-hd">
+        <div class="flex-1">
+          <p class="can-withdraw">可提现：{$data.fxmoney}</p>
+          <p class="all-money">累计佣金：{$data.fx_total_balance}</p>
+        </div>
+        <p class="hd-tip">提现<i class="iconfont">&#xe607;</i></p>
+      </a>
+	  {if $data.list}
+	  <div class="j-ajaxlist m-income-list">
+		  <ul class="income-list j-ajaxadd">
+			{foreach from=$data.list item=row}
+			<li class="b-line">
+			  <div class="income-time">
+				{if $row.create_time_y}<p class="income-date">{$row.create_time_y}</p>{/if}
+				<p class="income-date">{$row.create_time_m_d}</p>
+				<p class="time">{$row.create_time_H_i}</p>
+			  </div>
+			  <div class="flex-1 income-info">
+				<p class="income-num">{$row.money}</p>
+				<p class="income-tip">{$row.log}</p>
+			  </div>
+			</li>
+			{/foreach}
+		  </ul>
+		  <div class="pages hide">{$pages}</div>
+	  </div>
+	  {else}
+	  <div class="tipimg no_data">暂无记录</div>
+	  {/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

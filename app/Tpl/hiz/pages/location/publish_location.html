@@ -1,0 +1,92 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/table-list.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/project/project.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/location.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/location.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/supplier.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/supplier.js";
+?>
+<script>
+var publish_page_url="{url r="hiz" b="supplier#publish_supplier"}";
+var location_page_url="{url r="hiz" b="location#publish_location"}";
+</script>
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map"><a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>{$page_title}</span></div>
+<div class="content">
+	<div class="table-content">
+		<div class="table-nav clearfix">
+			<ul class="nav-list cleafix f_l">
+				<li class="f_l"><a class="nav-item transition" href="javascript:void(0);" data-href="{url r="hiz" b="supplier"}">已入驻商家</a></li>
+				<li class="f_l"><a class="nav-item transition" href="javascript:void(0);" data-href="{url r="hiz" b="supplier#publish_supplier"}">待审核商家</a></li>
+				<li class="f_l"><a class="nav-item transition active" href="javascript:void(0);" data-href="{url r="hiz" b="location#publish_location"}">待审核门店</a></li>
+			</ul>
+			<a href="{url r="hiz" b="location#publish"}" class="f_r table-nav-btn transition">新增门店</a>
+			<a href="{url r="hiz" b="supplier#publish"}" class="f_r table-nav-btn transition">新增商家</a>
+			<div class="table-line transition"></div>
+		</div>
+		<div class="j-ajax-content">
+			{if $list}
+			<div class="hiz-table">
+				<table>
+					<col>
+					<col>
+					<col width="20%">
+					<col width="160px">
+					<thead>
+						<td style="text-align: left;">门店名称</td>
+						<td style="text-align: left;">商家名称</td>
+						<td>状态</td>
+						<td>操作</td>
+					</thead>
+					<tbody>
+						{foreach from=$list item=item name=odd}
+						<tr {if $smarty.foreach.odd.index%2 eq 0}class="odd"{/if}>
+							<td class="shop-name">{$item.name}</td>
+							<td class="shop-name">{$item.supplier_name}</td>
+							<td>{$item.status}</td>
+							<td>
+								<a class="transition" href="{url i="hiz" a="location#publish_detail" g="data_id=$item.id"}">查看详情</a>
+								{if $item.admin_check_status eq 0}<a class="transition j-del-men" style="border-left: 1px solid #ddd;" href="javascript:void(0);" data-href="{url i="hiz" a="location#delete_publish" g="data_id=$item.id"}">彻底删除</a>{/if}
+							</td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</div>
+			<div class="pages">
+				{$pages}
+			</div>
+			{else}
+			<div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+			<div class="no-data">暂无待审核门店</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

@@ -1,0 +1,29 @@
+
+	{if $data.deal_list}
+		<div class="m-guess">
+			<div class="tit">
+			<span><i class="icon iconfont">&#xe631;</i><i>猜你喜欢</i> </span> 
+			</div>
+		</div>
+		<div class="m-goods-list">
+			<ul class="type-cube clearfix index_tuan-ul"><!-- 豆腐块列表 -->
+				
+					{foreach from=$data.deal_list item=deal }
+						<li>
+							<a href="{$deal.url}">
+								<div class="goods-img"><img alt="" date-load="1" data-src="{$deal.icon}" src="{$TMPL}/style5.2/images/loading/no-image.png"/></div>
+								<div class="goods-info">
+									<h2 class="goods-name">{$deal.name}</h2>
+									<div class="sale-info">
+										<p class="sale">已售:{$deal.buy_count}</p>
+										<p class="price">{$deal.current_price}</p>
+									</div>
+								</div>
+							</a>
+						</li>
+					{/foreach}
+				
+			</ul>
+		</div><!--m-goods-list  -->
+		
+	{/if}	

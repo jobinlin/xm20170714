@@ -1,0 +1,51 @@
+<div class="deal_add_goods_type_page">
+	<form name="search_relate"  method="post">
+	<div class="search_relate">
+		<input class="ui-textbox" name="search_relate_deal" value=""/>
+		<button class="ui-button add_related_deal" rel="white" type="submit">搜索</button>
+	</div>	
+	</form>
+	<div class="blank10"></div>
+	<div class="con_box">
+		<div id="relate_deal">
+	
+		</div>	
+				
+	
+		<div class="blank20"></div>
+		<div class="select_relate" id="relate1">
+				<input type="hidden" name="related_deal" value="{$related_deal_id}"/>
+				<div class="relate_goods_box" style="width:775px;">
+					{if $related_deal}
+					{foreach from=$related_deal item=item}
+					<div class="relate_row" rel="{$item.id}" title="{$item.name}">
+						<div class="relate_left">
+							<span class="dl_img">
+								<a href="" title="{$item.name}" target="_blank">
+									<img src="{$item.icon}" width="100" height="70">
+								</a>
+							</span>
+						</div>
+						<div class="relate_right">
+							<a href="" title="{$item.name}" target="_blank">{$item.name}</a>
+							<a class="relate_close_btn deal_relate" href="javascript:void(0);" >
+								<img src="{$TMPL}/images/delete_icon.png">
+							</a>
+						</div>
+					</div>
+					{/foreach}
+					{/if}
+				</div>
+				<div class="add_icon" style="display: none;">
+					<img src="{$TMPL}/images/add_img_icon.png">
+					<button type="button" class="btn" id="add_relate_goods">添加关联商品</button>
+				</div>
+		</div>
+		<div class="blank20"></div>
+		<div style="padding-right: 20px;" class="f_r">
+				<button class="ui-button sure_relate" rel="orange" type="button">确认</button>
+		</div>
+
+	</div>
+
+</div>

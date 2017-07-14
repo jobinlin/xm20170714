@@ -1,0 +1,30 @@
+.coupon-tab{
+	position: absolute;
+    top: 2.2rem;
+    left: 0;
+    right: 0;
+    background: #fff;
+    line-height: 2rem;
+    z-index: 10;
+}
+#uc_coupon .content{
+	top:4.2rem;
+}
+.coupon-tab .coupon-tab-item{
+	width:30%;
+	text-align: center;
+}
+.coupon-tab a{
+	display: inline-block;
+	line-height: 2rem;
+}
+.coupon-tab .tab-line{
+	display: block;
+	position: absolute;
+	bottom: 0;
+	height: .1rem;
+	border-radius: .1rem .1rem 0 0;
+	background: #ff2244;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}

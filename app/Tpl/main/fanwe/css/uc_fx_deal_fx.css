@@ -1,0 +1,31 @@
+.fx_search_box{
+	height: 60px;
+	text-align: center;
+}
+.self_search{width:600px;}
+.self_search .fx_deal_search_txt{
+	padding: 9px;
+	width: 400px;
+}
+.self_search .fx_search_btn{
+	display:inline-block; 
+	*display:inline; 
+	*zoom:1;
+	padding: 8px;
+	background-color: #f80;
+	color: #fff;
+	border: 1px solid rgb(255, 136, 0);
+	border-image-source: initial;
+	border-image-slice: initial;
+	border-image-width: initial;
+	border-image-outset: initial;
+	border-image-repeat: initial;
+	border-radius: 5px;
+	-webkit-box-shadow: rgb(240, 240, 240) 2px 2px 2px;
+	box-shadow: rgb(240, 240, 240) 2px 2px 2px;
+	margin-left:5px;
+}
+.share_to{visibility:hidden;
+          width: 70px;
+        height: 18px;
+}

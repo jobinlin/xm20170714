@@ -1,0 +1,56 @@
+<div id="recommend_data">
+{if $data.recommend_data}
+    <div class="m-promote">
+        <em class="promote-tit"><i class="promote-icon"></i>{if $data.is_shop eq 1}推荐商品{else}推荐团购{/if}</em>
+    </div>
+    {if $data.is_shop eq 1}
+    <div class="m-goods-list">
+
+        <!-- 商品列表 -->
+        <ul class="type-cube clearfix"><!-- 豆腐块列表 -->
+            {foreach from=$data.recommend_data item=re_item}
+            <li>
+                <a href="{url a="index" r="deal" g="data_id=$re_item.id"}">
+                <div class="goods-img"><img alt="" src="{$re_item.f_icon}"/></div>
+                <div class="goods-info">
+                    <h2 class="goods-name">{$re_item.name}</h2>
+                    <div class="sale-info">
+						<p class="price"><span>&yen;</span>{$re_item.f_current_price_arr.0}.<span>{$re_item.f_current_price_arr.1}</span><del class="p-price">{$re_item.f_origin_price}</del></p>
+                        {if $re_item.buy_count}
+                        <p class="sale" style="display:block;">已售{$re_item.buy_count}</p>
+                        {/if}
+                    </div>
+                </div>
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    {else}
+    <!-- 团购列表 -->
+    <div class="m-goods-list m-tuan-list">
+        <ul class="type-cube clearfix"><!-- 豆腐块列表 -->
+            {foreach from=$data.recommend_data item=re_item}
+            <li>
+                <a href="{url r="index" p="deal#index" p2="data_id=$re_item.id"}">
+                <div class="goods-img">
+                    <img alt="" src="{$re_item.f_icon}"/>
+                </div>
+
+                <div class="goods-info">
+                    <div class="tuan-name"><h2>{$re_item.sub_name}</h2><p class="distance">{$re_item.distance}</p></div>
+                    <p class="tuan-tip">{$re_item.brief}</p>
+                    <div class="sale-info">
+                        <p class="price"><span>&yen;</span> {$re_item.f_current_price_arr.0}.<span>{$re_item.f_current_price_arr.1}</span><del class="p-price">{$re_item.f_origin_price}</del></p>
+                        <p class="sale">{if $re_item.buy_count}已售{$re_item.buy_count}{/if}</p>
+                    </div>
+                </div>
+                </a>
+            </li>
+
+            {/foreach}
+        </ul>
+    </div>
+    {/if}
+{/if}
+</div>

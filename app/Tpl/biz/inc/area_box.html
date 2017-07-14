@@ -1,0 +1,40 @@
+{if $area_list}
+<div class="sub_table_box" style="width:700px;margin:0px">
+
+	<select name="p_area_id" id="area_select" class="ui-select form-select" style="margin-top:10px;">
+		<option value="">请选择区/县</option>	
+		{foreach from=$area_list item=area} 
+			<option value="{$area.id}" {if $area.checked}selected="selected"{/if}>{$area.name}</option>
+		{/foreach}
+	</select>
+	{foreach from=$area_list item=area} 
+		<div id="area_small_box_{$area.id}" class="area_list" style="margin-top:10px;">
+			{foreach from=$area.sub_area_list item=sub_area} 
+			<span class="t_item" style="margin-right:15px;display:block;float:left;"> <label class="ui-checkbox {if $sub_area.checked}common_cbo_checked{else}common_cbo{/if}" rel="common_cbo" is_sub="1"> 
+				<input type="checkbox" name="area_id[]" value="{$sub_area.id}" style="width:20px;" {if $sub_area.checked}checked="true" {/if} />{$sub_area.name}</label>
+			</span> 
+			{/foreach}
+		</div>
+	{/foreach}
+	
+</div>
+{else} 
+没有相关地区 
+{/if}
+
+<script>
+$(function(){
+	$(".area_list").hide();
+	init_ui_checkbox();
+	var item=$("#area_select").val();
+	$("#area_small_box_"+item).show();
+	$("#area_select").change(function(){
+		var rel=$(this).val();
+		
+		$(".ui-checkbox").removeClass("common_cbo_checked").addClass("common_cbo");
+		$(".sub_area").attr("checked",false);
+		$(".area_list").hide();
+		$("#area_small_box_"+rel).show();
+	});
+});
+</script>

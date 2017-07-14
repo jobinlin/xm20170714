@@ -1,0 +1,133 @@
+﻿{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var INDEX_URL='{url i="index" r="shop"}';
+var geo_url = '{url a="index" r="userxypoint"}';
+</script>
+<div class="page page-current" id="shop">
+	{include file="style5.2/inc/auto_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom infinite-index-bottom">
+  		<div class="shop-nav flex-box b-line">
+  			<a href="{url a="index" r="cate"}" class="cate-link"  data-no-cache="true">
+  				<i class="iconfont">&#xe63e;</i>
+  				<p>分类</p>
+  			</a>
+  			<a href="{url a="index" r="search#index"}" class="flex-1">
+  				<div class="flex-box go-search">
+  					<i class="iconfont">&#xe61a;</i>
+  					{if $data.keyword}
+  					<p>{$data.keyword}</p>
+  					{else}
+  					<p>搜索商品或店铺</p>
+  					{/if}
+  				</div>
+  			</a>
+  		</div>
+  <!-- Slider -->
+{if $data.advs}
+	  <div class="m-index-banner j-index-banner" data-space-between='0'>
+	    <div class="swiper-wrapper">
+	    {foreach from="$data.advs" item="adv"}
+	      <div class="swiper-slide">
+	      <a href="{$adv.url}"  data-no-cache="true">
+	      <img alt="" src="{$adv.img}" src="{$TMPL}/style5.2/images/loading/banner_load.jpg"/>
+	      </a>
+	      </div>
+		{/foreach}
+	    </div>
+	    {if $data.is_banner_square eq 1}
+	    <div class="swiper-pagination"></div>
+	    {else}
+	    <div class="swiper-pagination"></div>
+	    <div class="sbroud"><img alt="" src="{$TMPL}/style5.2/images/static/sbroud.png"/></div>
+	    {/if}
+	  </div>
+	{/if}
+
+	{if $data.indexs.count gt 0}
+		<div class="m-sort_nav  j-sort_nav" data-space-between='0'>
+		  <div class="sort_list swiper-wrapper">
+		  		{foreach name="index_nav" from=$data.indexs.list item=item key=key}
+		  		{if $smarty.foreach.index_nav.index%10 eq 0}
+		  		<div  class="sort_box swiper-slide" {$smarty.foreach.index_nav.index}>
+		  		{/if}
+			  			<div class="sort_li">	
+							<a href="{$item.url}" data-no-cache="true">
+		  	    			<span class="yuan" style="background-color:{$item.bg_color}" ><i class="diyfont" style="color:{$item.color}">{$item.icon_name}</i></span>
+							<span class="txt">{$item.name}</span>
+							</a>
+				  		</div>
+				{if $smarty.foreach.index_nav.index eq $data.indexs.count-1}
+		  		</div><!--第一版的闭合标签  -->
+		  		{/if} 		
+		  		{if $smarty.foreach.index_nav.index>2 && $smarty.foreach.index_nav.index%10 eq 9  && $smarty.foreach.index_nav.index neq $data.indexs.count-1}
+		  		</div><!-- 第二版的闭合标签 -->
+		  		{/if}
+		  		{/foreach}
+		  </div>
+		  </div>
+	{/if}
+	{if $data.zt_html3}
+	{$data.zt_html3}
+	{/if}
+	{if $data.zt_html4}
+	{$data.zt_html4}
+	{/if}
+	{if $data.zt_html6}
+	{$data.zt_html6}
+	{/if}
+	{if $data.advs2}
+	<div class="m-index-lb j-index-lb index_adv2" data-space-between='0'>
+	    <div class="swiper-wrapper">
+	      {foreach name="index_nav" from=$data.advs2 item=advs2 key=key}
+	      <div class="swiper-slide">
+	      <a href="{$advs2.url}"  data-no-cache="true">
+	      <img alt="{$advs2.name}" src="{if $advs2.img neq ''}{$advs2.img}{else}{$TMPL}/style5.2/images/text/lb_index.jpg{/if}"/>
+	      </a>
+	      </div>
+		  {/foreach}
+	    </div>
+	    <div class="swiper-pagination"></div>
+	</div>
+	{/if}
+	{if $data.zt_html5}
+	{$data.zt_html5}
+	{/if}
+	<!-- 猜你喜欢 -->
+	{if $data.supplier_deal_list}
+	<div class="m-guess">
+		<div class="tit">
+		<span><i class="icon iconfont">&#xe631;</i><i>猜你喜欢</i> </span>
+		</div>
+	</div>
+	<!-- 猜你喜欢end -->
+	<!-- 商品列表 -->
+	<div class="m-goods-list">
+		<ul class="type-cube clearfix j-ajaxadd"><!-- 豆腐块列表 -->
+		<!-- 	<ul class="type-list clearfix">常规列表     -->		
+			 {foreach from=$data.supplier_deal_list item=supplier_deal key=key}
+			 <li>
+				<a data-no-cache="true" href="{$supplier_deal.url}">
+					<div class="goods-img"><img alt="" date-load="1" data-src="{if $supplier_deal.f_icon neq ''}{$supplier_deal.f_icon}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}" src="{$TMPL}/style5.2/images/loading/no-image.png"/></div>
+					<div class="goods-info">
+						<h2 class="goods-name">{$supplier_deal.name}</h2>
+						<div class="sale-info">
+							<p class="price">{$supplier_deal.current_price}</p>
+						</div>
+					</div>
+				</a>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="page-load hide">
+			<span></span>
+		</div>
+		<div class="infinite-scroll-preloader hide">
+              <div class="preloader"></div>
+        </div>
+	</div>
+	{/if}
+	<!-- 商品列表end -->
+  	</div><!--content end  -->
+</div>
+{include file="style5.2/inc/footer.html"}

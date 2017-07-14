@@ -1,0 +1,180 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_order_view.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/plupload.full.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/uc/uc_order.js";
+?>
+{include file="inc/header.html"}
+{include file="inc/refuse_delivery_form.html"}
+<script>
+	var ajax_url = "{url x="index" r="uc_tuan#do_refund"}";
+</script>
+<div class="blank20"></div>
+
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+	<div class="side_nav left_box">
+		{include file="inc/uc_nav_list.html"}
+	</div>
+	<div class="right_box">
+		<div class="main_box">
+			<div class="order-hd">订单详情</div>
+			<div class="order-pay-bar">
+				{if $order_info.pay_status eq 0 && $order_info.is_delete eq 0}
+				<a href="{url i="index" a="cart#order" g="id=$order_info.id"}" class="order-pay-btn f_r">继续付款</a>
+				{/if}
+				<p class="order-info">
+					订单号：{$order_info.order_sn}，交易时间：{$order_info.create_time}
+				</p>
+			</div>
+
+			{if $tuan_coupon}
+			<table class="station-info" cellspacing="0" cellpadding="0">
+				<thead class="station-info-hd">
+					<tr>
+						<td width="240">序列号</td>
+						<td width="250">有效期</td>
+						<td width="100">状态</td>
+						<td width="200">操作</td>
+					</tr>
+				</thead>
+				<tbody class="station-info-bd">
+					{foreach from=$tuan_coupon item=coupon}
+					<tr>
+						<td>{$coupon.password}</td>
+						<td>{$coupon.end_time}</td>
+						<td>{$coupon.status}</td>
+						<td>
+						{if $coupon.handle}
+						<a href="javascript:void(0);" action="{$coupon.action}" class="{$coupon.class}">{$coupon.handle}</a>
+						{else}
+						--
+						{/if}
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+			{/if}
+
+			{if $order_info.invoice_info && ($order_info.invoice_info.type eq 1)}
+			<div class="info-bar">
+				<div class="info-hd">发票信息</div>
+				<div class="shop-tip">
+				<p>发票类型: 普通发票</p>
+				<p>发票抬头: {$order_info.invoice_info.persons}</p>
+				{if $order_info.invoice_info.title == 1}<p>纳税人识别码: {$order_info.invoice_info.taxnu}</p>{/if}
+				<p>发票明细: {$order_info.invoice_info.content}</p>
+				</div>
+			</div>
+			{/if}
+			
+			<div class="order-list">
+				<ul class="order-list-hd">
+					<li class="order-info">商品信息</li>
+					<li class="order-price">单价</li>
+					<li class="order-num">数量</li>
+					<li class="order-status">商品状态</li>
+				</ul>
+				{if $order_info.deal_order_item}
+				<ul class="goods-list">
+					{foreach from=$order_info.deal_order_item item=order_item}
+					<li>
+						<div class="order-info">
+							<div class="goods-img">
+								<a href="{url i="index" a="deal" g="act=$order_item.deal_id"}" target="_blank"><img src="{function name="get_spec_image" v=$order_item.deal_icon w=100 h=100 g=1}" alt=""></a>
+							</div>
+							<div class="goods-info">
+								<a href="{url i="index" a="deal" g="act=$order_item.deal_id"}" " target="_blank" class="goods-name">{$order_item.name}</a>
+								{if $order_item.attr_str}
+								<p class="goods-type">属性：{$order_item.attr_str}</p>
+								{/if}
+							</div>
+						</div>
+						<div class="order-price">{if $order_item.buy_type neq 1}{$order_item.discount_unit_price}{else}{function name="abs" v=$order_item.return_total_score}积分{/if}</div>
+						<div class="order-num">{$order_item.number}</div>
+						<table class="order-status">
+							<td>
+								{if $order_item.status.url}
+								<a href="{$order_item.status.url}">{$order_item.status.status}</a>
+								{else}
+								<p>{$order_item.status.status}</p>
+								{/if}
+								{foreach from=$order_item.status.handle item=item_handle}
+									{if $item_handle.url}
+									<a href="{$item_handle.url}" target="_blank">{$item_handle.info}</a>
+									{/if}
+									{if $item_handle.action}
+									<a href="javascript:void(0);" action="{$item_handle.action}" class="{$item_handle.class}">{$item_handle.info}</a>
+									{/if}
+								{/foreach}
+								{if $order_item.status.vaice_status}
+									<p class="font_hover">{$order_item.status.vaice_status}</p>
+								{/if}
+								{if $order_item.coupon_sn}
+								<p class="code">（券码：{$order_item.coupon_sn}）</p>
+								{/if}
+							</td>
+						</table>
+					</li>
+					{/foreach}
+				</ul>
+				{/if}
+			</div>
+			
+			<div class="pay-info">
+				{foreach from=$order_info.fee.feeinfo item=item}
+				<p>{$item.pc_name}：
+					<span class="price">
+					{if $item.symbol eq -1}-{/if}{if $item.buy_type eq 0}&yen;{/if}{$item.value}
+					</span>
+				</p>
+				{/foreach}
+				{foreach from=$order_info.fee.paid item=item}
+				<p>{$item.pc_name}：
+					<span class="price">
+					{if $item.symbol eq -1}-{/if}{if $item.buy_type eq 0}&yen;{/if}{$item.value}
+					</span>
+				</p>
+				{/foreach}
+				<p class="order-count">实际支付金额：<span class="price font_hover">&yen;{$order_info.fee.order_pay_price}</span></p>
+			</div>
+			
+			{if $order_logs}
+			<div class="info-bar">
+				<div class="info-hd">订单日志</div>
+				<ul class="order-tip-hd">
+					<li class="order-tip f_l">内容</li>
+					<li class="order-time f_l">时间</li>
+				</ul>
+				<ul class="order-tip-list clearfix">
+				{foreach from=$order_logs item=log}
+					<li class="clearfix">
+						<p class="order-tip f_l">{$log.log_info}</p>
+						<p class="order-time f_l">{$log.log_time}</p>
+					</li>
+				{/foreach}	
+				</ul>
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>
+<div class="blank20"></div>
+{include file="inc/footer.html"}

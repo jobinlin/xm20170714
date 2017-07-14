@@ -1,0 +1,100 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<PHP>
+	 
+
+	 
+	function get_handle($id,$order_info)
+	{
+		//  0:开放状态（可操作不可删除） 1:结单（不可操作可删除）
+		$str = "<a href='".u("SupplierOrder/view_order",array("id"=>$id))."'>查看订单</a>";
+		if($order_info['order_status']==1)
+		{
+			$str.="&nbsp;&nbsp;<a href='javascript:del(".$id.");'>".l("DEL")."</a>";
+		}
+		return $str;
+	}
+
+	
+	function get_supplier_order_pay_status($pay_status){
+		if($pay_status == 0){
+			$status = '未支付';
+		}
+		
+		if($pay_status == 2){
+			$status = '全部付款';
+		}
+		
+		return $status;
+	}
+	 
+	function get_supplier_order_orderStatus($order_status){
+	 	//0:开放状态（可操作不可删除） 1:结单（不可操作可删除）
+	 	if($order_status == 1){
+			$status = '结单';
+		}else{
+			$status = '开放';
+		}
+		return $status;
+	}
+	
+</php>
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">买单订单列表</div>
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+<div class="button_row">
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+	<input type="submit" class="button" value="{%SEARCH}" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+
+		订单号：<input type="text" class="textbox" name="order_sn" value="{:strim($_REQUEST['order_sn'])}" style="width:100px;" />
+		商户名称：<input type="text" class="textbox" name="supplier_name" value="{:strim($_REQUEST['supplier_name'])}" style="width:100px;" />
+		会员名称：<input type="text" class="textbox" name="user_name" value="{:strim($_REQUEST['user_name'])}" style="width:100px;" />
+		 时段：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:strim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+		<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:strim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+		<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+
+	
+		<input type="hidden" value="SupplierOrder" name="m" />
+		<input type="hidden" value="supplier_index" name="a" />
+		
+
+</div>
+</form>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="supplier_order" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+			,order_sn:{%ORDER_SN}
+			,user_name:{%USER_NAME}
+			,supplier_name:{%OWNED_SUPPLIER}
+			,supplier_location_name:{%PAYMENT_SUPPLIER_LOCATION}
+			,total_price|format_price:{%PAY_AMOUNT}
+			,pay_amount|format_price:{%PAID_AMOUNT}
+		 	,create_time|to_date:{%PAY_BILL_TIME}
+		 	,pay_status|get_supplier_order_pay_status:{%PAYMENT_STATUS}		 
+		 	,order_status|get_supplier_order_orderStatus:{%SUPPLIER_ORDER_STATUS}"	 
+	actionlist="id|get_handle=$supplier_order" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

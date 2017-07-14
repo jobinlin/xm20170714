@@ -1,0 +1,98 @@
+<div class="register_box clearfix">
+
+	
+	<div class="register-panel form_panel" rel="{$form_prefix}">
+
+		
+		<div class="panel" rel="ph" style="display: block;">
+		<form name="{$form_prefix}_ph_register_form" class="ph_register" method="post" action="{url x="index" r="user#dophregister"}">
+			<input type="hidden" name="form_prefix" value="{$form_prefix}" />
+			<dl>
+				<dt>用户名</dt>
+				<dd>
+					<input class="ui-textbox" name="user_name" holder="请输入用户名" />
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>密码</dt>
+				<dd>
+					<input type="password" name="user_pwd" class="ui-textbox" holder="请输入密码"  rel="ph"/>
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			<dl class="pwd_chk_line" rel="ph">
+				<dt></dt>
+				<dd>
+					<ul>
+						<li rel="0">弱</li>
+						<li rel="1">中</li>
+						<li rel="2" class="no_margin">强</li>
+					</ul>
+				</dd>
+			</dl>
+			<dl>
+				<dt>确认密码</dt>
+				<dd>
+					<input type="password" name="user_pwd_confirm" class="ui-textbox" holder="请再次输入密码" rel="ph" />
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>手机号</dt>
+				<dd>
+					<input class="ui-textbox" name="user_mobile" value="" holder="请输入手机号" />
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			
+			<dl class="ph_img_verify" {if $sms_ipcount>1}style="display:block"{/if}>
+				<dt>图片验证码</dt>
+				<dd>
+					<input type="text" name="verify_code" class="ui-textbox img_verify" holder="请输入图片文字" />
+					<img src="{$APP_ROOT}/verify.php" class="verify" rel="{$APP_ROOT}/verify.php" />
+					<a href="javascript:void(0);" class="refresh_verify">看不清楚？换一张！</a>
+					<span class="form_tip"></span>
+				</dd>
+			</dl>	
+					
+			<dl>
+				<dt>验证码</dt>
+				<dd>
+					<input class="ui-textbox ph_verify" name="sms_verify" holder="请输入验证码" />
+					<button class="ui-button f_l light ph_verify_btn" rel="light" form_prefix="{$form_prefix}" lesstime="{$sms_lesstime}" type="button">发送验证码</button>
+					
+					<span class="form_tip"></span>
+				</dd>
+			</dl>
+			
+
+            <dl>
+                <dt>所在地址</dt>
+                <dd>
+                    <div class="field_select f_l">
+                        <select class="settings_province_id phone ui-select" name="province_id" height="200">
+                            <option value="0">所在省份</option>
+                        </select>
+                    </div>
+                    <div class="field_select f_l">
+                        <select class="settings_city_id phone ui-select" name="city_id" height="200">
+                            <option value="0">所在城市</option>
+                        </select>
+                    </div>
+                    <span class="form_tip"></span>
+                </dd>
+            </dl>
+			<dl>
+				<dt></dt>
+				<dd>
+					<button class="ui-button f_l orange" rel="orange" type="submit">立即注册</button>
+					
+				</dd>
+			</dl>
+		</form>
+		</div>
+	</div>
+
+	
+</div>

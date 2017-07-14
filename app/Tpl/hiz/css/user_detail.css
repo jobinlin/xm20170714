@@ -1,0 +1,29 @@
+.content .head_box_no_line {
+    z-index: 2;
+    zoom: 1;
+}
+.head_box_new ul,.head_box_no_line ul{
+    margin:10px 10px;
+    line-height: 30px;
+}
+.head_box_new h3,.head_box_no_line h3{
+    line-height: 40px;
+    height: 40px;
+    font-size: 16px;
+    background: #f7f7f7;
+    padding: 0 20px;
+}
+.head_box_new li p,.head_box_no_line li p{
+    display: inline-block;
+}
+ p.first{
+    text-align:  right;
+    width: 120px;
+    margin-right: 20px;
+}
+p.second{
+    text-align:  left;
+}
+.back-list{
+    margin: 0 20px 0;
+}

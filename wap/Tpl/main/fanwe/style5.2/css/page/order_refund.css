@@ -1,0 +1,82 @@
+/*2.0css标配*/
+
+#uc_order_refund .m-modify{
+    margin-bottom: 0;
+}
+#uc_order_refund .m-modify .m-cart-list{
+    margin-left: 0!important;
+}
+#uc_order_refund .m-cart-list li{
+    background: #ffffff;
+    padding-left: 0.5rem!important;
+    padding-bottom: 2px;
+}
+#uc_order_refund .m-cart-list .item-inner{
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-right: 0.5rem;
+}
+/*2.0css标配*/
+
+#uc_order_refund .z-opera .shopTi {
+    max-width: 93%;
+    height: 100%;
+    position: relative;
+}
+#uc_order_refund .refund-sure{
+    font-size: @f_size3;
+    color: @f_color1;
+    line-height: 2.25rem;
+    position: relative;
+    z-index: 99999;
+}
+#uc_order_refund .shop_state{
+    font-size: @f_size3;
+    color: @f_color1;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.6rem;
+}
+#uc_order_refund .checkDiv{
+    width: 1rem;
+    margin-right: 0.5rem;
+}
+#uc_order_refund .label_check{
+    border-radius: 1rem;
+    margin-top: 0rem;
+    background: #ffffff;
+}
+#uc_order_refund .label_check input[type=checkbox]{
+    display: none;
+}
+#uc_order_refund .iconBox{
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    border-radius: 1rem;
+    border: 1px solid #e3e5e9;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    background-image: url("@url/static/check_bg.png");
+    background-size: 100% 100%;
+}
+#uc_order_refund .label_check input[type=checkbox]:checked+.iconBox{
+    background-color: #ff2244;
+    border: 1px solid #ff2244!important;
+}
+
+#uc_order_refund .m-cart-list .shopTi p.sizes {
+    margin-top: 0.6rem;
+}
+
+#uc_order_refund .choiceDiv{
+    width: 4rem;
+    padding-top: 0.7rem;
+    padding-left: 0.5rem;
+}
+#uc_order_refund .choiceDiv .ch_font{
+    font-size: @f_size3;
+    color: @f_color1;
+    margin-left: 0.3rem;
+}

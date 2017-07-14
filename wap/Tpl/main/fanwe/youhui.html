@@ -1,0 +1,164 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+
+<div class="page page-index page-current" id="youhui">
+	<!--<nav class="bar bar-tab">
+	{if $youhui_status eq 0}
+		{if $app_index eq 'app'}
+		<a href="javascript:App.login_sdk();" class="sign-up">登录后领取</a>
+		{else}
+		<a href="{url a="index" r="user#login"}" class="sign-up">登录后领取</a>
+		{/if}
+	{elseif $youhui_status eq 2}
+		<a href="javascript:void(0)" class="sign-up isOver">未开始</a>
+	{elseif $youhui_status eq 9}
+		<a href="javascript:void(0)" class="sign-up isActive" data-src="{url a="index" r="youhui#download_youhui" p="data_id=$youhui.id"}">马上领取</a>
+	{elseif $youhui_status eq 6}
+		<a href="javascript:void(0)" class="sign-up isOver">您的积分不足</a>
+	{elseif $youhui_status eq 5}
+		<a href="javascript:void(0)" class="sign-up isOver">您的经验值不足</a>
+	{elseif $youhui_status eq 3}
+		<a href="javascript:void(0)" class="sign-up isOver">您来晚了，已抢光</a>
+	{elseif $youhui_status eq 1}
+		<a href="javascript:void(0)" class="sign-up isOver">您来晚了，领取已结束</a>
+	{elseif $youhui_status eq 4}
+		<a href="javascript:void(0)" class="sign-up isOver">今日优惠券已领完</a>
+	{/if}
+	</nav>-->
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+		<div class="m-event-banner">
+			<!-- <img src="{$TMPL}/style5.2/images/text/event-banner.png" alt="banner图片" class="banner-img"> -->
+			<img src="{$youhui.image_3}" alt="" width="100%">
+			{if $youhui.point_limit}
+			<div class="lab">经验值{$youhui.point_limit}以上专享</div>
+			{/if}
+			<div class="m-youhui-name-date">
+				<div class="youhui-name">{if $youhui.supplier_info_name}[{$youhui.supplier_info_name}]{/if}{$youhui.name}</div>
+				{if $youhui.begin_time gt $youhui.now_time}
+					<div class="left-time j-LeftTime" nowtime="{$youhui.now_time}" endtime="{$youhui.begin_time}">
+						距开抢还剩<span class="s day">--</span><span class="l">天</span><span class="s hour">--</span><span class="l">:</span><span class="s min">--</span><span class="l">:</span><span class="s sec">--</span>
+					</div>
+				{else}
+					{if $youhui.total_num gt 0}
+					<div class="join-num">
+						已抢 {$youhui.user_percent}%
+						<div class="progress">
+							<div class="progress-con" style="width: {$youhui.user_percent}%"></div>
+						</div>
+					</div>
+					{/if}
+				{/if}
+			</div>
+		</div>
+
+		<div class="m-event-know">
+			<div class="event-know-tit b-line">领取须知</div>
+			<ul class="event-know-list">
+				{if $youhui.score_limit}
+					<li class="event-know-item">优惠券领取需消耗{$youhui.score_limit}积分</li>
+				{/if}
+				{if $youhui.user_limit}
+					<li class="event-know-item">每个会员每日限领 {$youhui.user_limit} 张</li>
+				{/if}
+				<li class="event-know-item">{$youhui.format_expire}</li>
+				<li class="event-know-item">{$youhui.format_end_time}</li>
+			</ul>
+		</div>
+
+		<div class="m-shopinfo">
+			<div class="name-range">
+				<a href="{$data.other_supplier_location.0.url}" data-no-cache="true">
+					<div class="shopName">{$data.other_supplier_location.0.name}</div>
+					<div class="shopRange">{$data.other_supplier_location.0.distance_format}</div>
+				</a>
+			</div>
+			<div class="addressTel">
+				<div class="shop-address r-line">{if $data.other_supplier_location.0.address}{$data.other_supplier_location.0.address}{else}暂无地址{/if}</div>
+				<div class="shop-tel">
+					<a href="tel:{$data.other_supplier_location.0.tel}">
+						<i class="iconfont">&#xe618;</i>
+					</a>
+				</div>
+			</div>
+			{if $youhui.location_count >= 2}
+			<div class="event-showMore t-line">
+				<a href="{url r="index" b="location" p="&data_id=$youhui.id&type=youhui"}">
+					查看全部{$youhui.location_count}家分店
+					<i class="iconfont f_r icon-style">&#xe607;</i>
+				</a>
+			</div>
+			{/if}
+		</div>
+		<a href="{url r="index" b="youhui#detail" p="&data_id=$youhui.id"}" class="m-show-detail" data="1">
+			查看图文详情
+			<i class="iconfont f_r">&#xe607;</i>
+		</a>
+
+		<dl class="m-comment">
+			<a href="{url r="index" b="youhui#reviews" p="&data_id=$youhui.id"}" class="j-detail" data="2" data-no-cache="true">
+			<div class="comment-tit">
+				评价
+				{if $data.dp_count}<em class="comment-count">（{$data.dp_count}）</em>{/if}
+				<i class="iconfont f_r icon-style">&#xe607;</i>
+				<div class="star-box">
+					<div class="m-start tit-start">
+						<div class="start-num" style="width: {$youhui.avg_point_percent}%"></div>
+					</div>
+					<em class="comment-num">{$youhui.avg_point}</em>
+				</div>
+			</div>
+			</a>
+			<!--单条点评数据-->
+			{if $data.dp_count gt 0}
+			{foreach from=$data.dp_list item=dp}
+			<dd class="comment-con">
+				<div class="t-line">
+					<div class="commenter">
+						<img alt="用户头像" class="avatar f_l" date-load="1" data-src="{$dp.user_avatar}" src="{$dp.user_avatar}" width="42">
+						<div class="user-date f_l">
+							<p class="username">{if $dp.user_name}{$dp.user_name}{else}&nbsp;{/if}</p>
+							<p class="date">{if $dp.create_time}{$dp.create_time}{else}&nbsp;{/if}</p>
+						</div>
+						<div class="m-start con-start">
+							<div class="start-num" style="width: {$dp.point_percent}%"></div>
+						</div>
+					</div>
+
+					<div class="comment-txt">
+						{$dp.content}
+					</div>
+					{if $dp.images}
+					<ul class="comment-imglist">
+						{foreach from=$dp.images item=img key=key name=dp}
+						<li class="comment-imgitem j-comment-item" data="{$smarty.foreach.dp.iteration}">
+							<img date-load="1" dfasf="{$smarty.foreach.dp_imgs.index}" data-src="{$img}" src="{$img}" data-lingtsrc="{$img}" width="65" alt="" />
+						</li>
+						{/foreach}
+					</ul>
+					{/if}
+				</div>
+			</dd>
+			{/foreach}
+			{if $data.dp_count gt 2}
+			<dd class="more-comment t-line">
+				<a href="{url r="index" b="youhui#reviews" p="&data_id=$youhui.id"}" class="showmorecomment j-detail" data="2" data-no-cache="true">
+					查看全部评价
+					<i class="iconfont f_r icon-style">&#xe607;</i>
+				</a>
+			</dd>
+			{/if}
+			{else}
+			<dd class="more-comment t-line" style="text-align:center">暂无评价</dd>
+			{/if}
+		</dl>
+	</div>
+
+	<script>
+		var ajax_url = '{url r="index" p="youhui"}';
+		var youhui_id = {$youhui.id};
+	</script>
+
+
+</div>
+{include file="style5.2/inc/footer.html"}

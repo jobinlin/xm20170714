@@ -1,0 +1,203 @@
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	var nav_cfg = {$nav_cfg|json_encode};
+	var data_json = {$data|json_encode};
+	var ctl_value = '{$ctl_value}';
+
+	var mobile_type = {$mobile_type};
+	$(document).ready(function(){
+		init_nav_type($("#typeSelect").val());
+		$("#typeSelect").bind("change",function(){
+			init_nav_type($(this).val());
+		});
+		
+		$("#cancel").bind("click",function(){
+			close_weebox();
+		});
+		
+		$("#confirm").bind("click",function(){
+			/*
+			var query = $(form).serialize();
+			var action = $(this).attr("action");
+			ajax_do_submit(action,query);
+			*/
+			if(!$("#img_del_img").is(':visible')){
+				alert('请上传广告图片');
+				return false;
+			}
+			var img_url=$("#img_img").attr('src');
+			var img_obj=$("input[name='zt_position']").val();
+			var type=$("#typeSelect").val();
+			var ctl_value=$("#type .item_input input").val();
+			$('.'+img_obj,window.parent.document).attr('src',img_url);
+			$('.'+img_obj,window.parent.document).siblings("input[name='type']").val(type);
+			$('.'+img_obj,window.parent.document).siblings("input[name='ctl_value']").val(ctl_value);
+			
+			for(nav_key in nav_cfg)
+			{
+				nav_cfg_item = nav_cfg[nav_key];
+				if(nav_cfg_item['mobile_type']==mobile_type)
+				{
+					navs = nav_cfg_item['nav'];
+					break;
+				}
+			}
+
+
+
+			for(nav_key in navs)
+			{
+				nav_item = navs[nav_key];
+				if(type==nav_item['type'])
+				{
+					var ctl_name=nav_item['field'];
+					break;
+				}
+			}
+			$('.'+img_obj,window.parent.document).siblings("input[name='ctl_name']").val(ctl_name);
+
+
+			var len=$("input[name='id']",window.parent.document).length;
+			if(len > 0){
+				zt_id=$("input[name='id']",window.parent.document).val();
+			}else{
+				zt_id=$("input[name='rid']",window.parent.document).val();
+			}
+
+			//rid
+			var mobile_type2 = $("#mobileTypeSelect",window.parent.document);
+			var query=$("form[name='edit']").serialize();
+			//console.log(ROOT+'?'+query);
+			$.ajax({ 
+				url: ROOT+'?'+query+'&zt_id='+zt_id+'&mobile_type2='+mobile_type+'&img='+img_url,
+				type: "POST",
+				dataType:"json",
+				success: function(obj){
+
+					if(obj.status==1){
+						
+						close_weebox();	
+					}else{
+						alert(obj.info);
+					}
+							
+				}
+			});
+			
+
+			
+			//alert(img_url);
+			
+		});
+
+	});
+	function init_nav_type(type)
+	{
+		$("#type").hide();
+
+		var navs = null;
+		for(nav_key in nav_cfg)
+		{
+			nav_cfg_item = nav_cfg[nav_key];
+			if(nav_cfg_item['mobile_type']==mobile_type)
+			{
+				navs = nav_cfg_item['nav'];
+				break;
+			}
+		}
+
+		var val = type;
+
+		for(nav_key in navs)
+		{
+			nav_item = navs[nav_key];
+			if(val==nav_item['type'])
+			{
+
+				if(nav_item['field']!="")
+				{
+					$("#type").show();
+					$("#type").find(".item_title").html(nav_item['fname']);
+					$("#type").find(".item_input input").attr("name",nav_item['field']);
+
+
+					var data_val = "";
+					try{
+						data_val = data_json[nav_item['field']];
+					}catch(ex)
+					{
+
+					}
+
+					if(data_val)
+					{
+						$("#type").find(".item_input input").val(data_val);
+					}
+					else
+					{
+						$("#type").find(".item_input input").val("");
+					}
+				}
+				break;
+			}
+		}
+	}
+	
+	function close_weebox(){
+		$(".dialog-mask",window.parent.document).remove();
+		$("#open_zt_box",window.parent.document).remove();
+	}
+
+
+</script>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+	<td class="item_title">{%ADV_IMAGE}:</td>
+	<td class="item_input">
+		<html:imgUpload name = 'img' id='img' value='$zt_img_pic' />
+
+	</td>
+</tr>
+
+	<tr>
+		<td class="item_title">{%ADV_TYPE}:</td>
+		<td class="item_input">
+			<select name="type" id='typeSelect'>
+				<foreach name="nav_list" item="nav">
+					<option value="{$nav.type}" <if condition="$type eq $nav['type']">selected="selected"</if>>{$nav.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+
+	<tr id="type" style="display:none;">
+		<td class="item_title"></td>
+		<td class="item_input">
+			<input type="text" class="textbox " name=""  />
+		</td>
+	</tr>
+</table>
+
+	<input type="hidden" name="zt_moban" value="{$zt_moban}" />
+	<input type="hidden" name="zt_position" value="{$zt_img}" />
+	<input type="hidden" name="{:conf("VAR_MODULE")}" value="MZt" />
+	<input type="hidden" name="{:conf("VAR_ACTION")}" value="zt_img_upload" />
+	<!--隐藏元素-->
+
+			
+</form>	
+<div style="clear:both"></div>
+<div class="dialog-button" style="text-align:center; margin-top: 5px;">	
+<button id="confirm" class="ui-button dialog-ok" rel="dialog-ok" value="确定">确定</button>	
+<button id="cancel" class="ui-button dialog-cancel" rel="dialog-cancel" value="取消">关闭</button>
+</div>
+<div style="text-align:center;">
+	<img style="margin: 10px auto 0;max-width: 99%;border: solid 2px #ccc;height: 320px;" src="{$zt_moban_demo}" />
+</div>
+
+<include file="Public:footer" />

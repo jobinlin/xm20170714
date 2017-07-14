@@ -1,0 +1,144 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_locations_list">
+	<div class="dc-list-nav flex-box b-line">
+		<div class="dc-nav-item j-open-select flex-box flex-1">
+			<p class="nav-item-txt now-cate-name">{if $param.cid}{$cate_name}{else}商家分类{/if}</p>
+			<p class="iconfont">&#xe608;</p>
+		</div>
+		<div class="dc-nav-item j-open-select flex-box flex-1">
+			<p class="nav-item-txt now-sort">{if $param.sort eq 1}综合评分{else}距离最近{/if}</p>
+			<p class="iconfont">&#xe608;</p>
+		</div>
+		<div class="dc-nav-item j-open-select flex-box flex-1">
+			<p class="nav-item-txt">筛选</p>
+			<p class="iconfont fliter-ico">&#xe692;</p>
+		</div>
+	</div>
+	<div class="dc-mask j-close-select"></div>
+	<form action="{url i="index" a="dc_locations"}" name="dc_location_param">
+			<div class="dc-select dc-cate-list">
+				<div class="j-ajaxchoose j-close-select dc-select-item flex-box b-line">
+					<p class="select-tit flex-1">全部</p>
+					<p class="select-num">{$data.all_count}</p>
+				</div>
+				{foreach from=$data.cate_list item=item}
+				<div class="j-ajaxchoose j-close-select dc-select-item flex-box b-line {if $item.id eq $param.cid}active{/if}" data-id="{$item.id}">
+					<p class="select-tit flex-1">{$item.name}</p>
+					<p class="select-num">{$item.cate_count}</p>
+				</div>
+				{/foreach}
+				<input type="hidden" name="cid" value="{$param.cid}">
+			</div>
+			<div class="dc-select dc-dp-dis">
+				<div class="j-ajaxchoose j-close-select dc-select-item b-line flex-box" data-id="0">
+					<p class="select-tit">距离最近</p>
+				</div>
+				<div class="j-ajaxchoose j-close-select dc-select-item b-line flex-box" data-id="1">
+					<p class="select-tit">评价最高</p>
+				</div>
+				<input type="hidden" name="sort" value="{$param.sort}">
+			</div>
+			<div class="dc-select dc-fliter">
+				<div class="dc-fliter-hd">商家属性</div>
+				<div class="dc-fliter-bd clearfix">
+					<div class="fliter-item j-fliter-item {if $param.dc_online_pay}active{/if}">
+						<input type="checkbox" name="dc_online_pay" value="1" {if $param.dc_online_pay}checked="checked"{/if}>
+						<p class="fliter-txt">在线支付</p>
+					</div>
+					<div class="fliter-item j-fliter-item {if $param.dc_allow_cod}active{/if}">
+						<input type="checkbox" name="dc_allow_cod" value="1" {if $param.dc_allow_cod}checked="checked"{/if}>
+						<p class="fliter-txt">货到付款</p>
+					</div>
+					<div class="fliter-item j-fliter-item {if $param.no_delivery_price}active{/if}">
+						<input type="checkbox" name="no_delivery_price" value="1" {if $param.no_delivery_price}checked="checked"{/if}>
+						<p class="fliter-txt">免费配送</p>
+					</div>
+					<div class="fliter-item j-fliter-item {if $param.dc_allow_invoice}active{/if}">
+						<input type="checkbox" name="dc_allow_invoice" value="1" {if $param.dc_allow_invoice}checked="checked"{/if}>
+						<p class="fliter-txt">支持开发票</p>
+					</div>
+					<div class="fliter-item j-fliter-item {if $param.no_start_price}active{/if}">
+						<input type="checkbox" name="no_start_price" value="1" {if $param.no_start_price}checked="checked"{/if}>
+						<p class="fliter-txt">0元起送</p>
+					</div>
+				</div>
+				<div class="dc-fliter-hd">优惠活动</div>
+				<div class="dc-fliter-bd clearfix">
+					<div class="fliter-item j-fliter-item {if $param.is_firstorderdiscount}active{/if}">
+						<input type="checkbox" name="is_firstorderdiscount" value="1" {if $param.is_firstorderdiscount}checked="checked"{/if}>
+						<p class="fliter-txt">首单立减</p>
+					</div>
+					<div class="fliter-item j-fliter-item {if $param.is_payonlinediscount}active{/if}">
+						<input type="checkbox" name="is_payonlinediscount" value="1" {if $param.is_payonlinediscount}checked="checked"{/if}>
+						<p class="fliter-txt">满减优惠</p>
+					</div>
+				</div>
+				<div class="fliter-sub-bar t-line">
+					<button class="fliter-done j-fliter-done j-close-select" type="button">完成</button>
+				</div>
+			</div>
+		</form>
+	    {if $app_index=='app'}
+			<header class="bar bar-nav b-line">
+	        	<a class="header-btn header-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a>
+				<h1 class="header-title">{$data.page_title}</h1>
+				<a href="javascript:void(0);" class="header-right header-btn iconfont">&#xe621;</a>
+			</header>
+			{if $is_pop_box}
+				{include file="style5.2/inc/module/pop-light-img.html"}
+			{/if}
+		{else}
+			{include file="style5.2/inc/module/dropdown-nav.html"}
+			<header class="bar bar-nav b-line">
+				<a class="header-btn header-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a>
+				<a class="header-title" href="{url a="index" r="dcposition"}"  data-no-cache="true">{$data.page_title}</a>
+				<a href="{url a="index" r="dc_search" go="type=1"}" class="header-right header-btn iconfont"  data-no-cache="true">&#xe621;</a>
+			</header>
+			<!-- 弹出层 -->
+			{if $is_pop_box}
+				{include file="style5.2/inc/module/pop-light-img.html"}
+			{/if}
+		{/if}
+	    <div class="content infinite-scroll infinite-scroll-bottom">
+	      	<div class="dc-shop-list j-ajaxlist">
+	      		{if $data.dc_location_list}
+	      		<ul class="j-ajaxadd shop-list">
+	      			{foreach from=$data.dc_location_list item=item}
+	      			<li class="b-line">
+	      				<a href="{url a="index" r="dc_location" g="data_id=$item.id"}" class="shop-item" data-no-cache="true">
+	      					
+	      					<div class="shop-logo"><img src="{$item.preview}" alt="">{if $item.is_in_opentime eq 0 || $item.is_close eq 1}<span class="close-mask" style="background-color: rgb(192,192,192);">店铺休息</span>{/if}</div>
+	      					<div class="shop-info flex-1">
+	      						<p class="shop-name">{$item.name}</p>
+	      						<div class="price-distance flex-box">
+	      							<p class="price flex-1">起送 {if $item.start_price}{$item.format_start_price}{else}&yen;0{/if} | {if $item.delivery_price}配送费：{$item.format_delivery_price}{else}免费配送{/if}</p>
+	      							<p class="distance">{$item.format_distance}</p>
+	      						</div>
+	      						<div class="m-youhui-box">
+	      							<ul class="youhui-box flex-1">
+	      								{if $item.is_payonlinediscount}
+	      								<li class="youhui-item flex-box"><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt=""></div><p class="youhui-txt">{$data.promote_info.is_payonlinediscount.description}</p></li>
+	      								{/if}
+	      								{if $item.is_firstorderdiscount}
+	      								<li class="youhui-item flex-box"><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico2.png" alt=""></div><p class="youhui-txt">{$data.promote_info.is_firstorderdiscount.description}</p></li>
+	      								{/if}
+	      								
+	      							</ul>
+	      						</div>
+	      					</div>
+	      				</a>
+	      				{if $item.promote_count gt 2}
+	      				<div class="youhui-num j-open-youhui"><p>{$item.promote_count}个活动</p><i class="iconfont">&#xe608;</i></div>
+	      				{/if}
+	      			</li>
+	      			{/foreach}
+	      		</ul>
+	      		<div class="pages hide">{$pages}</div>
+				{else}
+				<div class="tipimg no_data">暂无商家</div>
+				{/if}
+	      </div>  	
+	  </div>
+</div>
+{include file="style5.2/inc/footer.html"}

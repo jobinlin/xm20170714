@@ -1,0 +1,27 @@
+<div class="dropdown-navlist flex-box">
+	<a href="javascript:App.app_detail(1,0);" class="flex-1" data-no-cache="true">
+		<i class="iconfont">&#xe61f;</i>
+		<p>首页</p>
+	</a>
+	<a href="javascript:App.app_detail(105,0);" class="flex-1" data-no-cache="true">
+		<i class="iconfont">&#xe621;</i>
+		<p>搜索</p>
+	</a>
+	{if $is_login}
+	<a href="javascript:App.app_detail(108,0);" class="flex-1" data-no-cache="true">
+	{else}
+	<a href="javascript:App.login_sdk();" class="flex-1" data-no-cache="true">
+		{/if}
+		<i class="iconfont {if $user_info.msg_count gt 0}redpoint{/if}">&#xe620;</i>
+		<p>消息</p>
+	</a>
+
+	<a href="javascript:App.app_detail(106,0);" class="flex-1" data-no-cache="true">
+		<i class="iconfont {if $data.cart_total_num}redpoint{/if}">&#xe61e;</i>
+		<p>购物车</p>
+	</a>
+	<a href="javascript:App.app_detail(107,0)" class="flex-1" data-no-cache="true">
+		<i class="iconfont">&#xe622;</i>
+		<p>我的</p>
+	</a>
+</div>

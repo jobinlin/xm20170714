@@ -1,0 +1,39 @@
+<if condition="$area_list">
+	<div class="area_big_box">
+	<label>
+		<select name="p_area_id" id="area_select" class="ui-select form-select">
+			<option value="">请选择区/县</option>	
+			<foreach name="area_list" item="area">
+				<option value="{$area.id}" <if condition="$area['checked']">selected="selected"</if> >{$area.name}</option>
+			</foreach>
+		</select>
+	</label>
+	</div>
+	<div style="margin:0;margin-top:10px;width:500px;">
+	<foreach name="area_list" item="area">
+		<div id="area_small_box_{$area.id}" class="area_list">
+			<foreach name="area['sub_area_list']" item="sub">
+				<label style="margin-right:20px;display:block;float:left;"><input type="checkbox" name="area_id[]" class="sub_area" value="{$sub.id}" <if condition="$sub['checked']">checked="checked"</if> >{$sub.name}</label>
+			</foreach>
+		</div>
+	</foreach>
+	</div>
+	<div class="blank5"></div>
+	<div style="border-bottom:solid 1px #ccc;"></div>
+<script>
+$(function(){
+	$(".area_list").hide();
+	var item = $("#area_select").val();
+	$("#area_small_box_"+item).show();
+	$("#area_select").change(function(){
+		var rel=$(this).val();
+		
+		$(".sub_area").attr("checked",false);
+		$(".area_list").hide();
+		$("#area_small_box_"+rel).show();
+	});
+});
+</script>
+<else />
+{%NO_AREALIST}
+</if>

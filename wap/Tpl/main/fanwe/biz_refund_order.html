@@ -1,0 +1,56 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current" id="biz_refund_order">
+    {include file="style5.2/inc/biz_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		{if $data.list}
+		<div class="m-biz-refund-bar j-ajaxlist">
+			<ul class="biz-refund-bar j-ajaxadd">
+				{foreach from=$data.list item=item name="item"}
+				<li>
+					<a href='{url a="biz" b="refund_order#view" c="data_id=$item.id&msg_id=$item.message_id"}'  data-no-cache="true">
+					<!--<div class="refund-hd flex-box">
+						<p class="order-code flex-1">订单编号：{$item.order_sn}</p>
+						<p class="refund-status">{$item.status_info}</p>
+					</div>-->
+					<div class="refund-hd flex-box">
+						<p class="order-code flex-1">申请时间：{$item.refund_time}</p>
+						<p class="refund-status">{$item.status_info}</p>
+					</div>
+					<div class="order-info">
+						<div class="order-img"><img src="{$item.deal_icon}" alt="商品图片"></div>
+						<div class="order-detail flex-1">
+							<div class="order-name-price">
+								<p class="order-name flex-1">
+									{$item.name}
+								</p>
+								<div class="price-info">
+									<p class="price"><span>&yen;</span>{$item.format_unit_price}</p>
+									<p class="num">x{$item.number}</p>
+								</div>
+							</div>
+							{if $item.attr_str neq ""}<p class="order-type">规格：{$item.attr_str}</p>{/if}
+						</div>
+					</div>
+					</a>
+					{if $item.is_refund eq 1}
+					<div class="refund-bar">
+						<a href='{url a="biz" b="refund_order#view" c="data_id=$item.id&msg_id=$item.message_id"}'  data-no-cache="true">退款</a>
+					</div>
+					{/if}
+				</li>
+				{/foreach}
+			</ul>
+			<div class="pages hide">{$pages}</div>
+		</div>
+		{else}
+		<div class="tipimg no_data">暂无数据</div>
+		{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

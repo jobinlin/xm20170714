@@ -1,0 +1,144 @@
+﻿{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="main">
+<script>
+var INDEX_URL='{url i="index" r="main"}';
+var html_id='main';
+var geo_url = '{url a="index" r="userxypoint"}';
+var TENCENT_MAP_APPKEY="<?php echo app_conf("TENCENT_MAP_APPKEY"); ?>";
+</script>
+	{include file="style5.2/inc/auto_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom infinite-index-bottom">
+  <!-- Slider -->
+	{if $data.advs}
+	  <div class="m-index-banner j-index-banner" data-space-between='0'>
+	    <div class="swiper-wrapper">
+	    {foreach from="$data.advs" item="adv"}
+	      <div class="swiper-slide">
+	      <a href="{$adv.url}" data-no-cache="true">
+	      <img alt="" src="{$adv.img}"/>
+	      </a>
+	      </div>
+		{/foreach}
+	    </div>
+	    {if $data.is_banner_square eq 1}
+	    <div class="swiper-pagination flex-box"></div>
+	    {else}
+	    <div class="swiper-pagination flex-box"></div>
+	    <div class="sbroud"><img alt="" src="{$TMPL}/style5.2/images/static/sbroud.png"/></div>
+	    {/if}
+	  </div>
+	{/if}
+	{if $data.indexs.count gt 0}
+		<div class="m-sort_nav  j-sort_nav" data-space-between='0'>
+		  <div class="sort_list swiper-wrapper">
+		  		{foreach name="index_nav" from=$data.indexs.list item=item key=key}
+		  		{if $smarty.foreach.index_nav.index%10 eq 0}
+		  		<div  class="sort_box swiper-slide" {$smarty.foreach.index_nav.index}>
+		  		{/if}
+			  			<div class="sort_li">	
+							<a href="{$item.url}" data-no-cache="true">
+		  	    			<span class="yuan" style="background-color:{$item.bg_color}" ><i class="diyfont" style="color:{$item.color}">{$item.icon_name}</i></span>
+							<span class="txt">{$item.name}</span>
+							</a>
+				  		</div>
+				{if $smarty.foreach.index_nav.index eq $data.indexs.count-1}
+		  		</div><!--第一版的闭合标签  -->
+		  		{/if} 		
+		  		{if $smarty.foreach.index_nav.index>2 && $smarty.foreach.index_nav.index%10 eq 9  && $smarty.foreach.index_nav.index neq $data.indexs.count-1}
+		  		</div><!-- 第二版的闭合标签 -->
+		  		{/if}
+		  		{/foreach}
+		  </div>
+		  {if $data.indexs.count-1 gt 9}
+		  <div class="sort-pagination flex-box"></div>
+		  {/if}
+		  </div>
+	{/if}
+	{if $data.zt_html5}
+	{$data.zt_html5}
+	{/if}
+
+	{if $data.zt_html3}
+	{$data.zt_html3}
+	{/if}
+
+	{if $data.zt_html4}
+	{$data.zt_html4}
+	{/if}
+
+	{if $data.zt_html6}
+	{$data.zt_html6}
+	{/if}
+	<!--<div class="m-topic m-topic3">
+		<div class="con">
+			<div class="imgbox b-line">
+			规格374*300 
+			<a  href=""><img alt="" date-load="1" data-src="{$TMPL}/style5.2/images/text/topic22.jpg" src="{$TMPL}/style5.2/images/loading/no-image.png"/></a>
+			</div>
+			<div class="imgbox b-line l-line">
+			规格374*300
+			<a href=""><img alt="" date-load="1" data-src="{$TMPL}/style5.2/images/text/topic22.jpg" src="{$TMPL}/style5.2/images/loading/no-image.png"/></a>
+			</div>
+			<div class="imgbox b-line">
+			<a href=""><img alt="" date-load="1" data-src="{$TMPL}/style5.2/images/text/topic22.jpg" src="{$TMPL}/style5.2/images/loading/no-image.png"/></a>
+			</div>
+			<div class="imgbox b-line l-line">
+			<a href=""><img alt="" date-load="1" data-src="{$TMPL}/style5.2/images/text/topic22.jpg" src="{$TMPL}/style5.2/images/loading/no-image.png"/></a>
+			</div>
+		</div>
+	</div>--><!-- m-topic3 -->
+	{if $data.deal_list}
+	<!-- 团购推荐 -->
+	<div class="m-guess">
+		<div class="tit">
+		<span><i class="icon iconfont">&#xe63c;</i><i>团购推荐</i> </span>
+		</div>
+	</div>
+	<!-- 团购推荐end -->
+	<!-- 团购列表 -->
+	<div class="m-goods-list m-tuan-list">
+		<ul class="type-list clearfix j-ajaxadd">
+			{foreach from=$data.deal_list item=supplier_deal_item name=supplier_deal_item key=key}
+			<li class="b-line">
+				<a data-no-cache="true" href="{$supplier_deal_item.url}">
+					<div class="goods-img">
+						<img alt="" src="{if $supplier_deal_item.f_icon neq ""}{$supplier_deal_item.f_icon}{else}{$TMPL}/style5.2/images/loading/no-image.png{/if}"/>
+						<div class="tuan-sale-info">
+							<p class="sale">{if $supplier_deal_item.buy_count gt 0}已售{$supplier_deal_item.buy_count}{/if}</p>
+							<p class="distance">{$supplier_deal_item.distance}</p>
+						</div>
+					</div>
+					<div class="goods-info">
+						<div class="tuan-name"><h2>{$supplier_deal_item.supplier_name}</h2><p class="distance">{$supplier_deal_item.distance}</p></div>
+						<p class="tuan-tip">{$supplier_deal_item.brief}</p>
+						<div class="sale-info">
+							<p class="price">{$supplier_deal_item.current_price}{if $supplier_deal_item.origin_price gt 0}<del class="p-price">￥{$supplier_deal_item.origin_price}</del>{/if}</p>
+							<p class="sale">{if $supplier_deal_item.buy_count gt 0}已售{$supplier_deal_item.buy_count}{/if}</p>
+						</div>
+					</div>
+				</a>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="page-load hide">
+			<span></span>
+		</div>
+		<div class="infinite-scroll-preloader hide">
+              <div class="preloader"></div>
+        </div>
+	</div>
+	{/if}
+	<!-- 团购列表end -->
+	<div class="tuan-more">
+		<ul class="tuan-more-list">
+			{foreach from=$data.recommend_deal_cate item=cate name=cate}
+			{if $smarty.foreach.cate.iteration lt 7}
+			<li><a href="{$cate.url}">{$cate.name}</a></li>
+			{/if}
+			{/foreach}
+		</ul>
+	</div>
+  	</div><!--content end  -->
+</div>
+{include file="style5.2/inc/footer.html"}

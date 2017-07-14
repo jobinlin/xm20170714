@@ -1,0 +1,138 @@
+
+#uc_order_done .bar .button-link .iconfont{
+    font-size: 1.1rem;
+}
+#uc_order_done .bar .title{
+    font-size: @f_size2;
+}
+
+#uc_order_done .m-order-state{
+    height: 5.125rem;
+    position: relative;
+    background: url("@url/static/order_suc_bg.jpg")no-repeat;
+    background-size: cover;
+}
+#uc_order_done .m-order-state .u-order-state-font{
+    width: 100%;
+    height: 100%;
+    padding-top: 1.3rem;
+    padding-left: 1.4rem;
+    color: #FFFFFF;
+    font-family: "Microsoft YaHei";
+}
+#uc_order_done .u-order-state-font h1{
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    font-weight: 500;
+}
+#uc_order_done .u-order-state-font p{
+    font-size: 0.6rem;
+    line-height: 0.8rem
+}
+#uc_order_done .m-order-state .u-order-state-img{
+    width: 7.15rem;
+    height: 5.125rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#uc_order_done .u-order-state-img img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#uc_order_done .gain_repay{
+    width: 100%;
+    background: #ffffff;
+    padding: 1rem 0.5rem 0.8rem;
+}
+#uc_order_done .gain_repay li{
+    line-height: 1rem;
+    font-size: @f_size3;
+    color: @f_color1;
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: 0.2rem;
+}
+#uc_order_done .gain_repay li .iconBox{
+    display: block;
+    width: 1.25rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+#uc_order_done .iconBox .iconfont{
+    font-size: 0.875rem;
+    color: #0dcb0d;
+    vertical-align: top;
+}
+#uc_order_done .gain_repay li a{
+    color: #4d7ce6;
+    margin-left: 0.3rem;
+}
+
+
+#uc_order_done .pay-btn-box{
+    margin: 0.5rem 0 0;
+    padding: 0.75rem 0.5rem;
+    background: #ffffff;
+}
+#uc_order_done .pay-btn-box  .payBtn{
+    display: inline-block;
+    width: 48%;
+    height: 2.3rem;
+    border: none;
+    color: #FFFFFF;
+    line-height: 2.3rem;
+    font-size: @f_size3;
+}
+#uc_order_done .pay-btn-box .u-look-order{
+    background: #ff2343;
+    float: left;
+}
+#uc_order_done .pay-btn-box .u-look-shop{
+    background: #ff9900;
+    float: right;
+}
+#uc_order_done .pay-btn-box:after{
+    display: block;
+    content: "";
+    clear: both;
+ }
+
+
+#uc_order_done .m-promote {
+    position: relative;
+    line-height: 2.25rem;
+    text-align: center;
+    margin: 0 .5rem;
+}
+#uc_order_done .m-promote .promote-tit {
+    position: relative;
+    background: #f3f6f5;
+    padding: 0 .5rem;
+    z-index: 2;
+}
+#uc_order_done .promote-icon {
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url("@url/static/tuijian.png") center center no-repeat;
+    background-size: cover;
+    vertical-align: -.15rem;
+    margin-right: .25rem;
+}
+#uc_order_done .m-promote:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 1.05rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+

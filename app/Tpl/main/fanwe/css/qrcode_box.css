@@ -1,0 +1,45 @@
+.qrcode-box{
+	position: fixed;
+	bottom: 100px;
+	right: 23px;
+	text-align: center;
+	background:#f80;
+	border-radius:3px;
+	width:60px;
+	height:60px;
+	z-index:100;
+	cursor: pointer;
+}
+.qrcode-box .iconfont{
+	line-height: 60px;
+	color:#fff;
+	font-size:30px;
+	position: relative;
+	z-index:1;
+}
+.qrcode-box .qrcode-img{
+	width:100px;
+	height:100px;
+}
+.qrcode-box .qrcode-img img{
+	width:100px;
+	height:100px;
+}
+.qrcode-box .qrcode-bd{
+	padding:5px;
+	color:#fff;
+}
+.qrcode-box .qrcode-info{
+	display:none;
+	padding-top: 10px;
+	background:#f80;
+	width:130px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index:2;
+	border-radius:3px;
+}
+.qrcode-box:hover .qrcode-info{
+	display:block;
+}

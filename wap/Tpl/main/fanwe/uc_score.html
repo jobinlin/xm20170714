@@ -1,0 +1,54 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current" id="uc_score">
+{include file="style5.2/inc/auto_header.html"}
+  <div class="content infinite-scroll infinite-scroll-bottom">
+  		<!-- 页面主体 -->
+  		<div class="score-now flex-box">
+        <div class="score-box"   {if $SCORE_RECHARGE_SWITCH} style="width: 50%;"{/if}>
+          <p class="score-tip">可用积分</p>
+          <p class="score-num">{$user_info.user_score}</p>
+        </div>
+        {if $SCORE_RECHARGE_SWITCH}
+            <div class="score-box" style="width: 50%;">
+                <p class="score-tip">冻结积分</p>
+                <p class="score-num">{$user_info.frozen_score}</p>
+            </div>
+        {/if}
+      </div>
+      <div class="score-list j-ajaxlist">
+        {if $list}
+        <ul class="j-ajaxadd">
+          {foreach from=$list item=list key=key}
+          <li class="b-line flex-box">
+            <div class="score-info">
+              <p class="goods-name">{$list.log_info}</p>
+              <p class="time">{$list.flog_time}</p>
+            </div>
+            {if $list.score gt 0}
+            <p class="score-num add flex-1">+{$list.score}</p>
+            {elseif $list.frozen_score != 0}
+              {if $list.frozen_score > 0}
+                <p class="score-num add flex-1">+{$list.frozen_score}</p>
+              {else}
+                <p class="score-num min flex-1">{$list.frozen_score}</p>
+              {/if}
+            {else}
+            <p class="score-num min flex-1">{$list.score}</p>
+            {/if}
+          </li>
+          {/foreach}
+        </ul>
+        {else}
+        <div class="tipimg no_data">暂无数据</div>
+        {/if}
+        <div class="pages hide">{$pages}</div>
+      </div>
+  </div>
+</div>
+{include file="style5.2/inc/footer.html"}

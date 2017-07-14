@@ -1,0 +1,35 @@
+
+{if $data.user_login_status}
+<div class="popup-header b-line">
+	<p class="popup-tit">编辑地址</p>
+	<div class="iconfont j-close-popup">&#xe604;</div>
+</div>
+<ul class="address-edit-list edit-item">
+	<li class="flex-box b-line">
+		<p class="edit-tit">联系人</p>
+		<input type="text" class="flex-1" name="consignee" value="{$data.consignee_info.consignee}" placeholder="您的姓名">
+	</li>
+	<li class="flex-box b-line">
+		<p class="edit-tit">手机号</p>
+		<input type="text" class="flex-1" placeholder="配送人员联系您的电话" name="mobile" value="{$data.consignee_info.mobile}">
+	</li>
+	<li class="flex-box b-line">
+		<p class="edit-tit">收货地址</p>
+		<div class="edit-address-info flex-1 flex-box dc_mappick">
+			<div class="iconfont address-ico">&#xe62f;</div>
+			<!-- <div class="edit-address flex-1"></div> -->
+			<input type="text" class="edit-address flex-1" name="api_address" value="{$data.consignee_info.api_address}" readonly>
+			<input type="hidden" name="xpoint" value="{$data.consignee_info.xpoint}">
+			<input type="hidden" name="ypoint" value="{$data.consignee_info.ypoint}">
+			<div class="iconfont">&#xe607;</div>
+		</div>
+	</li>
+	<li class="flex-box b-line">
+		<p class="edit-tit">门牌号</p>
+		<input type="text" class="flex-1" placeholder="详细地址，例：1号楼一单元101室" name="address" value="{$data.consignee_info.address}">
+		<input type="hidden" name="consignee_id" value="{$data.consignee_info.id}">
+	</li>
+</ul>
+<a href="" class="edit-btn j-edit-address save-address">保存</a>
+<a href="" class="edit-btn j-del-address del-address">删除该地址</a>
+{/if}

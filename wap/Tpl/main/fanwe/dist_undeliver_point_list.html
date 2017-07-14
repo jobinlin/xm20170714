@@ -1,0 +1,28 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dist_undeliver_point_list">
+    {include file="style5.2/inc/dist_header.html"}
+    <div class="content">
+        <div class="m-use-log-list">
+            {if $data.list}
+            <ul class="use-log-list">
+                {foreach from=$data.list item=item}
+                <li>
+                    <div class="log-hd b-line">
+                        <div class="flex-box log-info">
+                            <p class="type-name flex-1">{$item.poi_name}</p>
+                        </div>
+                    </div>
+                    <div class="log-bd flex-box">
+                        <p class="user-name flex-1">{$item.poi_addr}</p>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+            {else}
+            <div class="tipimg no_data">配送点列表暂无数据</div>
+            {/if}
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

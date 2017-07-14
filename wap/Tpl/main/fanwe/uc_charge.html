@@ -1,0 +1,37 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+    var money_number_array_other={$data.money_number_array_other};
+</script>
+<div class="page page-current" id="uc_charge">
+<form name="do_charge" action="{url r="index" p="uc_charge#done"}" method="post" >
+{include file="style5.2/inc/auto_header.html"}
+<div class="content">
+	<div class="charge-hd">选择充值金额</div>
+    {foreach from=$data.money_number_array item=item key=key}
+    <div class="select_num money_number {if $key==0}first_number{/if}" data="{$item}" data-value="{$item}" >&yen;{$item}</div>
+    {/foreach}
+    {if $data.money_number>6}
+    <div class="" ><input type="text" class="select_other money_number" placeholder="其他金额"></div>
+    {/if}
+    <div class="blank"></div>
+	<input type="hidden" value="" name="money" >
+	<div class="charge-hd">选择充值方式</div>
+	<ul class="pay-way">
+		{foreach from=$data.payment_list item=payment key=key}
+		<li class="b-line">
+			<label class="pay_select flex-box">
+				<input type="radio" class="payment-id" name="payment_id" value="{$payment.id}"  {if $key eq 0}checked="true"{/if}>
+				<p class="flex-1">{$payment.name}</p>
+			<span class="iconfont j-selected-icon {if $key eq 0}checked{/if}"></span>
+			</label>
+		</li>
+		{/foreach}
+	</ul>
+	<div class="subbox">
+		<input type="submit" value="确认充值" class="f-btn">
+	</div>
+</div>
+</form>
+</div>
+{include file="style5.2/inc/footer.html"}

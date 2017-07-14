@@ -1,0 +1,28 @@
+#dc_position .content{
+	padding-top: 2.2rem;
+}
+#dc_position .dc-search-header{
+	padding-left: .5rem;
+	top: 2.2rem;
+	z-index:10;
+}
+.search-address{
+	height:2rem;
+	background:#fff;
+	padding:0 .5rem;
+}
+.search-address .re-position{
+	color:#09f;
+}
+.search-address .position-ico{
+	color:#09f;
+	font-size:.8rem;
+	line-height: 2rem;
+	margin-right: .2rem;
+}
+.search-address .address{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	width:50%;
+}

@@ -1,0 +1,19 @@
+{if $data.city.count gt 0}
+	<ul id="search_result">
+	{foreach from=$data.city.list item=city}
+		<li><a href="{$city.url}">
+			{$city.name}
+		</a></li>
+	
+	{/foreach}
+	</ul>
+{else}
+	<ul id="search_result">
+
+		<li><a href="javascript:void(0);">
+			暂无数据
+		</a></li>
+
+	</ul>
+
+{/if}

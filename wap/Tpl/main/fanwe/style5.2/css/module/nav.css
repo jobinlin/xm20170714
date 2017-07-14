@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+/*底部导航*/
+
+.bar .i-home:after{
+content:"\e613";
+}
+.bar .i-find:after{
+content:"\e60b";
+}
+.bar .i-shopcart:after{
+content:"\e60c";
+}
+.bar .i-mine:after{
+content:"\e60a";
+}
+.bar .i-tixian:after{
+	content: '\e66e';
+}
+.bar .active .i-home:after{
+content:"\e614";
+}
+.bar .active .i-find:after{
+content:"\e610";
+}
+.bar .active .i-shopcart:after{
+content:"\e611";
+}
+.bar .active .i-mine:after{
+content:"\e60f";
+}
+.bar .i-shop_verify:after{
+content:"\e680";
+}
+.bar .active .i-shop_verify:after{
+content:"\e684";
+}
+.bar .i-order:after{
+content:"\e681";
+}
+.bar .active .i-order:after{
+content:"\e685";
+}
+.bar .i-msg:after{
+content:"\e682";
+}
+.bar .active .i-msg:after{
+content:"\e686";
+}
+.bar .i-biz:after{
+content:"\e683";
+}
+.bar .active .i-biz:after{
+content:"\e687";
+}
+
+.bar-tab .tab-item.active, .bar-tab .tab-item:active{
+  color: @f_colortheme;
+}
+.bar-tab .tab-item.active .iconfont , .bar-tab .tab-item:active .iconfont {
+	 color: @f_colortheme;
+}

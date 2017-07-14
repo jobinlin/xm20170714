@@ -1,0 +1,55 @@
+@CHARSET "UTF-8";
+.index-main-contents{
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+    min-width: 1000px;
+    margin: 0 16px;
+}
+.index-main-contents .list-box{
+    text-align: left;
+}
+.index-main-contents .list-box .item-box{
+    width: 25%;
+    float: left;
+    font-size: 12px;
+}
+.index-main-contents .list-box .item-title{
+
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #eaedf1;
+    font-weight: bold;
+    color: #333333;
+}
+.index-main-contents .list-box .item-box .item-info{
+    padding: 10px 0;
+}
+.index-main-contents .list-box .item-box .item-info .item-info-name{
+    margin: 3px 0 6px 15px;
+    color: #999;
+    font-weight: 600;
+}
+.index-main-contents .list-box .item-box .item-info .item-info-content {
+    margin: 8px;
+    background: #f9fafc;
+    border: 1px solid #f2f2f2;
+}
+.index-main-contents .list-box .item-box .item-info .item-info-content a{
+    display: block;
+}
+.index-main-contents .list-box .item-box .item-info .item-info-content:hover {
+    background: #fff;
+    border-color: #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+}
+.index-main-contents .list-box .item-box .item-info .item-info-content span {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+}
+.index-main-contents .list-box .item-box .item-info .item-info-content .info-link-value{
+    color: #0066cc;
+}

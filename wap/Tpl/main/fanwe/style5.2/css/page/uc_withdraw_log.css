@@ -1,0 +1,46 @@
+#uc_withdraw_log .page, .page-group{
+	background: #fff;
+}
+.record-list{
+	padding-left: .5rem;
+	background: #fff;
+}
+.record-list li{
+	min-height: 3.5rem;
+	padding: .5rem 0;
+}
+.record-list li .user-info{
+	width: 70%;
+	margin-right: .5rem;
+}
+.record-list li .bank-name{
+	line-height: .8rem;
+	color:@f_color2;
+	margin: .1rem 0;
+	font-size: @f_size4;
+	word-break:break-all;
+	margin-right: .5rem;
+}
+.record-list li .time{
+	line-height: 1rem;
+	color:@f_color3;
+	font-size: @f_size4;
+}
+.record-list li .price-status{
+	text-align: right;
+	padding-right: .5rem;
+}
+.record-list li .price{
+	line-height: 1.1rem;
+	font-size: 1rem;
+}
+.record-list li .price span{
+	font-size: @f_size4;
+}
+.record-list li .status{
+	line-height: .95rem;
+	color:#ff6c00;
+}
+.record-list li .status.success{
+	color:#e33045;
+}

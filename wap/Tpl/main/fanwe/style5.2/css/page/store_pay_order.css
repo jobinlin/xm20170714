@@ -1,0 +1,69 @@
+.null_data {
+    text-align: center;
+    color: #959595;
+    padding: 20px 0px;
+}
+.null_data .icon .iconfont {
+    font-size: 40px;
+}
+.null_data .message {
+    font-size: 0.9rem;
+}
+
+
+
+
+.orderId{
+    width: 100%;
+    height: 2.215rem;
+    line-height: 2.215rem;
+    overflow: hidden;
+    padding-left: 0.5rem;
+    background: #ffffff;
+}
+.orderId .order_id{
+    width: 100%;
+    height: 100%;
+
+}
+.order_id p{
+    font-size: @f_size3;
+    color: @f_color1;
+    line-height: 2.215rem;
+}
+.order_id p .u-shop-icon{
+    margin-right: 0.1rem;
+}
+.order_id p .u-icon{
+    font-size: 0.85rem;
+    color: @f_color1;
+    vertical-align: bottom;
+    display: inline-block;
+}
+.order_id .order_state{
+    display: block;
+    width: auto;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    font-size: @f_size2;
+    color: @f_colortheme;
+}
+
+
+.pay_info{
+    padding: 0.5rem;
+    background: #ffffff;
+}
+.pay_info p{
+    font-size: @f_size3;
+    color: @f_color3;
+    line-height: 1.3rem;
+}
+
+.pay_info p .money_info{
+    color: @f_color1;
+}
+.pay_info p .actual_mon{
+    color: @f_colortheme;
+}

@@ -1,0 +1,65 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="uc_fx_deal">
+<script>
+var fx_ajax_url = '{$ajax_url}';
+</script>
+
+	{include file="style5.2/inc/auto_header.html"}
+    {include file="style5.2/inc/module/fx_nav.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+    <form name="search_form" action="{url r="index" p="uc_fx#deal_fx"}" method="post" >
+      <div class="search-bar flex-box">
+        <div class="search-info flex-1 flex-box">
+          <i class="iconfont search-ico">&#xe61a;</i>
+          <input class="flex-1" name = "fx_seach_key" id = "keyword" type="text" placeholder="请输入您要搜索的商品">
+        </div>
+        <input type="hidden" name="act" value="deal_fx">
+        <input type="hidden" id="search_type" name="search_type" value="1">
+        <div class="search">搜索</div>
+      </div>
+    </form>
+    <div class="fx-deal-list j-ajaxlist">
+    {if $data.item}
+      <ul class="deal-list j-ajaxadd">
+      {foreach from=$data.item item=row}
+        <li class="b-line deal-item-{$row.id}" data-id="{$row.id}">
+          <a class="goods-img" href="{url r="index" b="deal#index" p="data_id=$row.id"}">
+            <img class="goods-img" src="{$row.icon}" alt="">
+          </a>
+          <div class="goods-info flex-1">
+            <a href="{url r="index" b="deal#index" p="data_id=$row.id"}" class="goods-name">{$row.name}</a>
+            <div class="goods-bd flex-box">
+              <div class="price-info flex-1">
+                <p class="fx-price">佣金：<span>&yen;{$row.fx_salary_money}</span></p>
+                <p class="price">价格：&yen;{$row.current_price}</p>
+              </div>
+              <a href="javascript:void(0);" class="fx-deal-btn j-deal" data-id="{$row.id}">我要代理</a>
+            </div>
+          </div>
+        </li>
+      {/foreach}
+        <!-- <li class="b-line">
+          <a class="goods-img" href="{url r="index" b="deal#index" p="data_id=$row.id"}">
+            <img class="goods-img" src="{$row.icon}" alt="">
+          </a>
+          <div class="goods-info flex-1">
+            <a href="{url r="index" b="deal#index" p="data_id=$row.id"}" class="goods-name">志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸志斌爆炸</a>
+            <div class="goods-bd flex-box">
+              <div class="price-info flex-1">
+                <p class="price">价格：<span>&yen;700</span></p>
+                <p class="fx-price">佣金：&yen;200</p>
+              </div>
+              <a href="javascript:void(0);" class="fx-deal-btn j-dealed">已代理</a>
+            </div>
+          </div>
+        </li> -->
+      </ul>
+      <div class="pages hide">{$pages}</div>
+      {else}
+      <div class="tipimg no_data">暂无数据</div>
+      {/if}
+    </div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

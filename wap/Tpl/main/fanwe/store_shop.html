@@ -1,0 +1,71 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current" id="store_shop">
+  {include file="style5.2/inc/auto_header.html"}
+  <div class="content infinite-scroll infinite-scroll-bottom">
+  		<!-- 页面主体 -->
+      <div class="m-screen-bar b-line flex-box">
+        <ul class="flex-box flex-1">
+          <li class="screen-item"><a class="screen-all" href="javascript:void(0)"><p>{$data.cate_name}</p><i class="iconfont arrow-down">&#xe608;</i><i class="iconfont arrow-up">&#xe606;</i></a></li>
+          <li class="screen-item j-jg">
+            <a class="screen-price screen-link j-listchoose" date-href="{$price_url}" href="javascript:void(0);">
+              <p>价格</p>
+              <div class="arrow-btn">
+                <i class="iconfont arrow-up {if $order_type eq 'price_asc'}active{/if}">&#xe606;</i><i class="iconfont arrow-down {if $order_type eq 'price_desc'}active{/if}">&#xe608;</i>
+              </div>
+            </a>
+          </li>
+          <li class="screen-item j-xl"><a class="screen-sales screen-link j-listchoose {if $order_type eq 'buy_count'}active{/if}" date-href="{$sale_url}" href="javascript:void(0);"><p>销量</p></a></li>
+        </ul>
+        <a href="javascript:void(0)" class="type-switch"><i class="iconfont type-btn j-type-btn" id="type-cube">&#xe61b;</i><i class="iconfont type-btn j-type-btn" id="type-list">&#xe619;</i></a>
+      </div>
+      <div class="m-screen-list">
+        <div class="mask"></div>
+        <div class="all-screen" id="all-goods">
+          <ul class="goods-type r-line">
+            {foreach from=$data.cate_list item=cate name="goods-type"}
+            <li class="b-line {if $cate.active}active{/if}" data-id="{$smarty.foreach.goods-type.index}">{$cate.name}</li>
+            {/foreach}
+          </ul>
+          <div class="type-detail flex-1">
+          {foreach from=$data.cate_list item=cate name="goods-type"}
+              <ul data-id="{$smarty.foreach.goods-type.index}" {if $cate.active} style="display:block;"{/if}>
+          {foreach from=$cate.bcate_type item=blist}
+            <li><a data-no-cache="true" class="j-listchoose {if $blist.active}active{/if}" date-href="{$blist.url}" href="javascript:void(0);"><p class="flex-1">{$blist.name}</p><p class="goods-num">{$blist.count}</p></a></li>
+          {/foreach}
+                </ul>
+        {/foreach}
+          </div>
+        </div>
+      </div>
+      <div class="m-goods-list j-ajaxlist">
+        <ul class="type-cube clearfix j-ajaxadd">
+          {foreach from=$shop item=shop}
+          <li>
+            <a data-no-cache="true" href="{$shop.deal_url}">
+              <div class="goods-img"><img alt="" date-load="1" data-src="{$shop.f_icon_v1}" src="{$shop.f_icon_v1}"/></div>
+              <div class="goods-info">
+                <h2 class="goods-name">{$shop.name}</h2>
+                <div class="sale-info">
+                  <p class="price">{$shop.current_price}{if $shop.origin_price gt 0}<del class="p-price">{$shop.origin_price}</del>{/if}</p>
+                  {if $shop.buy_count neq 0}
+                        <p class="sale">已售{$shop.buy_count}</p>
+                        {/if}
+                </div>
+              </div>
+            </a>
+          </li>
+          {/foreach}
+        </ul>
+       <div class="pages hide">{$pages}</div>
+       
+      </div>
+      <div class="blank"></div>
+  </div>
+</div>
+{include file="style5.2/inc/footer.html"}

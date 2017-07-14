@@ -1,0 +1,19 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var ajax_url = '{url r="index" p="event"}';
+var id={$data.id};
+</script>
+<div class="page page-index page-current" id="event_detail">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content m-event-detail-content">
+		{if $event_info.content}
+		
+		{$event_info.content}
+		
+		{else}
+		<div class="tipimg no_data">暂无详情</div>
+		{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

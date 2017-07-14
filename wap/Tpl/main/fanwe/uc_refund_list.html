@@ -1,0 +1,75 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<style type="text/css">
+    a.totop{
+        bottom: 5.2rem;
+    }
+</style>
+<div class="page page-index" id="uc_refund_list">
+    {include file="style5.2/inc/auto_header.html"}
+    
+    <div class="content infinite-scroll  infinite-scroll-bottom" style="background: #fff">
+        <div class="blank5"></div>
+        {if $data.item}
+        <div class="list-block m-cart j-ajaxlist">
+            
+            <div class="j-ajaxadd">
+                {foreach from=$data.item item=item}
+                    <div class="m-conBox m-check-order m-modify refund_view" data-src="{url a="index" r="uc_order#refund_view" p="data_id=$item.mid&did=$item.id"}">
+                        <!--列表头部开始-->
+                        <div class="m-title  item-content b-line">
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title"><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$item.supplier_name}<i class="iconfont u-icon">&#xe607;</i></div>
+                                </div>
+                                <span class="refund_state">{$item.status_str}</span>
+                            </div>
+                        </div>
+                        <!--列表头部结束-->
+                        <ul class="m-cart-list j-select-body">
+                            <li class="item-content b-line">
+                                <div class="item-inner">
+                                    <div class="item-media shopImg">
+                                        <img src="{$item.deal_icon}">
+                                        <!-- <p class="u-surplus">仅剩3件</p> -->
+                                    </div>
+                                    <div class="z-opera z-opera-sure">
+                                        <div class="item-subtitle shopTi">
+                                            <a href="#">{$item.name}</a>
+                                            {if $item.attr_str}<p class="sizes">{$item.attr_str}</p>{/if}
+                                        </div>
+                                        <div class="shop_price tr">
+                                            <p class="u-sm-price"><span class="u-money">¥<i>{$item.unit_price}</i></span></p>
+                                            <p class="shop-count">x<i>{$item.number}</i></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                        {if $item.refund_status eq 2}
+						<div class="refund_money">
+                            <p>退款金额：¥{$item.refund_money}</p>
+                        </div>
+                        {/if}
+                    </div>
+                    <div class="blank5"></div>
+                {/foreach}
+            </div>
+            <div class="pages hide">{$pages}</div>
+
+        </div>
+        {else}
+        <div class="tipimg no_data">
+            暂无退款记录
+        </div>
+        {/if}
+    </div>
+
+
+</div>
+
+</div>
+
+{include file="style5.2/inc/footer.html"}
+

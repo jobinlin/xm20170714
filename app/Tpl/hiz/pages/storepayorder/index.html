@@ -1,0 +1,164 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/store_pay_order.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/order.css";
+
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+
+$this->_var['pagejs'][]  = $this->_var['TMPL_REAL']."/js/pages/store_pay_order/store_pay_order.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/store_pay_order/store_pay_order.js";
+?>
+
+
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+
+<script>
+$(document).ready(function(){
+	$(".time_input").datetimepicker({
+		format: 'Y-m-d'
+		 
+	});
+});
+</script>
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>商家订单列表</span>
+</div>
+<div class="content">
+    <div class="table-content">     
+	<div class="hiz-table">
+			<div>		
+					<form name="store_pay_order_form" action="{url x="hiz" r="storePayOrder#index"}" method="post" />	
+					<div class="info_table">
+							<div class="field_group_long">
+								<label class="f_label">商家</label> 
+								<div class="f_text">
+									<select name="supplier_id" class="ui-select filter_select medium">
+									<option value=" " {if !$supplier_id}selected="selected"{/if}>全部</option>
+									{foreach from=$supplier_list item=supplier key=key}
+									<option value="{$supplier.id}" {if $supplier_id eq $supplier.id}selected="selected"{/if}>{$supplier.name}</option>
+									{/foreach}
+									</select>
+								</div>				
+								<div class="clear"></div>
+							</div>
+							<div class="field_group_long">
+								<label class="f_label">买单查询</label> 
+								<div class="f_text">
+									<input type="text" name="order_sn" value="{$order_sn}"  class="ui-textbox normal" holder="通过输入订单编号进行查询" />
+								</div>				
+								<div class="clear"></div>
+							</div>	
+							<!--  
+							<div class="field_group_long">
+								<label class="f_label">选择项目</label> 
+								<div class="f_text">
+									<select name="cate_id" class="ui-select filter_select medium">
+										<option value="0" selected="selected">==未选择==</option>
+									</select>
+								</div>				
+								<div class="clear"></div>
+							</div>	
+							-->
+							<div class="field_group_long">
+								<label class="f_label">选择时间</label> 
+								<div class="short_text">
+									<input class="ui-textbox time_input" name="begin_time" holder="下单起始日期" value="{$begin_time}" readonly="readonly" />
+									 -  
+									<input class="ui-textbox time_input" name="end_time" holder="下单截止日期" value="{$end_time}" readonly="readonly" />
+									<a href="javascript:void(0);" class="clear_input_btn " title="清空时间">清空</a>
+									
+									<a href="javascript:void(0);" class="date_today text_font_color">今天</a>
+									<span class="col-md-1"></span>
+									<a href="javascript:void(0);" class="date_yesterday text_font_color">昨天</a>
+									<span class="col-md-1"></span>
+									<a href="javascript:void(0);" class="date_week text_font_color">最近7天</a>
+									<span class="col-md-1"></span>
+									<a href="javascript:void(0);" class="date_month text_font_color">最近一个月</a>
+									
+								</div>				
+								<div class="clear"></div>
+							</div>	
+						
+							 
+						
+							<div class="field_group_long">
+								<label class="f_label"></label> 
+								<button class="ui-button " rel="orange" type="submit">查询</button>
+								<div class="clear"></div>
+							</div>
+					</div>
+					</form>		
+			</div>
+		
+			{if $store_pay_order_info}
+			<div class="info_table">
+				<table>
+					<tbody>
+						<tr>
+							<td class="" COLSPAN=1><span>消费量：{$count.total}</span></td>
+							<td class="" COLSPAN=2><span>消费总额：{$count.total_price}</span></td>
+							<td class="" COLSPAN=2><span>实付总额：{$count.pay_amount}</span></td>
+							<td class="" COLSPAN=4><span></span></td>
+						</tr>
+						<tr>
+							<td class="shop-name">订单编号</td>
+							<td class="shop-name">消费时间</td>
+							<td class="shop-name">消费金额</td>
+							<td class="shop-name">实付金额</td>
+							<td class="shop-name">消费门店</td>
+							<td class="shop-name">详情</td>
+							<td class="shop-name">支付状态</td>
+						</tr>
+						{foreach from=$store_pay_order_info item=item key=key}
+						<tr class="alt">
+							   <td>{$item.order_sn}</td>
+                               <td>{function name="to_date" v=$item.create_time}</td>
+                               <td>{function name="format_price" v=$item.total_price}</td>
+                               <td>{function name="format_price" v=$item.pay_amount}</td>
+                               <td>{$item.supplier_location_name}</td>
+                               <td><a class="detail_color" href="{url x="hiz" r="storePayOrder#detail" p="id=$item.id"}">详情</a></td>
+                               <td>{$item.pay_status}</td>
+                         </tr>
+                         {/foreach}
+                          
+
+					</tbody>
+				</table>
+				
+			</div>	
+			
+			<div class="pages">{$pages}</div>
+		
+			{else}
+			  <div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+  		      <div class="no-data">暂无到店付订单</div>
+			{/if}			
+		
+
+		
+	</div>	
+</div>
+</div>
+
+{include file="inc/footer.html"}

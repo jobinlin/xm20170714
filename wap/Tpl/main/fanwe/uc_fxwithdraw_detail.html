@@ -1,0 +1,40 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current page-text_index" id="uc_withdraw_log">
+
+    {include file="style5.2/inc/auto_header.html"}
+  	<div class="content infinite-scroll infinite-scroll-bottom">
+        {if $data.list}
+        <div class="j-ajaxlist">
+        <ul class="record-list j-ajaxadd">
+            {foreach from=$data.list item=row}
+            <li class="flex-box b-line">
+                <div class="user-info">
+					{if $row.type eq 1}
+                    <p class="bank-name">{$row.bank_name}</p>
+					<p class="bank-name">{$row.bank_user_bak} 尾号{$row.bank_account}</p>
+					{else}
+					<p class="bank-name">佣金提现至余额</p>
+					{/if}
+                    <p class="time">{$row.create_time}</p>
+                </div>
+                <div class="price-status flex-1">
+                    <p class="price">{$row.money}</p>
+					<p class="status{if $row.is_paid eq 1}success{/if}">{if $row.is_paid eq 1}提现成功{else}审核中{/if}</p>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+        <div class="pages hide">{$pages}</div>
+        </div>
+        {else}
+        <div class="tipimg no_data">暂无记录</div>
+        {/if}
+	</div><!-- content end -->
+</div>
+{include file="style5.2/inc/footer.html"}

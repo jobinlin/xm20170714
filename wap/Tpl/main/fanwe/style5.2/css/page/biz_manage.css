@@ -1,0 +1,62 @@
+.biz-manage-list{
+	margin-top: .25rem;
+	padding-left: .5rem;
+	background:#fff;
+}
+.biz-manage-list a{
+	height:2.5rem;
+	padding-right: .5rem;
+}
+.biz-manage-list .tip{
+	color:@f_color3;
+	font-size:@f_size4;
+}
+.biz-manage-list .iconfont{
+	font-size:.8rem;
+	line-height: 2.5rem;
+}
+#biz_manage .dc-mask{
+	z-index:11;
+}
+#biz_manage .dc-popup{
+	position: absolute;
+	z-index:12;
+	background:#fff;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+	-webkit-transform: translateY(150%);
+	        transform: translateY(150%);
+}
+#biz_manage .dc-popup.active{
+	-webkit-transform: translateY(0);
+	        transform: translateY(0);
+}
+#biz_manage .dc-popup .dc-popup-hd{
+	line-height: 2rem;
+	background:#f7f7f7;
+	text-align: center;
+}
+#biz_manage .dc-popup .dc-shop-list{
+	max-height:10rem;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+#biz_manage .dc-popup .dc-shop-list li{
+	padding-left: .5rem;
+}
+#biz_manage .dc-popup .dc-shop-list li:last-child .dc-shop::after{
+	height:0;
+}
+#biz_manage .dc-popup .dc-shop{
+	height:2rem;
+	padding-right:.5rem;
+}
+#biz_manage .dc-popup .dc-shop .shop-name{
+	width:50%;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}

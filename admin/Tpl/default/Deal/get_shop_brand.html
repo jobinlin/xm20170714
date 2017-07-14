@@ -1,0 +1,6 @@
+<select name="brand_id">
+	<option value="0">请选择品牌</option>
+	<foreach name="brand_list" item="brand_item">
+		<option value="{$brand_item.id}">{$brand_item.name}</option>
+	</foreach>
+</select>

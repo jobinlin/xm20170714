@@ -1,0 +1,137 @@
+#dealgroup .content{
+	background:#fff;
+}
+.main-goods{
+	padding:.75rem .5rem;
+	background:#f3f6f5;
+	-webkit-box-align: flex-start;
+-webkit-align-items:flex-start;
+align-items:flex-start;
+}
+.main-goods .main-goods-img{
+	width:3.5rem;
+	height:3.5rem;
+}
+.main-goods .main-goods-img img{
+	width:100%;
+}
+#dealgroup .goods-info{
+	margin-left: .5rem;
+}
+#dealgroup .goods-info .goods-name{
+	font-size:@f_size4;
+	line-height: .8rem;
+	height:1.6rem;
+	display:-webkit-box;
+	overflow:hidden;	
+	text-overflow:ellipsis;
+	word-break:break-all;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp:2;
+}
+#dealgroup .goods-info .goods-detail{
+	padding: .5rem 0;
+}
+#dealgroup .goods-info .price{
+	line-height: .8rem;
+}
+.best-combi{
+	padding-left: .5rem;
+}
+.best-combi .combi-img{
+	width:2.7rem;
+	height:3.5rem;
+	display: block;
+}
+.best-combi .combi-img img{
+	width:100%;
+}
+.best-combi li{
+	padding:.75rem 0;
+	padding-right:.5rem;
+	-webkit-box-align: flex-start;
+-webkit-align-items:flex-start;
+align-items:flex-start;
+}
+#dealgroup .goods-type{
+	line-height: 1.4rem;
+	width:5.5rem;
+	border:1px solid #d4dfda;
+	text-align: center;
+	padding:0 .25rem;
+	border-radius:3px;
+	color:@f_color2;
+}
+.best-combi .goods-detail{
+	padding-bottom: 0;
+}
+#dealgroup .goods-type .iconfont{
+	font-size:.6rem;
+}
+#dealgroup .goods-type .defult{
+	color:@f_colortheme;
+}
+#dealgroup .goods-type .choose-result{
+	display: block;
+	color:@f_color3;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	word-break:break-all;
+	width:6em;
+}
+.best-combi .goods-check{
+	height:3.5rem;
+}
+.best-combi .goods-check .iconfont{
+	margin-top: .85rem;
+	width:1rem;
+	height:1rem;
+	border-radius:1rem;
+	border:1px solid #999;
+	margin-right: .5rem;
+	display: block;
+	text-align: center;
+	font-size:.8rem;
+	line-height: 1rem;
+}
+.best-combi .goods-check .iconfont{
+	color:#fff;
+}
+.best-combi .goods-check .active{
+	border-color:@themecolor;
+	background:@themecolor;
+}
+.dealgroup-bar{
+	height:2.5rem;
+}
+.dealgroup-bar .youhui{
+	margin: 0 .5rem;
+}
+.dealgroup-bar .total-price{
+	color:#ff2244;
+}
+.dealgroup-bar .total-price em{
+	font-size:.85rem;
+	margin-right: .5rem;
+}
+.dealgroup-bar .buy-btn{
+	background:@themecolor;
+	height:2.5rem;
+	width:5rem;
+	color:#fff;
+}
+.spec-choose .spec-info{
+	height:10rem;
+}
+.spec-choose .goods-confirm{
+	height:2rem;
+	background:@themecolor;
+	color:#fff;
+	display: block;
+	line-height: 2rem;
+	text-align: center;
+}
+.spec-choose .choose-btn{
+	padding:.25rem;
+}

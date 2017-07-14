@@ -1,0 +1,80 @@
+
+<form {if $is_delivery} action="{url x="biz" r="goodso#do_delivery"}" {else} action="{url x="biz" r="goodso#un_do_delivery"}" {/if} method="post" name="delivery_form">
+
+<div class="info_table">
+<table class="form_teble_box">
+	<tr>
+		<td></td>
+		<td>商品名称</td>
+		<td>结算单价</td>
+		<td>数量</td>
+		<td>总价</td>
+	</tr>
+	{foreach from=$item item=oitem}
+	<tr>
+		<td>
+			<input type="checkbox" name="ids[]" value="{$oitem.id}" {if $is_delivery eq 0}checked{/if}>
+			{if $oitem.refund_status eq 1}
+			<em style="color:red;">退款中</em>
+			{/if}
+		</td>
+		<td>{$oitem.name}</td>
+		<td>{$oitem.balance_unit_price}</td>
+		<td>{$oitem.number}</td>
+		<td>{$oitem.balance_total_price}</td>
+	</tr>
+	{/foreach}
+</table>
+<div class="blank"></div>
+<table class="form_teble_box" >
+	<tr>
+		<td class="title tl" colspan="5">下单时间：{$order.create_time} 会员：{$order.user_name}</td>
+	</tr>
+	<tr>
+		<td class="title tl" colspan="5">结算合计：{$total_balance} </td>
+	</tr>
+	{if $order.memo}
+	<tr>
+		<td class="title tl" colspan="5">买家备注: {$order.memo}</td>
+	</tr>
+	{/if}
+	{if $is_delivery}
+	<tr>
+		<td class="title tl" colspan="5">配送地址：{$address}</td>
+	</tr>
+	<tr>
+		<td class="title tl" colspan="5" style="line-height: 24px;"><p class="f_l">发货的门店：</p>
+			<select name="location_id" class="ui-select location_select f_l" height="50" >
+				{foreach from=$location_list item=location}
+				<option value="{$location.id}">{$location.name}</option>
+				{/foreach}
+			</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="title tl" colspan="5" style="line-height:24px;">
+			<p class="f_l">快递公司：</p>
+			<select name="express_id" class="ui-select express_select f_l" height="50">
+				<option value="0">请选择</option>
+				{foreach from=$express_list item=express}
+				<option value="{$express.id}">{$express.name}</option>
+				{/foreach}
+			</select>
+			<input type="text" class="ui-textbox f_l" style="padding: 1px 10px;height: 20px;" maxlength="26" name="delivery_sn" holder="请输入相应的快递单号" />
+		</td>
+	</tr>
+	{/if}
+	<tr>
+		<td class="title tl" colspan="5"><p class="f_l">备注：</p><textarea name="memo" class="ui-textbox memo" holder="没有备注请留空" style="width: 656px;resize:none;height: 50px;"></textarea></td>
+	</tr>
+	<tr>
+		<td colspan=2  class="btn">
+			<input type="hidden" name="ajax" value="1" />
+			<button class="ui-button orange" rel="orange" type="submit">确认发货</button>
+		</td>
+	</tr>
+</table>
+
+</div>
+</form>

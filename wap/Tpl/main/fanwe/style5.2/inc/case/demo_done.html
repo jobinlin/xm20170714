@@ -1,0 +1,56 @@
+{include file="style5.2/inc/header1.html"}
+<?php
+        $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/style5.2/css/page/cart.css";
+        $this->_var['cpagecss'][] = $this->_var['TMPL_REAL']."/style5.2/css/page/cart.css";
+        $this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/style5.2/js/page/cart.js";
+        $this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/style5.2/js/page/cart.js";
+?>
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+            <span class="icon icon-left"></span>
+        </a>
+        <h1 class="title">付款成功</h1>
+        <a href="#" class="pull-right share-icon iconfont">&#xe60d;</a>
+    </header>
+
+    <div class="content" style="bottom: 0">
+        <div class="list-block m-order-common media-list" style="margin-bottom: 0">
+            <div class="item-content m-order-state">
+                <div class="item-inner">
+                    <div class="item-subtitle u-order-state-font">支付成功</div>
+                </div>
+                <div class="u-order-state-img">
+                    <img src="{$TMPL}/style5.2/images/static/pay_done.png" alt="恭喜，付款成功">
+                </div>
+            </div>
+            <div class="item-content b-line u-order-ident">
+                <div class="item-title">订单编号：54878124157878545787</div>
+            </div>
+            <div class="item-content b-line" style="margin-left: 0.5rem">
+                <div class="item-inner" style="margin-left: 0">
+                    <div class="item-subtitle user-name">收货人:阎罗王<span class="u-phoneNum">15985461547</span></div>
+                    <div class="item-text user-address">福州市鼓楼区工业路523号福大怡山文化创意园8#101座2、3层</div>
+                </div>
+            </div>
+            <div class="item-content order-replay">
+                <div class="item-inner">
+                    <div class="item-title">方维券：31698587</div>
+                    <div class="item-after"><i class="iconfont">&#xe60e;</i>查看二维码</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面主体 -->
+        <div class="list-block pay-btn-box">
+            <div class="item-content">
+                <div class="item-inner">
+                    <a href="#" class="button u-look-order payBtn">查看订单</a>
+                    <a href="#" class="button u-look-shop payBtn">再逛逛</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

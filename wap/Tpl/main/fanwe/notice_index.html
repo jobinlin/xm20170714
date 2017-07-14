@@ -1,0 +1,41 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var INDEX_URL='{url i="index" r="main"}';
+var geo_url = '{url a="index" r="userxypoint"}';
+</script>
+<div class="page page-index">
+	{include file="style5.2/inc/auto_header.html"}
+<div class="content infinite-scroll infinite-scroll-bottom"  data-distance="10">
+		{if $data.list}
+	<div class="m-noticeindex j-ajaxlist">
+	<ul class="j-ajaxadd">
+
+	{foreach from=$data.list item=list key=key}
+	<li>
+		<a class="con" href="{$list.url}">
+			<div class="name">{$list.name}</div>
+			<div class="time">{$list.create_time}</div>
+		</a>
+	</li>
+	{/foreach}
+	</ul>
+	{if $pages}
+		<div class="pages hide">
+			{$pages}
+		</div>
+	{/if}
+	</div>
+	{else}
+	<div class="tipimg no_data">
+	暂无数据
+	</div>
+	{/if}
+
+
+
+
+
+</div><!--content end  -->
+</div>
+{include file="style5.2/inc/footer.html"}

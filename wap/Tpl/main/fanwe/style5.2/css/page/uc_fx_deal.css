@@ -1,0 +1,63 @@
+#uc_fx_deal .search-bar{
+	background: #fff;
+}
+.fx-deal-list{
+	margin-top: .5rem;
+}
+.fx-deal-list ul{
+	background: #fff;
+}
+.fx-deal-list li{
+	padding: .5rem;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.fx-deal-list li .goods-img{
+	display: block;
+	width:4.5rem;
+	height:4.5rem;
+}
+.fx-deal-list li .goods-info{
+	width:50%;
+	margin-left: .5rem;
+}
+.fx-deal-list li .goods-info .goods-name{
+	display: block;
+	height: 2rem;
+	line-height: 1rem;
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+.fx-deal-list li .goods-info .goods-bd{
+	height:2.5rem;
+	line-height: 1rem;
+	font-size:@f_size4;
+	color:@f_color3;
+}
+.fx-deal-list li .goods-info .goods-bd .fx-price span{
+	font-size:@f_size2;
+	color:#ff2244;
+	display: inline-block;
+	vertical-align: top;
+}
+.fx-deal-list li .goods-info .fx-deal-btn{
+	line-height: 1.2rem;
+	border-radius:3px;
+	display: block;
+	width:3rem;
+	text-align: center;
+	font-size:@f_size4;
+}
+.fx-deal-list li .goods-info .j-deal{
+	background:@themecolor;
+	color:#fff;
+}
+.fx-deal-list li .goods-info .j-dealed{
+	background:@gray;
+	color:@f_color1;
+}

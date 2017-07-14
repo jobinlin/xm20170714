@@ -1,0 +1,206 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="dc_cart">
+<script>
+	var ajaxurl = "{url r="index" p="dcajax"}";
+	var DC_CONSIGNEE_URL = "{url r="index" p="dc_consignee"}";
+ 	var location_id = "{$data.location_info.id}";
+ 	var total_price = '{$data.total_price}';
+ 	var base_url = '{url r="index" a="dcorder#cart" p="lid=$data.location_info.id"}';
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak={$data.baidu_m_key}&services=&t=20170207140543"></script>
+<form id="cart_form" name="cart_form">
+<div class="dc-mask j-close-time j-close-memo"></div>
+<div class="time-select">
+	<div class="time-select-hd">
+		<span>选择配送时间</span>
+		<p class="j-close-time">取消</p>
+	</div>
+	<ul class="select-day r-line">
+		<li class="j-day-item b-line">今日</li>
+	</ul>
+	<ul class="select-time">
+		{foreach from=$data.delivery_time item=delivery_time key=key}
+		<li class="j-time-choose b-line flex-box j-close-time {if $data.order_delivery_time eq $delivery_time}active{/if}" value="{if $key eq 0}1{else}{$delivery_time}{/if}">
+			<p class="flex-1">{$delivery_time}</p>
+			<div class="iconfont">&#xe667;</div>
+		</li>
+		{/foreach}
+	</ul>
+</div>
+<div class="memo-box">
+	<div class="memo-text">
+		<textarea placeholder="备注您的口味、偏好等" id="memo" name="dc_comment" maxlength="100"></textarea>
+	</div>
+	<div class="memo-btn-box flex-box t-line">
+		<div class="j-close-memo memo-btn flex-1 r-line">取消</div>
+		<div class="j-memo memo-btn flex-1">确认</div>
+	</div>
+</div>
+{if $data.list}
+<div class="dc-pay-bar flex-box t-line">
+	<p class="pay-info flex-1">{if $data.discount_price}已优惠 <span class="price">&yen;{$data.discount_price}</span>，{/if}待支付 <span class="price">&yen;<em class="pay_price">{$data.pay_price}</em></span></p>
+	<a data-url="{url r="index" p="dcorder#make_order" g="lid=$data.location_info.id"}" class="dc-data-btn dc-pay-btn">去支付</a>
+</div>
+{/if}
+{include file="style5.2/inc/headers/dc_header.html"}
+    <div class="content">
+    {if $data.list}
+    	<div class="j-ajaxaddress">
+    		{if $data.consignee_info}
+	    	<div class="dc-address-box flex-box open-address">
+	    		<div class="address-ico iconfont">&#xe62f;</div>
+	    		<div class="dc-address-info flex-1">
+	    			<p class="user-info">{$data.consignee_info.consignee}    {$data.consignee_info.mobile}</p>
+	    			<p class="user-address">{$data.consignee_info.api_address}{$data.consignee_info.address}</p>
+	    			<input type="hidden" name="consignee_id" value="{$data.consignee_info.id}">
+	    		</div>
+	    		<div class="iconfont">&#xe607;</div>
+	    	</div>
+	    	{else}
+	    	<div class="dc-address-box flex-box {if $data.hasconsignee}open-address{else}j-open-new-address{/if}">
+	    		<div class="address-ico iconfont">&#xe62f;</div>
+	    		<div class="dc-address-info no-address flex-1">请选择送餐地址</div>
+	    		<div class="iconfont">&#xe607;</div>
+	    	</div>
+	    	{/if}
+    	</div>
+		<div class="send-time-bar flex-box j-open-time">
+			<div class="iconfont time-ico">&#xe68f;</div>
+			<p class="flex-1">配送时间</p>
+			<div class="j-send-time send-time">尽快配送</div>
+			<div class="iconfont">&#xe607;</div>
+			<input type="hidden" id="time-value" name="order_delivery_time" value="1">
+		</div>
+		<div class="dc-goods-detail">
+			<a href="#" class="flex-box dc-goods-hd back">
+				<div class="shop-logo"><img src="{$data.location_info.preview}" alt=""></div>
+				<p class="shop-name flex-1">
+				{$data.location_info.name}</p>
+				<div class="iconfont">&#xe607;</div>
+			</a>
+			<ul class="goods-list t-line b-line">
+				{foreach from=$data.list item=dc_cart}
+				<li class="flex-box">
+					<p class="goods-name">{$dc_cart.name}</p>
+					<p class="goods-num flex-1">x{$dc_cart.num}</p>
+					<p class="goods-price">{function name=format_price v=$dc_cart.total_price g=2}</p>
+				</li>
+				{/foreach}
+			</ul>
+			
+			<ul class="goods-list b-line">
+				<li class="flex-box" {if $data.package_price <= 0}style="display:none;"{/if}>
+					<p class="goods-name flex-1">打包费</p>
+					<p class="goods-price">&yen;<em class="package_price">{$data.package_price}</em></p>
+				</li>
+				<li class="flex-box de-price-box" {if $data.delivery_price <= 0}style="display:none;"{/if}>
+					<p class="goods-name flex-1">配送费</p>
+					<p class="goods-price">&yen;<em class="delivery_price">{$data.delivery_price}</em></p>
+				</li>
+			</ul>
+			
+			
+			<ul class="goods-list b-line" {if $data.discount_price <= 0}style="display:none;"{/if}>
+				<li class="flex-box">
+					<div class="youhui-ico">{if data.promote_info.class_name eq 'FirstOrderDiscont'}<img src="{$TMPL}/style5.2/images/static/dc/youhui-ico3.png" alt="">{else}<img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt="">{/if}</div>
+					<p class="goods-name flex-1">{$data.promote_info.description}</p>
+					<p class="goods-price youhui-price">-&yen;<em class="promote_amount">{$data.promote_info.config.discount_amount}</em></p>
+				</li>
+				<!-- <li class="flex-box">
+					<div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico3.png" alt=""></div>
+					<p class="goods-name flex-1">首次下单，立减9元</p>
+					<p class="goods-price youhui-price">-&yen;9</p>
+				</li> -->
+			</ul>
+			
+			<div class="dc-goods-bd flex-box">
+				<p class="goods-count-tip flex-1">订单 &yen;<em class="total_count">{$data.total_count}</em>{if $data.discount_price}，优惠 &yen;{$data.discount_price}{/if}</p>
+				<p class="goods-count">待支付 <span>&yen;<em class="pay_price">{$data.pay_price}</em></span></p>
+			</div>
+		</div>
+		<div class="dc-memo">
+			<p class="memo-tit">用餐备注</p>
+			<p class="memo-txt flex-1 j-open-memo"><span class="default-txt">备注您的口味、偏好等</span></p>
+		</div>
+  	</div>
+  	{else}
+	<div class="tipimg no_data">购物车为空</div>
+	{/if}
+</form>
+
+<div class="popup popup-address">
+	<div class="popup-header b-line">
+		<p class="popup-tit">收货地址</p>
+		<div class="iconfont j-close-popup address-back">&#xe604;</div>
+	</div>
+	<div class="popup-bd">
+		<!-- 地址列表 -->
+	</div>
+	<div class="j-open-new-address t-line flex-box new-address-btn">
+		<div class="iconfont">&#xe903;</div>
+		<p>新增地址</p>
+	</div>
+</div>
+<div class="popup popup-address-edit">
+	<!-- 编辑地址 -->
+</div>
+<div class="popup popup-address-new">
+	<div class="popup-header b-line">
+		<p class="popup-tit">新增地址</p>
+		<div class="iconfont j-close-popup">&#xe604;</div>
+	</div>
+	<ul class="address-edit-list add-item">
+		<li class="flex-box b-line">
+			<p class="edit-tit">联系人</p>
+			<input type="text" class="flex-1" name="consignee" placeholder="您的姓名">
+		</li>
+		<li class="flex-box b-line">
+			<p class="edit-tit">手机号</p>
+			<input type="text" class="flex-1" name="mobile" placeholder="配送人员联系您的电话">
+		</li>
+		<li class="flex-box b-line">
+			<p class="edit-tit">收货地址</p>
+			<div class="edit-address-info flex-1 flex-box dc_mappick">
+				<div class="iconfont address-ico">&#xe62f;</div>
+				<input type="text" class="edit-address flex-1" name="api_address" value="" readonly>
+				<input type="hidden" name="xpoint">
+				<input type="hidden" name="ypoint">
+				<div class="iconfont">&#xe607;</div>
+			</div>
+		</li>
+		<li class="flex-box b-line">
+			<p class="edit-tit">门牌号</p>
+			<input type="text" class="flex-1" placeholder="详细地址，例：1号楼一单元101室" name="address">
+		</li>
+	</ul>
+	<a href="" class="edit-btn j-save-address save-address">保存</a>
+</div>
+<!-- 百度地图定位 -->
+<div class="popup popup-address-map">
+	<div class="popup-header b-line">
+		<p class="popup-tit">选择地图坐标</p>
+		<div class="iconfont j-close-popup">&#xe604;</div>
+	</div>
+	<div id="uc_address_map_pick">
+		<div class="search-box">
+			<div id="r-result" class="map_search_key flex-box">
+				<i class="search-icon iconfont">&#xe61a;</i>
+				<input type="text" class="flex-1" id="suggestId" value="{$region}" placeholder="输入小区、学校、街道" />
+			</div>
+		</div>
+		<div id="baidu_searchResultPanel"></div>
+		<div id="baidu_mapBox">
+			<div id="baidu_allmap"></div>
+			<span>
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-shouhuodizhi"></use>
+				</svg>
+			</span>
+			<div id="baidu-m-result"></div>
+		</div>
+	</div>
+</div>
+
+</div>
+{include file="style5.2/inc/footer.html"}

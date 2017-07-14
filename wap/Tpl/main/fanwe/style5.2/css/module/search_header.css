@@ -1,0 +1,28 @@
+/* 搜索栏头部 */
+.m-search-header{
+	height:2.2rem;
+}
+.m-search-header a{
+	display: block;
+	color:@f_icon_color;
+}
+.m-search-header .hd-ico{
+	font-size:1.1rem;
+}
+.m-search-header .go-search{
+	margin: 0 .5rem;
+	height:1.4rem;
+	font-size:.6rem;
+	background:@gray;
+	color:@f_color2;
+}
+.m-search-header .go-search .iconfont{
+	display: block;
+	width:1.4rem;
+	text-align: center;
+	font-size:.7rem;
+	color:#cecece;
+}
+.m-search-header .header-btn{
+	float: none;
+}

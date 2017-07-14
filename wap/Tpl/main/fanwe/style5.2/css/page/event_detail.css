@@ -1,0 +1,37 @@
+.m-event-detail-head{
+	position: relative;
+	line-height: 2.2rem;
+}
+
+.m-event-detail-head .title{
+	color: #353d44;
+	padding: 0 2rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.m-event-detail-head .head-btn{
+	position: absolute;
+	display: block;
+	z-index: 2;
+	color: #878993;
+	font-size: 1.1rem;
+}
+
+.m-event-detail-head .more{
+	top: 0;
+	right: 0;
+	padding: 0 .5rem;
+}
+
+.m-event-detail-head .go-back{
+	top: 0;
+	left: 0;
+	padding: 0 .5rem;
+}
+
+.m-event-detail-content img{
+	width: 100%;
+}
+

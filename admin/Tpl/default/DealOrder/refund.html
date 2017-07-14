@@ -1,0 +1,78 @@
+<form name="refund_form" method="post">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td colspan=2>
+			<table>
+				<tr>
+					<td style="border:none;">
+						<if condition="$data['deal_icon'] neq '' ">
+							<img src="{$data.deal_icon}" width=50 />
+						</if>
+					</td>
+					<td style="border:none;">
+					{$data.name}
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+		
+	<if condition="$data['refund_content'] neq '' ">
+	<tr>
+		<td class="item_title">
+			退款原因
+		</td>
+		<td class="item_input">
+			{$data.refund_content}
+		</td>
+	</tr>
+	</if>
+	
+	<tr>
+		<td class="item_title">退款金额：</td>
+		<td class="item_input">
+			<!-- <div style="margin-top:10px; color:red;">
+				退款金额建议不超过  {$data.price|floatval} 元
+			</div>
+			<div style="margin-top:10px; color:red;">
+				含 商品金额 {$data.price|floatval} 元 + 运费 {$order_info.delivery_fee|floatval} 元
+			</div> -->
+			<div style="margin-top:10px; color:black;">
+			退还 <input id="refund_price_id" style="font-size:20px;font-weight:bold; width:120px; text-align:center;" type="text" name="price" value="{$data.real_total_price}" style="width:70px;" /> 元到 {$order_info.user_name} 的账户余额
+			</div>
+			<div style="margin-top:10px; color:red;">
+				订单已付金额 {$order_info.pay_amount}元，
+				<if condition="$order_info['ecv_money'] gt 0 or $order_info['delivery_fee'] gt 0">其中</if><if condition="$order_info['ecv_money'] gt 0">红包支付{$order_info.ecv_money}元，</if><if condition="$order_info['youhui_money'] gt 0">优惠劵支付{$order_info.youhui_money}元，</if> <if condition="$order_info['delivery_fee'] gt 0">运费{$order_info.delivery_fee}元，</if>已退{$order_info.refund_amount|floatval}元。
+				<br/>优惠劵，红包，积分抵扣，运费 不退回。
+			</div>
+		</td>
+	</tr>
+ 	
+	<tr>
+		<td class="item_title">备注：</td>
+		<td class="item_input">
+			<textarea cols="45" class="text" name="content"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 style="text-align:center;">
+			<input type="hidden" name="{$data.key}" value="{$data.id}" />
+			<input type="button" class="button" id="confirm" value="确认退款" action="{:u("DealOrder/do_refund")}" />
+			<input type="button" class="button" id="refuse" value="拒绝退款" action="{:u("DealOrder/do_refuse")}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+</form>
+<script>
+$(document).ready(function(){
+	var val = $('#refund_price_id').val();
+	$('#refund_price_id').val('').focus().val(val);
+});
+</script>

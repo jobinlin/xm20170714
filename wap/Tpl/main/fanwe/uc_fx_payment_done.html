@@ -1,0 +1,57 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index" id="uc_fx_payment_done">
+
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content" style="bottom: 0">
+		<div class="list-block m-order-common media-list" style="margin-bottom: 0">
+			<div class="item-content m-order-state">
+				<div class="item-inner">
+					<div class="item-subtitle u-order-state-font">{if $data.buy_type eq 1}兑换成功{else}付款成功{/if}</div>
+				</div>
+				<div class="u-order-state-img">
+					<img src="{$TMPL}/style5.2/images/static/pay_done.png" alt="恭喜，付款成功">
+				</div>
+			</div>
+			<div class="item-content b-line u-order-ident">
+				<div class="item-title">订单编号：{$data.order_sn}</div>
+			</div>
+			<div class="item-content b-line" style="margin-left: 0.5rem">
+				<div class="item-inner" style="margin-left: 0">
+					<div class="item-subtitle user-name">您已成功开启分销功能</div>
+					<div class="item-text user-address">可以邀请好友加入</div>
+					<div class="item-text user-address">可以前往分销市场代理商品</div>
+				</div>
+			</div>
+			
+			<div class="loadMore">
+				<i class="iconfont up_btn">&#xe608;</i>
+				<i class="iconfont down_btn">&#xe606;</i>
+			</div>
+			
+		</div>
+		<br/>
+
+
+		<!-- 页面主体 -->
+		<div class="list-block pay-btn-box">
+			<div class="item-content">
+				<div class="item-inner">
+					<a class="button u-look-order payBtn" href="{url i="index" r="uc_share"}" data-no-cache="true">邀请好友</a>
+					<a href="{url i="index" r="uc_fx"}" class="button u-look-shop payBtn" data-no-cache="true">去分销</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="codeShowBox">
+		<div class="blackBox blackBox-i"></div>
+		<div class="codeImgBox">
+			<h4 class="codeName"></h4>
+			<img class="codeImg" src="">
+		</div>
+	</div>
+	{include file="style5.2/inc/module/share.html"}
+</div>
+
+{include file="style5.2/inc/footer.html"}

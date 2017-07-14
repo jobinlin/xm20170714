@@ -1,0 +1,44 @@
+<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="dc-order-list j-ajaxlist">
+			{if $data.order_list}
+			<ul class="order-list j-ajaxadd">
+				{foreach from=$data.order_list item=item}
+				<li>
+					<a href="{url r="index" p="dc_rsorder#view" g="id=$item.id"}" class="order-hd">
+						<div class="shop-img"><img src="{$item.preview}" alt="" class="img-comment"></div>
+						<div class="shop-info flex-1">
+							<div class="shop-info-hd flex-box b-line">
+								<p class="shop-name flex-1 name-comment">{$item.location_name}</p>
+								<p class="order-status">{$item.order_state.state_format}</p>
+							</div>
+							<div class="order-info flex-box">
+								<div class="rs-info flex-1">
+									<p>预约内容：{$item.rs_info[0].name}</p>
+									<p>预约时间：{$item.rs_info[0].table_time_format}</p>
+								</div>
+								<p class="price">{function name=format_price v=$item.total_price g=2}</p>
+							</div>
+						</div>
+						<input name="location_id" type="hidden" value="{$item.location_id}"/>
+						<input name="order_id" type="hidden" value="{$item.id}"/>
+					</a>
+					<div class="order-edit-bar t-line">
+					{if $item.order_state.act}
+					{foreach from=$item.order_state.act item=act}
+					{if $item.order_state.state eq 1}
+						<a href="{$act.url}" class="order-btn">去支付</a>
+					{elseif $item.order_state.state eq 4}
+						<a href="javascript:void(0);" class="order-btn j-open-comment">评价</a>
+					{/if}
+					{/foreach}
+					{/if}
+					</div>
+				</li>
+				{/foreach}	
+			</ul>
+			<div class="pages hide">{$pages}</div>
+			{else}
+			<div class="tipimg no_data">暂无订单</div>
+			{/if}	
+		</div>
+	</div>

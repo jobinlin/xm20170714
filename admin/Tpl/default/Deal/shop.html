@@ -1,0 +1,252 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<style>
+    table.form th {
+        height: 25px;
+        text-align: center;
+        background: #edf3f7;
+        line-height: 25px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #navs{ background:url(__TMPL__Common/images/navbgs.png) 0px 24px repeat-x; height:28px; position:relative;}
+    #navs ul{position:absolute;  }
+    #navs ul li{ float:left; display:inline; padding:0px 5px; width:90px; }
+
+    #navs a.show{ display:block; background:#4E6A81 0px 0px repeat-x; color:#fff;  padding:0px 10px;text-align:center; text-decoration:none; line-height:25px; height:28px; font-weight:bold; }
+    #navs a.show.current{  color:#fff; background:#8EA7BB repeat-x; line-height:28px;  }
+    #stock_table table th {
+        background: white;
+        padding: 10px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #stock_table table td {
+        text-align: center;
+        padding: 10px;
+        border-right: #ccc solid 1px;
+        border-bottom: #ccc solid 1px;
+    }
+    #stock_table table {
+         border-spacing: 0px;
+         border-top: solid 1px #ccc;
+         border-left: solid 1px #ccc;
+     }
+</style>
+<script type="text/javascript">
+	function preview(id)
+	{
+		window.open("__ROOT__/index.php?ctl=deal&act="+id+"&preview=1");
+	}
+    function show_detail(id)
+    {
+        $.weeboxs.open(ROOT+'?m=Deal&a=show_detail&id='+id, {contentType:'ajax',showButton:false,title:LANG['COUNT_TOTAL_DEAL'],width:600,height:330});
+    }
+</script>
+<php>
+	function get_shop_cate_name($cate_id)
+	{
+        $cate_id=explode(",",$cate_id);
+		$cate_name=M("ShopCate")->where("id=".$cate_id[0])->getField("name");
+        if(count($cate_id)>1){
+            return $cate_name."...";
+        }else{
+            return $cate_name;
+        }
+
+		
+	}
+    function get_deal_no_city_name($city_id){
+        if($city_id){
+           return get_city_name($city_id);
+        }else{
+           return "全国";
+       }
+    }
+	function get_buy_type_title($buy_type)
+	{
+		return l("SHOP_BUY_TYPE_".$buy_type);
+	}
+	function a_get_time_status($time_status,$deal_id)
+	{
+		$str = l("TIME_STATUS_".$time_status);
+		return $str;
+	}
+	function a_get_deal_type($type,$id)
+	{
+		$deal = M("Deal")->getById($id);
+		if($deal['is_coupon'])
+		{
+		$link = "&nbsp;&nbsp;[ <a href='".__APP__."?m=DealCoupon&a=index&deal_id=".$id."' style='color:red;'>".l("DEAL_COUPON")."</a> ]";
+		return l("COUNT_TYPE_".$deal['deal_type']).$link;
+		}
+		else
+		return l("NO_DEAL_COUPON_GEN");
+		
+	}
+    function format_max_bought($max_bought){
+      if($max_bought==-1){
+         return "不限";
+      }else{
+         return $max_bought;
+      }
+    }
+	function get_coupon($id)
+	{
+		$deal = M("Deal")->where("id=".$id)->find();
+		if($deal['is_coupon'] == 1 || $deal['is_pick'] == 1)
+		{
+			$link = "[ <a href='".__APP__."?m=DealCoupon&a=index&deal_id=".$id."' style='color:red;'>".l("DEAL_COUPON")."</a> ]";
+		}
+		return $link;
+	}
+    function a_get_buy_status($buy_status,$deal_id)
+    {
+        $is_coupon = M("Deal")->where("id=".$deal_id)->getField("is_coupon");
+        if($is_coupon == 1)
+        {
+        $link = "&nbsp;&nbsp;[ <a href='".__APP__."?m=DealCoupon&a=index&deal_id=".$deal_id."' style='color:red;'>".l("DEAL_COUPON")."</a> ]";
+        }
+        $count = "&nbsp;&nbsp;[<a href='javascript:void(0);' onclick='show_detail(".$deal_id.");' style='color:red;'>".l("COUNT_TOTAL_DEAL")."</a>]";
+        return l("BUY_STATUS_".$buy_status).$link.$count;
+    }
+	function show_attr_stock($id,$name){
+       $link='';
+       $count=M("AttrStock")->where("deal_id=".$id)->count();
+       if($count){
+            $link = "<a href=\"javascript:show_attr_stock(".$id.",'".$name."')\">规格库存</a>";
+       }
+       return $link;
+    }
+    function get_real_buy_count($id){
+      return $real_buy_count =  intval($GLOBALS['db']->getOne("select sum(doi.number) from ".DB_PREFIX."deal_order_item as doi left join ".DB_PREFIX."deal_order as do on doi.order_id = do.id where doi.deal_id = ".$id." and do.pay_status = 2"));
+    }
+</php>
+
+<div class="main">
+<div class="main_title"><if condition="$type==0">商城商品<elseif condition="$type==1" />积分商品<elseif condition="$type==2" />商城商品<elseif condition="$type==3" />团购商品</if></div>
+<div class="blank5"></div>
+<div id="navs">
+    <div>
+        <ul>
+            <li ><a class="show <if condition="$status==0">current</if>" href="{:u("Deal/shop",array("status"=>0,"type"=>$type))}">出售中</a></li>
+            <li><a class="show <if condition="$status==1">current</if>" href="{:u("Deal/shop",array("status"=>1,"type"=>$type))}">已售罄</a></li>
+            <li><a class="show <if condition="$status==2">current</if>" href="{:u("Deal/shop",array("status"=>2,"type"=>$type))}">仓库中</a></li>
+        </ul>
+    </div>
+    <div style="float:right">
+        <a style="color:black;margin: 0 10px 0 0;font-weight: bold;font-size: 14px;" href="{:u("Deal/trash",array("type"=>$type))}">商品回收站</a>
+    </div>
+</div>
+<div class="search_row">
+    <div class="button_row" style="float: left;">
+        <div style="display: inline-block;">
+        <input type="button" class="button" style="background:#FF9900;" value="新增商品" onclick="add_goods({$type});" />
+        <input type="button" class="button" value="{%DEL}" onclick="del();" />
+            <if condition="$status==2">
+                <input type="button" class="button" value="上架" onclick="up_line();" />
+                <span class="item_input">注：如果无法上架，请查看库存和上下架时间是否有问题</span>
+                <else />
+                <input type="button" class="button" value="下架" onclick="down_line();" />
+            </if>
+        </div>
+
+    </div>
+    <div style="float: right;">
+        <form name="search" action="__APP__" method="get">
+          <if condition="$type==0||$type==1">
+              <select name="cate_id">
+                  <option value="0" <if condition="intval($_REQUEST['cate_id']) eq 0">selected="selected"</if>>所有分类</option>
+                  <foreach name="cate_tree" item="cate_item">
+                      <option value="{$cate_item.id}" <if condition="intval($_REQUEST['cate_id']) eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+                  </foreach>
+              </select>
+              <input type="text" class="textbox" name="name" value="{:strim($_REQUEST['name'])}" placeholder="商品名" />
+              <input type="hidden" value="Deal" name="{:conf("VAR_MODULE")}" />
+              <input type="hidden" value="shop" name="{:conf("VAR_ACTION")}" />
+              <input type="hidden" value="{$type}" name="type" />
+              <input type="hidden" value="{$status}" name="status" />
+              <input type="submit" class="button" value="{%SEARCH}" />
+          <elseif condition="$type==2||$type==3"/>
+              <select name="cate_id">
+                  <option value="0" <if condition="intval($_REQUEST['cate_id']) eq 0">selected="selected"</if>>所有分类</option>
+                  <foreach name="cate_tree" item="cate_item">
+                      <option value="{$cate_item.id}" <if condition="intval($_REQUEST['cate_id']) eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+                  </foreach>
+              </select>
+              <input type="text" class="textbox" name="name" value="{:strim($_REQUEST['name'])}" placeholder="商品名" />
+              <input type="text" class="textbox" name="supplier_name" value="{:strim($_REQUEST['supplier_name'])}" placeholder="商家名"/>
+
+              <input type="hidden" value="Deal" name="{:conf("VAR_MODULE")}" />
+              <input type="hidden" value="shop" name="{:conf("VAR_ACTION")}" />
+              <input type="hidden" value="{$type}" name="type" />
+              <input type="hidden" value="{$status}" name="status" />
+              <input type="submit" class="button" value="{%SEARCH}" />
+          </if>
+
+        </form>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<div class="blank5"></div>
+<if condition="$type==0">
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name|msubstr_name:{%GOODS_NAME}:edit_goods
+		,current_price|number_format=2:价格
+		,shop_cate_id|get_shop_cate_name:{%SHOP_CATE_TITLE}
+        ,max_bought|format_max_bought:库存
+        ,id|get_real_buy_count:总销量
+		,sort|get_sort=$deal['id']:{%SORT}" 
+	actionlist="id|get_coupon,edit_goods:{%EDIT}, del:{%DEL}, preview:{%PREVIEW},id|show_attr_stock=$name" />
+<elseif condition="$type==1" />
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="deal"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+		,name|msubstr_name:{%GOODS_NAME}:edit_goods
+		,return_score|abs:所需积分
+		,shop_cate_id|get_shop_cate_name:分类
+        ,max_bought|format_max_bought:库存
+        ,id|get_real_buy_count:总销量
+		,sort|get_sort=$deal['id']:{%SORT}"
+            actionlist="id|get_coupon,edit_goods:{%EDIT}, del:{%DEL}, preview:{%PREVIEW},id|show_attr_stock=$name" />
+<elseif condition="$type==2" />
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="deal"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+		,name|msubstr_name:{%GOODS_NAME}:edit_goods
+		,current_price|number_format=2:价格
+		,shop_cate_id|get_shop_cate_name:分类
+		,supplier_id|get_supplier_name:商家
+        ,id|get_real_buy_count:总销量
+		,sort|get_sort=$deal['id']:{%SORT}"
+            actionlist="id|get_coupon,edit_goods:{%EDIT}, del:{%DEL}, preview:{%PREVIEW},id|show_attr_stock=$name" />
+
+</if>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

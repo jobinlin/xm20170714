@@ -1,0 +1,21 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+    <div class="main_title">商户充值记录</div>
+    <div class="blank5"></div>
+
+    <div class="blank5"></div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="list"
+            checkbox="true"
+            datasource="list"
+            show="id:{%ID}|50px,supplier_id|get_supplier_name:商户名:edit,create_time|to_date:时间,total_price|format_price_floor:金额,pay_status|get_pay_status:状态"
+             />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

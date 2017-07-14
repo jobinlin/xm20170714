@@ -1,0 +1,230 @@
+
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<PHP>echo app_conf("BAIDU_MAP_APPKEY");</PHP>&s=1"></script>
+<load href='__TMPL__Common/js/baidumapEventWrapper.js' />
+<div id="allmap" style="height:400px; width: 600px; margin: 0;"></div>
+<div id="result">
+    <input type="hidden" name="xpoint" value="{$vo.xpoint}">
+    <input type="hidden" name="ypoint" value="{$vo.ypoint}">
+	<input type="hidden" name="xpoints" value="{$vo.xpoints}">
+	<input type="hidden" name="ypoints" value="{$vo.ypoints}">
+</div>
+
+<!--加载鼠标绘制工具-->
+<script type="text/javascript">
+	var map = new BMap.Map("allmap",{enableMapClick:false});
+    var polygon, marker;
+	var xpoint, ypoint;
+    var xpoints = ypoints = [];
+    var mapzoom = 12;
+    var styleOptions = {
+        strokeColor:"blue",    //边线颜色。
+        strokeWeight: 2,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.5,       //边线透明度，取值范围0 - 1。
+        // fillOpacity: 0,
+        enableEditing: true,
+    };
+    var Bpoints = [];
+	<if condition="$is_edit eq 1">
+        xpoint = {$vo.xpoint}, ypoint = {$vo.ypoint};
+        <foreach name="xpoints" item="x" key="k">
+            xpoints.push({$x});
+            ypoints.push({$y});
+            Bpoints.push(new BMap.Point({$x}, {$ypoints.$k}));
+        </foreach>
+        polygon = new BMap.Polygon(Bpoints, styleOptions);
+        map.addOverlay(polygon);
+        // /polygon.addEventListener('lineupdate', lineupdate);
+        BMapLib.EventWrapper.addListener(polygon, 'lineupdate', lineupdate);
+	<else />
+		xpoint = 116.331398;
+        ypoint = 39.897445;
+	</if>
+    // /
+    map.centerAndZoom(new BMap.Point(xpoint, ypoint), mapzoom);
+    marker = new BMap.Marker(new BMap.Point(xpoint, ypoint), {enableMassClear:false,enableClicking:false});
+    map.addOverlay(marker);
+    
+	map.enableScrollWheelZoom();
+
+
+
+    // 获取多边形坐标
+    function lineupdate() {
+        var points = polygon.getPath();
+        xpoints = [], ypoints = [];
+        for (i in points) {
+            xpoints.push(points[i].lng);
+            ypoints.push(points[i].lat);
+        }
+        setpoints();
+    }
+
+
+    $(".prov_id").bind("change",function() {
+        var prov_id = $(this).val();
+        var query = {'ajax':1,'prov_id':prov_id};
+        $.ajax({
+            url:cityUrl,
+            type:"GET",
+            data:query,
+            dataType:"json",
+            success:function(obj) {
+                if(obj.data) {
+                    var data = obj.data;
+                    var options = '<option value="0">请选择城市</option>';
+                    for (i in data) {
+                        options += '<option value="'+data[i].id+'">'+data[i].name+'</option>'; 
+                    }
+                    $('.city_id').html(options);
+                    mapCenter(prov_id);
+                }
+            }
+        });
+    });
+    $(".city_id").bind('change', function() {
+        var city_id = $(this).val();
+        var prov_id = $('.prov_id').val();
+        mapCenter(prov_id, city_id);
+    });
+
+    // 城市飘移
+    function mapCenter(prov_id, city_id) {
+        if (polygon) {
+            polygon.hide();
+        }
+        $('.local_key').val('');
+        $('.orig_key').val('');
+        var name = '';
+        name += $('option[value="'+prov_id+'"]').html();
+        if (city_id) {
+            name += $('option[value="'+city_id+'"]').html();
+        }
+        BMapLib.EventWrapper.addListenerOnce(map, 'moveend', markerMove);
+        map.setCenter(name);
+        map.setZoom(mapzoom);
+        clearpoints();
+    }
+    function markerMove() {
+        var center = map.getCenter();
+        marker.setPosition(center);
+    }
+
+    function setpoint() {
+        $('input[name="xpoint"]').val(xpoint);
+        $('input[name="ypoint"]').val(ypoint);
+    }
+
+    function setpoints() {
+        $('input[name="xpoints"]').val(xpoints.join(','));
+        $('input[name="ypoints"]').val(ypoints.join(','));
+        $('input[name="addr_check"]').val('1');
+    }
+
+    function clearpoints() {
+        $('input[name="xpoints"]').val('');
+        $('input[name="ypoints"]').val('');
+    }
+
+    $('.local_search').bind('click', function() {
+
+        // 拼接省、市和搜索的关键字
+        var v = '';
+        var pid = $('.prov_id').val();
+        if (pid == 0) {
+            alert('请先选择省市信息');
+            return false;
+        }
+        var cid = $('.city_id').val();
+        if (cid == 0) {
+            alert('请先选择城市');
+            return false;
+        }
+        var v = $.trim($('.local_key').val());
+        if (!v) {
+            alert('请输入要定位的地址');
+            return false;
+        }
+
+        // 同一个地址防止重复定位
+        var origV = $.trim($('.orig_key').val());
+        if (v == origV) {
+            return false;
+        }
+
+        $('.orig_key').val(v);
+
+        v = $('option[value='+pid+']').html() + $('option[value='+cid+']').html() + v;
+        var myGeo = new BMap.Geocoder();
+        myGeo.getPoint(v, function(p) {
+            if (p) {
+                BMapLib.EventWrapper.addListenerOnce(map, 'moveend', localInit);
+                xpoint = p.lng;
+                ypoint = p.lat;
+                map.setCenter(p);
+                map.setZoom(14);
+            } else {
+                alert('区域内未搜索到结果');
+            }
+        })
+    });
+
+    function localInit() {
+        markerMove();
+        setTimeout(function() {
+            initpolygon();
+        }, 800);
+    }
+
+    
+    // 初始化
+    function initpolygon() {
+        // map.clearOverlays();
+        setpoint();
+        clearpoints();
+        var mbo = getMinBounds();
+        xpoints = [mbo[0].lng, mbo[0].lng, mbo[1].lng, mbo[1].lng];
+        ypoints = [mbo[0].lat, mbo[1].lat, mbo[1].lat, mbo[0].lat];
+        if (polygon) {
+            Bpoints = [];
+            for (i in xpoints) {
+                Bpoints.push(new BMap.Point(xpoints[i], ypoints[i]));
+            }
+            polygon.setPath(Bpoints);
+            polygon.show();
+        } else {
+            polygon = new BMap.Polygon([
+                new BMap.Point(xpoints[0], ypoints[0]),
+                new BMap.Point(xpoints[1], ypoints[1]),
+                new BMap.Point(xpoints[2], ypoints[2]),
+                new BMap.Point(xpoints[3], ypoints[3])]
+                , styleOptions);
+            map.addOverlay(polygon);
+            // polygon.addEventListener('lineupdate', lineupdate);
+            BMapLib.EventWrapper.addListener(polygon, 'lineupdate', lineupdate);
+        }
+    }
+
+    function getMinBounds() {
+        var bounds = map.getBounds();
+        var NEpoint = bounds.getNorthEast();
+        var SWpoint = bounds.getSouthWest();
+        var newNE = {
+            'lng': NEpoint.lng + (SWpoint.lng - NEpoint.lng) / 3,
+            'lat': NEpoint.lat + (SWpoint.lat - NEpoint.lat) / 3
+        }
+        var newSW = {
+            'lng': SWpoint.lng + (NEpoint.lng - SWpoint.lng) / 3,
+            'lat': SWpoint.lat + (NEpoint.lat - SWpoint.lat) / 3
+        }
+        return [newNE, newSW];
+    }
+    $('input[name="address"]').bind('input propertychange', function() {
+        var origv = $.trim($('.orig_key').val());
+        var currv = $.trim($(this).val());
+        var check = 0;
+        if (origv == currv) {
+            check = 1;
+        }
+        $('input[name="addr_check"]').val(check);
+    });
+</script>

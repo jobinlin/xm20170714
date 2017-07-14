@@ -1,0 +1,38 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-current" id="biz_money_log">
+{include file="style5.2/inc/dist_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		{if $data.item}
+		<div class="j-ajaxlist">
+		<ul class="record-list j-ajaxadd">
+			{foreach from=$data.item item=row}
+			<li class="flex-box b-line">
+				<div class="user-info">
+					<p class="bank-name">{$row.log_info}</p>
+					<p class="time">{$row.create_time}</p>
+				</div>
+				<div class="price-status flex-1">
+					{if $row.money lt 0}
+					<p class="price" style="color:green;">{$row.money}</p>
+					{else}
+					<p class="price" style="color:red;">+{$row.money}</p>
+					{/if}
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+		</div>
+		{else}
+		<div class="tipimg no_data">暂无记录</div>
+		{/if}
+	</div>
+	<div class="blank"></div>
+</div>
+{include file="style5.2/inc/footer.html"}

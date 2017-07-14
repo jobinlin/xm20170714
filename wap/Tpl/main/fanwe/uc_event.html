@@ -1,0 +1,64 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+$(document).ready(function() {
+	init_list_scroll_bottom();//下拉刷新加载
+});
+</script>
+<div class="page page-index page-current" id="uc_event">
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		<div class="j-ajaxlist">
+		{if $data.item}
+		<ul class="m-tuan-list j-ajaxadd">
+			{foreach from=$data.item item=events}
+			<li class="tuan-item">
+				<a href="{url r="index" a="event" go="data_id=$events.event_id"}" class="flex-box good-info b-line" data-no-cache="true">
+					<div class="img-box">
+						<img src="{$events.icon}" alt="">
+					</div>
+					<div class="flex-1">
+						<div class="good-name">{$events.eName}</div>
+						<div class="good-date">有效期：{$events.event_end_time}</div>
+					</div>
+				</a>
+				<div class="quan-show">
+					<ul class="quan-list">
+						<li class="flex-box quan-item {if $events.status eq 1}j-open-quaninfo{/if} b-line" {if $events.status eq 1}data="{$events.qrcode}" data-id="{$events.sn}"{/if}>
+							<div class="flex-1 {if $events.status eq 0}isOver{/if}">
+								券码：<em class="quan-detail">{$events.sn}</em>
+								{if $events.status eq 0}({$events.info}){/if}
+							</div>
+							<div>
+								<i class="iconfont erweima">&#xe60e;</i>
+								<i class="iconfont">&#xe607;</i>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		{else}
+		<div class="tipimg no_data">
+			暂无活动券
+		</div>
+		{/if}
+		<div class="pages hide">{$pages}</div>
+		</div>
+	</div>
+
+	<div class="pop-up">
+		<div class="close-pop"></div>
+		<div class="img-box">
+			<div class="img-box-con">
+				<div class="pop-quan-id">券码：<em class="j-quan-id"></em></div>
+				<div>请扫描二维码进行验证</div>
+				<img src="" alt="" class="j-pop-img">
+				<i class="iconfont close-pop-btn j-close-pop-btn">&#xe634;</i>
+			</div>
+
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

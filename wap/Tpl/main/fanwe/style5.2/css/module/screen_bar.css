@@ -1,0 +1,149 @@
+/* 商品筛选 */
+.m-screen-bar{
+	background:#fff;
+	position: relative;
+	z-index: 11;
+	height:2rem;
+}
+.m-screen-bar ul{
+	height:2rem;
+}
+.m-screen-bar .screen-item{
+	-webkit-flex:1;
+	-webkit-box-flex:1;
+	flex:1;
+}
+.m-screen-bar .screen-item a{
+	height:2rem;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items:center;
+	align-items:center;
+	-webkit-box-pack: center;
+	-webkit-justify-content:center;
+	justify-content:center;
+}
+.m-screen-bar .screen-item p{
+	white-space: nowrap;
+}
+.m-screen-bar .screen-item .iconfont{
+	font-size:.6rem;
+	margin-left: .25rem;
+	color:@f_icon_color;
+	display: block;
+}
+.m-screen-bar .screen-item .arrow-up{
+	display:none;
+}
+.m-screen-bar .screen-item .screen-price-down{
+	display:none;
+}
+.m-screen-bar .screen-item .arrow-btn{
+	line-height: .3rem;
+}
+.m-screen-bar .screen-item .arrow-btn .iconfont{
+	display:block !important;
+}
+.m-screen-bar .screen-item .active{
+	color:@f_colortheme;
+}
+/* 弹出层 */
+.m-screen-list{
+	position: absolute;
+	top: -100%;
+	left: 0;
+	width:100%;
+	height:100%;
+	height:-webkit-calc(100% + 1px);
+	height:calc(100% + 1px);
+	z-index:6;
+	opacity: 0;
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+}
+.m-screen-list.active{
+	top: 0;
+	opacity: 1;
+}
+.m-screen-list .mask{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	height:100%;
+	background:rgba(0, 0, 0, 0);
+	z-index: 1;
+	-webkit-transition: all .25s ease;
+	        transition: all .25s ease;
+	pointer-events:none;
+}
+.m-screen-list .mask-active{
+	background:rgba(0, 0, 0, 0.7);
+	pointer-events:auto;
+}
+/* 全部商品 */
+	.all-screen{
+		display:-webkit-box;
+		display:-webkit-flex;
+		display: flex;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		width:100%;
+		height: 100%;
+		padding-top:2rem;
+		-webkit-transform: translateY(-150%);
+		        transform: translateY(-150%);
+		-webkit-transition: transform .25s ease;
+		        transition: transform .25s ease;
+	}
+	.all-screen.active{
+		-webkit-transform: translateY(0);
+		        transform: translateY(0);
+		z-index: 3;
+	}
+	.all-screen .goods-type{
+		height:100%;
+		width:4.1rem;
+		background:#fff;
+		overflow-y: auto;
+		position: relative;
+	}
+	.all-screen .goods-type li{
+		line-height: 2.2rem;
+		text-align: center;
+	}
+	.all-screen .goods-type .active{
+		position: relative;
+		border-left:2px solid @themecolor;
+		background:#f8fafa;
+		z-index:7;
+		color:@f_colortheme;
+	}
+	.all-screen .type-detail{
+		height:100%;
+		overflow-y: auto;
+		background:#f8fafa;
+	}
+	.all-screen .type-detail ul{
+		display:none;
+		padding:0 1rem;
+		line-height: 2rem;
+	}
+	.all-screen .type-detail ul a{
+		display:-webkit-box;
+		display:-webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items:center;
+		align-items:center;
+	}
+	.all-screen .type-detail ul .active p{
+		color:@f_colortheme;
+	}
+	.all-screen .type-detail ul .goods-num{
+		color:@f_color3;
+	}

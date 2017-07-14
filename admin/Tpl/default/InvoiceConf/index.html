@@ -1,0 +1,81 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/invoiceConf.js' />
+<div class="main">
+<div class="main_title">{$vo.title}</div>
+<style>
+	.content-list{
+		margin-top: 5px;
+	}
+	.content-item {
+		float: left;
+		border: 1px solid #ddd;
+		line-height: 30px;
+		height:30px;
+		text-align: center;
+		margin-right: 5px;
+	}
+	.content-item span{
+		width:85px;
+		display: block;
+		float: left;
+	}
+	.content-item .del{
+		float: left;
+		display: block;
+		width:20px;
+		border-left:1px solid #ddd;
+	}
+</style>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">发票类型</td>
+		<td class="item_input">
+			<label class=""><input name="invoice_type" type="radio" value="0" <if condition="0 eq $vo['invoice_type']">checked="checked"</if> />不支持发票</label>&nbsp;
+			<label class=""><input name="invoice_type" type="radio" value="1" <if condition="1 eq $vo['invoice_type']">checked="checked"</if> />开具普通发票</label>
+		</td>
+	</tr>
+
+	<tr class="content-box" <if condition="0 eq $vo['invoice_type']">style="display:none"</if>>
+		<td class="item_title">发票内容</td>
+		<td class="item_input">
+			<input type="text" class="textbox pre_content" placeholder="不超过6个字" maxlength="6" />
+			<input type="button" class="button add-content" value="添加">
+			<span class="tip_span">请输入要增加的内容选项，每项不能超过6个字</span>
+			<div class="content-list" >
+			<foreach name="vo.invoice_content" item="content">
+				<div class="content-item"><span>{$content}</span><input type="hidden" name="invoice_content[]" value="{$content}"><a class="del" href="javascript:void(0);"  onclick="delRow(this)">X</a></div>
+			</foreach>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">开票须知</td>
+		<td class="item_input">
+			 <html:editor id="description" name="description" type="KINDEDITOR" content="{$vo.description}" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="InvoiceConf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%SAVE}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

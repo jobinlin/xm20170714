@@ -1,0 +1,44 @@
+<div class="refund-hd">
+	<div class="goods-img f_l"><img src="{$item.deal_icon}" alt=""></div>
+	<p class="goods-name f_l">{$item.name}</p>
+</div>
+<ul class="refund-bd clearfix">
+	{if $reason}
+	<li>
+		<p class="refund-item">退款原因：</p>
+		<div class="refund-info">
+			<p>{$reason}</p>
+		</div>
+	</li>
+	{/if}
+	<li>
+		<p class="refund-item">退款金额：</p>
+		<div class="refund-info">
+			<input type="hidden" name="max_money" value="{$order.max_r}">
+			<p>退还 <input type="text" class="ui-textbox" name="refund_money" value="{$item.total_f}" style="width:100px;" /> 元到 {$order.user_name} 的账户余额</p>
+			<p class="refund-tip">订单实付金额{$order.total_f}元{if $order.ecv_money}，其中红包支付{$order.ecv_money}元{/if}{if $order.dfee_f}，运费支付{$order.dfee_f}元{/if}，已退{$order.ref_f}元</p>
+		</div>
+	</li>
+	<li>
+		<p class="refund-item">备　　注：</p>
+		<div class="refund-info">
+			<textarea class="text" name="memo" class="refund-memo"></textarea>
+		</div>
+	</li>
+</ul>
+<div class="refund-btn">
+	<button class="ui-button blue do_refuse_item" rel="blue">拒绝退款</button>
+	<button class="ui-button orange do_refund_item" rel="orange">确认退款</button>
+</div>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td colspan=2 style="text-align:center;">
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>

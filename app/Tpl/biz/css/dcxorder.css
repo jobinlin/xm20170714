@@ -1,0 +1,32 @@
+
+.order-edit{
+	padding:15px 15px 10px;
+}
+.order-edit .ui-button{
+	margin-right: 5px;
+}
+
+.biz-table{
+	padding: 10px  0 0 15px;
+}
+.biz-table table{
+	width:100%;
+}
+.biz-table table thead tr{
+	border-right:1px solid #f7f7f7;
+	border-left:1px solid #f7f7f7;
+}
+.biz-table table thead td{
+	height:40px;
+	background:#f7f7f7;
+}
+.biz-table table tbody tr{
+	border-bottom:1px solid #ddd;
+	border-top:0;
+}
+.biz-table table tbody td{
+	height:40px;
+}
+.biz-table table .j-edit{
+	margin-right: 5px;
+}

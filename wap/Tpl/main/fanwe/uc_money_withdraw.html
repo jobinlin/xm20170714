@@ -1,0 +1,117 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+	AJAX_URL = '{url a="index" p="ajax"}';
+	var bank='{$data.bank}';
+	var add_url="{url a="index" p="uc_money#add_card"}";
+	var all_money=parseFloat('{$data.money}');
+	var r_url="{url a="index" p="uc_account#phone"}";
+	function ac_phone(){
+		var phone=$("#phonenumer").val();
+		if(phone == ''){
+			setTimeout(function(){
+				location.href = r_url;
+			},1500);
+		}
+	}
+</script>
+<div class="page page-current" id="uc_money_withdraw">
+{include file="style5.2/inc/auto_header.html"}
+	<div class="content">
+	 	<div id="withdraw">
+	 	{if $data.step eq 1}
+	 	<form action="{url r="index" p="uc_money#do_withdraw"}" method="post" name="withdraw">
+	 		<div class="bank-select {if !$bank_list}load_page{/if} flex-box" {if !$bank_list} url="{url r="index" p="uc_money#add_card"}"  js_url='{$tmpl_path}js/load/add_card.js'{/if}>
+	 			<div class="bank-info flex-1">
+	 				{if $bank_list}
+	 				<p class="bank-name">{$data.bank_info}</p>
+	 				<p class="user-info">{$data.bank_user}</p>
+	 				{else}
+	 				<p class="bank-name">暂无银行卡</p>
+	 				{/if}
+	 			</div>
+	 			<i class="iconfont right-arrow">&#xe607;</i>
+	 		</div>
+	 		<div class="can-use">
+	 			<p class="can-use-num">{if $data.money gt 0}可提现余额 {$data.money}元{else}无可提现余额{/if}</p>
+	 		</div>
+			<ul class="address-input withdraw-list">
+				<li class="b-line">
+					<span>提现金额</span>
+					<input class="ui-textbox" value="" type="text" name="money" {if $data.money eq 0}disabled="disabled"  placeholder="无可提现余额"{else} placeholder="请输入提现金额"{/if}  pattern="([0-9]*)|(\d+(\.\d{1,2}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') " />
+				</li>
+				<li class="b-line">
+					<span>登录密码</span>
+					<input class="ui-textbox" value="" name="pwd" type="password"  placeholder="请输入登录密码" {if $data.money eq 0}disabled="disabled"{/if}/>
+				</li>
+				<!-- {foreach from=$data.bank_list item=item key=key}
+				<li class="b-line bank" >
+					<label>{$item.bank_name}<span  bank_name="{$item.bank_name}" rel="{$item.id}"  {if $key eq 0}class="checked"{/if}></span></label>
+				</li>
+				{/foreach} -->
+				<input type="hidden" value="{$data.default_id}" name="bank_id"/>
+				</ul>
+				<div class="big-btn">
+					<input type="button" class="sub goahead btn-con withdraw_submit" value="确认提现">
+				</div>
+				</form>
+				{elseif $data.step eq 2}
+				<form action="{url r="index" p="uc_money#do_bind_bank"}" method="post" name="add_card">
+				<ul class="address-input">
+				<li class="b-line">
+					<span>卡号</span>
+					<input  name="bank_account" value="" type="number" pattern="[0-9]*" class="ui-textbox" placeholder="请输入银行卡号" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+				</li>
+				<li class="b-line">
+					<span>开户行</span>
+					<input  name="bank_name" value="" class="ui-textbox" placeholder="请输开户行名称" />
+				</li>
+				<li class="b-line">
+					<span>持卡人</span>
+					<input  name="bank_user" value="" class="ui-textbox" placeholder="请输入开户银行真实姓名" />
+				</li>
+				<li class="b-line">
+					<span>验证码</span>
+					<input class="ui-textbox ph_verify" id="sms_verify" name="sms_verify" placeholder="请输入验证码" />
+					<div class="l-line">
+						<input class="btn_phone l-line j-sendBtn isUseful" type="Button"  id="uc_sms_btn" lesstime="{$sms_lesstime}" account="1" value="获取验证码" onclick="ac_phone();"/>
+					</div>
+				</li>
+				<input type="hidden" id="phonenumer" value="{$data.mobile}" name="bank_mobile"/>
+				<div class="big-btn">
+                    <input type="submit" class="sub btn-con" value="提交">
+				</div>
+				</form>
+				{/if}
+			</ul>
+	 	</div>
+	</div>
+	<div class="select-bank">
+		<div class="mask"></div>
+		<div class="bank-list">
+			<div class="close-btn"><img src="{$TMPL}/style5.2/images/static/close-btn.png" alt=""></div>
+			<div class="hd b-line">选择提现的银行卡</div>
+			<ul>
+			{foreach from=$bank_list item=item key=key}
+				<li class="flex-box b-line" bank_id="{$item.id}">
+					<div class="bank-info flex-1">
+						<p class="bank-name">{$item.bank_name}</p>
+						<p class="user-info">{$item.bank_user}</p>
+					</div>
+					
+					<i class="iconfont {if $item.id eq $data.default_id}selected{/if}">&#xe66c;</i>
+					
+				</li>
+			{/foreach}
+			</ul>
+			<a href="javascript:void(0);" url="{url r="index" p="uc_money#add_card"}" class="flex-box add-bank b-line t-line load_page" js_url='{$tmpl_path}js/load/add_card.js'>
+				<p class="flex-1">添加新卡提现</p>
+				<i class="iconfont right-arrow">&#xe607;</i>
+			</a>
+		</div>
+	</div>
+	{if $data.step eq 2}
+	{include file="style5.2/inc/module/sms_verify_code.html"}
+	{/if}
+</div>
+{include file="style5.2/inc/footer.html"}

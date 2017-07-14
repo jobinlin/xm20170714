@@ -1,0 +1,22 @@
+.m-bar-list .bar-list{
+	background:#fff;
+}
+.m-bar-list li{
+	margin-left: .5rem;
+	height:2rem;
+}
+.m-bar-list li:last-child::after{
+	height:0;
+}
+.m-bar-list li a{
+	height:2rem;
+}
+.m-bar-list .bar-tit{
+	width:50%;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.m-bar-list li .iconfont{
+	padding-right: .5rem;
+}

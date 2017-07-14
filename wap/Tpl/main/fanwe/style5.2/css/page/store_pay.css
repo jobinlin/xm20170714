@@ -1,0 +1,169 @@
+.m-stroe-pay-head .title{
+	font-weight: normal;
+	font-size: @f_size2;
+	padding: 0 2rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.m-stroe-pay-head .head-btn{
+	display: block;
+	position: absolute;
+	line-height: 2.2rem;
+	font-size: 1.1rem;
+}
+
+.m-stroe-pay-head .head-btn.go-back{
+	left: .5rem;
+}
+
+.m-stroe-pay-head .head-btn.more{
+	right: .5rem;
+	font-size: @f_size3;
+	color: #8d8f99;
+}
+
+.m-store-pay .input-money{
+	background: #fff;
+	padding: @comspacing 0;
+	margin-bottom: @rowspacing;
+}
+
+.m-store-pay .input-box{
+	position: relative;
+	padding: 0 @comspacing;
+}
+
+.m-store-pay .input-box:first-child{
+	margin-bottom: @rowspacing;
+}
+
+.m-store-pay .input-box .money-input{
+	height: 2.2rem;
+	width: 100%;
+	border: 1px solid @bordercolor;
+	text-align: right;
+	padding-right: .5rem;
+}
+
+.m-store-pay .input-box .lab{
+	position: absolute;
+	top: 0;
+	left: 1rem;
+	display: block;
+	height: 2.2rem;
+	line-height: 2.2rem;
+}
+
+.m-store-pay .youhui-info{
+	padding: 0 @comspacing;
+	height: @lh;
+	line-height: @lh;
+	background: #fff;
+	margin: @rowspacing 0;
+}
+
+.m-store-pay .youhui-info .icon{
+	display: inline-block;
+	height: .825rem;
+	line-height: .825rem;
+	border: 1px solid @themecolor;
+	border-radius: .4125rem;
+	font-size: @f_size5;
+	color: @f_colortheme;
+	padding: 0 .25rem;
+	margin-right: .5rem;
+}
+
+.m-store-pay .youhui-info .lab{
+	font-size: @f_size4;
+	color: @f_color1;
+}
+
+.m-store-pay .youhui-info .icon:before{
+	content: "\e8b7";
+	margin-right: .25rem;
+}
+
+.m-store-pay .youhui-info .youhui-detail{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.m-store-pay .youhui-info .youhui-money{
+	padding-left: .5rem;
+	color: @f_colortheme;
+	font-size: @f_size2;
+}
+
+.m-store-pay .youhui-info .youhui-money .point{
+	font-size: @f_size4;
+}
+
+.m-store-pay .submit em{
+	font-size: .9rem;
+}
+.m-store-pay .score_purchase{
+	padding: 0 @comspacing;
+	height: @lh;
+	line-height: @lh;
+	background: #fff;
+	margin: @rowspacing 0;
+}
+
+.m-store-pay .score_purchase .icon{
+	display: inline-block;
+	height: .825rem;
+	line-height: .825rem;
+	border: 1px solid @themecolor;
+	border-radius: .4125rem;
+	font-size: @f_size5;
+	color: @f_colortheme;
+	padding: 0 .25rem;
+	margin-right: .5rem;
+}
+
+.m-store-pay .score_purchase .lab{
+	font-size: @f_size4;
+	color: @f_color1;
+}
+
+.m-store-pay .score_purchase .youhui-detail{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.m-store-pay .score_purchase .youhui-money{
+	padding-left: .5rem;
+	color: @f_colortheme;
+	font-size: @f_size2;
+}
+
+.m-store-pay .score_purchase .youhui-money .point{
+	font-size: @f_size4;
+}
+.m-store-pay .score_purchase .icon{
+	font-family: iconfont-sm!important;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 100% auto;
+    background-position: center;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.m-store-pay .score_purchase label.label-checkbox i.icon-form-checkbox {
+    width: 1.1rem;
+    height: 1.1rem;
+    position: relative;
+    border-radius: 1.1rem;
+    border: 1px solid #c7c7cc;
+    box-sizing: border-box;
+}
+.m-store-pay .score_purchase p{
+	line-height: 1rem;
+}

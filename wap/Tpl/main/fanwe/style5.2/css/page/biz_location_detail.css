@@ -1,0 +1,22 @@
+.biz-location-detail{
+	background:#fff;
+	padding-left: .5rem;
+}
+.biz-location-detail li{
+	min-height:2.5rem;
+	line-height: 2.5rem;
+	padding-right: .5rem;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display: flex;
+}
+.biz-location-detail li .detail-tit{
+	font-size:@f_size4;
+	color:@f_color3;
+	margin-right:.8rem;
+}
+.biz-location-detail li .detail-tip{
+	max-width:70%;
+	line-height: 1rem;
+	padding:.75rem 0;
+}

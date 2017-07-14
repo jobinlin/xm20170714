@@ -1,0 +1,98 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="dc_location">
+	{include file="style5.2/inc/dc_nav.html"}
+	{if $app_index=='app'}
+		<header class="bar bar-nav b-line">
+        	 <a class="header-btn hearder-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+			<a href="{url a="index" r="dcposition"}"  data-no-cache="true"><h1 class="header-title">{$data.page_title}</h1></a>
+			<a href="{url a="index" r="dc_search" go="type=1"}" class="header-right header-btn iconfont"  data-no-cache="true">&#xe621;</a>
+		</header>
+		{if $is_pop_box}
+			{include file="style5.2/inc/module/pop-light-img.html"}
+		{/if}
+	{else}
+		{include file="style5.2/inc/module/dropdown-nav.html"}
+		<header class="bar bar-nav b-line">
+			<!-- <a class="header-btn hearder-left iconfont {if $back_url}go_back{else}back{/if}" {if $back_url}data-no-cache="true"{/if} href="">&#xe604;</a> -->
+			<a href="{url a="index" r="dcposition"}"  data-no-cache="true"><h1 class="header-title">{$data.page_title}</h1></a>
+			<a href="{url a="index" r="dc_search" go="type=1"}" class="header-right header-btn iconfont"  data-no-cache="true">&#xe621;</a>
+		</header>
+		<!-- 弹出层 -->
+		{if $is_pop_box}
+			{include file="style5.2/inc/module/pop-light-img.html"}
+		{/if}
+	{/if}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+	{if $data.advs}
+	  <div class="m-index-banner j-index-banner" data-space-between='0'>
+	    <div class="swiper-wrapper">
+	    {foreach from="$data.advs" item="adv"}
+	      <div class="swiper-slide">
+	      <a href="{$adv.url}"  data-no-cache="true">
+	      <img alt="" src="{$adv.img}" src="{$TMPL}/style5.2/images/loading/banner_load.jpg"/>
+	      </a>
+	      </div>
+		{/foreach}
+	    </div>
+	    {if $data.is_banner_square eq 1}
+	    <div class="swiper-pagination"></div>
+	    {else}
+	    <div class="swiper-pagination"></div>
+	    {/if}
+	  </div>
+	{/if}
+	{if $data.indexs_list}
+		<div class="m-sort_nav  j-sort_nav" data-space-between='0'>
+		  <div class="sort_list swiper-wrapper" style="display:block;">
+		  		{foreach from=$data.indexs_list item=item key=key}
+		  			<div class="sort_li">	
+						<a href="{$item.url}" data-no-cache="true">
+	  	    			<span class="yuan" style="background:{$item.color}"><i class="diyfont">{$item.iconfont}</i></span>
+						<span class="txt">{$item.name}</span>
+						</a>
+			  		</div>	
+		  		{/foreach}
+		  </div>
+		  </div>
+	{/if}
+	{if $data.dc_location_list}
+	<div class="dc-shop-list j-ajaxlist">
+		<div class="shop-list-hd b-line">推荐商家</div>
+		<ul class="j-ajaxadd shop-list">
+			{foreach from=$data.dc_location_list.list item=item}
+			<li class="b-line">
+				<a href="{url a="index" r="dc_location" g="data_id=$item.id"}" class="shop-item"  data-no-cache="true">
+					<div class="shop-logo"><img src="{$item.preview}" alt="">{if $item.in_opentime eq 0 || $item.is_close eq 1}<span class="close-mask" style="background-color: rgb(192,192,192);">店铺休息</span>{/if}</div>
+					<div class="shop-info flex-1">
+						<p class="shop-name">{$item.name}</p>
+						<div class="price-distance flex-box">
+							<p class="price flex-1">起送{$item.format_start_price} | {if $item.is_free_delivery eq 1}免费配送{else}配送费 {$item.format_delivery_price}{/if}</p>
+							<p class="distance">{$item.format_distance}</p>
+						</div>
+						{if $item.promote_count gt 0}
+						<div class="m-youhui-box">
+							<ul class="youhui-box flex-1">
+								{if $item.is_payonlinediscount eq 1 && $data.promote_info.is_payonlinediscount}
+								<li class="youhui-item flex-box"><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt=""></div><p class="youhui-txt">{$data.promote_info.is_payonlinediscount.description}</p></li>
+								{/if}
+								{if $item.is_firstorderdiscount eq 1 && $data.promote_info.is_firstorderdiscount}
+								<li class="youhui-item flex-box"><div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico2.png" alt=""></div><p class="youhui-txt">{$data.promote_info.is_firstorderdiscount.description}</p></li>
+								{/if}
+							</ul>
+						</div>
+						{/if}
+					</div>
+				</a>
+				{if $item.promote_count gt 2}
+				<div class="youhui-num j-open-youhui"><p>{$item.promote_count}个活动</p><i class="iconfont">&#xe608;</i></div>
+				{/if}
+			</li>
+			{/foreach}
+		</ul>
+		<div class="pages hide">{$pages}</div>
+	</div>
+	{/if}
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

@@ -1,0 +1,85 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+/*日期控件*/
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.datetimepicker.css";
+
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+
+/*日期控件*/
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.datetimepicker.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dealo/dealo.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/dealo/dealo.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/balance.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/balance.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/time_ipt.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/search_page.js";
+?>
+
+{include file="inc/header.html"}
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map">
+    <a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>资金明细</span>
+</div>
+<div class="content">
+    <div class="table-content">
+        <div class="search-bar">
+            <input class="ui-textbox search-input time_input" name="begin_time" holder="查询起始日期" value="{$begin_time}" readonly="readonly" />
+            <span style="margin-right: 10px;">-</span>
+            <input class="ui-textbox search-input time_input" name="end_time" holder="查询截止日期" value="{$end_time}" readonly="readonly" />
+            <span class="select-tit">类型：<span style="margin-right: 10px;">资金明细</span></span>
+
+            <input type="hidden" name="method" value="search"/>
+            <a href="javascript:void(0);" data-href="{url r="hiz" b="balance#detail"}" class="search-btn transition add_goods_type">搜索</a>
+
+        </div>
+        {if $list}
+        <div class="hiz-table">
+            <table>
+                <col>
+                <col width="15%">
+                <col width="15%">
+                <thead>
+                    <td style="text-align: left;">日志</td>
+                    <td>金额</td>
+                    <td style="text-align: right;">发生时间</td>
+                </thead>
+                <tbody>
+                    <tr class="odd">
+                        <td colspan="3" style="text-align: right;">本页合计收入：{function name="format_price" v=$page_sum_income}，支出：{function name="format_price" v=$page_sum_pay}</td>
+                    </tr>
+                    {foreach from=$list item=item name=odd}
+                    <tr class="{if $smarty.foreach.odd.index%2 eq 0}{else}odd{/if} transition">
+                        <td class="order-info">
+							<p class="shop-name">{$item.log_info}</p>
+                        </td>
+                        <td>{function name="format_price" v=$item.money}</td>
+                        <td style="text-align: right;">{function name="to_date" v=$item.create_time}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+        <div class="pages">
+            {$pages}
+        </div>
+        {else}
+        <div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+        <div class="no-data">暂无资金明细</div>
+        {/if}
+    </div>
+</div>
+{include file="inc/footer.html"}

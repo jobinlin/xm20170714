@@ -1,0 +1,324 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/index.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/business_address.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/side_deal_list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/review_list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/sort_row.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fancybox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/store.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/qrcode_box.css";
+
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/jquery.fancybox-thumbs.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.6.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.fancybox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.fancybox-thumbs.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/login_panel.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/user.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/user.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/business_address.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/business_address.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/review_list.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/review_list.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/store.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/page_js/store.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/side_deal_list.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/side_deal_list.js";
+?>
+{include file="inc/header.html"}
+<div class="qrcode-box">
+	<div class="iconfont">&#xe669;</div>
+	<div class="qrcode-info">
+		<div class="qrcode-img"><img src="{$TMPL}/images/test.png" alt=""></div>
+		<p class="qrcode-bd">使用APP、微信扫一扫<br>手机购物更方便</p>
+	</div>
+</div>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={function name="app_conf" v="BAIDU_MAP_APPKEY"}"></script>
+<script type="text/javascript">
+	var STORE_IMAGES = {$store_images_json};
+	var AJAX_URL="{url i="index" a="ajax"}";
+</script>
+<div class="blank"></div>
+<div class="{function name="load_wrap" t=$wrap_type} clearfix">
+		<div class="store_info clearfix">
+			<div class="store-info f_l">
+				<p class="store-name">{$store_info.name}</p>
+				<div class="store_dp">
+					<div class="store_dp_avg">
+						<input class="ui-starbar" value="{$store_info.avg_point}" disabled="true" />
+						<span class="dp_point">{$store_info.avg_point}</span>
+						<span class="dp_num">（{$store_info.dp_count}人评价）</span>
+						<span class="av-price">人均：&yen;{$store_info.ref_avg_price}</span>
+					</div>
+				</div>
+				<ul class="store-detail">
+					<li class="store-address"><i class="iconfont">&#xe615;</i>地址：{$store_info.address} <a href="javascript:void(0);" class="j-check-map check-map">查看地图</a></li>
+					{if $store_info.tel}
+					<li><i class="iconfont">&#xe623;</i>电话：{$store_info.tel}</li>
+					{/if}
+					{if $store_info.open_time}
+					<li><i class="iconfont">&#xe607;</i>营业时间：{$store_info.open_time}</li>
+					{/if}
+					{if $store_info.tags}
+					<li><i class="iconfont">&#xe609;</i>标签：{$store_info.tags}</li>
+					{/if}
+				</ul>
+			</div>
+			<div class="store-img f_l">
+				<div class="img-wrap">
+					<img src="{function name="get_spec_image" v=$store_info.preview w=300 h=300 g=1}" />
+					<!--<div class="img-num">
+						<div class="img-mask"></div>
+						<p class="num">查看全部 {$store_images_count}张</p>
+					</div>-->
+				</div>
+			</div>
+		</div>
+		<div class="store-adv-1">
+			{$store_info.adv_img_1}
+		</div>
+		<div class="blank30"></div>
+		<div class="store_detail clearfix">
+			<div class="store-detail-l f_l">
+			<!--详情导航-->
+			<div class="show-nav" id="rel_nav">
+			<!--{start: 详情导航 -->
+			<ul>	
+				{if $store_info.brief}
+				<li rel="n0">商户介绍</li>
+				{/if}			
+				{if !$preview}
+				{if $store_info.tuan_count gt 0}
+				<li rel="n2">正在团购</li>
+				{/if}
+				{if $store_info.shop_count gt 0}
+				<li rel="n3">商城购物</li>
+				{/if}
+				{if $store_info.event_count gt 0}
+				<li rel="n5">热门活动</li>
+				{/if}
+				<li rel="n6">用户评价</li>
+				{/if}
+			</ul>
+			<!--}end: 详情导航 -->
+			</div>
+			<div style="display:none;" class="fix-nav wrap_m2">
+				<!--{start: 浮动导航 -->
+				<div class="show-nav">
+					<!--{start: 详情导航 -->
+					<ul class="f_l">
+						{if $store_info.brief}
+						<li rel="n0">商户介绍</li>
+						{/if}
+						{if !$preview}
+						{if $store_info.tuan_count gt 0}
+						<li rel="n2">正在团购</li>
+						{/if}
+						{if $store_info.shop_count gt 0}
+						<li rel="n3">商城购物</li>
+						{/if}
+						{if $store_info.youhui_count gt 0}
+						<li rel="n4">商家优惠</li>
+						{/if}
+						{if $store_info.event_count gt 0}
+						<li rel="n5">热门活动</li>
+						{/if}
+						<li rel="n6">用户评价</li>
+						{/if}
+					</ul>
+					
+					<!--}end: 详情导航 -->
+				</div>
+				<!--}end: 浮动导航 -->
+			</div>
+			<!--end 详情导航-->
+			<div class="show-content">
+				{if $store_info.brief}
+				<div rel="n0" class="content_box">
+					<div class="box_title nomargin">商户介绍</div>
+					<div class="box_content">
+						{$store_info.brief}
+					</div>
+				</div>
+				{/if}
+				{if !$preview}
+				
+				{if $store_info.tuan_count gt 0}
+				<div rel="n2" class="content_box">
+					<div class="box_title nomargin">正在团购</div>
+					<div class="box_content nopadding">
+						<div id="supplier_deal" store_id="{$store_info.id}">
+						</div>
+					</div>
+				</div>
+				{/if}
+				{if $store_info.shop_count gt 0}
+				<div rel="n3" class="content_box">
+					<div class="box_title nomargin">商城购物</div>
+					<div class="box_content nopadding">
+						<div id="supplier_shop" store_id="{$store_info.id}">
+						</div>
+					</div>
+				</div>
+				{/if}
+				{if $store_info.event_count gt 0}
+				<div rel="n5" class="content_box">
+					<div class="box_title nomargin">热门活动</div>
+					<div class="box_content nopadding">
+						<div id="supplier_event" store_id="{$store_info.id}">
+						</div>
+					</div>
+				</div>
+				{/if}
+				<div rel="n6" class="content_box">
+					<div class="box_title clearfix">
+						<div class="box_title_text">用户评价</div>
+						<div class="box_title_more"><a href="{url r="index" r="review" p="location_id=$store_info.id"}" target="_blank">我要评价</a></div>
+					</div>
+					<div class="box_content nopadding">
+						<!--<div class="review-key">
+							<p class="review-key-tit">大家都在说：</p>
+							<ul class="review-key-list clearfix">
+								<li class="active">味道不错（15）</li>
+								<li>服务态度好（10）</li>
+								<li>服务态度好（10）</li>
+								<li>服务态度好（10）</li>
+								<li>服务态度好（10）</li>
+								<li>服务态度好（10）</li>
+							</ul>
+						</div>-->
+						<div id="review_list" location_id="{$store_info.id}">
+						</div>
+					</div>
+				</div>
+				{/if}
+				<div class="content_box"></div>
+			</div>
+		</div><!--end wrap_m2-->
+		<div class="wrap_s2 f_r">
+		{if $use_youhuis}
+		<div class="store-youhui">
+			<div class="side-hd clearfix">
+				<p class="side-tit f_l">当前店铺可用优惠券</p>
+				<a href="{url r="index" r="uc_youhui"}" class="get-more f_r">更多</a>
+			</div>
+			<ul class="store-youhui-list">
+				{foreach from=$use_youhuis item=item}
+				<li>
+					<div class="youhui-hd clearfix">
+						<p class="price f_l"><span>&yen;</span>{$item.youhui_value}</p>
+						<div class="youhui-info f_l">
+							<p class="youhui-tip">实体店铺消费使用</p>
+							<p class="youhui-tip">
+								{if $item.start_use_price}
+								满{$item.start_use_price}元使用
+								{else}
+								无金额限制
+								{/if}
+							</p>
+						</div>
+					</div>
+					<p class="youhui-time">有效期至：{$item.use_end_time}</p>
+					<!--<a href="javascript:void(0);" class="get-youhui j-get-youhui"><img src="{$TMPL}/images/youhui/store-get-youhui.png" alt=""></a>-->
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+		{/if}
+		{if $get_youhuis}
+		<div class="store-youhui">
+			<div class="side-hd clearfix">
+				<p class="side-tit f_l">当前店铺有可领优惠券哦</p>
+				<a href="{url r="index" r="youhuis"}" class="get-more f_r">更多</a>
+			</div>
+			<ul class="store-youhui-list">
+				{foreach from=$get_youhuis item=item key=key}
+				{if $key<2}
+				<li>
+					<div class="youhui-hd clearfix">
+						<p class="price f_l"><span>&yen;</span>{$item.youhui_value}</p>
+						<div class="youhui-info f_l">
+							<p class="youhui-tip">实体店铺消费使用</p>
+							<p class="youhui-tip">
+								{if $item.start_use_price}
+								满{$item.start_use_price}元使用
+								{else}
+								无金额限制
+								{/if}
+							</p>
+						</div>
+					</div>
+					<p class="youhui-time">有效期至：{$item.use_end_time}</p>
+					<a href="javascript:void(0);" class="get-youhui j-get-youhui" data-id="{$item.id}">
+						<img src="{$TMPL}/images/youhui/store-get-youhui.png" alt="">
+					</a>
+				</li>
+				{/if}
+				{/foreach}
+			</ul>
+		</div>
+		{/if}
+		<div class="side-map j-check-map">
+			<div id="container" style="width: 218px;height: 218px;"></div>
+			<input type="hidden" name="xpoint" value="{$store_info.xpoint}">
+			<input type="hidden" name="ypoint" value="{$store_info.ypoint}">
+			<div class="map-mask"></div>
+			<p class="side-map-tip">查看完整地图</p>
+		</div>
+		<div class="store-adv-2">
+			{$store_info.adv_img_2}
+		</div>
+
+		{if $side_deal_list}
+		<div class="side_deal_box">
+			<div class="title_row">附近同类团购</div>
+			<div class="content_row">
+				<ul class="side_deal_list">
+					{foreach from=$side_deal_list item=side_deal}
+					<li>
+						<a href="{$side_deal.url}" class="deal_img"><img src="{function name="get_spec_image" v=$side_deal.icon w=300 h=300 g=1}" lazy="true" /></a>
+						<a href="{$side_deal.url}"  class="deal_title">{$side_deal.sub_name}</a>
+						<div class="deal_info">
+						<span class="deal_price f_l">
+							<span class="current_price"><i>&yen;</i>{function name="round" v=$side_deal.current_price l=2}</span>
+							<!--{if $side_deal.origin_price gt 0}
+							<span class="origin_price">&yen;{function name="round" v=$side_deal.origin_price l=2}</span>
+							{/if}-->
+						</span>
+						<span class="sale_count f_r">
+							已售<span>{$side_deal.buy_count}</span>
+						</span>
+						</div>
+					</li>
+					{/foreach}
+					
+				</ul>
+			</div>
+		</div>
+		<div class="blank"></div>
+		{/if}
+		</div>
+	</div>
+
+</div>
+<div class="blank20"></div>
+<div class="mask j-close-map"></div>
+<div class="map-box">
+	<div class="map-hd">商家位置<a href="javascript:void(0);" class="j-close-map iconfont">&#xe619;</a></div>
+	<div id="business_address" supplier_id="{$store_info.supplier_id}">
+
+	</div>
+</div>
+{include file="inc/footer.html"}

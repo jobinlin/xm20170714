@@ -1,0 +1,158 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index page-current" id="uc_youhui">
+	<script>
+	var url=new Array();
+	url[0] = '{url r="index" a="uc_youhui" go="type=0"}';
+	url[1] = '{url r="index" a="uc_youhui" go="type=1"}';
+	
+	var type=parseInt("{$type}");
+	
+	</script>
+	<div class="list-nav b-line">
+		<ul class="flex-box">
+			<li class="list-nav-item flex-1 j-list-choose j-youhui {if $type eq 0} active {/if}" rel="0"><span>优惠券</span></li>
+			<li class="list-nav-item flex-1 j-list-choose j-ecv {if $type eq 1} active {/if}" rel="1"><span>红包</span></li>
+		</ul>
+		<div class="list-nav-line"></div>
+	</div>
+	{include file="style5.2/inc/auto_header.html"}
+	<div class="content infinite-scroll infinite-scroll-bottom">
+		{if $type eq 0}
+		<div class="m-youhui-list j-ajaxlist-0">
+			{if $data.item}
+			<ul class="j-ajaxadd-0 youhui-list">
+			{foreach from=$data.item item=item}
+				<li class="flex-box {if $item.status neq 1}disable{/if}">
+					<div class="youhui-line"></div>
+					<div class="youhui-price">
+						<p class="price"><span>&yen;</span>{$item.youhui_value}</p>
+						<p class="price-tip">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+					</div>
+					<div class="youhui-info flex-1">
+						<p class="youhui-name">{if $item.supplier_id}店铺券{else}自营券{/if}</p>
+						<p class="youhui-time">有效期至：{$item.expire_time}</p>
+						{if $item.youhui_type eq 1}
+						<p class="youhui-code">券码：<span>{$item.youhui_sn}</span></p>
+						{/if}
+						<div class="youhui-tip flex-box">
+							<p class="flex-1">
+							{if $item.supplier_id}
+							限[{$item.supplier_name}]{if $item.youhui_type eq 1}实体店铺消费使用{elseif $item.youhui_type eq 2}店铺商品使用{/if}
+							{else}
+							限 【平台自营】可用
+							{/if}
+							</p>
+							{if $item.youhui_type eq 1 && $item.supplier_id neq 0}
+							<a href="javascript:void(0);" class="j-support-shop youhui-btn" ajax-url="{url i="index" a="uc_youhui#get_location" g="id=$item.youhui_id"}">支持门店</a>
+							{/if}
+						</div>
+						{if $item.youhui_type eq 1}
+						<a href="javascript:void(0);" class="j-qrcode qrcode iconfont" img-url="{$item.qrcode}" data-sn="{$item.youhui_sn}" ajax-url="{url i="index" a="uc_youhui#get_location" g="id=$item.youhui_id"}">&#xe60e;</a>
+						{/if}
+						{if $item.status eq 2}
+						<div class="youhui-disable"><img src="{$TMPL}/style5.2/images/static/youhui-used.png" alt=""></div>
+						{elseif $item.status eq 0}
+						<div class="youhui-disable"><img src="{$TMPL}/style5.2/images/static/youhui-time-up.png" alt=""></div>
+						{/if}
+					</div>
+				</li>
+			{/foreach}
+				<!-- 红包 -->
+			</ul>
+			{else}
+			<div class="tipimg no_data">暂无优惠券</div>
+			{/if}
+			<div class="pages hide">{$pages}</div>
+		</div>
+		{/if}
+		{if $type eq 1}
+		<div class="m-youhui-list j-ajaxlist-1">
+			{if $data.item}
+			<ul class="j-ajaxadd-1 youhui-list ecv-list">
+				{foreach from=$data.item item=item}
+				<li class="flex-box {if $item.status neq 1}disable{/if}">
+					<div class="youhui-line"></div>
+					<div class="youhui-price">
+						<p class="price"><span>&yen;</span>{$item.money}</p>
+						<p class="price-tip">{if $item.start_use_price}满{$item.start_use_price}元可用{else}无使用限制{/if}</p>
+					</div>
+					<div class="youhui-info flex-1">
+						<p class="youhui-name">{$item.name}</p>
+						<p class="youhui-time">有效期至：{$item.end_time}</p>
+					</div>
+					{if $item.status eq 2}
+					<div class="youhui-disable"><img src="{$TMPL}/style5.2/images/static/youhui-used.png" alt=""></div>
+					{elseif $item.status eq 0}
+					<div class="youhui-disable"><img src="{$TMPL}/style5.2/images/static/youhui-time-up.png" alt=""></div>
+					{/if}
+				</li>
+				{/foreach}
+			</ul>
+			{else}
+			<div class="tipimg no_data">暂无红包</div>
+			{/if}
+			<div class="pages hide">{$pages}</div>
+		</div>
+		{/if}
+	</div>
+	
+	<div class="youhui-mask j-close-mask"><div class="iconfont">&#xe68e;</div></div>
+	
+	<div class="support-shop-box">
+		<p class="support-hd">本券限以下实体店到店消费使用</p>
+		<ul class="support-list">
+			<li class="flex-box">
+				<div class="shop-info flex-1 r-line">
+					<p class="shop-name">志斌鸭店（马尾店）</p>
+					<p class="shop-address">马尾肯德基厕所</p>
+				</div>
+				<a href="tel:110" class="iconfont">&#xe618;</a>
+			</li>
+			<li class="flex-box">
+				<div class="shop-info flex-1 r-line">
+					<p class="shop-name">志斌鸭店（马尾店）</p>
+					<p class="shop-address">马尾肯德基厕所</p>
+				</div>
+				<a href="tel:110" class="iconfont">&#xe618;</a>
+			</li>
+			<li class="flex-box">
+				<div class="shop-info flex-1 r-line">
+					<p class="shop-name">志斌鸭店（马尾店）</p>
+					<p class="shop-address">马尾肯德基厕所</p>
+				</div>
+				<a href="tel:110" class="iconfont">&#xe618;</a>
+			</li>
+		</ul>
+	</div>
+	<div class="qrcode-box">
+		<div class="youhui-code">券码：123456789</div>
+		<p class="qrcode-tip">请将二维码出示给服务人员，扫码使用</p>
+		<div class="qrcode"><img src="" alt=""></div>
+		<p class="support-hd t-line">本券限以下实体店到店消费使用</p>
+		<ul class="support-list">
+			<li class="flex-box">
+				<div class="shop-info flex-1 r-line">
+					<p class="shop-name">志斌鸭店（马尾店）</p>
+					<p class="shop-address">马尾肯德基厕所</p>
+				</div>
+				<a href="tel:110" class="iconfont">&#xe618;</a>
+			</li>
+			<li class="flex-box">
+				<div class="shop-info flex-1 r-line">
+					<p class="shop-name">志斌鸭店（马尾店）</p>
+					<p class="shop-address">马尾肯德基厕所</p>
+				</div>
+				<a href="tel:110" class="iconfont">&#xe618;</a>
+			</li>
+			<li class="flex-box">
+				<div class="shop-info flex-1 r-line">
+					<p class="shop-name">志斌鸭店（马尾店）</p>
+					<p class="shop-address">马尾肯德基厕所</p>
+				</div>
+				<a href="tel:110" class="iconfont">&#xe618;</a>
+			</li>
+		</ul>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

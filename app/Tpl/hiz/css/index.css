@@ -1,0 +1,181 @@
+.content{
+	padding: 20px 0;
+	padding-right: 20px;
+	left: 200px;
+}
+.index-hd{
+	height:180px;
+}
+.index-hd .last-data{
+	height:180px;
+	background:#fff;
+	width:80%;
+	border-radius:3px;
+}
+.index-hd .last-data .wrap{
+	padding:0 10px;
+}
+.index-hd .last-data .data-name{
+	width:60%;
+	line-height: 40px;
+	font-size:14px;
+}
+.index-hd .last-data .data-name p{
+	padding:0 10px;
+}
+.index-hd .last-data .review{
+	width:40%;
+}
+.index-hd .last-data .order-data{
+	width:20%;
+	height:120px;
+	text-align: center;
+}
+.index-hd .last-data .review-data{
+	width:40%;
+}
+.index-hd .last-data .data-info{
+	border-radius:3px;
+	margin:0 10px;
+}
+.index-hd .order-data .data-info{
+	display: block;
+	height:118px;
+	background:#f7f7f7;
+	border:1px solid #f7f7f7;
+}
+.index-hd .order-data .data-info:hover,.index-hd .review-data .review-item:hover{
+	background:#fff;
+	border-color:#ddd;
+	box-shadow:0 0 10px rgba(0, 0, 0, .1);
+}
+.index-hd .order-data .num{
+	margin-top: 24px;
+	line-height: 40px;
+	font-size:30px;
+}
+.index-hd .data-tit{
+	color:@weak_color;
+	font-size:14px;
+}
+.index-hd .order-data .data-tit{
+	line-height: 30px;
+}
+.index-hd .review-data .review-item{
+	display: block;
+	height:48px;
+	line-height: 48px;
+	padding:0 10px;
+	background:#f7f7f7;
+	border:1px solid #f7f7f7;
+}
+.index-hd .review-data .num{
+	font-size:24px;
+}
+.index-hd .review-data .num span{
+	font-size:14px;
+	color:@weak_color;
+	margin-left: 10px;
+	display: inline-block;
+	line-height: 1;
+	vertical-align: middle;
+}
+.index-hd .quick-menu{
+	border-radius:3px;
+	width:20%;
+	height:180px;
+}
+.index-hd .quick-menu .menu{
+	margin-left: 20px;
+	padding:0 20px;
+	background:#fff;
+	height:180px;
+}
+.index-hd .quick-menu .menu-tit{
+	line-height: 40px;
+	font-size:14px;
+}
+.index-hd .quick-menu .menu-btn{
+	border-radius:3px;
+	display: block;
+	height:48px;
+	line-height: 48px;
+	text-align: center;
+	background:#f7f7f7;
+	border:1px solid #f7f7f7;
+	position: relative;
+	overflow: hidden;
+}
+.index-hd .quick-menu .menu-btn:hover{
+	color:@font_color;
+	background:#fff;
+	border-color:#ddd;
+	box-shadow:0 0 10px rgba(0, 0, 0, .1);
+}
+/* 中间部分 */
+.index-md{
+	border-radius:3px;
+	margin-top: 20px;
+	height:370px;
+	background:#fff;
+}
+.index-md .index-canvas{
+	width:68%;
+	height:330px;
+}
+.index-md .data-tit p{
+	line-height: 40px;
+	padding:0 20px;
+}
+.index-md .data-tit span{
+	font-size:12px;
+	color:@weak_color;
+}
+.index-md .data-count{
+	width:32%;
+}
+.index-md .data-list{
+	padding:30px 10px 0;
+}
+.index-md .data-list li{
+	width:50%;
+	float: left;
+}
+.index-md .data-list .data-info{
+	border-radius:3px;
+	display: block;
+	margin: 0 10px 20px;
+	height:120px;
+	background:#f7f7f7;
+	border:1px solid #f7f7f7;
+	text-align: center;
+}
+.index-md .data-list .data-info:hover{
+	border-color:#ddd;
+	box-shadow:0 0 10px rgba(0, 0, 0, .1);
+	background:#fff;
+}
+.index-md .data-list .num{
+	margin-top: 32px;
+	line-height: 40px;
+	font-size:30px;
+}
+.index-md .data-list .data-name{
+	color:@weak_color;
+	font-size:14px;
+}
+/* 底部 */
+.index-bd{
+	border-radius:3px;
+	margin-top: 20px;
+	padding:0 20px 10px;
+	background:#fff;
+}
+.index-bd .data-name{
+	line-height: 40px;
+}
+.index-bd .user-info-list li{
+	line-height: 24px;
+	font-size:12px;
+	color:@weak_color;
+}

@@ -1,0 +1,22 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-current" id="biz_xn_talk">
+    {include file="style5.2/inc/biz_header.html"}
+    <div class="content">
+        <ul class="biz-location-detail">
+			<li class="b-line">
+        		<p class="detail-tit flex-1">小能企业ID:</p>
+        		<p class="detail-tip">{$data.item.xn_talk_id}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">小能登录账号:</p>
+        		<p class="detail-tip">{$data.item.xn_talk_login_id}</p>
+        	</li>
+        	<li class="b-line">
+        		<p class="detail-tit flex-1">小能帐户密码:</p>
+        		<p class="detail-tip">{$data.item.xn_talk_pwd}</p>
+        	</li>
+        </ul>
+    </div>
+</div>
+{include file="style5.2/inc/footer.html"}

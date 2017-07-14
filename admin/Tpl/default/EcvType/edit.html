@@ -1,0 +1,172 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/ecvtype.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("EcvType/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<script>
+$(document).ready(function(){
+	//初始化
+	var validity_type_1 = '{$vo.valid_type}';
+	if(validity_type_1==1){
+		$(".validity_time").hide();
+		$(".validity_day").show();
+		$("#validity_day").attr("value","");
+	}else{
+		$(".validity_time").show();
+		$(".validity_day").hide();
+
+	}
+	$("input[name=valid_type]").click(function(){
+		//alert(validity_type);
+		var validity_type = $("input[name=valid_type]:checked").val();
+		if(validity_type==1){
+			$(".validity_time").hide();
+			$(".validity_day").show();
+			$("#validity_day").attr("value","");
+		}else{
+			$(".validity_time").show();
+			$(".validity_day").hide();
+
+		}
+	});
+});
+</script>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%VOUCHER_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%VOUCHER_MONEY}:</td>
+		<td class="item_input"><input type="number" class="textbox require" name="money" value="{$vo.money}" maxlength="4" pattern="([0-9]*)|(\d+(\.\d{1,2}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') "/>(请输入1-999之间的数字)</td>
+	</tr>
+	<input type="hidden"  name="use_limit" value="1" />
+	<tr id="total_limit">
+		<td class="item_title">发放总量:</td>
+		<td class="item_input"><input type="number" class="textbox" name="total_limit" value="{$vo.total_limit}" /> <span class="tip_span">不填写为不限制</span></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%VOUCHER_VALIDITY_SETTING}:</td>
+		<td class="item_input" id="validity">
+			<input name="valid_type" type="radio" value="0" <if condition="$vo['valid_type'] eq 0">checked="checked"</if> />固定日期有效&nbsp;
+			<input name="valid_type" type="radio" value="1" <if condition="$vo['valid_type'] eq 1">checked="checked"</if> />领券后固定有效天数
+		</td>
+	</tr>
+	<tr class="validity_time">
+		<td class="item_title">{%VOUCHER_BEGIN_TIME}:</td>
+		<td class="item_input">
+			
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="{$vo.begin_time}" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />	
+			
+			<span class="tip_span">{%VOUCHER_BEGIN_TIME_TIP}</span>
+		</td>
+	</tr>
+	<tr class="validity_time">
+		<td class="item_title">{%VOUCHER_END_TIME}:</td>
+		<td class="item_input">
+
+			<input type="text" class="textbox" name="end_time" id="end_time" value="{$vo.end_time}" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+			<span class="tip_span">{%VOUCHER_END_TIME_TIP}</span>
+			
+			
+
+
+			
+			
+		</td>
+	</tr>
+	<tr class="validity_day" style="display:none;">
+		<td class="item_title">{%VOUCHER_DAY}:</td>
+		<td class="item_input">
+			<input type="number" class="textbox" name="expire_day" style="width:50px" value="{$vo.expire_day}" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;天<span class="tip_span">&nbsp;[不填写或填写0为永久]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">使用限制:</td>
+		<td class="item_input">消费满&nbsp;<input type="number" class="textbox" name="start_use_price" style="width:50px" value="{$vo.start_use_price}" pattern="([0-9]*)|(\d+(\.\d{1,2}))" onkeyup="value=value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3') "/>&nbsp;元可用<span class="tip_span">&nbsp;[不填写或填写0为无门槛消费,请输入整字]</span></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%VOUCHER_SEND_TYPE}:</td>
+		<td class="item_input">
+			<select name="send_type">
+				<option value="0" <if condition="$vo['send_type'] eq 0">selected="selected"</if>>{%ADMIN_SEND}</option>
+				<option value="1" <if condition="$vo['send_type'] eq 1">selected="selected"</if>>{%SCORE_EXCHANGE}</option>
+				<option value="2" <if condition="$vo['send_type'] eq 2">selected="selected"</if>>序列号领取</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="exchange_row">
+		<td class="item_title">{%VOUCHER_SCORE_EXCHANGE}:</td>
+		<td class="item_input">
+			{%EXCHANGE_SCORE}：<input type="number" class="textbox" name="exchange_score" value="{$vo.exchange_score}" /> {%EVERY_USER_CAN_EXCHANGE} <input type="number" class="textbox" name="exchange_limit_score" value="{$vo.exchange_limit}"  />  {%EMPTY_EXCHANGE_LIMIT_TIP}
+		</td>
+	</tr>
+	<tr id="bonus_row">
+		<td class="item_title">序列号领取:</td>
+		<td class="item_input">
+			序列号：<input type="text" class="textbox" name="exchange_sn" value="{$vo.exchange_sn}"  onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8" /> {%EVERY_USER_CAN_EXCHANGE} <input type="number" class="textbox" name="exchange_limit_bonus" value="{$vo.exchange_limit}"  />  {%EMPTY_EXCHANGE_LIMIT_TIP}
+		</td>
+	</tr>
+	<tr id="share_url_row">
+		<td class="item_title">分享URL:</td>
+		<td class="item_input">
+			{$vo.share_url}
+		</td>
+	</tr>
+	<tr id="memo_row">
+		<td class="item_title">红包备注:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="memo" style="height:50px;">{$vo.memo}</textarea>
+		</td>
+	</tr>
+	<tr id="tpl_row">
+		<td class="item_title">红包模版:</td>
+		<td class="item_input">
+		<table>
+				<tr>
+					<td>
+						<select name="tpl" >
+						<foreach name="tpls" item="row">
+							<option value="{$row}" <if condition="$vo.tpl eq $row">selected="selected"</if>>{$row}</option>
+						</foreach>
+						</select>
+					</td>
+					<td id="preview">
+						
+					</td>
+				</tr>
+			</table>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="EcvType" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

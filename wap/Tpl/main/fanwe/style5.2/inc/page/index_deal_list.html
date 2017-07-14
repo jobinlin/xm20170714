@@ -1,0 +1,18 @@
+{if $data.deal_list}
+	{foreach from=$data.deal_list item=deal }
+		<li>
+			<a href="{$deal.url}">
+				<div class="goods-img"><img alt="" date-load="1" data-src="{$deal.f_icon}" src="{$TMPL}/style5.2/images/loading/no-image.png"/></div>
+				<div class="goods-info">
+					<h2 class="goods-name">{$deal.name}</h2>
+					<div class="sale-info">
+						<p class="price">{$deal.current_price}</p>
+						{if $deal.buy_count gt 0}
+						<p class="sale">已售:{$deal.buy_count}</p>
+						{/if}
+					</div>
+				</div>
+			</a>
+		</li>
+	{/foreach}
+{/if}

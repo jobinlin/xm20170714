@@ -1,0 +1,9 @@
+<header class="bar bar-nav b-line">
+  {if $page_finsh}
+
+  {else}
+  <a class="header-btn header-left iconfont back">&#xe604;</a>
+  {/if}
+  <h2 class="header-title">{$data.page_title}</h2>
+  <a class="header-txt header-right load_page2" href="javascript:void(0);" js_url='{$tmpl_path}js/load/add_card.js' url="{url r="index" p="uc_money#add_card"}">添加</a>
+</header>

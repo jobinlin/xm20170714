@@ -1,0 +1,18 @@
+﻿{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+var CART_URL='{url i="index" r="cart"}';
+var AJAX_URL='{url i="index" r="ajax"}';
+var order_id=parseInt({$data.order_id});
+var pay_success_url = '{$pay_success_url}';
+</script>
+<div class="page page-index" id="pay">
+	{include file="style5.2/inc/auto_header.html"}
+
+    <div class="content">
+        {include file="style5.2/inc/page/pay.html"}
+    </div>
+    
+    
+</div>
+{include file="style5.2/inc/footer.html"}

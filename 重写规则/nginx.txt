@@ -1,0 +1,29 @@
+1.找到nginx配置文件的位置 
+	命令：whereis nginx
+	输出：nginx: /usr/bin/nginx /usr/local/nginx
+
+2.目录指向到 /usr/local/nginx ,进入 conf/vhost
+
+3.下载文件修改 mnt.conf
+
+4.加入一句： rewrite ^/([^\.&]*)$  /index.php?rewrite_param=$1;
+
+	位置放在
+
+	listen 80;
+	#listen [::]:80;
+	server_name 180.76.168.152 10you3.com www.10you3.com;
+	index index.html index.htm index.php default.html default.htm default.php;
+	root  /mnt/www/fanwe;
+
+	#===========在这里=============
+
+	location / {
+		rewrite ^/([^\.&]*)$  /index.php?rewrite_param=$1;
+	}
+
+5.重启nginx 生效
+	命令：service nginx reload
+	如果以上命令不生效：
+	通过whereis 找到的路径带有"bin"或者"sbin"的就是执行文件路径，用下面命令重启
+	/usr/bin/nginx -s reload  

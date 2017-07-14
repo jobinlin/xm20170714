@@ -1,0 +1,10 @@
+#dist_undeliver_verify_log_detail .flex-box{
+    align-items: flex-start;
+}
+#dist_undeliver_verify_log_detail .v-record-tit,#dist_undeliver_verify_log_detail .v-record-tip{
+    line-height: 1rem;
+    padding:12px 0 12px;
+}
+#dist_undeliver_verify_log_detail .address .v-record-tip{
+    padding:12px 0 5px;
+}

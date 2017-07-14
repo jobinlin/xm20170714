@@ -1,0 +1,305 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<load href='__TMPL__Common/js/deal_order.js' />
+<PHP>
+function get_delivery_sn($deal_order_item_id)
+{
+	$delivery_notice = M("DeliveryNotice")->where("order_item_id=".$deal_order_item_id)->order("delivery_time desc")->find();
+	$order_id = M("DealOrderItem")->where("id=".$delivery_notice['order_item_id'])->getField("order_id");
+	$order_item_id = M("DealOrderItem")->where("id=".$delivery_notice['order_item_id'])->getField("id");
+	$express_id = M("DeliveryNotice")->where("order_item_id=".$order_item_id)->getField("express_id");
+	$express = M("Express")->where("id=".$express_id)->getField("name");
+	$res = $delivery_notice['notice_sn'];
+	if($delivery_notice['express_id']!=0)
+	{
+		$res.="<br />承运快递：".$express." <br /><a href='".U("Express/eprint",array("order_id"=>$order_id,"express_sn"=>$delivery_notice['notice_sn'],"express_id"=>$delivery_notice['express_id']))."' target='_blank'>".l("PRINT_EXPRESS")."</a> <a href='javascript:void(0);' onclick='track_express(\"".$delivery_notice['notice_sn']."\",\"".$delivery_notice['express_id']."\");'>".l("TRACK_EXPRESS")."</a>";
+	}
+	return $res;
+}
+
+function get_delivery_arrival($deal_order_item_id)
+{
+	$delivery_notice =  M("DeliveryNotice")->where("order_item_id=".$deal_order_item_id)->order("delivery_time desc")->find();
+	if($delivery_notice['is_arrival']==1)
+	{
+		return l("USER_CONFIRM_DELIVERY");
+	}
+	elseif($delivery_notice['is_arrival']==2)
+	{
+		return "<span style='color:#f30;'>用户未收到货，维权</span>";
+	}
+	else
+	{
+		return l("USER_NOT_CONFIRM_DELIVERY");
+	}
+}
+function get_no_delivery_arrival($deal_order_item_id)
+{
+	$delivery_notice =  M("DealOrderItem")->where("id=".$deal_order_item_id)->find();
+	if($delivery_notice['is_arrival']==1)
+	{
+		return l("USER_CONFIRM_DELIVERY");
+	}
+	elseif($delivery_notice['is_arrival']==2)
+	{
+		return "<span style='color:#f30;'>用户未收到货，维权</span>";
+	}
+	else
+	{
+		return l("USER_NOT_CONFIRM_DELIVERY");
+	}
+}
+function get_delivery_memo($deal_order_item_id)
+{
+	return M("DeliveryNotice")->where("order_item_id=".$deal_order_item_id)->getField("memo");
+	
+}
+
+function get_coupon($order_id){
+	 
+	return M("DealCoupon")->where("order_id=".$order_id)->getField("password");
+	 
+}
+
+</PHP>
+<script type="text/javascript">
+	function track_express(express_sn,express_id)
+	{	
+		var newTab=window.open('about:blank');
+		$.ajax({ 
+				url: "<?php echo u("DealOrder/check_delivery");?>&express_sn="+express_sn+"&express_id="+express_id, 
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					
+					if(obj.status==1)
+					{
+						newTab.location.href=obj.msg;
+					}
+					if(obj.status==0)
+					{
+						alert(obj.msg);
+					}				
+				}
+		});		
+	}
+
+	var dist_search_url = '{:u("Distribution/keySearch")}';
+</script>
+<div class="main">
+<div class="main_title">{$title}：{$order_info.order_sn}
+
+</div>
+<div class="blank5"></div>
+
+<h2 class="info-title-h2">订单信息</h2>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr class="order_detail">
+		<td class="item_title">订单状态:</td>
+		<td class="item_input">
+			{$order_info.order_status|get_order_status=$order_info}
+			<if condition="$order_info['pay_status'] neq 2 and $order_info['is_delete'] neq 1">
+				<input type="button" class="button" value="{%ADMIN_INCHARGE_ORDER}" onclick="location.href='__APP__?m=DealOrder&a=order_incharge&id={$order_info.id}';"  />
+			</if>
+
+		</td>
+		
+		<td class="item_title">{%ORDER_SN}:</td>
+		<td class="item_input">{$order_info.order_sn}</td>
+	</tr>
+	<tr class="order_detail">
+		<td class="item_title">发货状态:</td>
+		<td class="item_input">{$order_info.delivery_status|get_delivery_status=$order_info}</td>
+		<td class="item_title">下单时间:</td>
+		<td colspan="3" class="item_input">{$order_info.create_time|to_date}</td>
+
+	</tr>
+	<if condition="$type eq 4">
+		<tr class="order_detail">
+			<td class="item_title">驿站</td>
+			<td class="item_input">{$order_info.distribute}<if condition="$order_info.delivery_status eq 0">&nbsp;&nbsp;<a href="javascript:void(0);" class="dist_choose" action="{:u("DealOrder/changeDist", array("id" => $order_info['id']))}">分配</a></if></td>
+		</tr>
+	</if>
+</table>
+
+<h2 class="info-title-h2">付款信息</h2>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr class="order_detail">
+		<td class="item_title">{%ORDER_USER}:</td>
+		<td class="item_input">
+			{$order_info.user_id|get_user_name_js}
+		</td>
+		
+		<td class="item_title">消耗积分:</if></td>
+		<td class="item_input">{$order_info.return_total_score|abs}</td>
+	</tr>
+	<tr class="order_detail">
+		<td class="item_title">支付方式:</td>
+		<td class="item_input">{$order_info['id']|get_order_payment_name}</td>
+	
+		<td class="item_title">配送费用:</td>
+		<td class="item_input">{$order_info.delivery_fee|format_price}</td>
+	</tr>
+	 
+	<tr class="order_detail">
+		<td class="item_title">订单备注:</td>
+		<td class="item_input">{$order_info.memo}</td>
+		<td class="item_title">实付金额:</td>
+		<td class="item_input"><b style="color:red;">{$order_info.pay_amount|format_price}</b></td>
+	</tr>
+</table>
+
+<if condition="$order_info['delivery_status'] neq 5 and $delivery_type neq 2">
+<h2 class="info-title-h2">配送信息</h2>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr class="order_detail">
+			<td class="item_title">收货人:</td>
+			<td class="item_input">{$order_info.consignee}</td>
+			
+			<td class="item_title">联系电话</td>
+			<td class="item_input">{$order_info.mobile}</td>
+		</tr>
+		
+		<tr class="order_detail">
+			<td class="item_title">邮编</td>
+			<td class="item_input">{$order_info.zip}</td>
+			
+			<td class="item_title">收货地址:</td>
+			<td colspan=3 class="item_input">{$order_info.region_lv2} {$order_info.region_lv3} {$order_info.region_lv4} {$order_info.address}{$order_info.street}{$order_info.doorplate}</td>
+		</tr>
+	</table>
+</if>
+
+
+<!-- 自营驿站配送 
+<if condition="$order_info['type'] neq 4">
+	<h2 class="info-title-h2">配送信息</h2>
+	<table class="form" cellpadding=0 cellspacing=0>
+		
+		<tr class="order_detail">
+			<td class="item_title">配送方式:</td>
+			<td class="item_input">驿站配送（福州 - 苏宁站）</td>
+			
+			<td class="item_title">联系电话</td>
+			<td class="item_input">{$order_info.mobile}</td>
+		</tr>
+		
+		<tr class="order_detail">
+			<td class="item_title">收货人:</td>
+			<td class="item_input">{$order_info.consignee}</td>
+			
+			<td class="item_title">联系电话</td>
+			<td class="item_input">{$order_info.mobile}</td>
+		</tr>
+		
+		<tr class="order_detail">
+			<td class="item_title">邮编</td>
+			<td class="item_input">{$order_info.zip}</td>
+			
+			<td class="item_title">收货地址:</td>
+			<td colspan=3 class="item_input">{$order_info.region_lv2} {$order_info.region_lv3} {$order_info.region_lv4} {$order_info.address}</td>
+		</tr>
+	</table>
+</if>
+-->
+
+
+<div class="blank5"></div>
+
+ 
+<h2 class="info-title-h2">商品信息</h2>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<th width=60>商品ID</th>
+		<th width=300>商品名称</th>
+		<th width=100>所需积分 </th>
+		<th width=50>数量</th>
+		<th width=100>合计消耗</th>
+		 
+		 
+		
+		
+		<th width=100>发货状态</th>
+		<th width=100>商品状态</th>
+		<th width=200>操作</th>
+	</tr>
+
+	<?php foreach($order_deals as $key=>$deal_item_group ){ ?>
+		<foreach name="deal_item_group['goods_list']"  item="deal_item">
+			<tr>
+				<td>{$deal_item.deal_id}</td>
+				<td>{$deal_item.name}</td>
+				<td>{$deal_item.return_score|abs}</td>
+				<td>{$deal_item.number}</td>
+				<td>{$deal_item.return_total_score|abs}</td>
+				<td>
+					{$deal_item.delivery_status|get_deal_item_delivery_status=$deal_item}
+				</td>
+				
+				<td>
+					 {$order_info.pay_status|get_deal_status=$deal_item}
+				</td>
+				
+				<td style="text-align:center;" class="deal_operate">
+					{$order_info.pay_status|get_deal_operate=$deal_item}
+				</td>
+			</tr>
+		</foreach>
+	<?php } ?>
+	 
+</table>
+ 
+
+<div class="blank5"></div>
+<if condition="$payment_notice">
+<h2 class="info-title-h2">付款单</h2>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<th>{%PAYMENT_NOTICE_SN}</th>
+		<th>{%OUTER_NOTICE_SN}</th>
+		<th>{%PAY_TIME}</th>
+		<th>{%PAYMENT_METHOD}</th>
+		<th>{%PAYMENT_MEMO}</th>
+		<th>{%PAYMENT_AMOUNT}</th>
+	</tr>
+	<foreach name="payment_notice" item="notice_item">
+	<tr>
+		<td>{$notice_item.notice_sn}</td>
+		<td>{$notice_item.outer_notice_sn}</td>
+		<td>{$notice_item.pay_time|to_date}</td>
+		<td>{$notice_item.payment_id|get_payment_name}</td>
+		<td>{$notice_item.memo}</td>
+		<td><b style="color:red;">{$notice_item.money|format_price}</b></td>
+	</tr>
+	</foreach>
+	<tr>
+		<td colspan=6 class="bottomTd"></td>
+	</tr>
+</table>
+</if>
+
+<if condition="$log_list">
+<h2 class="info-title-h2">操作日志</h2>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr><th>操作时间</th><th colspan=2>日志</th></tr>
+			<foreach name="log_list" item="log_item">
+			<tr>
+				<td style="width:200px;text-align:center;">{$log_item.log_time|to_date}</td>
+				<td>{$log_item.log_info}</td>
+			</tr>
+			</foreach>
+		<tr>
+		<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>
+	<div class="blank5"></div>
+</if>
+
+
+</div>
+<include file="Public:footer" />

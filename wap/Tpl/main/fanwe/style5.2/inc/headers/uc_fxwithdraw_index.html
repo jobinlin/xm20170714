@@ -1,0 +1,25 @@
+{if $app_index=='app'}
+	<header class="bar bar-nav b-line">
+		{if $page_finsh}
+			<a class="header-btn header-left iconfont" href="javascript:App.page_finsh();">&#xe604;</a>
+		{else}
+			<a class="header-btn header-left iconfont back" href="#">&#xe604;</a>
+		{/if}
+			<h2 class="header-title">{$data.page_title}</h2>
+			<a class="header-txt header-right" href="{url i="index" a="uc_fxwithdraw#detail"}">明细</a>
+	</header>
+	{if $is_pop_box}
+		{include file="style5.2/inc/module/pop-light-img.html"}
+	{/if}
+{else}
+
+	<header class="bar bar-nav b-line">
+			<a class="header-btn header-left iconfont back" href="#">&#xe604;</a>
+			<h2 class="header-title">{$data.page_title}</h2>
+			<a class="header-txt header-right" href="{url i="index" a="uc_fxwithdraw#detail"}">明细</a>
+	</header>
+	<!-- 弹出层 -->
+	{if $is_pop_box}
+		{include file="style5.2/inc/module/pop-light-img.html"}
+	{/if}
+{/if}

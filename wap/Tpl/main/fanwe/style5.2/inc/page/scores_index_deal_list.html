@@ -1,0 +1,13 @@
+{if $data.item}
+	{foreach from=$data.item item=deal}
+	<a href="{url i="index" r="deal" g="data_id=$deal.id"}">
+	<dd class="flex-box dui-item b-line">	
+		<img src="{$deal.f_icon_v1}" alt="{$deal.name}" class="good-img">
+		<div class="flex-1 good-info">
+			<div class="good-name">{$deal.name}</div>
+			<div class="good-score"><em>{$deal.deal_score}</em>&nbsp;积分</div>
+		</div>	
+	</dd>
+	</a>
+	{/foreach}
+{/if}

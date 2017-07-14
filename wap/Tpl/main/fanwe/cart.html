@@ -1,0 +1,253 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<script>
+	var CART_URL='{url i="index" r="cart"}';
+	var AJAX_URL='{url i="index" r="ajax"}';
+	var cart_check_url='{url i="index" r="cart#check"}';
+	var order_id=0;
+	{if $data.cart_list}
+		var allprice={$data.total_data.total_price};
+		var promote_cfg={$promote_cfg};
+		
+	{/if}
+</script>
+<style type="text/css">
+	a.totop{
+		bottom: 5.2rem;
+	}
+</style>
+<div class="page page-index" id="cart">
+
+	{include file="style5.2/inc/auto_header.html"}
+	{if $data.cart_list}
+	<div class="m-countBox t-line">
+		<div class="list-block j-select-all">
+			{if $data.cart_list}
+			<label class="label-checkbox item-content">
+				<input type="checkbox" name="my-radio">
+				<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+				<div class="item-inner">全选</div>
+			</label>
+			{/if}
+		</div>
+
+		<div class="u-pr">
+			<a href="javascript:void(0);" class="z-state j-accounts {if !$data.cart_list}invalid{/if}">结算({$data.total_data.total_num})</a>
+			<a href="#" class="z-state del-order j-del-order">删除(0)</a>
+
+			<div class="allCount">
+				<p class="u-lg-price">合计：<span class="u-money">{$data.total_data.total_price_format}</span></p>
+				<p class="u-lg-count">不含运费</p>
+			</div>
+		</div>
+	</div>
+	{/if}
+	<div class="content" >
+
+	<!--购物车列表开始-->
+			
+	{if $data.cart_list}
+	<!-- 
+		<div class="u-prompt">
+			<span class="iconfont">&#xe609;</span>满减活动和普通商品同时购买，不参与优惠
+		</div>
+	 -->	
+		<!-- 页面主体 -->
+	
+	<div class="list-block m-cart">
+		{foreach from=$data.cart_list key=key item=supplier_list}
+			<!-- {$supplier_list.supplier_name} -->
+			{if $supplier_list.id eq 'disable' and $supplier_list.supplier_name eq '失效商品'}
+
+
+			<!--失效商品商品开始-->
+			<div class="m-conBox m-invalid">
+				<div class="m-title  item-content b-line">
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">失效商品</div>
+						</div>
+						<div class="item-after u-edit-child j-clear-all">清空</div>
+					</div>
+				</div>
+				<ul class="m-cart-list">
+					{foreach from=$supplier_list.list item=cart_item}
+					<li class="item-content b-line" data-id="{$cart_item.id}">
+						<span class="u-inval">失效</span>
+						<label class="label-checkbox ">
+							<div class="item-media">
+								<i class="icon icon-form-checkbox"></i>
+							</div>
+						</label>
+						<div class="item-inner">
+							<div class="item-media shopImg">
+								<img src="{$cart_item.icon}">
+								<!-- <span class="u-cut"></span> -->
+							</div>
+							<div class="solute shopTi">
+								<a data-no-cache="true" href="{$cart_item.url}">{$cart_item.name}</a>
+								<p class="z-inval">哎呦，{$cart_item.check_info.info}</p>
+							</div>
+						</div>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+			<!--失效商品商品结束-->
+			{else}
+
+				<div class="m-conBox j-conBox">
+
+				<!--列表头部开始-->
+				<div class="m-title  item-content b-line">
+					<label class="label-checkbox j-select-title" style="width: 1rem;height: 1rem;">
+						<input type="checkbox" name="my-radio" {if $supplier_list.is_effect}checked="checked"{/if}>
+						<div class="item-media" style="width: 1rem;height: 1rem;"><i class="icon icon-form-checkbox"></i></div>
+					</label>
+					<div class="item-inner">
+						<div class="item-title-row flex-1">
+							<div class="item-title"><i class="iconfont u-shop-icon u-icon">&#xe616;</i>{$supplier_list.supplier_name}<i class="iconfont u-icon">&#xe607;</i></div>
+						</div>
+						{if $supplier_list.youhui_count gt 0}<div class="j-youhui get-youhui r-line" data-id="{$supplier_list.id}">领券</div>{/if}
+						<div class="item-after u-edit-child j-edit-cur">编辑</div>
+					</div>
+				</div>
+				<!--列表头部结束-->
+				
+				<ul class="m-cart-list j-select-body">
+					{foreach from=$supplier_list.list item=cart_item}
+				
+					<li class="item-content b-line" data-id="{$cart_item.id}" allow_promote="{$cart_item.allow_promote}">
+						<label class="label-checkbox ">
+							<input type="checkbox" name="my-radio" {if $cart_item.is_effect} checked="checked"{/if}>
+							<div class="item-media" style="width: 1rem;height: 1rem;">
+								<i class="icon icon-form-checkbox"></i>
+							</div>
+						</label>
+						<div class="item-inner">
+							<div class="item-media shopImg">
+								<img src="{$cart_item.f_icon}">
+								{if $cart_item.allow_promote}<span class="u-cut"></span>{/if}
+								{if $cart_item.stock gt -1}<p class="u-surplus">仅剩{$cart_item.stock}件</p>{/if}
+							</div>
+							<div class="z-opera z-opera-sure">
+								<div class="item-subtitle shopTi">
+									<a data-no-cache="true" href="{$cart_item.url}" deal-name="{$cart_item.deal_name}">{$cart_item.name}</a>
+									{if $cart_item.attr_str}<p class="sizes" attr_key="{$cart_item.attr}" attr_str="{$cart_item.attr_str}">规格: {$cart_item.attr_str}</p>{/if}
+								</div>
+								<div class="shop_price tr">
+									<p class="u-sm-price"><span class="u-money " data_value="{$cart_item.unit_price}">{$cart_item.unit_price_format}</span></p>
+									<p class="shop-count">x<i class="j-count-num">{$cart_item.number}</i></p>
+								</div>
+							</div>
+							<div class="z-opera z-opera-edit flex-box">
+								<div class="z-edit flex-1">
+									<div class="m-num-box flex-box">
+										<span class="u-reduce u-btn">-</span><input type="text" class="u-txt flex-1" value="{$cart_item.number}" deal-id="{$cart_item.deal_id}" max="{$cart_item.max_bought}"
+										{if $cart_item.user_min_bought}user_min_bought="{$cart_item.user_min_bought}"{/if}
+										{if $cart_item.user_max_bought}user_max_bought="{$cart_item.user_max_bought}"{/if}
+										><span class="u-add u-btn">+</span>
+									</div>
+									{if $cart_item.attr_str}
+									<div class="m-size-box j-open-choose" data-price="9158.00" data-url="{$TMPL}/style5.2/images/text/shopimg1.jpg">
+										<span class="sizes" attr_key="{$cart_item.attr}" attr_str="{$cart_item.attr_str}">规格: {$cart_item.attr_str}</span>
+										<i class="iconfont">&#xe608;</i>
+									</div>
+									{/if}
+								</div>
+								<div class="u-delete confirm-ok">删除</div>
+							</div>
+						</div>
+						<input type="hidden" data-price="100.14" data-url="{$TMPL}/style5.2/images/text/shopimg1.jpg" class="j-money-hid">
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+			{/if}
+		{/foreach}
+		</div>
+		
+	{else}
+		<div class="cartNone">
+			<div class="warmMess">
+				<i class="iconfont">&#xe663;</i>购物车还是空的，您可以
+				{if $page_finsh}
+				<a class="visit" href="javascript:App.app_detail(1,0);">再逛逛</a>
+				{else}
+				<a class="visit" href="{url i="index" r="index"}">再逛逛</a>
+				{/if}
+			</div>
+			<!--推荐数据列表-->
+			<div class="recommend-list"></div>
+		</div>	
+	{/if}
+
+
+
+	</div>
+<div class="youhui-mask j-close-mask"></div>
+<div class="cart-youhui-box">
+	<p class="shop-name b-line">志斌鸭店</p>
+	<div class="youhui-wrap">
+		<div class="youhui-item b-line flex-box">
+			<div class="youhui-info flex-1">
+				<p class="youhui-price">20元</p>
+				<p class="youhui-tip">订单满188元使用</p>
+				<p class="youhui-time">使用期限：2017.01.07-2017.05.31</p>
+			</div>
+			<a href="javascript:void(0);" class="youhui-btn">领取</a>
+		</div>
+		<div class="youhui-item b-line flex-box">
+			<div class="youhui-info flex-1">
+				<p class="youhui-price">20元</p>
+				<p class="youhui-tip">订单满188元使用</p>
+				<p class="youhui-time">使用期限：2017.01.07-2017.05.31</p>
+			</div>
+			<a href="javascript:void(0);" class="youhui-btn j-get-youhui">已领取</a>
+		</div>
+		<div class="youhui-item b-line flex-box">
+			<div class="youhui-info flex-1">
+				<p class="youhui-price">20元</p>
+				<p class="youhui-tip">订单满188元使用</p>
+				<p class="youhui-time">使用期限：2017.01.07-2017.05.31</p>
+			</div>
+			<a href="javascript:void(0);" class="youhui-btn">领取</a>
+		</div>
+		<div class="youhui-item b-line flex-box">
+			<div class="youhui-info flex-1">
+				<p class="youhui-price">20元</p>
+				<p class="youhui-tip">订单满188元使用</p>
+				<p class="youhui-time">使用期限：2017.01.07-2017.05.31</p>
+			</div>
+			<a href="javascript:void(0);" class="youhui-btn j-get-youhui">已领取</a>
+		</div>
+	</div>
+</div>
+<div class="cart_box"></div>
+
+</div>
+
+<script type="text/javascript">
+	$(function () {
+		load_cart_recommend_list();
+	});
+
+	function load_cart_recommend_list() {
+		var query = new Object();
+		query.act = "get_recommend_list";
+		$.ajax({
+			url:AJAX_URL,
+			data:query,
+			type:"post",
+			success:function(data){
+				if(data)
+					$(".recommend-list").html(data);
+			}
+			,error:function(){
+			}
+		});
+		return false;
+	}
+</script>
+{include file="style5.2/inc/footer.html"}
+

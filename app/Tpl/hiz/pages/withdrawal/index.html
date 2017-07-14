@@ -1,0 +1,135 @@
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/weebox.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/utils/fanweUI.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/login.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/table-list.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/withdrawal.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery-1.8.2.min.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.animateToClass.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.timer.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/fanwe_utils/fanweUI.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/pages/withdrawal/withdrawal.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages/withdrawal/withdrawal.js";
+?>
+
+{include file="inc/header.html"}
+<script>
+SMS_URL = "{url r="hiz" b="withdrawal#biz_sms_code"}";
+</script>
+{include file="inc/hiz_nav_list.html"}
+<div class="header-map"><a class="transition" href="{url r="hiz" b="index"}">首页</a> / <span>账户提现</span></div>
+<div class="content" id="withdrawal">
+	<div class="user-info">
+		<div class="user-info-item">
+			<p class="user-tit f_l">开户行名称：</p>
+			<p class="user-tip f_l">{$agency_info.bank_name}</p>
+		</div>
+		<div class="user-info-item">
+			<p class="user-tit f_l">银行卡户主：</p>
+			<p class="user-tip f_l">{$agency_info.bank_user}</p>
+		</div>
+		<div class="user-info-item">
+			<p class="user-tit f_l">银行卡号：</p>
+			<p class="user-tip f_l">{$agency_info.bank_info} <a href="{url x="hiz" r="bankinfo"}">修改提现银行卡</a></p>
+		</div>
+	</div>
+	<form id="withdraw_form" name="withdraw_form" action="{url x="hiz" r="withdrawal#withdraw_done"}" method="post" />
+	<div class="info_table" style="width:100%;">
+			<div class="info-hd">账户可提现余额：<span>{function name="format_price" v=$withdraw_money}</span></div>
+
+			<div class="field_group">
+				<label class="f_label">提现金额</label>
+				<div class="f_text">
+					<input type="text" id="money" name="money" class="ui-textbox normal f_text " holder="请输入要提现的金额"/>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			{if app_conf("SMS_ON") eq 1}
+			<!--防止多次短信验证手机号图片验证-->
+			<div class="field_group ph_img_verify" {if $sms_ipcount>1}style="display:block"{/if}>
+				<label class="f_label">图片验证码</label>
+				<div class="img_verify_box">
+					<div class="f_text">
+						<input type="text" id="verify_code" name="verify_code" class="ui-textbox img_verify " holder="请输入验证码" />
+					</div>
+					<img src="{$APP_ROOT}/verify.php" class="verify f_l" rel="{$APP_ROOT}/verify.php" />
+					<a href="javascript:void(0);" class="refresh_verify f_l">看不清楚？换一张！</a>
+					<a class="form_tip " style=" position: initial;"></a>
+				</div>
+				<div class="status_icon hide"> <i class=""></i></div>
+				<div class="clear"></div>
+			</div>
+
+			<input type="hidden" name="mobile" value="{$agency_info.mobile}"/>
+			<input type="hidden" name="withdraw_money" value="{$withdraw_money}"/>
+
+			<div class="field_group">
+				<label class="f_label">手机验证码</label>
+				<div class="sms_verify_box">
+					<div class="f_text">
+					<input class="ui-textbox  ph_verify" id="sms_verify" name="sms_verify" holder="请输入验证码" />
+					</div>
+					<button class="submit-btn f_l light ph_verify_btn" rel="light" lesstime="{$sms_lesstime}" type="button">发送验证码</button>
+					<a class="form_tip f_l hide" style="margin-left: 5px; position: inherit;"></a>
+				</div>
+				<div class="status_icon hide"> <i class=""></i></div>
+				<div class="clear"></div>
+			</div>
+			{else}
+			<div class="field_group">
+				<label class="f_label">登入密码</label>
+				<div class="f_text">
+				<input type="password" name="pwd"  class="ui-textbox normal f_text " holder="请输入密码" />
+				</div>
+				<div class="clear"></div>
+			</div>
+			{/if}
+
+			<div class="field_group">
+				<label class="f_label">&nbsp;</label>
+				<button class="submit-btn" type="submit">提交申请</button>
+				<div class="clear"></div>
+			</div>
+	</div>
+	</form>
+	<div class="table-hd">提现记录</div>
+	{if $list}
+	<div class="hiz-table">
+		<table>
+			<col>
+			<col width="30%">
+			<col width="30%">
+			<col width="40%">
+			<thead>
+				<td>提现时间</td>
+				<td>提现金额</td>
+				<td>状态</td>
+			</thead>
+			<tbody>
+			{foreach from=$list name=odd item=item}
+			<tr class="{if $smarty.foreach.odd.index%2 eq 0}odd{/if} transition">
+				<td>{$item.create_time}</td>
+				<td>{$item.money}</td>
+				<td>{$item.is_paid}</td>
+			</tr>
+			{/foreach}
+			</tbody>
+		</table>
+	</div>
+	<div class="pages">
+		{$pages}
+	</div>
+	{else}
+	<div class="no-data-img"><img src="{$TMPL}/images/no_data.png" alt=""></div>
+	<div class="no-data">暂无提现记录</div>
+	{/if}
+</div>
+{include file="inc/footer.html"}

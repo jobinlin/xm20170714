@@ -1,0 +1,169 @@
+{include file="style5.2/inc/header1.html"}
+{include file="style5.2/inc/header2.html"}
+<div class="page page-index deal-page page-current" id="dcorder_view">
+	<div class="dc-view-bar t-line">
+	{if $data.order_info.order_state.state eq 1}
+	<a href="javascript:void(0);" jump_url="{$data.order_info.order_state.act.0.url}" data_url="{url r="index" p="dcorder#to_pay" g="id=$data.order_info.id"}" class="dc-view-btn j-confirm to-pay">去支付</a>
+	<a href="javascript:void(0);" class="dc-view-btn j-cancle" data_url="{$data.order_info.order_state.act.1.url}">取消订单</a>
+	{/if}
+	{if $data.order_info.order_state.state eq 2}
+	<a href="javascript:void(0);" class="dc-view-btn j-quick" data_url="{$data.order_info.order_state.act.0.url}">催单</a>
+	<a href="javascript:void(0);" class="dc-view-btn j-cancle" data_url="{$data.order_info.order_state.act.1.url}">取消订单</a>
+	{/if}
+	{if $data.order_info.order_state.state eq 3}
+	<a href="javascript:void(0);" class="dc-view-btn j-confirm harvest" data_url="{$data.order_info.order_state.act.1.url}">确认收货</a>
+	<a href="javascript:void(0);" class="dc-view-btn j-quick" data_url="{$data.order_info.order_state.act.0.url}">催单</a>
+	<a href="javascript:void(0);" class="dc-view-btn j-cancle" data_url="{$data.order_info.order_state.act.2.url}">取消订单</a>
+	{/if}
+	{if $data.order_info.order_state.state eq 4}
+	<a href="javascript:void(0);" class="dc-view-btn j-open-comment" data_url="{$data.order_info.order_state.act.0.url}">评价</a>
+	{/if}
+	</div>
+	{include file="style5.2/inc/headers/dc_header.html"}
+	<div class="content">
+		<div class="order-view-hd flex-box order-view-item">
+			<p class="order-view-tit flex-1">订单状态</p>
+			<p class="order-status">{$data.order_info.order_state.state_format}</p>
+		</div>
+		{if $data.order_info.dada_order_status && $data.IS_OPEN_DADA}
+		<div class="order-view-item flex-box sender">
+			{if $data.order_info.dada_order_status eq 4}
+			<p class="sender-info flex-1">已送达</p>
+			{else}
+			<p class="sender-info flex-1">骑手正在赶往商家（{$data.order_info.distance}km）</p>
+			{/if}
+			<a href="tel:{$data.order_info.transporterPhone}" class="sender-phone">联系骑手</a>
+		</div>
+		{/if}
+		<div class="order-view-item">
+			<a href="{url r="index" p="dc_location" g="data_id=$data.order_info.location_id"}" class="order-shop flex-box b-line">
+				<div class="shop-img"><img src="{$data.order_info.preview}" alt="" class="img-comment"></div>
+				<p class="shop-name flex-1 name-comment">{$data.order_info.location_name}</p>
+				<div class="iconfont">&#xe607;</div>
+				<input name="location_id" type="hidden" value="{$data.order_info.location_id}"/>
+				<input name="order_id" type="hidden" value="{$data.order_info.id}"/>
+			</a>
+			<ul class="goods-list b-line">
+				{foreach from=$data.order_info.order_menu item=item}
+				<li class="goods-info flex-box">
+					<p class="goods-name flex-1">{$item.name}</p>
+					<p class="goods-num">x{$item.num}</p>
+					<p class="goods-price">{function name=format_price v=$item.unit_price g=2}</p>
+				</li>
+				{/foreach}
+			</ul>
+			{if $data.order_info.package_price gt 0 || $data.order_info.delivery_price gt 0}
+			<ul class="order-fee-list">
+				{if $data.order_info.package_price gt 0}
+				<li class="order-fee flex-box">
+					<p class="flex-1">打包费</p>
+					<p class="fee-price">{function name=format_price v=$data.order_info.package_price g=2}</p>
+				</li>
+				{/if}
+				{if $data.order_info.delivery_price gt 0}
+				<li class="order-fee flex-box">
+					<p class="flex-1">配送费</p>
+					<p class="fee-price">{function name=format_price v=$data.order_info.delivery_price g=2}</p>
+				</li>
+				{/if}
+			</ul>
+			{/if}
+			{if $data.order_info.promote_str}
+			<ul class="order-youhui-list t-line">
+				{if $data.order_info.promote_str.0.class_name eq 'PayOnlineDiscount'}
+				<!-- 在线支付 -->
+				<li class="order-youhui flex-box">
+					<div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico1.png" alt=""></div>
+					<p class="youhui-info flex-1">{$data.order_info.promote_str.0.promote_description}</p>
+					<p class="youhui-price">-&yen;{$data.order_info.promote_str.0.discount_amount}</p>
+				</li>
+				{/if}
+				{if $data.order_info.promote_str.0.class_name eq 'FirstOrderDiscount'}
+				<!-- 满立减 -->
+				<li class="order-youhui flex-box">
+					<div class="youhui-ico"><img src="{$TMPL}/style5.2/images/static/dc/youhui-ico3.png" alt=""></div>
+					<p class="youhui-info flex-1">{$data.order_info.promote_str.0.promote_description}</p>
+					<p class="youhui-price">-&yen;{$data.order_info.promote_str.0.discount_amount}</p>
+				</li>
+				{/if}
+			</ul>
+			{/if}
+			<p class="order-view-count tr t-line">实付<span>{function name=format_price v=$data.order_info.pay_price g=2}</span></p>
+		</div>
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">配送信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p>配送时间：</p>
+					<p class="view-info flex-1">{$data.order_info.order_delivery_time_format}</p>
+				</div>
+				<div class="order-view-info">
+					<p>配送地址：</p>
+					<div class="view-info flex-1">
+						<p class="user-info">{$data.order_info.consignee} {$data.order_info.mobile}</p>
+						<p class="address">{$data.order_info.api_address}{$data.order_info.address}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">订单信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p>订单号：</p>
+					<p class="view-info flex-1">{$data.order_info.order_sn}</p>
+				</div>
+				{if $data.order_info.pay_status eq 1}		
+				<div class="order-view-info">
+					<p>支付方式：</p>
+					<p class="view-info">{$data.order_info.payment_id}</p>
+				</div>
+				{/if}
+				<div class="order-view-info">
+					<p>下单时间：</p>
+					<p class="view-info">{$data.order_info.create_time_format}</p>
+				</div>
+			</div>
+		</div>
+		{if $data.order.dc_comment}
+		<div class="order-view-item">
+			<div class="order-view-hd flex-box b-line"><p class="order-view-tit">备注信息</p></div>
+			<div class="order-view-bd">
+				<div class="order-view-info">
+					<p class="view-info flex-1">{$data.order_info.dc_comment}</p>
+				</div>
+			</div>
+		</div>
+		{/if}
+	</div>
+	<div class="popup popup-comment">
+		<div class="popup-header b-line">
+			<p class="popup-tit">评价</p>
+			<div class="iconfont j-close-popup">&#xe604;</div>
+		</div>
+		<div class="shop-info flex-box">
+			<div class="shop-img" ><img src="" alt="" class="img-comment-1"></div>
+			<p class="shop-name flex-1 name-comment-1">{$data.order_info.location_name}</p>
+		</div>
+		<div class="comment-point flex-box">
+			<p class="comment-tit">总评</p>
+			<ul class="comment-stars flex-box">
+				<li value="1" class="iconfont j-point">&#xe65b;</li>
+				<li value="2" class="iconfont j-point">&#xe65b;</li>
+				<li value="3" class="iconfont j-point">&#xe65b;</li>
+				<li value="4" class="iconfont j-point">&#xe65b;</li>
+				<li value="5" class="iconfont j-point">&#xe65b;</li>
+			</ul>
+			<input type="hidden" id="star-value">
+		</div>
+		<div class="comment-text">
+			<textarea name="content" id="" placeholder="请输入不超过140字的评价" maxlength="140" style="border: 1px solid #e6e6e6;border-radius: 0.3rem;padding: 0 0.25rem;"></textarea>
+		</div>
+		<input name="location_id_1" type="hidden" value="{$data.order_info.location_id"}"/>
+		<input name="order_id_1" type="hidden" value="{$data.order_info.id"}"/>
+		<div class="comment-sub t-line">
+			<a href="javascript:void(0);" class="comment-btn j-comment-sub" action="{url i="index" r="dcreview#save"}">发表评价</a>
+		</div>
+	</div>
+</div>
+{include file="style5.2/inc/footer.html"}

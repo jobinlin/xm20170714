@@ -1,0 +1,118 @@
+.m-events-tab{
+	height: 2rem;
+	line-height: 2rem;
+	background:#fff;
+	width:100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: absolute;
+	top: 2.19rem;
+	z-index:10;
+}
+.m-events-tab~.content{
+	top: 4.2rem;
+}
+.m-events-tab ul{
+	height: 2rem;
+}
+.m-events-tab li{
+	text-align: center;
+}
+.m-events-tab .tab-item{
+	width:2.8rem;
+	float: left;
+}
+.m-events-tab li a{
+	display: inline-block;
+	color:@f_color3;
+}
+.m-events-tab li .active{
+	color:@f_color1;
+}
+.m-events-tab .events-tab-line{
+	position: absolute;
+	bottom: -2px;
+	border-radius:2px;
+	height: 4px;
+	background:@themecolor;
+	-webkit-transition: all .3s ease;
+	        transition: all .3s ease;
+}
+.m-events-list{
+	padding-top:.4rem;
+}
+.m-events-list li{
+	margin-bottom: .4rem;
+}
+.m-events-list .main-img{
+	width:100%;
+	height:6.25rem;
+	background:#e9e9e9;
+	position: relative;
+}
+.m-events-list .main-img>img{
+	display: block;
+	margin: 0 auto;
+	height:6.25rem;
+}
+.m-events-list .main-img .main-tip{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background:rgba(0, 0, 0, .7);
+	padding:0 .5rem;
+	color:#fff;
+	width:100%;
+	font-size:@f_size4;
+	line-height: 1.25rem;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.m-events-list .main-img .events-ico{
+	width:3.5rem;
+	position: absolute;
+	top: .25rem;
+	right: 0;
+}
+.m-events-list .main-img .events-ico img{
+	width:100%;
+}
+.m-events-list .events-detail{
+	background:#fff;
+	padding:.5rem;
+}
+.m-events-list .events-img{
+	width:2.3rem;
+	height:2.3rem;
+	margin-right: .5rem;
+	overflow: hidden;
+}
+.m-events-list .events-img img{
+	width:100%;
+	height:100%;
+}
+.m-events-list .events-info{
+	width:50%;
+}
+.m-events-list .events-tit{
+	width:100%;
+	line-height: 1.1rem;
+}
+.m-events-list .events-tit h2{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	padding-right: .5rem;
+}
+.m-events-list .events-tit .address{
+	color:#999;
+	font-size:@f_size4;
+}
+.m-events-list .events-time{
+	color:#999;
+	line-height: 1rem;
+	font-size:@f_size4;
+}
+
+
